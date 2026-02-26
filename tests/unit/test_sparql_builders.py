@@ -84,3 +84,29 @@ def test_article_annotations_query_requests_article_level_qualifiers() -> None:
     assert "?paragraph" in query
     assert "?subparagraph" in query
     assert "?commentOnLegalBasis" in query
+
+
+def test_relation_query_rejects_empty_predicates() -> None:
+    with pytest.raises(ValueError, match="predicates cannot be empty"):
+        build_relation_query(
+            "http://publications.europa.eu/resource/cellar/example",
+            predicates=[],
+            direction="incoming",
+            since=None,
+            resource_type=None,
+            limit=10,
+            offset=0,
+        )
+
+
+def test_relation_query_rejects_bad_direction() -> None:
+    with pytest.raises(ValueError, match="Unsupported direction"):
+        build_relation_query(
+            "http://publications.europa.eu/resource/cellar/example",
+            predicates=[PredicateSpec("cdm:work_cites_work", "cites")],
+            direction="sideways",
+            since=None,
+            resource_type=None,
+            limit=10,
+            offset=0,
+        )

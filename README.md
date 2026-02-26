@@ -64,6 +64,7 @@ pytest
 ## Notes
 - Default language: `eng`.
 - Monitoring semantics: `date > since`.
+- SPARQL transport is `POST`-first with automatic `GET` fallback for unsupported endpoints.
 - `get_summary` enforces `Accept: application/xhtml+xml;type=xhtml5`.
 - Search methods validate non-empty list inputs (`tags`, `codes`).
 - Use one `CellarClient` instance per thread when doing concurrent work.

@@ -8,9 +8,9 @@ from typing import Any, NoReturn
 
 from pydantic import BaseModel
 
+from cellar_wrapper.cli_policy import build_method_kwargs, configure_command_parser
 from cellar_wrapper.cli_specs import COMMANDS, CommandSpec
 from cellar_wrapper.client import CellarClient
-from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
 from cellar_wrapper.errors import (
     CellarError,
     CellarHTTPError,
@@ -90,31 +90,6 @@ def _add_global_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--timeout-pool", type=float, default=None)
 
 
-def _configure_command_parser(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
-    command_parser.set_defaults(command_spec=spec)
-
-    if spec.requires_celex:
-        command_parser.add_argument("--celex", required=True)
-    if spec.requires_since:
-        command_parser.add_argument("--since", required=True)
-    elif spec.method.startswith("get_") and spec.group in {"relations", "lifecycle", "case-law"}:
-        command_parser.add_argument("--since")
-
-    if spec.has_resource_type:
-        command_parser.add_argument("--resource-type")
-    if spec.has_lang:
-        command_parser.add_argument("--lang", default=DEFAULT_LANGUAGE)
-    if spec.has_limit_offset:
-        command_parser.add_argument("--limit", type=int, default=DEFAULT_LIMIT)
-        command_parser.add_argument("--offset", type=int, default=DEFAULT_OFFSET)
-    if spec.has_format:
-        command_parser.add_argument("--format", default="pdf")
-    if spec.list_arg_name is not None:
-        command_parser.add_argument(f"--{spec.list_arg_name}", nargs="+", required=True)
-    if spec.scalar_arg_name is not None:
-        command_parser.add_argument(f"--{spec.scalar_arg_name}", required=True)
-
-
 def build_parser() -> argparse.ArgumentParser:
     parser = JsonArgumentParser(prog="cellar")
     _add_global_args(parser)
@@ -131,7 +106,7 @@ def build_parser() -> argparse.ArgumentParser:
             )
 
         command_parser = command_subparsers_by_group[spec.group].add_parser(spec.command)
-        _configure_command_parser(command_parser, spec)
+        configure_command_parser(command_parser, spec)
 
     return parser
 
@@ -155,31 +130,6 @@ def _build_client(args: argparse.Namespace) -> CellarClient:
     return CellarClient(**kwargs)
 
 
-def _build_method_kwargs(spec: CommandSpec, args: argparse.Namespace) -> dict[str, Any]:
-    kwargs: dict[str, Any] = {}
-    if spec.requires_celex:
-        kwargs["celex"] = args.celex
-
-    since = getattr(args, "since", None)
-    if since is not None:
-        kwargs["since"] = since
-
-    if spec.has_resource_type:
-        kwargs["resource_type"] = getattr(args, "resource_type", None)
-    if spec.has_lang:
-        kwargs["lang"] = args.lang
-    if spec.has_limit_offset:
-        kwargs["limit"] = args.limit
-        kwargs["offset"] = args.offset
-    if spec.has_format:
-        kwargs["format"] = args.format
-    if spec.list_arg_name is not None:
-        kwargs[spec.list_arg_name] = getattr(args, spec.list_arg_name)
-    if spec.scalar_arg_name is not None:
-        kwargs[spec.scalar_arg_name] = getattr(args, spec.scalar_arg_name)
-    return kwargs
-
-
 def run(argv: list[str] | None = None) -> int:
     parser = build_parser()
     try:
@@ -194,7 +144,7 @@ def run(argv: list[str] | None = None) -> int:
 
     try:
         method = getattr(client, spec.method)
-        kwargs = _build_method_kwargs(spec, args)
+        kwargs = build_method_kwargs(spec, args)
         result = method(**kwargs)
         return _emit_success(result)
     except CellarError as exc:

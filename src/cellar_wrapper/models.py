@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any, Generic, TypeVar
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -40,7 +40,7 @@ class ActRef(ModelBase):
     uri: str
     celex: str | None = None
     title: str | None = None
-    date: str | None = None
+    date: date | datetime | None = None
     resource_type: str | None = None
 
 
@@ -49,9 +49,9 @@ class ActDetail(ActRef):
 
     eli: str | None = None
     in_force: bool | None = None
-    date_document: str | None = None
-    date_entry_into_force: str | None = None
-    date_end_of_validity: str | None = None
+    date_document: date | datetime | None = None
+    date_entry_into_force: date | datetime | None = None
+    date_end_of_validity: date | datetime | None = None
 
 
 class RelationItem(ActRef):

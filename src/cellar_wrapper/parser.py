@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import date, datetime
 from typing import Any
 
 from cellar_wrapper.errors import CellarParseError
@@ -36,6 +37,31 @@ def value(row: dict[str, dict[str, str]], key: str) -> str | None:
     return slot.get("value")
 
 
+def parse_date_value(raw: str | None, *, field_name: str) -> date | datetime | None:
+    """Parse ISO date/datetime payload used by CELLAR fields."""
+    if raw is None:
+        return None
+
+    candidate = raw.strip()
+    if not candidate:
+        return None
+
+    candidate_for_datetime = candidate.replace("Z", "+00:00")
+    if "T" in candidate_for_datetime.upper():
+        try:
+            return datetime.fromisoformat(candidate_for_datetime)
+        except ValueError as exc:
+            raise CellarParseError(f"Invalid datetime for {field_name}: {raw!r}") from exc
+
+    try:
+        return date.fromisoformat(candidate)
+    except ValueError:
+        try:
+            return datetime.fromisoformat(candidate_for_datetime)
+        except ValueError as exc:
+            raise CellarParseError(f"Invalid date for {field_name}: {raw!r}") from exc
+
+
 def parse_act_refs(rows: list[dict[str, dict[str, str]]]) -> list[ActRef]:
     """Parse generic work rows into ActRef objects."""
     items: list[ActRef] = []
@@ -59,7 +85,7 @@ def parse_act_refs(rows: list[dict[str, dict[str, str]]]) -> list[ActRef]:
                 uri=uri,
                 celex=value(row, "celex"),
                 title=value(row, "title"),
-                date=value(row, "date"),
+                date=parse_date_value(value(row, "date"), field_name="date"),
                 resource_type=value(row, "type"),
             )
         )
@@ -90,9 +116,15 @@ def parse_act_detail(rows: list[dict[str, dict[str, str]]]) -> ActDetail | None:
         resource_type=value(row, "type"),
         eli=value(row, "eli"),
         in_force=in_force,
-        date_document=value(row, "dateDocument"),
-        date_entry_into_force=value(row, "dateEntryIntoForce"),
-        date_end_of_validity=value(row, "dateEndOfValidity"),
+        date_document=parse_date_value(value(row, "dateDocument"), field_name="dateDocument"),
+        date_entry_into_force=parse_date_value(
+            value(row, "dateEntryIntoForce"),
+            field_name="dateEntryIntoForce",
+        ),
+        date_end_of_validity=parse_date_value(
+            value(row, "dateEndOfValidity"),
+            field_name="dateEndOfValidity",
+        ),
     )
 
 

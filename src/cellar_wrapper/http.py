@@ -21,9 +21,11 @@ from cellar_wrapper.constants import (
     DEFAULT_WRITE_TIMEOUT,
     MAX_BACKOFF_SECONDS,
     RETRY_STATUS_CODES,
+    SPARQL_POST_FALLBACK_STATUS_CODES,
 )
 from cellar_wrapper.errors import (
     CellarHTTPError,
+    CellarParseError,
     CellarRateLimitError,
     CellarSPARQLError,
     CellarTimeoutError,
@@ -91,6 +93,26 @@ class HttpTransport:
         self.close()
 
     @staticmethod
+    def _media_type(value: str) -> str:
+        return value.split(";", 1)[0].strip().lower()
+
+    @classmethod
+    def _is_content_type_compatible(cls, accept: str, content_type: str) -> bool:
+        expected = cls._media_type(accept)
+        actual = cls._media_type(content_type)
+        if actual == expected:
+            return True
+        if actual == "application/octet-stream":
+            return True
+        if expected in {"application/xml", "application/rdf+xml"} and actual in {
+            "application/xml",
+            "application/rdf+xml",
+            "text/xml",
+        }:
+            return True
+        return False
+
+    @staticmethod
     def _parse_retry_after_seconds(value: str | None) -> int | None:
         if value is None:
             return None
@@ -115,6 +137,7 @@ class HttpTransport:
         url: str,
         *,
         params: dict[str, str] | None = None,
+        data: dict[str, str] | None = None,
         headers: dict[str, str] | None = None,
     ) -> httpx.Response:
         last_response: httpx.Response | None = None
@@ -124,6 +147,7 @@ class HttpTransport:
                     method=method,
                     url=url,
                     params=params,
+                    data=data,
                     headers=headers,
                 )
             except httpx.TimeoutException as exc:
@@ -189,12 +213,26 @@ class HttpTransport:
 
     def query_sparql(self, query: str) -> dict[str, Any]:
         """Execute SPARQL query and return JSON payload."""
-        response = self._request_with_retry(
-            "GET",
-            self._sparql_endpoint,
-            params={"query": query, "format": "application/sparql-results+json"},
-            headers={"Accept": "application/sparql-results+json"},
-        )
+        accept = "application/sparql-results+json"
+        request_payload = {"query": query, "format": accept}
+        headers = {"Accept": accept, "Content-Type": "application/x-www-form-urlencoded"}
+
+        try:
+            response = self._request_with_retry(
+                "POST",
+                self._sparql_endpoint,
+                data=request_payload,
+                headers=headers,
+            )
+        except CellarHTTPError as exc:
+            if exc.status_code not in SPARQL_POST_FALLBACK_STATUS_CODES:
+                raise
+            response = self._request_with_retry(
+                "GET",
+                self._sparql_endpoint,
+                params=request_payload,
+                headers={"Accept": accept},
+            )
         try:
             payload = response.json()
         except ValueError as exc:  # pragma: no cover - defensive guard
@@ -220,4 +258,8 @@ class HttpTransport:
 
         response = self._request_with_retry("GET", url, headers=headers)
         content_type = response.headers.get("Content-Type", "application/octet-stream")
+        if not self._is_content_type_compatible(accept, content_type):
+            raise CellarParseError(
+                f"Unexpected content type from download endpoint: expected={self._media_type(accept)} got={content_type}"
+            )
         return response.content, content_type, str(response.request.url)

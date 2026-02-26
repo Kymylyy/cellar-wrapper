@@ -69,8 +69,8 @@ RELATION_CALL_SPECS: dict[str, RelationCallSpec] = {
     ),
     "get_opinions": RelationCallSpec(
         [
-            PredicateSpec("cdm:resource_legal_contains_eesc_opinion_on_resource_legal", "eesc_opinion"),
-            PredicateSpec("cdm:resource_legal_contains_ep_opinion_on_resource_legal", "ep_opinion"),
+            PredicateSpec(PREDICATES["contains_eesc_opinion"], "eesc_opinion"),
+            PredicateSpec(PREDICATES["contains_ep_opinion"], "ep_opinion"),
             PredicateSpec(PREDICATES["influences"], "influences"),
         ],
         "incoming",

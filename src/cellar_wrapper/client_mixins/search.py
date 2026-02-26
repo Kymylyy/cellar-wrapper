@@ -43,6 +43,7 @@ class SearchMixin:
             limit=limit,
             offset=offset,
             lang=self._normalize_lang(lang),
+            include_undated=True,
         )
         return self._run_list_query(
             query_name="search_by_eurovoc",

@@ -4,6 +4,7 @@ from cellar_wrapper.client import CellarClient
 from cellar_wrapper.errors import (
     CellarError,
     CellarHTTPError,
+    CellarInternalError,
     CellarNotFoundError,
     CellarParseError,
     CellarRateLimitError,
@@ -21,5 +22,6 @@ __all__ = [
     "CellarRateLimitError",
     "CellarSPARQLError",
     "CellarParseError",
+    "CellarInternalError",
     "CellarNotFoundError",
 ]

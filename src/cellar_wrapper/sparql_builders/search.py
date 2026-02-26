@@ -12,6 +12,7 @@ from .common import (
     limit_offset,
     quote_literal,
     resource_type_uri,
+    safe_iri,
     since_filter,
     with_prefixes,
 )
@@ -25,6 +26,7 @@ def build_search_by_eurovoc_query(
     limit: int,
     offset: int,
     lang: str = DEFAULT_LANGUAGE,
+    include_undated: bool = True,
 ) -> str:
     """Build search by EuroVoc tags query."""
     tag_filters: list[str] = []
@@ -32,10 +34,12 @@ def build_search_by_eurovoc_query(
         lit = quote_literal(tag)
         tag_filters.append(f"CONTAINS(LCASE(STR(?conceptLabel)), LCASE({lit}))")
     filter_clause = " || ".join(tag_filters) if tag_filters else "true"
+    lang_iri = safe_iri(language_uri(lang), field="language_uri")
 
     type_clause = ""
     if resource_type is not None:
-        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{resource_type_uri(resource_type)}> ."
+        type_iri = safe_iri(resource_type_uri(resource_type), field="resource_type_uri")
+        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{type_iri}> ."
 
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
@@ -50,11 +54,11 @@ SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
-    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+    ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
   {type_clause}
-  {since_filter("date", since)}
+  {since_filter("date", since, include_undated=include_undated)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -79,10 +83,12 @@ def build_search_by_subject_matter_query(
             f"CONTAINS(LCASE(STR(?concept)), LCASE({lit})) || CONTAINS(LCASE(STR(?conceptLabel)), LCASE({lit}))"
         )
     filter_clause = " || ".join(code_filters) if code_filters else "true"
+    lang_iri = safe_iri(language_uri(lang), field="language_uri")
 
     type_clause = ""
     if resource_type is not None:
-        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{resource_type_uri(resource_type)}> ."
+        type_iri = safe_iri(resource_type_uri(resource_type), field="resource_type_uri")
+        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{type_iri}> ."
 
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
@@ -97,11 +103,11 @@ SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
-    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+    ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
   {type_clause}
-  {since_filter("date", since)}
+  {since_filter("date", since, include_undated=True)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -119,21 +125,23 @@ def build_search_by_title_query(
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build search by title keyword query."""
+    lang_iri = safe_iri(language_uri(lang), field="language_uri")
     type_clause = ""
     if resource_type is not None:
-        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{resource_type_uri(resource_type)}> ."
+        type_iri = safe_iri(resource_type_uri(resource_type), field="resource_type_uri")
+        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{type_iri}> ."
 
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
-  ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+  ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
   ?expr {PREDICATES["expression_title"]} ?title .
   FILTER(CONTAINS(LCASE(STR(?title)), LCASE({quote_literal(keyword)})))
   OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
   {type_clause}
-  {since_filter("date", since)}
+  {since_filter("date", since, include_undated=True)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -150,21 +158,22 @@ def build_search_communications_query(
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build search query for Commission communications by responsible service."""
-    communic_uri = resource_type_uri("COMMUNIC")
+    communic_uri = safe_iri(resource_type_uri("COMMUNIC"), field="resource_type_uri")
+    lang_iri = safe_iri(language_uri(lang), field="language_uri")
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   ?work {PREDICATES["work_has_resource_type"]} <{communic_uri}> .
-  OPTIONAL {{ ?work {PREDICATES["resource_legal_service_responsible"]} ?service }}
+  ?work {PREDICATES["resource_legal_service_responsible"]} ?service .
   FILTER(CONTAINS(UCASE(STR(?service)), UCASE({quote_literal(dg)})))
   OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
-    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+    ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
-  {since_filter("date", since)}
+  {since_filter("date", since, include_undated=True)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -174,10 +183,12 @@ ORDER BY DESC(?date)
 
 def build_find_eurovoc_concept_query(label: str, *, limit: int, offset: int) -> str:
     """Build EuroVoc concept lookup query."""
+    eurovoc_prefix = safe_iri("http://eurovoc.europa.eu/", field="eurovoc_concept_prefix")
     query = f"""
 SELECT DISTINCT ?concept ?label WHERE {{
   ?concept skos:prefLabel ?label .
   FILTER(LANG(?label) = 'en' || LANG(?label) = '')
+  FILTER(STRSTARTS(STR(?concept), {quote_literal(eurovoc_prefix)}))
   FILTER(CONTAINS(LCASE(STR(?label)), LCASE({quote_literal(label)})))
 }}
 ORDER BY ?label

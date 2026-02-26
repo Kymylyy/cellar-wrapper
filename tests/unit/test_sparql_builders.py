@@ -6,11 +6,14 @@ from cellar_wrapper.sparql import (
     PredicateSpec,
     build_article_annotations_query,
     build_concept_query,
+    build_dossier_query,
+    build_find_eurovoc_concept_query,
     build_relation_query,
     build_resolve_celex_query,
     build_search_by_eurovoc_query,
+    build_search_communications_query,
 )
-from cellar_wrapper.sparql_builders.common import quote_literal
+from cellar_wrapper.sparql_builders.common import quote_literal, safe_iri, since_filter
 
 
 def test_build_resolve_celex_exact_uses_equals_filter() -> None:
@@ -23,9 +26,9 @@ def test_build_resolve_celex_contains_fallback() -> None:
     assert "CONTAINS(UCASE(STR(?celex)), '2022R2554')" in query
 
 
-def test_relation_query_uses_since_greater_than() -> None:
+def test_relation_query_uses_since_date_time_filter() -> None:
     query = build_relation_query(
-        "http://publications.europa.eu/resource/cellar/example",
+        "https://publications.europa.eu/resource/cellar/example",
         predicates=[PredicateSpec("cdm:work_cites_work", "cites")],
         direction="incoming",
         since="2025-01-01",
@@ -33,9 +36,22 @@ def test_relation_query_uses_since_greater_than() -> None:
         limit=200,
         offset=0,
     )
-    assert "FILTER(?date > '2025-01-01'^^xsd:date)" in query
-    assert ">=" not in query
+    assert "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
     assert "resource-type/PROP_REG" in query
+
+
+def test_relation_query_monitoring_filter_is_strict() -> None:
+    query = build_relation_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        predicates=[PredicateSpec("cdm:work_cites_work", "cites")],
+        direction="incoming",
+        since="2025-01-01",
+        resource_type=None,
+        limit=10,
+        offset=0,
+        include_undated=False,
+    )
+    assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
 
 
 def test_quote_literal_escapes_control_chars() -> None:
@@ -46,14 +62,14 @@ def test_quote_literal_escapes_control_chars() -> None:
 def test_build_concept_query_validates_predicate() -> None:
     with pytest.raises(ValueError, match="Unsupported concept predicate"):
         build_concept_query(
-            "http://publications.europa.eu/resource/cellar/example",
+            "https://publications.europa.eu/resource/cellar/example",
             predicate="cdm:resource_legal_id_celex ?x ?y",
         )
 
 
 def test_build_concept_query_has_limit_offset() -> None:
     query = build_concept_query(
-        "http://publications.europa.eu/resource/cellar/example",
+        "https://publications.europa.eu/resource/cellar/example",
         predicate="cdm:work_is_about_concept_eurovoc",
         limit=7,
         offset=9,
@@ -76,7 +92,7 @@ def test_search_by_eurovoc_query_matches_labels_only() -> None:
 
 def test_article_annotations_query_requests_article_level_qualifiers() -> None:
     query = build_article_annotations_query(
-        "http://publications.europa.eu/resource/cellar/example",
+        "https://publications.europa.eu/resource/cellar/example",
         limit=20,
         offset=0,
     )
@@ -89,7 +105,7 @@ def test_article_annotations_query_requests_article_level_qualifiers() -> None:
 def test_relation_query_rejects_empty_predicates() -> None:
     with pytest.raises(ValueError, match="predicates cannot be empty"):
         build_relation_query(
-            "http://publications.europa.eu/resource/cellar/example",
+            "https://publications.europa.eu/resource/cellar/example",
             predicates=[],
             direction="incoming",
             since=None,
@@ -102,7 +118,7 @@ def test_relation_query_rejects_empty_predicates() -> None:
 def test_relation_query_rejects_bad_direction() -> None:
     with pytest.raises(ValueError, match="Unsupported direction"):
         build_relation_query(
-            "http://publications.europa.eu/resource/cellar/example",
+            "https://publications.europa.eu/resource/cellar/example",
             predicates=[PredicateSpec("cdm:work_cites_work", "cites")],
             direction="sideways",
             since=None,
@@ -110,3 +126,55 @@ def test_relation_query_rejects_bad_direction() -> None:
             limit=10,
             offset=0,
         )
+
+
+def test_safe_iri_accepts_valid_http_iri() -> None:
+    assert (
+        safe_iri("https://publications.europa.eu/resource/cellar/example", field="work_uri")
+        == "https://publications.europa.eu/resource/cellar/example"
+    )
+
+
+@pytest.mark.parametrize(
+    ("candidate", "match"),
+    [
+        ("", "cannot be empty"),
+        ("http://example.com/<bad>", "Invalid IRI"),
+        ("javascript:alert(1)", "Invalid IRI"),
+        ("https://example.com/o'hara", "Invalid IRI"),
+        ("https://example.com/white space", "contains whitespace"),
+    ],
+)
+def test_safe_iri_rejects_invalid_values(candidate: str, match: str) -> None:
+    with pytest.raises(ValueError, match=match):
+        safe_iri(candidate, field="test")
+
+
+def test_since_filter_include_undated() -> None:
+    clause = since_filter("date", "2025-01-01", include_undated=True)
+    assert clause == "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)"
+
+
+def test_since_filter_strict_monitoring() -> None:
+    clause = since_filter("date", "2025-01-01T10:11:12Z", include_undated=False)
+    assert clause == "FILTER(BOUND(?date) && ?date > '2025-01-01T10:11:12Z'^^xsd:dateTime)"
+
+
+def test_build_dossier_query_excludes_self_reference() -> None:
+    query = build_dossier_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        limit=10,
+        offset=0,
+    )
+    assert "FILTER(?other != <https://publications.europa.eu/resource/cellar/example>)" in query
+
+
+def test_search_communications_requires_service_binding() -> None:
+    query = build_search_communications_query("FISMA", since=None, limit=10, offset=0)
+    assert "?work cdm:resource_legal_service_responsible ?service ." in query
+    assert "OPTIONAL { ?work cdm:resource_legal_service_responsible ?service }" not in query
+
+
+def test_find_eurovoc_concept_filters_to_eurovoc_namespace() -> None:
+    query = build_find_eurovoc_concept_query("payment", limit=10, offset=0)
+    assert "STRSTARTS(STR(?concept), 'http://eurovoc.europa.eu/')" in query

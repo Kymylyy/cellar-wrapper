@@ -17,15 +17,88 @@ from cellar_wrapper.models import (
 )
 
 
+def _value_excerpt(value: Any, *, limit: int = 120) -> str:
+    text = repr(value)
+    if len(text) <= limit:
+        return text
+    return f"{text[:limit]}..."
+
+
+def _parse_error(
+    message: str,
+    *,
+    parser: str,
+    row_index: int | None = None,
+    field: str | None = None,
+    value: Any = None,
+) -> CellarParseError:
+    details: dict[str, Any] = {"parser": parser}
+    if row_index is not None:
+        details["row_index"] = row_index
+    if field is not None:
+        details["field"] = field
+    if value is not None:
+        details["value_excerpt"] = _value_excerpt(value)
+    return CellarParseError(message, details=details)
+
+
+def _ensure_binding_row(row: Any, *, parser: str, row_index: int) -> dict[str, dict[str, str]]:
+    if not isinstance(row, dict):
+        raise _parse_error(
+            "SPARQL row is not an object",
+            parser=parser,
+            row_index=row_index,
+            field="row",
+            value=row,
+        )
+    for key, slot in row.items():
+        if not isinstance(key, str):
+            raise _parse_error(
+                "SPARQL row key is not a string",
+                parser=parser,
+                row_index=row_index,
+                field="row_key",
+                value=key,
+            )
+        if not isinstance(slot, dict):
+            raise _parse_error(
+                "SPARQL row binding slot is not an object",
+                parser=parser,
+                row_index=row_index,
+                field=key,
+                value=slot,
+            )
+        slot_value = slot.get("value")
+        if slot_value is not None and not isinstance(slot_value, str):
+            raise _parse_error(
+                "SPARQL row binding slot value is not a string",
+                parser=parser,
+                row_index=row_index,
+                field=key,
+                value=slot,
+            )
+    return row
+
+
 def parse_bindings(payload: dict[str, Any]) -> list[dict[str, dict[str, str]]]:
     """Extract SPARQL bindings or raise a parse error."""
     try:
         raw_bindings = payload["results"]["bindings"]
     except KeyError as exc:  # pragma: no cover - defensive guard
-        raise CellarParseError("SPARQL response missing results.bindings") from exc
+        raise _parse_error(
+            "SPARQL response missing results.bindings",
+            parser="parse_bindings",
+            field="results.bindings",
+            value=payload,
+        ) from exc
 
     if not isinstance(raw_bindings, list):
-        raise CellarParseError("SPARQL response has invalid bindings payload")
+        raise _parse_error(
+            "SPARQL response has invalid bindings payload",
+            parser="parse_bindings",
+            field="results.bindings",
+            value=raw_bindings,
+        )
     return raw_bindings
 
 
@@ -51,7 +124,12 @@ def parse_date_value(raw: str | None, *, field_name: str) -> date | datetime | N
         try:
             return datetime.fromisoformat(candidate_for_datetime)
         except ValueError as exc:
-            raise CellarParseError(f"Invalid datetime for {field_name}: {raw!r}") from exc
+            raise _parse_error(
+                f"Invalid datetime for {field_name}: {raw!r}",
+                parser="parse_date_value",
+                field=field_name,
+                value=raw,
+            ) from exc
 
     try:
         return date.fromisoformat(candidate)
@@ -59,13 +137,19 @@ def parse_date_value(raw: str | None, *, field_name: str) -> date | datetime | N
         try:
             return datetime.fromisoformat(candidate_for_datetime)
         except ValueError as exc:
-            raise CellarParseError(f"Invalid date for {field_name}: {raw!r}") from exc
+            raise _parse_error(
+                f"Invalid date for {field_name}: {raw!r}",
+                parser="parse_date_value",
+                field=field_name,
+                value=raw,
+            ) from exc
 
 
 def parse_act_refs(rows: list[dict[str, dict[str, str]]]) -> list[ActRef]:
     """Parse generic work rows into ActRef objects."""
     items: list[ActRef] = []
-    for row in rows:
+    for row_index, row in enumerate(rows):
+        row = _ensure_binding_row(row, parser="parse_act_refs", row_index=row_index)
         uri = (
             value(row, "work")
             or value(row, "other")
@@ -78,7 +162,13 @@ def parse_act_refs(rows: list[dict[str, dict[str, str]]]) -> list[ActRef]:
         )
         if uri is None:
             # Keep strict behavior for malformed rows.
-            raise CellarParseError("Missing URI-like column in SPARQL row")
+            raise _parse_error(
+                "Missing URI-like column in SPARQL row",
+                parser="parse_act_refs",
+                row_index=row_index,
+                field="work|other|act|uri|summary|opinion|dossier|item",
+                value=row,
+            )
 
         items.append(
             ActRef(
@@ -97,17 +187,35 @@ def parse_act_detail(rows: list[dict[str, dict[str, str]]]) -> ActDetail | None:
     if not rows:
         return None
 
-    row = rows[0]
+    row = _ensure_binding_row(rows[0], parser="parse_act_detail", row_index=0)
     uri = value(row, "work")
     if uri is None:
-        raise CellarParseError("get_act query returned row without work URI")
+        raise _parse_error(
+            "get_act query returned row without work URI",
+            parser="parse_act_detail",
+            row_index=0,
+            field="work",
+            value=row,
+        )
 
     in_force_raw = value(row, "inForce")
     in_force: bool | None
     if in_force_raw is None:
         in_force = None
     else:
-        in_force = in_force_raw.lower() in {"true", "1"}
+        normalized_bool = in_force_raw.strip().lower()
+        if normalized_bool in {"true", "1"}:
+            in_force = True
+        elif normalized_bool in {"false", "0"}:
+            in_force = False
+        else:
+            raise _parse_error(
+                "Invalid boolean for inForce field",
+                parser="parse_act_detail",
+                row_index=0,
+                field="inForce",
+                value=in_force_raw,
+            )
 
     return ActDetail(
         uri=uri,
@@ -169,10 +277,17 @@ def parse_case_law_items(rows: list[dict[str, dict[str, str]]]) -> list[CaseLawI
 def parse_eurovoc_tags(rows: list[dict[str, dict[str, str]]]) -> list[EurovocTag]:
     """Parse EuroVoc concepts."""
     tags: list[EurovocTag] = []
-    for row in rows:
+    for row_index, row in enumerate(rows):
+        row = _ensure_binding_row(row, parser="parse_eurovoc_tags", row_index=row_index)
         concept_uri = value(row, "concept")
         if concept_uri is None:
-            raise CellarParseError("EuroVoc query returned row without concept")
+            raise _parse_error(
+                "EuroVoc query returned row without concept",
+                parser="parse_eurovoc_tags",
+                row_index=row_index,
+                field="concept",
+                value=row,
+            )
         tags.append(EurovocTag(concept_uri=concept_uri, label=value(row, "label")))
     return tags
 
@@ -180,10 +295,17 @@ def parse_eurovoc_tags(rows: list[dict[str, dict[str, str]]]) -> list[EurovocTag
 def parse_subject_matter_tags(rows: list[dict[str, dict[str, str]]]) -> list[SubjectMatterTag]:
     """Parse subject-matter concepts."""
     tags: list[SubjectMatterTag] = []
-    for row in rows:
+    for row_index, row in enumerate(rows):
+        row = _ensure_binding_row(row, parser="parse_subject_matter_tags", row_index=row_index)
         concept_uri = value(row, "concept")
         if concept_uri is None:
-            raise CellarParseError("Subject-matter query returned row without concept")
+            raise _parse_error(
+                "Subject-matter query returned row without concept",
+                parser="parse_subject_matter_tags",
+                row_index=row_index,
+                field="concept",
+                value=row,
+            )
         tags.append(SubjectMatterTag(concept_uri=concept_uri, label=value(row, "label")))
     return tags
 
@@ -191,10 +313,17 @@ def parse_subject_matter_tags(rows: list[dict[str, dict[str, str]]]) -> list[Sub
 def parse_expressions(rows: list[dict[str, dict[str, str]]]) -> list[ExpressionItem]:
     """Parse expression records."""
     expressions: list[ExpressionItem] = []
-    for row in rows:
+    for row_index, row in enumerate(rows):
+        row = _ensure_binding_row(row, parser="parse_expressions", row_index=row_index)
         expression_uri = value(row, "expression")
         if expression_uri is None:
-            raise CellarParseError("Expression query returned row without expression URI")
+            raise _parse_error(
+                "Expression query returned row without expression URI",
+                parser="parse_expressions",
+                row_index=row_index,
+                field="expression",
+                value=row,
+            )
         expressions.append(
             ExpressionItem(
                 expression_uri=expression_uri,

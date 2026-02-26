@@ -38,6 +38,18 @@ def test_retries_below_one_raises_validation_error() -> None:
         CellarClient(retries=0)
 
 
+def test_invalid_base_urls_raise_validation_error() -> None:
+    with pytest.raises(CellarValidationError, match="base_url_sparql"):
+        CellarClient(base_url_sparql="ftp://example.test/sparql", transport=FakeTransport())
+    with pytest.raises(CellarValidationError, match="base_url_resource"):
+        CellarClient(base_url_resource="ftp://example.test/resource", transport=FakeTransport())
+
+
+def test_max_download_bytes_must_be_positive() -> None:
+    with pytest.raises(CellarValidationError, match="max_download_bytes must be >= 1"):
+        CellarClient(max_download_bytes=0, transport=FakeTransport())
+
+
 def test_resolve_celex_exact_then_contains_fallback() -> None:
     def query_handler(query: str) -> dict[str, object]:
         if "FILTER(UCASE(STR(?celex))" in query:

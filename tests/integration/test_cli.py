@@ -12,6 +12,7 @@ from cellar_wrapper.models import ActRef
 class StubClient:
     def __init__(self) -> None:
         self.search_by_title_calls: list[dict[str, object]] = []
+        self.get_consolidated_versions_calls: list[dict[str, object]] = []
 
     def resolve_celex(self, celex: str) -> ActRef:
         return ActRef(uri="http://publications.europa.eu/resource/cellar/act", celex=celex)
@@ -21,6 +22,16 @@ class StubClient:
 
     def search_by_title(self, **kwargs: object) -> dict[str, object]:
         self.search_by_title_calls.append(kwargs)
+        return {"items": [], "kwargs": kwargs}
+
+    def get_consolidated_versions(self, **kwargs: object) -> dict[str, object]:
+        self.get_consolidated_versions_calls.append(kwargs)
+        return {"items": [], "kwargs": kwargs}
+
+    def get_corrigenda(self, **kwargs: object) -> dict[str, object]:
+        return {"items": [], "kwargs": kwargs}
+
+    def get_nims(self, **kwargs: object) -> dict[str, object]:
         return {"items": [], "kwargs": kwargs}
 
     def close(self) -> None:
@@ -124,3 +135,54 @@ def test_cli_allows_since_for_search_by_title(
     payload = json.loads(capsys.readouterr().out)
     assert payload["ok"] is True
     assert stub.search_by_title_calls[0]["since"] == "2025-01-01"
+
+
+def test_cli_catch_all_exception_returns_json(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    class BoomClient(StubClient):
+        def search_by_title(self, **kwargs: object) -> dict[str, object]:
+            raise RuntimeError("boom")
+
+    monkeypatch.setattr(cli, "_build_client", lambda args: BoomClient())
+    exit_code = cli.run(["search", "search-by-title", "--keyword", "payment"])
+
+    assert exit_code == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is False
+    assert payload["error"]["type"] == "CellarInternalError"
+    assert payload["error"]["details"]["original_type"] == "RuntimeError"
+
+
+def test_cli_lifecycle_accepts_resource_type(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    stub = StubClient()
+    monkeypatch.setattr(cli, "_build_client", lambda args: stub)
+    exit_code = cli.run(
+        [
+            "lifecycle",
+            "get-consolidated-versions",
+            "--celex",
+            "32022R2554",
+            "--resource-type",
+            "CONS_TEXT",
+        ]
+    )
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is True
+    assert stub.get_consolidated_versions_calls[0]["resource_type"] == "CONS_TEXT"
+
+
+def test_cli_help_mentions_key_flags(capsys: pytest.CaptureFixture[str]) -> None:
+    parser = cli.build_parser()
+    with pytest.raises(SystemExit) as exc_info:
+        parser.parse_args(["lifecycle", "get-consolidated-versions", "--help"])
+    assert exc_info.value.code == 0
+    help_text = capsys.readouterr().out
+    assert "--resource-type" in help_text
+    assert "--since" in help_text
+    assert "--limit" in help_text

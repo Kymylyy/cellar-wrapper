@@ -9,11 +9,13 @@ from datetime import UTC, datetime
 from email.utils import parsedate_to_datetime
 from types import TracebackType
 from typing import Any
+from urllib.parse import urlparse
 
 import httpx
 
 from cellar_wrapper.constants import (
     DEFAULT_CONNECT_TIMEOUT,
+    DEFAULT_MAX_DOWNLOAD_BYTES,
     DEFAULT_POOL_TIMEOUT,
     DEFAULT_READ_TIMEOUT,
     DEFAULT_RETRIES,
@@ -33,6 +35,17 @@ from cellar_wrapper.errors import (
 )
 
 
+def validate_http_url(url: str, *, field: str) -> str:
+    """Validate http/https URL string and return normalized value."""
+    candidate = url.strip()
+    if not candidate:
+        raise CellarValidationError(f"{field} cannot be empty")
+    parsed = urlparse(candidate)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        raise CellarValidationError(f"Invalid URL for {field}: {url!r}")
+    return candidate
+
+
 @dataclass(frozen=True)
 class TimeoutConfig:
     """Connection timeout parameters."""
@@ -41,6 +54,16 @@ class TimeoutConfig:
     read: float = DEFAULT_READ_TIMEOUT
     write: float = DEFAULT_WRITE_TIMEOUT
     pool: float = DEFAULT_POOL_TIMEOUT
+
+    def __post_init__(self) -> None:
+        for field_name, field_value in (
+            ("connect", self.connect),
+            ("read", self.read),
+            ("write", self.write),
+            ("pool", self.pool),
+        ):
+            if field_value <= 0:
+                raise CellarValidationError(f"timeout.{field_name} must be > 0")
 
 
 class HttpTransport:
@@ -51,12 +74,16 @@ class HttpTransport:
         *,
         sparql_endpoint: str = DEFAULT_SPARQL_ENDPOINT,
         retries: int = DEFAULT_RETRIES,
+        max_download_bytes: int = DEFAULT_MAX_DOWNLOAD_BYTES,
         user_agent: str = "cellar-wrapper/0.1.0",
         timeout: TimeoutConfig | None = None,
     ) -> None:
         if retries < 1:
             raise CellarValidationError("retries must be >= 1")
-        self._sparql_endpoint = sparql_endpoint
+        if max_download_bytes < 1:
+            raise CellarValidationError("max_download_bytes must be >= 1")
+        self._sparql_endpoint = validate_http_url(sparql_endpoint, field="sparql_endpoint")
+        self._max_download_bytes = max_download_bytes
         self._retries = retries
         timeout_cfg = timeout or TimeoutConfig()
         self._client = httpx.Client(
@@ -171,20 +198,27 @@ class HttpTransport:
                 continue
 
             last_response = response
-            if response.status_code in RETRY_STATUS_CODES and attempt < self._retries:
-                self._sleep_backoff(attempt)
-                continue
-
             if response.status_code == 429:
                 retry_after = response.headers.get("Retry-After")
+                retry_after_seconds = self._parse_retry_after_seconds(retry_after)
+                if attempt < self._retries:
+                    if retry_after_seconds is not None:
+                        time.sleep(retry_after_seconds)
+                    else:
+                        self._sleep_backoff(attempt)
+                    continue
                 raise CellarRateLimitError(
                     "Rate limited by CELLAR endpoint",
                     status_code=429,
                     url=str(response.request.url),
                     retry_after=retry_after,
-                    retry_after_seconds=self._parse_retry_after_seconds(retry_after),
+                    retry_after_seconds=retry_after_seconds,
                     body_excerpt=response.text[:300],
                 )
+
+            if response.status_code in RETRY_STATUS_CODES and attempt < self._retries:
+                self._sleep_backoff(attempt)
+                continue
 
             if response.status_code >= 400:
                 raise CellarHTTPError(
@@ -208,8 +242,8 @@ class HttpTransport:
     @staticmethod
     def _sleep_backoff(attempt: int) -> None:
         base = min(2 ** (attempt - 1), MAX_BACKOFF_SECONDS)
-        jitter = random.uniform(0.0, 0.25)
-        time.sleep(base + jitter)
+        delay = random.uniform(0.0, base)
+        time.sleep(delay)
 
     def query_sparql(self, query: str) -> dict[str, Any]:
         """Execute SPARQL query and return JSON payload."""
@@ -252,14 +286,106 @@ class HttpTransport:
 
     def download(self, url: str, *, accept: str, language: str | None = None) -> tuple[bytes, str, str]:
         """Download binary/text payload from resource endpoint."""
+        download_url = validate_http_url(url, field="download_url")
         headers = {"Accept": accept}
         if language is not None:
             headers["Accept-Language"] = language
 
-        response = self._request_with_retry("GET", url, headers=headers)
-        content_type = response.headers.get("Content-Type", "application/octet-stream")
-        if not self._is_content_type_compatible(accept, content_type):
-            raise CellarParseError(
-                f"Unexpected content type from download endpoint: expected={self._media_type(accept)} got={content_type}"
-            )
-        return response.content, content_type, str(response.request.url)
+        for attempt in range(1, self._retries + 1):
+            try:
+                with self._client.stream("GET", download_url, headers=headers) as response:
+                    if response.status_code == 429:
+                        retry_after = response.headers.get("Retry-After")
+                        retry_after_seconds = self._parse_retry_after_seconds(retry_after)
+                        if attempt < self._retries:
+                            if retry_after_seconds is not None:
+                                time.sleep(retry_after_seconds)
+                            else:
+                                self._sleep_backoff(attempt)
+                            continue
+                        raise CellarRateLimitError(
+                            "Rate limited by CELLAR endpoint",
+                            status_code=429,
+                            url=str(response.request.url),
+                            retry_after=retry_after,
+                            retry_after_seconds=retry_after_seconds,
+                            body_excerpt=response.text[:300],
+                        )
+
+                    if response.status_code in RETRY_STATUS_CODES and attempt < self._retries:
+                        self._sleep_backoff(attempt)
+                        continue
+
+                    if response.status_code >= 400:
+                        raise CellarHTTPError(
+                            f"HTTP error {response.status_code}",
+                            status_code=response.status_code,
+                            url=str(response.request.url),
+                            body_excerpt=response.text[:300],
+                        )
+
+                    content_type = response.headers.get("Content-Type", "application/octet-stream")
+                    if not self._is_content_type_compatible(accept, content_type):
+                        raise CellarParseError(
+                            f"Unexpected content type from download endpoint: expected={self._media_type(accept)} got={content_type}",
+                            details={
+                                "expected_content_type": self._media_type(accept),
+                                "content_type": content_type,
+                            },
+                        )
+
+                    raw_content_length = response.headers.get("Content-Length")
+                    if raw_content_length is not None and raw_content_length.isdigit():
+                        content_length = int(raw_content_length)
+                        if content_length > self._max_download_bytes:
+                            raise CellarHTTPError(
+                                "Download exceeds max_download_bytes",
+                                status_code=response.status_code,
+                                url=str(response.request.url),
+                                details={
+                                    "max_download_bytes": self._max_download_bytes,
+                                    "received_bytes": content_length,
+                                },
+                            )
+
+                    content = bytearray()
+                    for chunk in response.iter_bytes():
+                        content.extend(chunk)
+                        if len(content) > self._max_download_bytes:
+                            raise CellarHTTPError(
+                                "Download exceeds max_download_bytes",
+                                status_code=response.status_code,
+                                url=str(response.request.url),
+                                details={
+                                    "max_download_bytes": self._max_download_bytes,
+                                    "received_bytes": len(content),
+                                },
+                            )
+                    return bytes(content), content_type, str(response.request.url)
+
+            except httpx.TimeoutException as exc:
+                if attempt == self._retries:
+                    raise CellarTimeoutError(
+                        f"HTTP request timed out: {exc}",
+                        status_code=0,
+                        url=download_url,
+                        details={"timeout_type": type(exc).__name__},
+                    ) from exc
+                self._sleep_backoff(attempt)
+                continue
+            except httpx.HTTPError as exc:
+                if attempt == self._retries:
+                    raise CellarHTTPError(
+                        f"HTTP request failed: {exc}",
+                        status_code=0,
+                        url=download_url,
+                    ) from exc
+                self._sleep_backoff(attempt)
+                continue
+
+        raise CellarHTTPError(
+            "Retry loop exhausted without receiving a response",
+            status_code=0,
+            url=download_url,
+            details={"attempts": self._retries},
+        )

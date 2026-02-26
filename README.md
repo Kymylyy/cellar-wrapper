@@ -1,6 +1,14 @@
 # cellar-wrapper
 
-Typed, sync-first Python wrapper for EU Publications Office CELLAR.
+[![CI](https://github.com/Kymylyy/cellar-wrapper/actions/workflows/ci.yml/badge.svg)](https://github.com/Kymylyy/cellar-wrapper/actions/workflows/ci.yml)
+
+Typed, sync-first Python wrapper for EU Publications Office CELLAR, focused on
+predictable contracts for legal and compliance data workflows.
+
+## Repository overview
+- `src/cellar_wrapper`: core package (`CellarClient`, typed models, SPARQL builders, CLI).
+- `tests`: unit and integration tests.
+- `docs`: API contract, blueprint, and research notes.
 
 ## Features
 - `CellarClient` with full method surface from wrapper blueprint.
@@ -60,6 +68,12 @@ ruff check
 mypy
 pytest
 ```
+
+## Documentation map
+- API contract: `docs/API_CONTRACT.md`
+- Method mapping: `docs/METHOD_MAPPING.md`
+- Wrapper blueprint: `docs/WRAPPER_BLUEPRINT.md`
+- CELLAR research notes: `docs/CELLAR_API_RESEARCH.md`
 
 ## Notes
 - Default language: `eng`.

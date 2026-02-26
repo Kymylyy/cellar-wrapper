@@ -7,7 +7,7 @@ CellarClient(
   base_url_sparql: str = "https://publications.europa.eu/webapi/rdf/sparql",
   base_url_resource: str = "https://publications.europa.eu/resource",
   timeout: TimeoutConfig | None = None,
-  retries: int = 3,
+  retries: int = 3,  # must be >= 1
   user_agent: str = "cellar-wrapper/0.1.0",
 )
 ```

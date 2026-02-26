@@ -33,6 +33,11 @@ def test_invalid_since_in_monitoring_raises_validation_error() -> None:
         client.new_citations("32022R2554", since="not-a-date")
 
 
+def test_retries_below_one_raises_validation_error() -> None:
+    with pytest.raises(CellarValidationError, match="retries must be >= 1"):
+        CellarClient(retries=0)
+
+
 def test_resolve_celex_exact_then_contains_fallback() -> None:
     def query_handler(query: str) -> dict[str, object]:
         if "FILTER(UCASE(STR(?celex))" in query:

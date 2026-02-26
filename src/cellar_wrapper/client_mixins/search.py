@@ -9,7 +9,7 @@ from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
 from cellar_wrapper.errors import CellarValidationError
 from cellar_wrapper.models import ActRef, EurovocTag, ListResult
-from cellar_wrapper.parser import parse_act_refs, parse_bindings, parse_eurovoc_tags
+from cellar_wrapper.parser import parse_act_refs, parse_eurovoc_tags
 from cellar_wrapper.sparql import (
     build_find_eurovoc_concept_query,
     build_search_by_eurovoc_query,
@@ -44,10 +44,10 @@ class SearchMixin:
             offset=offset,
             lang=self._normalize_lang(lang),
         )
-        rows = parse_bindings(self._transport.query_sparql(query))
-        return self._list_result(
+        return self._run_list_query(
             query_name="search_by_eurovoc",
-            items=parse_act_refs(rows),
+            query=query,
+            parser=parse_act_refs,
             limit=limit,
             offset=offset,
         )
@@ -74,10 +74,10 @@ class SearchMixin:
             offset=offset,
             lang=self._normalize_lang(lang),
         )
-        rows = parse_bindings(self._transport.query_sparql(query))
-        return self._list_result(
+        return self._run_list_query(
             query_name="search_by_subject_matter",
-            items=parse_act_refs(rows),
+            query=query,
+            parser=parse_act_refs,
             limit=limit,
             offset=offset,
         )
@@ -103,10 +103,10 @@ class SearchMixin:
             offset=offset,
             lang=self._normalize_lang(lang),
         )
-        rows = parse_bindings(self._transport.query_sparql(query))
-        return self._list_result(
+        return self._run_list_query(
             query_name="search_by_title",
-            items=parse_act_refs(rows),
+            query=query,
+            parser=parse_act_refs,
             limit=limit,
             offset=offset,
         )
@@ -130,10 +130,10 @@ class SearchMixin:
             offset=offset,
             lang=self._normalize_lang(lang),
         )
-        rows = parse_bindings(self._transport.query_sparql(query))
-        return self._list_result(
+        return self._run_list_query(
             query_name="search_communications",
-            items=parse_act_refs(rows),
+            query=query,
+            parser=parse_act_refs,
             limit=limit,
             offset=offset,
         )
@@ -150,10 +150,10 @@ class SearchMixin:
             raise CellarValidationError("label cannot be empty")
 
         query = build_find_eurovoc_concept_query(label, limit=limit, offset=offset)
-        rows = parse_bindings(self._transport.query_sparql(query))
-        return self._list_result(
+        return self._run_list_query(
             query_name="find_eurovoc_concept",
-            items=parse_eurovoc_tags(rows),
+            query=query,
+            parser=parse_eurovoc_tags,
             limit=limit,
             offset=offset,
         )

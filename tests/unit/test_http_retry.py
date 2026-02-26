@@ -8,6 +8,7 @@ from cellar_wrapper.errors import (
     CellarRateLimitError,
     CellarSPARQLError,
     CellarTimeoutError,
+    CellarValidationError,
 )
 from cellar_wrapper.http import HttpTransport
 
@@ -17,6 +18,11 @@ def _response(status_code: int, *, json_body: dict[str, object] | None = None) -
     if json_body is not None:
         return httpx.Response(status_code, request=request, json=json_body)
     return httpx.Response(status_code, request=request, text="error")
+
+
+def test_transport_retries_below_one_raises_validation_error() -> None:
+    with pytest.raises(CellarValidationError, match="retries must be >= 1"):
+        HttpTransport(retries=0)
 
 
 def test_retry_on_503_then_success(monkeypatch: pytest.MonkeyPatch) -> None:

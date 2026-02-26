@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from datetime import date, datetime
 from typing import Any, Protocol, TypeVar
 
@@ -51,6 +51,16 @@ class ClientOpsProtocol(Protocol):
         *,
         query_name: str,
         items: list[T],
+        limit: int | None,
+        offset: int | None,
+    ) -> ListResult[T]: ...
+
+    def _run_list_query(
+        self,
+        *,
+        query_name: str,
+        query: str,
+        parser: Callable[[list[dict[str, dict[str, str]]]], list[T]],
         limit: int | None,
         offset: int | None,
     ) -> ListResult[T]: ...

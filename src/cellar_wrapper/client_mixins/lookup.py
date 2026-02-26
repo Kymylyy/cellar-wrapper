@@ -77,10 +77,10 @@ class LookupMixin:
             limit=limit,
             offset=offset,
         )
-        rows = parse_bindings(self._transport.query_sparql(query))
-        return self._list_result(
+        return self._run_list_query(
             query_name="get_eurovoc",
-            items=parse_eurovoc_tags(rows),
+            query=query,
+            parser=parse_eurovoc_tags,
             limit=limit,
             offset=offset,
         )
@@ -99,10 +99,10 @@ class LookupMixin:
             limit=limit,
             offset=offset,
         )
-        rows = parse_bindings(self._transport.query_sparql(query))
-        return self._list_result(
+        return self._run_list_query(
             query_name="get_subject_matter",
-            items=parse_subject_matter_tags(rows),
+            query=query,
+            parser=parse_subject_matter_tags,
             limit=limit,
             offset=offset,
         )
@@ -116,10 +116,10 @@ class LookupMixin:
     ) -> ListResult[RelationItem]:
         self._validate_pagination(limit, offset)
         query = build_legal_basis_query(self._resolve_work_uri(celex), limit=limit, offset=offset)
-        rows = parse_bindings(self._transport.query_sparql(query))
-        return self._list_result(
+        return self._run_list_query(
             query_name="get_legal_basis",
-            items=parse_relation_items(rows),
+            query=query,
+            parser=parse_relation_items,
             limit=limit,
             offset=offset,
         )
@@ -138,10 +138,10 @@ class LookupMixin:
             limit=limit,
             offset=offset,
         )
-        rows = parse_bindings(self._transport.query_sparql(query))
-        return self._list_result(
+        return self._run_list_query(
             query_name="get_directory_codes",
-            items=parse_subject_matter_tags(rows),
+            query=query,
+            parser=parse_subject_matter_tags,
             limit=limit,
             offset=offset,
         )
@@ -155,10 +155,10 @@ class LookupMixin:
     ) -> ListResult[ExpressionItem]:
         self._validate_pagination(limit, offset)
         query = build_expressions_query(self._resolve_work_uri(celex), limit=limit, offset=offset)
-        rows = parse_bindings(self._transport.query_sparql(query))
-        return self._list_result(
+        return self._run_list_query(
             query_name="get_expressions",
-            items=parse_expressions(rows),
+            query=query,
+            parser=parse_expressions,
             limit=limit,
             offset=offset,
         )

@@ -70,10 +70,20 @@ def _emit_error(exc: Exception) -> int:
     return 1
 
 
+def _positive_int(raw: str) -> int:
+    try:
+        value = int(raw)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError("must be an integer") from exc
+    if value < 1:
+        raise argparse.ArgumentTypeError("must be >= 1")
+    return value
+
+
 def _add_global_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--base-url-sparql", default=None)
     parser.add_argument("--base-url-resource", default=None)
-    parser.add_argument("--retries", type=int, default=None)
+    parser.add_argument("--retries", type=_positive_int, default=None)
     parser.add_argument("--timeout-connect", type=float, default=None)
     parser.add_argument("--timeout-read", type=float, default=None)
     parser.add_argument("--timeout-write", type=float, default=None)

@@ -27,6 +27,7 @@ from cellar_wrapper.errors import (
     CellarRateLimitError,
     CellarSPARQLError,
     CellarTimeoutError,
+    CellarValidationError,
 )
 
 
@@ -51,6 +52,8 @@ class HttpTransport:
         user_agent: str = "cellar-wrapper/0.1.0",
         timeout: TimeoutConfig | None = None,
     ) -> None:
+        if retries < 1:
+            raise CellarValidationError("retries must be >= 1")
         self._sparql_endpoint = sparql_endpoint
         self._retries = retries
         timeout_cfg = timeout or TimeoutConfig()

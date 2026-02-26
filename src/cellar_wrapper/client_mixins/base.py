@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Callable
 from datetime import UTC, date, datetime
 from types import TracebackType
 from typing import TypeVar, cast
@@ -41,6 +42,8 @@ class ClientBase:
         user_agent: str = "cellar-wrapper/0.1.0",
         transport: HttpTransport | None = None,
     ) -> None:
+        if retries < 1:
+            raise CellarValidationError("retries must be >= 1")
         self._base_url_resource = base_url_resource.rstrip("/")
         self._transport = transport or HttpTransport(
             sparql_endpoint=base_url_sparql,
@@ -140,6 +143,24 @@ class ClientBase:
             items=items,
             returned_count=len(items),
             meta=self._meta(query_name, limit=limit, offset=offset),
+        )
+
+    def _run_list_query(
+        self,
+        *,
+        query_name: str,
+        query: str,
+        parser: Callable[[list[dict[str, dict[str, str]]]], list[T]],
+        limit: int | None,
+        offset: int | None,
+    ) -> ListResult[T]:
+        rows = parse_bindings(self._transport.query_sparql(query))
+        items = parser(rows)
+        return self._list_result(
+            query_name=query_name,
+            items=items,
+            limit=limit,
+            offset=offset,
         )
 
     def _resolve_work_uri(self, celex: str) -> str:

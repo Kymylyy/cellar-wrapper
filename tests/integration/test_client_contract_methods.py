@@ -306,3 +306,26 @@ def test_public_methods_contract_runtime(method_name: str) -> None:
     else:
         assert isinstance(result, contract.return_type)
 
+
+def test_non_monitoring_search_since_includes_undated_filter() -> None:
+    transport = FakeTransport(query_handler=_query_handler, download_handler=_download_handler)
+    client = CellarClient(transport=transport)
+
+    _ = client.search_by_title("payment", since="2025-01-01")
+
+    assert any(
+        "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+        for query in transport.queries
+    )
+
+
+def test_monitoring_since_is_strictly_date_bound() -> None:
+    transport = FakeTransport(query_handler=_query_handler, download_handler=_download_handler)
+    client = CellarClient(transport=transport)
+
+    _ = client.new_case_law("32022R2554", since="2025-01-01")
+
+    assert any(
+        "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+        for query in transport.queries
+    )

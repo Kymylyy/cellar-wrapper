@@ -63,9 +63,14 @@ pytest
 
 ## Notes
 - Default language: `eng`.
-- Monitoring semantics: `date > since`.
+- `since` semantics:
+  - non-monitoring methods (`search_*`, `get_*` with optional `since`): keep undated rows.
+  - monitoring methods (`new_*`): strict `BOUND(date) && date > since`.
 - SPARQL transport is `POST`-first with automatic `GET` fallback for unsupported endpoints.
+- HTTP retries respect `Retry-After` both on intermediate and final `429` responses.
 - `get_summary` enforces `Accept: application/xhtml+xml;type=xhtml5`.
 - Search methods validate non-empty list inputs (`tags`, `codes`).
-- Use one `CellarClient` instance per thread when doing concurrent work.
+- Downloads are streamed with a default max payload of `25MB` (configurable via `max_download_bytes`).
+- Use one `CellarClient` instance per thread when doing concurrent work; do not share a single instance
+  across threads because it wraps one shared `httpx.Client`.
 - Out of scope: ESA soft-law sources (EBA/ESMA/EIOPA websites/APIs).

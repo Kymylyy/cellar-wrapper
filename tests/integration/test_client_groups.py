@@ -120,7 +120,21 @@ def test_monitoring_group_new_citations_adds_since_filter() -> None:
     client = CellarClient(transport=transport)
     result = client.new_citations("32022R2554", since="2025-01-01")
     assert result.returned_count == 0
-    assert any("FILTER(?date > '2025-01-01'^^xsd:date)" in query for query in transport.queries)
+    assert any(
+        "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+        for query in transport.queries
+    )
+
+
+def test_non_monitoring_since_filter_keeps_undated_rows() -> None:
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
+    client = CellarClient(transport=transport)
+    result = client.get_amendments("32022R2554", since="2025-01-01")
+    assert result.returned_count == 0
+    assert any(
+        "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+        for query in transport.queries
+    )
 
 
 def test_lookup_group_get_eurovoc_applies_limit_offset() -> None:

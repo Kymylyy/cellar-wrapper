@@ -26,6 +26,7 @@ def _call_lifecycle_relation(
         method_name=method_name,
         celex=celex,
         since=since,
+        include_undated=True,
         resource_type=resource_type,
         limit=limit,
         offset=offset,

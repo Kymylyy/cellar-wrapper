@@ -81,6 +81,18 @@ class CellarSPARQLError(CellarError):
 class CellarParseError(CellarError):
     """Raised when parsing endpoint payload fails."""
 
+    def __init__(self, message: str, *, details: dict[str, Any] | None = None) -> None:
+        super().__init__(message)
+        self.details = details or {}
+
+
+class CellarInternalError(CellarError):
+    """Raised when CLI catches an unexpected runtime exception."""
+
+    def __init__(self, message: str, *, details: dict[str, Any] | None = None) -> None:
+        super().__init__(message)
+        self.details = details or {}
+
 
 class CellarNotFoundError(CellarError):
     """Raised when CELEX/work URI cannot be found."""

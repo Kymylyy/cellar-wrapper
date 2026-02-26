@@ -14,6 +14,7 @@ from .common import (
     quote_literal,
     resource_type_clause,
     resource_type_uri,
+    safe_iri,
     since_filter,
     with_prefixes,
 )
@@ -29,19 +30,22 @@ def build_relation_query(
     limit: int,
     offset: int,
     lang: str = DEFAULT_LANGUAGE,
+    include_undated: bool = True,
 ) -> str:
     """Build generic relation query over one or more predicates."""
     if not predicates:
         raise ValueError("predicates cannot be empty")
     if direction not in {"incoming", "outgoing", "both"}:
         raise ValueError(f"Unsupported direction: {direction}")
+    work_iri = safe_iri(work_uri, field="work_uri")
+    lang_iri = safe_iri(language_uri(lang), field="language_uri")
     unions: list[str] = []
     for spec in predicates:
         if direction in {"incoming", "both"}:
             unions.append(
                 f"""
   {{
-    ?other {spec.iri} <{work_uri}> .
+    ?other {spec.iri} <{work_iri}> .
     BIND('incoming' AS ?direction)
     BIND('{spec.relation_type}' AS ?relationType)
     BIND('{spec.iri}' AS ?predicate)
@@ -52,7 +56,7 @@ def build_relation_query(
             unions.append(
                 f"""
   {{
-    <{work_uri}> {spec.iri} ?other .
+    <{work_iri}> {spec.iri} ?other .
     BIND('outgoing' AS ?direction)
     BIND('{spec.relation_type}' AS ?relationType)
     BIND('{spec.iri}' AS ?predicate)
@@ -73,11 +77,11 @@ SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predi
   OPTIONAL {{ ?other {PREDICATES["case_law_delivered_by_advocate_general"]} ?advocateGeneral }}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?other .
-    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+    ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
   {resource_type_clause(resource_type)}
-  {since_filter("date", since)}
+  {since_filter("date", since, include_undated=include_undated)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -87,10 +91,13 @@ ORDER BY DESC(?date)
 
 def build_dossier_query(work_uri: str, *, limit: int, offset: int, lang: str = DEFAULT_LANGUAGE) -> str:
     """Build dossier expansion query."""
+    work_iri = safe_iri(work_uri, field="work_uri")
+    lang_iri = safe_iri(language_uri(lang), field="language_uri")
     query = f"""
 SELECT DISTINCT ?dossier ?other ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
-  ?dossier {PREDICATES["dossier_contains_work"]} <{work_uri}> .
+  ?dossier {PREDICATES["dossier_contains_work"]} <{work_iri}> .
   ?dossier {PREDICATES["dossier_contains_work"]} ?other .
+  FILTER(?other != <{work_iri}>)
   BIND('dossier_contains_work' AS ?relationType)
   BIND('{PREDICATES["dossier_contains_work"]}' AS ?predicate)
   BIND('incoming' AS ?direction)
@@ -99,7 +106,7 @@ SELECT DISTINCT ?dossier ?other ?celex ?title ?date ?type ?relationType ?directi
   OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?other .
-    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+    ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
 }}
@@ -111,9 +118,10 @@ ORDER BY ?date
 
 def build_deadlines_query(work_uri: str, *, limit: int, offset: int) -> str:
     """Build deadlines query."""
+    work_iri = safe_iri(work_uri, field="work_uri")
     query = f"""
 SELECT DISTINCT ?other ?celex ?date ?relationType ?direction ?predicate WHERE {{
-  BIND(<{work_uri}> AS ?other)
+  BIND(<{work_iri}> AS ?other)
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
   {{
     ?other {PREDICATES["deadline"]} ?date .
@@ -145,9 +153,11 @@ def build_ag_opinions_query(
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build advocate-general opinions query."""
+    work_iri = safe_iri(work_uri, field="work_uri")
+    lang_iri = safe_iri(language_uri(lang), field="language_uri")
     query = f"""
 SELECT DISTINCT ?opinion ?celex ?title ?date ?type ?direction ?relationType ?predicate WHERE {{
-  ?case {PREDICATES["cjeu_interprets"]} <{work_uri}> .
+  ?case {PREDICATES["cjeu_interprets"]} <{work_iri}> .
   ?case {PREDICATES["ag_opinion"]} ?opinion .
   BIND(?opinion AS ?other)
   BIND('incoming' AS ?direction)
@@ -158,10 +168,10 @@ SELECT DISTINCT ?opinion ?celex ?title ?date ?type ?direction ?relationType ?pre
   OPTIONAL {{ ?opinion {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?opinion .
-    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+    ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
-  {since_filter("date", since)}
+  {since_filter("date", since, include_undated=True)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -178,7 +188,8 @@ def build_national_decisions_query(
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build national court decisions query by CELEX reference string."""
-    dec_nc_uri = resource_type_uri("DEC_NC")
+    dec_nc_uri = safe_iri(resource_type_uri("DEC_NC"), field="resource_type_uri")
+    lang_iri = safe_iri(language_uri(lang), field="language_uri")
     query = f"""
 SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predicate WHERE {{
   ?other {PREDICATES["work_has_resource_type"]} <{dec_nc_uri}> .
@@ -192,10 +203,10 @@ SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predi
   OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?other .
-    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+    ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
-  {since_filter("date", since)}
+  {since_filter("date", since, include_undated=True)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -205,9 +216,10 @@ ORDER BY DESC(?date)
 
 def build_article_annotations_query(work_uri: str, *, limit: int, offset: int) -> str:
     """Build OWL annotation-level relation query."""
+    work_iri = safe_iri(work_uri, field="work_uri")
     query = f"""
 SELECT DISTINCT ?other ?predicate ?relationType ?direction ?date ?annotation ?article ?paragraph ?subparagraph ?point ?commentOnLegalBasis WHERE {{
-  ?annotation owl:annotatedTarget <{work_uri}> .
+  ?annotation owl:annotatedTarget <{work_iri}> .
   ?annotation owl:annotatedSource ?other .
   ?annotation owl:annotatedProperty ?annProp .
   BIND(STR(?annProp) AS ?predicate)

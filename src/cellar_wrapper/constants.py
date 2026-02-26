@@ -18,12 +18,12 @@ DEFAULT_POOL_TIMEOUT = 30.0
 DEFAULT_RETRIES = 3
 RETRY_STATUS_CODES = frozenset({429, 502, 503, 504})
 MAX_BACKOFF_SECONDS = 8.0
+DEFAULT_MAX_DOWNLOAD_BYTES = 25 * 1024 * 1024
 SPARQL_POST_FALLBACK_STATUS_CODES = frozenset({405, 415, 501})
 
 SPARQL_PREFIXES = """
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 """.strip()

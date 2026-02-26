@@ -9,6 +9,8 @@ from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
 from cellar_wrapper.errors import CellarValidationError
 from cellar_wrapper.models import ActRef, CaseLawItem, ListResult, RelationItem
+from cellar_wrapper.parser import parse_act_refs
+from cellar_wrapper.sparql import build_search_by_eurovoc_query
 
 
 def _require_since(method_name: str, since: date | datetime | str | None) -> date | datetime | str:
@@ -32,6 +34,7 @@ def _call_monitor_relation(
         method_name=method_name,
         celex=celex,
         since=_require_since(method_name, since),
+        include_undated=False,
         resource_type=resource_type,
         limit=limit,
         offset=offset,
@@ -54,6 +57,7 @@ def _call_monitor_case_law(
         method_name=method_name,
         celex=celex,
         since=_require_since(method_name, since),
+        include_undated=False,
         resource_type=resource_type,
         limit=limit,
         offset=offset,
@@ -221,11 +225,24 @@ class MonitoringMixin:
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
     ) -> ListResult[ActRef]:
-        return self.search_by_eurovoc(
-            tags,
-            since=_require_since("new_by_eurovoc", since),
-            resource_type=resource_type,
+        self._validate_pagination(limit, offset)
+        normalized_tags = [tag.strip() for tag in tags if tag.strip()]
+        if not normalized_tags:
+            raise CellarValidationError("tags cannot be empty")
+        since_value = self._coerce_since(_require_since("new_by_eurovoc", since))
+        query = build_search_by_eurovoc_query(
+            normalized_tags,
+            resource_type=self._normalize_resource_type(resource_type),
+            since=since_value,
             limit=limit,
             offset=offset,
-            lang=lang,
+            lang=self._normalize_lang(lang),
+            include_undated=False,
+        )
+        return self._run_list_query(
+            query_name="search_by_eurovoc",
+            query=query,
+            parser=parse_act_refs,
+            limit=limit,
+            offset=offset,
         )

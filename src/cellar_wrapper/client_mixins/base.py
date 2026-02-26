@@ -9,13 +9,14 @@ from types import TracebackType
 from typing import TypeVar, cast
 
 from cellar_wrapper.constants import (
+    DEFAULT_MAX_DOWNLOAD_BYTES,
     DEFAULT_RESOURCE_BASE_URL,
     DEFAULT_RETRIES,
     DEFAULT_SPARQL_ENDPOINT,
     MAX_LIMIT,
 )
 from cellar_wrapper.errors import CellarValidationError
-from cellar_wrapper.http import HttpTransport, TimeoutConfig
+from cellar_wrapper.http import HttpTransport, TimeoutConfig, validate_http_url
 from cellar_wrapper.models import ActRef, CaseLawItem, ListResult, QueryMeta, RelationItem
 from cellar_wrapper.parser import parse_bindings, parse_case_law_items, parse_relation_items
 from cellar_wrapper.sparql import build_relation_query
@@ -39,15 +40,21 @@ class ClientBase:
         base_url_resource: str = DEFAULT_RESOURCE_BASE_URL,
         timeout: TimeoutConfig | None = None,
         retries: int = DEFAULT_RETRIES,
+        max_download_bytes: int = DEFAULT_MAX_DOWNLOAD_BYTES,
         user_agent: str = "cellar-wrapper/0.1.0",
         transport: HttpTransport | None = None,
     ) -> None:
         if retries < 1:
             raise CellarValidationError("retries must be >= 1")
-        self._base_url_resource = base_url_resource.rstrip("/")
+        if max_download_bytes < 1:
+            raise CellarValidationError("max_download_bytes must be >= 1")
+        normalized_sparql_endpoint = validate_http_url(base_url_sparql, field="base_url_sparql")
+        normalized_resource_base = validate_http_url(base_url_resource, field="base_url_resource")
+        self._base_url_resource = normalized_resource_base.rstrip("/")
         self._transport = transport or HttpTransport(
-            sparql_endpoint=base_url_sparql,
+            sparql_endpoint=normalized_sparql_endpoint,
             retries=retries,
+            max_download_bytes=max_download_bytes,
             user_agent=user_agent,
             timeout=timeout,
         )
@@ -175,6 +182,7 @@ class ClientBase:
         method_name: str,
         celex: str,
         since: date | datetime | str | None,
+        include_undated: bool,
         resource_type: str | None,
         limit: int,
         offset: int,
@@ -198,6 +206,7 @@ class ClientBase:
             limit=limit,
             offset=offset,
             lang=normalized_lang,
+            include_undated=include_undated,
         )
         rows = parse_bindings(self._transport.query_sparql(query))
 
@@ -224,6 +233,7 @@ class ClientBase:
         method_name: str,
         celex: str,
         since: date | datetime | str | None,
+        include_undated: bool,
         resource_type: str | None,
         limit: int,
         offset: int,
@@ -233,6 +243,7 @@ class ClientBase:
             method_name=method_name,
             celex=celex,
             since=since,
+            include_undated=include_undated,
             resource_type=resource_type,
             limit=limit,
             offset=offset,
@@ -246,6 +257,7 @@ class ClientBase:
         method_name: str,
         celex: str,
         since: date | datetime | str | None,
+        include_undated: bool,
         resource_type: str | None,
         limit: int,
         offset: int,
@@ -255,6 +267,7 @@ class ClientBase:
             method_name=method_name,
             celex=celex,
             since=since,
+            include_undated=include_undated,
             resource_type=resource_type,
             limit=limit,
             offset=offset,

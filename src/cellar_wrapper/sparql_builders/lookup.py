@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET, PREDICATES
 
-from .common import language_uri, limit_offset, quote_literal, with_prefixes
+from .common import language_uri, limit_offset, quote_literal, safe_iri, with_prefixes
 
 CONCEPT_PREDICATES = frozenset(
     {
@@ -37,10 +37,11 @@ LIMIT 5
 
 def build_get_act_query(work_uri: str, *, lang: str = DEFAULT_LANGUAGE) -> str:
     """Build work metadata query."""
-    lang_uri = language_uri(lang)
+    lang_uri = safe_iri(language_uri(lang), field="language_uri")
+    work_iri = safe_iri(work_uri, field="work_uri")
     query = f"""
 SELECT DISTINCT ?work ?celex ?eli ?type ?inForce ?dateDocument ?dateEntryIntoForce ?dateEndOfValidity ?title WHERE {{
-  BIND(<{work_uri}> AS ?work)
+  BIND(<{work_iri}> AS ?work)
   OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?work {PREDICATES["resource_legal_eli"]} ?eli }}
   OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
@@ -69,10 +70,11 @@ def build_concept_query(
     """Build concept lookup query (EuroVoc, subject-matter, directory code)."""
     if predicate not in CONCEPT_PREDICATES:
         raise ValueError(f"Unsupported concept predicate: {predicate}")
+    work_iri = safe_iri(work_uri, field="work_uri")
 
     query = f"""
 SELECT DISTINCT ?concept ?label WHERE {{
-  <{work_uri}> {predicate} ?concept .
+  <{work_iri}> {predicate} ?concept .
   OPTIONAL {{
     ?concept skos:prefLabel ?label .
     FILTER(LANG(?label) = 'en' || LANG(?label) = '')
@@ -86,20 +88,22 @@ ORDER BY ?concept
 
 def build_legal_basis_query(work_uri: str, *, limit: int, offset: int) -> str:
     """Build legal basis query."""
+    work_iri = safe_iri(work_uri, field="work_uri")
+    default_lang_iri = safe_iri(language_uri(DEFAULT_LANGUAGE), field="language_uri")
     query = f"""
 SELECT DISTINCT ?other ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
   {{
-    ?other {PREDICATES["based_on"]} <{work_uri}> .
+    ?other {PREDICATES["based_on"]} <{work_iri}> .
     BIND('incoming' AS ?direction)
     BIND('based_on_resource_legal' AS ?relationType)
     BIND('{PREDICATES["based_on"]}' AS ?predicate)
   }} UNION {{
-    <{work_uri}> {PREDICATES["based_on"]} ?other .
+    <{work_iri}> {PREDICATES["based_on"]} ?other .
     BIND('outgoing' AS ?direction)
     BIND('based_on_resource_legal' AS ?relationType)
     BIND('{PREDICATES["based_on"]}' AS ?predicate)
   }} UNION {{
-    <{work_uri}> {PREDICATES["based_on_concept_treaty"]} ?other .
+    <{work_iri}> {PREDICATES["based_on_concept_treaty"]} ?other .
     BIND('outgoing' AS ?direction)
     BIND('based_on_concept_treaty' AS ?relationType)
     BIND('{PREDICATES["based_on_concept_treaty"]}' AS ?predicate)
@@ -109,7 +113,7 @@ SELECT DISTINCT ?other ?celex ?title ?date ?type ?relationType ?direction ?predi
   OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?other .
-    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(DEFAULT_LANGUAGE)}> .
+    ?expr {PREDICATES["expression_uses_language"]} <{default_lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
 }}
@@ -121,9 +125,10 @@ ORDER BY DESC(?date)
 
 def build_expressions_query(work_uri: str, *, limit: int, offset: int) -> str:
     """Build expressions query."""
+    work_iri = safe_iri(work_uri, field="work_uri")
     query = f"""
 SELECT DISTINCT ?expression ?lang ?title WHERE {{
-  ?expression {PREDICATES["expression_belongs_to_work"]} <{work_uri}> .
+  ?expression {PREDICATES["expression_belongs_to_work"]} <{work_iri}> .
   OPTIONAL {{ ?expression {PREDICATES["expression_uses_language"]} ?lang }}
   OPTIONAL {{ ?expression {PREDICATES["expression_title"]} ?title }}
 }}

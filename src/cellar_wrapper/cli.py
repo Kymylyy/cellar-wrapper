@@ -14,6 +14,8 @@ from cellar_wrapper.client import CellarClient
 from cellar_wrapper.errors import (
     CellarError,
     CellarHTTPError,
+    CellarInternalError,
+    CellarParseError,
     CellarRateLimitError,
     CellarSPARQLError,
     CellarValidationError,
@@ -63,6 +65,10 @@ def _emit_error(exc: Exception) -> int:
             "response_excerpt": exc.response_excerpt,
             "details": exc.details,
         }
+    elif isinstance(exc, CellarParseError):
+        details = {"details": exc.details}
+    elif isinstance(exc, CellarInternalError):
+        details = exc.details
 
     error = ErrorPayload(type=type(exc).__name__, message=str(exc), details=details)
     payload = {"ok": False, "error": error.model_dump(mode="json")}
@@ -81,13 +87,13 @@ def _positive_int(raw: str) -> int:
 
 
 def _add_global_args(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--base-url-sparql", default=None)
-    parser.add_argument("--base-url-resource", default=None)
-    parser.add_argument("--retries", type=_positive_int, default=None)
-    parser.add_argument("--timeout-connect", type=float, default=None)
-    parser.add_argument("--timeout-read", type=float, default=None)
-    parser.add_argument("--timeout-write", type=float, default=None)
-    parser.add_argument("--timeout-pool", type=float, default=None)
+    parser.add_argument("--base-url-sparql", default=None, help="Override SPARQL endpoint URL.")
+    parser.add_argument("--base-url-resource", default=None, help="Override resource base URL.")
+    parser.add_argument("--retries", type=_positive_int, default=None, help="Total retry attempts.")
+    parser.add_argument("--timeout-connect", type=float, default=None, help="Connection timeout (seconds).")
+    parser.add_argument("--timeout-read", type=float, default=None, help="Read timeout (seconds).")
+    parser.add_argument("--timeout-write", type=float, default=None, help="Write timeout (seconds).")
+    parser.add_argument("--timeout-pool", type=float, default=None, help="Pool timeout (seconds).")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -149,6 +155,12 @@ def run(argv: list[str] | None = None) -> int:
         return _emit_success(result)
     except CellarError as exc:
         return _emit_error(exc)
+    except Exception as exc:  # pragma: no cover - guarded via integration test
+        internal_error = CellarInternalError(
+            "Unexpected internal error",
+            details={"original_type": type(exc).__name__},
+        )
+        return _emit_error(internal_error)
     finally:
         client.close()
 

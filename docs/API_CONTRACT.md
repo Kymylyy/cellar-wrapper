@@ -43,16 +43,24 @@ CellarClient(
 - `CellarError` (base)
 - `CellarValidationError`
 - `CellarHTTPError`
+- `CellarTimeoutError`
 - `CellarRateLimitError`
 - `CellarSPARQLError`
 - `CellarParseError`
 - `CellarNotFoundError`
 
+`CellarSPARQLError` carries context fields (`query`, `response_excerpt`) for diagnostics.
+
 ## HTTP behavior
 - Retry status codes: `429, 502, 503, 504`.
 - Attempts: `3` total.
-- Backoff: exponential + jitter.
+- Backoff: exponential + jitter, capped per-attempt.
 - Default timeout: connect `10s`, read `30s`, write `30s`, pool `30s`.
+- `Retry-After` is parsed to seconds when available on `429`.
+
+## Search input validation
+- `search_by_eurovoc(tags=...)` requires at least one non-empty tag.
+- `search_by_subject_matter(codes=...)` requires at least one non-empty code.
 
 ## CELEX resolution behavior
 1. Exact match query (`=`).

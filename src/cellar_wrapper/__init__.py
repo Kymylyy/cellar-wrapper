@@ -8,6 +8,7 @@ from cellar_wrapper.errors import (
     CellarParseError,
     CellarRateLimitError,
     CellarSPARQLError,
+    CellarTimeoutError,
     CellarValidationError,
 )
 
@@ -16,6 +17,7 @@ __all__ = [
     "CellarError",
     "CellarValidationError",
     "CellarHTTPError",
+    "CellarTimeoutError",
     "CellarRateLimitError",
     "CellarSPARQLError",
     "CellarParseError",

@@ -21,8 +21,7 @@ pip install -e .[dev]
 ```python
 from cellar_wrapper import CellarClient
 
-client = CellarClient()
-try:
+with CellarClient() as client:
     act = client.get_act("32022R2554")
     print(act.celex, act.title)
 
@@ -31,8 +30,6 @@ try:
 
     new_citations = client.new_citations("32022R2554", since="2025-01-01")
     print(new_citations.returned_count)
-finally:
-    client.close()
 ```
 
 ## Quick start (CLI)
@@ -68,4 +65,6 @@ pytest
 - Default language: `eng`.
 - Monitoring semantics: `date > since`.
 - `get_summary` enforces `Accept: application/xhtml+xml;type=xhtml5`.
+- Search methods validate non-empty list inputs (`tags`, `codes`).
+- Use one `CellarClient` instance per thread when doing concurrent work.
 - Out of scope: ESA soft-law sources (EBA/ESMA/EIOPA websites/APIs).

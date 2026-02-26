@@ -5,6 +5,9 @@ from __future__ import annotations
 import random
 import time
 from dataclasses import dataclass
+from datetime import UTC, datetime
+from email.utils import parsedate_to_datetime
+from types import TracebackType
 from typing import Any
 
 import httpx
@@ -16,9 +19,15 @@ from cellar_wrapper.constants import (
     DEFAULT_RETRIES,
     DEFAULT_SPARQL_ENDPOINT,
     DEFAULT_WRITE_TIMEOUT,
+    MAX_BACKOFF_SECONDS,
     RETRY_STATUS_CODES,
 )
-from cellar_wrapper.errors import CellarHTTPError, CellarRateLimitError, CellarSPARQLError
+from cellar_wrapper.errors import (
+    CellarHTTPError,
+    CellarRateLimitError,
+    CellarSPARQLError,
+    CellarTimeoutError,
+)
 
 
 @dataclass(frozen=True)
@@ -44,12 +53,13 @@ class HttpTransport:
     ) -> None:
         self._sparql_endpoint = sparql_endpoint
         self._retries = retries
+        timeout_cfg = timeout or TimeoutConfig()
         self._client = httpx.Client(
             timeout=httpx.Timeout(
-                connect=(timeout or TimeoutConfig()).connect,
-                read=(timeout or TimeoutConfig()).read,
-                write=(timeout or TimeoutConfig()).write,
-                pool=(timeout or TimeoutConfig()).pool,
+                connect=timeout_cfg.connect,
+                read=timeout_cfg.read,
+                write=timeout_cfg.write,
+                pool=timeout_cfg.pool,
             ),
             follow_redirects=True,
             headers={"User-Agent": user_agent},
@@ -63,6 +73,38 @@ class HttpTransport:
     def close(self) -> None:
         """Close the underlying HTTP client."""
         self._client.close()
+
+    def __enter__(self) -> HttpTransport:
+        """Context-manager entry."""
+        return self
+
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc: BaseException | None,
+        tb: TracebackType | None,
+    ) -> None:
+        """Context-manager exit."""
+        self.close()
+
+    @staticmethod
+    def _parse_retry_after_seconds(value: str | None) -> int | None:
+        if value is None:
+            return None
+        stripped = value.strip()
+        if not stripped:
+            return None
+        if stripped.isdigit():
+            return int(stripped)
+
+        try:
+            retry_at = parsedate_to_datetime(stripped)
+        except (TypeError, ValueError):
+            return None
+        if retry_at.tzinfo is None:
+            retry_at = retry_at.replace(tzinfo=UTC)
+        delta = retry_at - datetime.now(UTC)
+        return max(0, int(delta.total_seconds()))
 
     def _request_with_retry(
         self,
@@ -81,6 +123,16 @@ class HttpTransport:
                     params=params,
                     headers=headers,
                 )
+            except httpx.TimeoutException as exc:
+                if attempt == self._retries:
+                    raise CellarTimeoutError(
+                        f"HTTP request timed out: {exc}",
+                        status_code=0,
+                        url=url,
+                        details={"timeout_type": type(exc).__name__},
+                    ) from exc
+                self._sleep_backoff(attempt)
+                continue
             except httpx.HTTPError as exc:
                 if attempt == self._retries:
                     raise CellarHTTPError(
@@ -97,11 +149,13 @@ class HttpTransport:
                 continue
 
             if response.status_code == 429:
+                retry_after = response.headers.get("Retry-After")
                 raise CellarRateLimitError(
                     "Rate limited by CELLAR endpoint",
                     status_code=429,
                     url=str(response.request.url),
-                    retry_after=response.headers.get("Retry-After"),
+                    retry_after=retry_after,
+                    retry_after_seconds=self._parse_retry_after_seconds(retry_after),
                     body_excerpt=response.text[:300],
                 )
 
@@ -115,13 +169,18 @@ class HttpTransport:
 
             return response
 
-        # Fallback guard, should never happen in practice.
-        assert last_response is not None
+        if last_response is None:
+            raise CellarHTTPError(
+                "Retry loop exhausted without receiving a response",
+                status_code=0,
+                url=url,
+                details={"attempts": self._retries},
+            )
         return last_response
 
     @staticmethod
     def _sleep_backoff(attempt: int) -> None:
-        base = 2 ** (attempt - 1)
+        base = min(2 ** (attempt - 1), MAX_BACKOFF_SECONDS)
         jitter = random.uniform(0.0, 0.25)
         time.sleep(base + jitter)
 
@@ -136,10 +195,18 @@ class HttpTransport:
         try:
             payload = response.json()
         except ValueError as exc:  # pragma: no cover - defensive guard
-            raise CellarSPARQLError("SPARQL endpoint returned non-JSON payload") from exc
+            raise CellarSPARQLError(
+                "SPARQL endpoint returned non-JSON payload",
+                query=query,
+                response_excerpt=response.text[:300],
+            ) from exc
 
         if not isinstance(payload, dict):
-            raise CellarSPARQLError("SPARQL endpoint JSON payload is not an object")
+            raise CellarSPARQLError(
+                "SPARQL endpoint JSON payload is not an object",
+                query=query,
+                response_excerpt=str(payload)[:300],
+            )
         return payload
 
     def download(self, url: str, *, accept: str, language: str | None = None) -> tuple[bytes, str, str]:

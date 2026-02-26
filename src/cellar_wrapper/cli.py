@@ -4,16 +4,29 @@ from __future__ import annotations
 
 import argparse
 import json
-from typing import Any
+from typing import Any, NoReturn
 
 from pydantic import BaseModel
 
 from cellar_wrapper.cli_specs import COMMANDS, CommandSpec
 from cellar_wrapper.client import CellarClient
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
-from cellar_wrapper.errors import CellarError, CellarHTTPError, CellarRateLimitError
+from cellar_wrapper.errors import (
+    CellarError,
+    CellarHTTPError,
+    CellarRateLimitError,
+    CellarSPARQLError,
+    CellarValidationError,
+)
 from cellar_wrapper.http import TimeoutConfig
 from cellar_wrapper.models import ErrorPayload
+
+
+class JsonArgumentParser(argparse.ArgumentParser):
+    """ArgumentParser variant that surfaces validation errors as exceptions."""
+
+    def error(self, message: str) -> NoReturn:  # pragma: no cover - exercised via run()
+        raise CellarValidationError(message)
 
 
 def _to_jsonable(value: Any) -> Any:
@@ -43,6 +56,13 @@ def _emit_error(exc: Exception) -> int:
         }
         if isinstance(exc, CellarRateLimitError):
             details["retry_after"] = exc.retry_after
+            details["retry_after_seconds"] = exc.retry_after_seconds
+    elif isinstance(exc, CellarSPARQLError):
+        details = {
+            "query": exc.query,
+            "response_excerpt": exc.response_excerpt,
+            "details": exc.details,
+        }
 
     error = ErrorPayload(type=type(exc).__name__, message=str(exc), details=details)
     payload = {"ok": False, "error": error.model_dump(mode="json")}
@@ -86,7 +106,7 @@ def _configure_command_parser(command_parser: argparse.ArgumentParser, spec: Com
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="cellar")
+    parser = JsonArgumentParser(prog="cellar")
     _add_global_args(parser)
 
     group_subparsers = parser.add_subparsers(dest="group", required=True)
@@ -152,7 +172,13 @@ def _build_method_kwargs(spec: CommandSpec, args: argparse.Namespace) -> dict[st
 
 def run(argv: list[str] | None = None) -> int:
     parser = build_parser()
-    args = parser.parse_args(argv)
+    try:
+        args = parser.parse_args(argv)
+    except CellarError as exc:
+        return _emit_error(exc)
+    except SystemExit as exc:
+        return int(exc.code) if isinstance(exc.code, int) else 1
+
     spec: CommandSpec = args.command_spec
     client = _build_client(args)
 

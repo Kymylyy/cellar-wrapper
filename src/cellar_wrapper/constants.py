@@ -17,6 +17,7 @@ DEFAULT_POOL_TIMEOUT = 30.0
 
 DEFAULT_RETRIES = 3
 RETRY_STATUS_CODES = frozenset({429, 502, 503, 504})
+MAX_BACKOFF_SECONDS = 8.0
 
 SPARQL_PREFIXES = """
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>

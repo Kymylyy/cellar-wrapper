@@ -45,3 +45,11 @@ def test_cli_error_json(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureF
     payload = json.loads(capsys.readouterr().out)
     assert payload["ok"] is False
     assert payload["error"]["type"] == "CellarValidationError"
+
+
+def test_cli_parser_error_returns_json(capsys: pytest.CaptureFixture[str]) -> None:
+    exit_code = cli.run(["lookup", "resolve-celex"])
+    assert exit_code == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is False
+    assert payload["error"]["type"] == "CellarValidationError"

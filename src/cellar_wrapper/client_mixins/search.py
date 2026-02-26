@@ -33,8 +33,11 @@ class SearchMixin:
         lang: str = DEFAULT_LANGUAGE,
     ) -> ListResult[ActRef]:
         self._validate_pagination(limit, offset)
+        normalized_tags = [tag.strip() for tag in tags if tag.strip()]
+        if not normalized_tags:
+            raise CellarValidationError("tags cannot be empty")
         query = build_search_by_eurovoc_query(
-            list(tags),
+            normalized_tags,
             resource_type=self._normalize_resource_type(resource_type),
             since=self._coerce_since(since),
             limit=limit,
@@ -60,8 +63,11 @@ class SearchMixin:
         lang: str = DEFAULT_LANGUAGE,
     ) -> ListResult[ActRef]:
         self._validate_pagination(limit, offset)
+        normalized_codes = [code.strip() for code in codes if code.strip()]
+        if not normalized_codes:
+            raise CellarValidationError("codes cannot be empty")
         query = build_search_by_subject_matter_query(
-            list(codes),
+            normalized_codes,
             resource_type=self._normalize_resource_type(resource_type),
             since=self._coerce_since(since),
             limit=limit,

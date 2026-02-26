@@ -32,6 +32,10 @@ class CellarHTTPError(CellarError):
         self.details = details or {}
 
 
+class CellarTimeoutError(CellarHTTPError):
+    """Raised when HTTP request times out."""
+
+
 class CellarRateLimitError(CellarHTTPError):
     """Raised when the endpoint responds with HTTP 429."""
 
@@ -42,6 +46,7 @@ class CellarRateLimitError(CellarHTTPError):
         status_code: int,
         url: str,
         retry_after: str | None,
+        retry_after_seconds: int | None = None,
         body_excerpt: str | None = None,
         details: dict[str, Any] | None = None,
     ) -> None:
@@ -53,10 +58,24 @@ class CellarRateLimitError(CellarHTTPError):
             details=details,
         )
         self.retry_after = retry_after
+        self.retry_after_seconds = retry_after_seconds
 
 
 class CellarSPARQLError(CellarError):
     """Raised when a SPARQL query fails or response is invalid."""
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        query: str | None = None,
+        response_excerpt: str | None = None,
+        details: dict[str, Any] | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.query = query
+        self.response_excerpt = response_excerpt
+        self.details = details or {}
 
 
 class CellarParseError(CellarError):

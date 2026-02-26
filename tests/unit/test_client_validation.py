@@ -84,6 +84,18 @@ def test_search_by_title_empty_keyword_raises_validation_error() -> None:
         client.search_by_title("   ")
 
 
+def test_search_by_eurovoc_empty_tags_raises_validation_error() -> None:
+    client = CellarClient(transport=FakeTransport())
+    with pytest.raises(CellarValidationError, match="tags cannot be empty"):
+        client.search_by_eurovoc([])
+
+
+def test_search_by_subject_matter_empty_codes_raises_validation_error() -> None:
+    client = CellarClient(transport=FakeTransport())
+    with pytest.raises(CellarValidationError, match="codes cannot be empty"):
+        client.search_by_subject_matter([" ", "\t"])
+
+
 def test_summary_download_uses_xhtml5_accept() -> None:
     def query_handler(query: str) -> dict[str, object]:
         if "summary_summarizes_work" in query:
@@ -115,3 +127,18 @@ def test_summary_download_uses_xhtml5_accept() -> None:
 
     assert payload.content_base64
     assert transport.downloads[0][1] == SUMMARY_ACCEPT
+
+
+def test_client_context_manager_closes_transport() -> None:
+    class ClosableTransport(FakeTransport):
+        def __init__(self) -> None:
+            super().__init__()
+            self.closed = False
+
+        def close(self) -> None:
+            self.closed = True
+
+    transport = ClosableTransport()
+    with CellarClient(transport=transport):
+        pass
+    assert transport.closed is True

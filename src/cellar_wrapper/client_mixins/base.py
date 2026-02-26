@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from datetime import UTC, date, datetime
+from types import TracebackType
 from typing import TypeVar, cast
 
 from cellar_wrapper.constants import (
@@ -51,6 +52,19 @@ class ClientBase:
     def close(self) -> None:
         """Close underlying HTTP resources."""
         self._transport.close()
+
+    def __enter__(self) -> ClientBase:
+        """Context-manager entry."""
+        return self
+
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc: BaseException | None,
+        tb: TracebackType | None,
+    ) -> None:
+        """Context-manager exit."""
+        self.close()
 
     def _normalize_celex(self, celex: str) -> str:
         normalized = celex.strip().upper()

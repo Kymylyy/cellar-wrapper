@@ -2,15 +2,15 @@
 
 from __future__ import annotations
 
-from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
+from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET, PREDICATES
 
 from .common import language_uri, limit_offset, quote_literal, with_prefixes
 
 CONCEPT_PREDICATES = frozenset(
     {
-        "cdm:work_is_about_concept_eurovoc",
-        "cdm:resource_legal_is_about_subject-matter",
-        "cdm:resource_legal_id_directory-code",
+        PREDICATES["work_is_about_concept_eurovoc"],
+        PREDICATES["subject_matter"],
+        PREDICATES["directory_code"],
     }
 )
 
@@ -27,7 +27,7 @@ def build_resolve_celex_query(celex: str, *, use_contains: bool) -> str:
 
     query = f"""
 SELECT DISTINCT ?work ?celex WHERE {{
-  ?work cdm:resource_legal_id_celex ?celex .
+  ?work {PREDICATES["resource_legal_id_celex"]} ?celex .
   {filter_clause}
 }}
 LIMIT 5
@@ -41,17 +41,17 @@ def build_get_act_query(work_uri: str, *, lang: str = DEFAULT_LANGUAGE) -> str:
     query = f"""
 SELECT DISTINCT ?work ?celex ?eli ?type ?inForce ?dateDocument ?dateEntryIntoForce ?dateEndOfValidity ?title WHERE {{
   BIND(<{work_uri}> AS ?work)
-  OPTIONAL {{ ?work cdm:resource_legal_id_celex ?celex }}
-  OPTIONAL {{ ?work cdm:resource_legal_eli ?eli }}
-  OPTIONAL {{ ?work cdm:work_has_resource-type ?type }}
-  OPTIONAL {{ ?work cdm:resource_legal_in-force ?inForce }}
-  OPTIONAL {{ ?work cdm:work_date_document ?dateDocument }}
-  OPTIONAL {{ ?work cdm:resource_legal_date_entry-into-force ?dateEntryIntoForce }}
-  OPTIONAL {{ ?work cdm:resource_legal_date_end-of-validity ?dateEndOfValidity }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_eli"]} ?eli }}
+  OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_in_force"]} ?inForce }}
+  OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?dateDocument }}
+  OPTIONAL {{ ?work {PREDICATES["entry_into_force"]} ?dateEntryIntoForce }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_date_end_of_validity"]} ?dateEndOfValidity }}
   OPTIONAL {{
-    ?expression cdm:expression_belongs_to_work ?work .
-    ?expression cdm:expression_uses_language <{lang_uri}> .
-    ?expression cdm:expression_title ?title .
+    ?expression {PREDICATES["expression_belongs_to_work"]} ?work .
+    ?expression {PREDICATES["expression_uses_language"]} <{lang_uri}> .
+    ?expression {PREDICATES["expression_title"]} ?title .
   }}
 }}
 LIMIT 1
@@ -89,28 +89,28 @@ def build_legal_basis_query(work_uri: str, *, limit: int, offset: int) -> str:
     query = f"""
 SELECT DISTINCT ?other ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
   {{
-    ?other cdm:resource_legal_based_on_resource_legal <{work_uri}> .
+    ?other {PREDICATES["based_on"]} <{work_uri}> .
     BIND('incoming' AS ?direction)
     BIND('based_on_resource_legal' AS ?relationType)
-    BIND('cdm:resource_legal_based_on_resource_legal' AS ?predicate)
+    BIND('{PREDICATES["based_on"]}' AS ?predicate)
   }} UNION {{
-    <{work_uri}> cdm:resource_legal_based_on_resource_legal ?other .
+    <{work_uri}> {PREDICATES["based_on"]} ?other .
     BIND('outgoing' AS ?direction)
     BIND('based_on_resource_legal' AS ?relationType)
-    BIND('cdm:resource_legal_based_on_resource_legal' AS ?predicate)
+    BIND('{PREDICATES["based_on"]}' AS ?predicate)
   }} UNION {{
-    <{work_uri}> cdm:resource_legal_based_on_concept_treaty ?other .
+    <{work_uri}> {PREDICATES["based_on_concept_treaty"]} ?other .
     BIND('outgoing' AS ?direction)
     BIND('based_on_concept_treaty' AS ?relationType)
-    BIND('cdm:resource_legal_based_on_concept_treaty' AS ?predicate)
+    BIND('{PREDICATES["based_on_concept_treaty"]}' AS ?predicate)
   }}
-  OPTIONAL {{ ?other cdm:resource_legal_id_celex ?celex }}
-  OPTIONAL {{ ?other cdm:work_date_document ?date }}
-  OPTIONAL {{ ?other cdm:work_has_resource-type ?type }}
+  OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
+  OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
+  OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
-    ?expr cdm:expression_belongs_to_work ?other .
-    ?expr cdm:expression_uses_language <{language_uri(DEFAULT_LANGUAGE)}> .
-    ?expr cdm:expression_title ?title .
+    ?expr {PREDICATES["expression_belongs_to_work"]} ?other .
+    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(DEFAULT_LANGUAGE)}> .
+    ?expr {PREDICATES["expression_title"]} ?title .
   }}
 }}
 ORDER BY DESC(?date)
@@ -123,9 +123,9 @@ def build_expressions_query(work_uri: str, *, limit: int, offset: int) -> str:
     """Build expressions query."""
     query = f"""
 SELECT DISTINCT ?expression ?lang ?title WHERE {{
-  ?expression cdm:expression_belongs_to_work <{work_uri}> .
-  OPTIONAL {{ ?expression cdm:expression_uses_language ?lang }}
-  OPTIONAL {{ ?expression cdm:expression_title ?title }}
+  ?expression {PREDICATES["expression_belongs_to_work"]} <{work_uri}> .
+  OPTIONAL {{ ?expression {PREDICATES["expression_uses_language"]} ?lang }}
+  OPTIONAL {{ ?expression {PREDICATES["expression_title"]} ?title }}
 }}
 ORDER BY ?lang
 {limit_offset(limit, offset)}

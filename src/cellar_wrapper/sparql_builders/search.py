@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 from datetime import date, datetime
 
-from cellar_wrapper.constants import DEFAULT_LANGUAGE
+from cellar_wrapper.constants import DEFAULT_LANGUAGE, PREDICATES
 
 from .common import (
     language_uri,
@@ -35,23 +35,23 @@ def build_search_by_eurovoc_query(
 
     type_clause = ""
     if resource_type is not None:
-        type_clause = f"?work cdm:work_has_resource-type <{resource_type_uri(resource_type)}> ."
+        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{resource_type_uri(resource_type)}> ."
 
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
-  ?work cdm:work_is_about_concept_eurovoc ?concept .
+  ?work {PREDICATES["work_is_about_concept_eurovoc"]} ?concept .
   OPTIONAL {{
     ?concept skos:prefLabel ?conceptLabel .
     FILTER(LANG(?conceptLabel) = 'en' || LANG(?conceptLabel) = '')
   }}
   FILTER({filter_clause})
-  OPTIONAL {{ ?work cdm:resource_legal_id_celex ?celex }}
-  OPTIONAL {{ ?work cdm:work_date_document ?date }}
-  OPTIONAL {{ ?work cdm:work_has_resource-type ?type }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
+  OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
+  OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
-    ?expr cdm:expression_belongs_to_work ?work .
-    ?expr cdm:expression_uses_language <{language_uri(lang)}> .
-    ?expr cdm:expression_title ?title .
+    ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
+    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+    ?expr {PREDICATES["expression_title"]} ?title .
   }}
   {type_clause}
   {since_filter("date", since)}
@@ -82,23 +82,23 @@ def build_search_by_subject_matter_query(
 
     type_clause = ""
     if resource_type is not None:
-        type_clause = f"?work cdm:work_has_resource-type <{resource_type_uri(resource_type)}> ."
+        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{resource_type_uri(resource_type)}> ."
 
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
-  ?work cdm:resource_legal_is_about_subject-matter ?concept .
+  ?work {PREDICATES["subject_matter"]} ?concept .
   OPTIONAL {{
     ?concept skos:prefLabel ?conceptLabel .
     FILTER(LANG(?conceptLabel) = 'en' || LANG(?conceptLabel) = '')
   }}
   FILTER({filter_clause})
-  OPTIONAL {{ ?work cdm:resource_legal_id_celex ?celex }}
-  OPTIONAL {{ ?work cdm:work_date_document ?date }}
-  OPTIONAL {{ ?work cdm:work_has_resource-type ?type }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
+  OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
+  OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
-    ?expr cdm:expression_belongs_to_work ?work .
-    ?expr cdm:expression_uses_language <{language_uri(lang)}> .
-    ?expr cdm:expression_title ?title .
+    ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
+    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+    ?expr {PREDICATES["expression_title"]} ?title .
   }}
   {type_clause}
   {since_filter("date", since)}
@@ -121,17 +121,17 @@ def build_search_by_title_query(
     """Build search by title keyword query."""
     type_clause = ""
     if resource_type is not None:
-        type_clause = f"?work cdm:work_has_resource-type <{resource_type_uri(resource_type)}> ."
+        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{resource_type_uri(resource_type)}> ."
 
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
-  ?expr cdm:expression_belongs_to_work ?work .
-  ?expr cdm:expression_uses_language <{language_uri(lang)}> .
-  ?expr cdm:expression_title ?title .
+  ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
+  ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+  ?expr {PREDICATES["expression_title"]} ?title .
   FILTER(CONTAINS(LCASE(STR(?title)), LCASE({quote_literal(keyword)})))
-  OPTIONAL {{ ?work cdm:resource_legal_id_celex ?celex }}
-  OPTIONAL {{ ?work cdm:work_date_document ?date }}
-  OPTIONAL {{ ?work cdm:work_has_resource-type ?type }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
+  OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
+  OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
   {type_clause}
   {since_filter("date", since)}
 }}
@@ -153,16 +153,16 @@ def build_search_communications_query(
     communic_uri = resource_type_uri("COMMUNIC")
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
-  ?work cdm:work_has_resource-type <{communic_uri}> .
-  OPTIONAL {{ ?work cdm:resource_legal_service_responsible ?service }}
+  ?work {PREDICATES["work_has_resource_type"]} <{communic_uri}> .
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_service_responsible"]} ?service }}
   FILTER(CONTAINS(UCASE(STR(?service)), UCASE({quote_literal(dg)})))
-  OPTIONAL {{ ?work cdm:resource_legal_id_celex ?celex }}
-  OPTIONAL {{ ?work cdm:work_date_document ?date }}
-  OPTIONAL {{ ?work cdm:work_has_resource-type ?type }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
+  OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
+  OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
-    ?expr cdm:expression_belongs_to_work ?work .
-    ?expr cdm:expression_uses_language <{language_uri(lang)}> .
-    ?expr cdm:expression_title ?title .
+    ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
+    ?expr {PREDICATES["expression_uses_language"]} <{language_uri(lang)}> .
+    ?expr {PREDICATES["expression_title"]} ?title .
   }}
   {since_filter("date", since)}
 }}

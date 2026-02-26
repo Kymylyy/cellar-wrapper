@@ -21,6 +21,7 @@ from cellar_wrapper.constants import (
     DEFAULT_WRITE_TIMEOUT,
     MAX_BACKOFF_SECONDS,
     RETRY_STATUS_CODES,
+    SPARQL_POST_FALLBACK_STATUS_CODES,
 )
 from cellar_wrapper.errors import (
     CellarHTTPError,
@@ -136,6 +137,7 @@ class HttpTransport:
         url: str,
         *,
         params: dict[str, str] | None = None,
+        data: dict[str, str] | None = None,
         headers: dict[str, str] | None = None,
     ) -> httpx.Response:
         last_response: httpx.Response | None = None
@@ -145,6 +147,7 @@ class HttpTransport:
                     method=method,
                     url=url,
                     params=params,
+                    data=data,
                     headers=headers,
                 )
             except httpx.TimeoutException as exc:
@@ -210,12 +213,26 @@ class HttpTransport:
 
     def query_sparql(self, query: str) -> dict[str, Any]:
         """Execute SPARQL query and return JSON payload."""
-        response = self._request_with_retry(
-            "GET",
-            self._sparql_endpoint,
-            params={"query": query, "format": "application/sparql-results+json"},
-            headers={"Accept": "application/sparql-results+json"},
-        )
+        accept = "application/sparql-results+json"
+        request_payload = {"query": query, "format": accept}
+        headers = {"Accept": accept, "Content-Type": "application/x-www-form-urlencoded"}
+
+        try:
+            response = self._request_with_retry(
+                "POST",
+                self._sparql_endpoint,
+                data=request_payload,
+                headers=headers,
+            )
+        except CellarHTTPError as exc:
+            if exc.status_code not in SPARQL_POST_FALLBACK_STATUS_CODES:
+                raise
+            response = self._request_with_retry(
+                "GET",
+                self._sparql_endpoint,
+                params=request_payload,
+                headers={"Accept": accept},
+            )
         try:
             payload = response.json()
         except ValueError as exc:  # pragma: no cover - defensive guard

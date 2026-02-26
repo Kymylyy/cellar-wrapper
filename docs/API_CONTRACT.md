@@ -24,6 +24,7 @@ CellarClient(
 - `QueryMeta(query_name, endpoint, executed_at, limit, offset)`
 - `ListResult[T](items, returned_count, meta)`
 - `ActRef`, `ActDetail`, `RelationItem`, `CaseLawItem`, `EurovocTag`, `SubjectMatterTag`, `ExpressionItem`, `DocumentPayload`
+- Date-like model fields (`ActRef.date`, `ActDetail.date_*`) are parsed into typed `date | datetime`.
 
 `RelationItem` may include article-level annotation fields for `get_article_annotations`:
 - `annotation_uri`
@@ -52,6 +53,8 @@ CellarClient(
 `CellarSPARQLError` carries context fields (`query`, `response_excerpt`) for diagnostics.
 
 ## HTTP behavior
+- SPARQL queries are sent with `POST` (`application/x-www-form-urlencoded`) by default.
+- Transport falls back to `GET` for SPARQL when `POST` is not supported (`405`, `415`, `501`).
 - Retry status codes: `429, 502, 503, 504`.
 - Attempts: `3` total.
 - Backoff: exponential + jitter, capped per-attempt.

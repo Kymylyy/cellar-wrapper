@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
-from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
+from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET, PREDICATES
 from cellar_wrapper.errors import CellarNotFoundError
 from cellar_wrapper.models import (
     ActDetail,
@@ -73,7 +73,7 @@ class LookupMixin:
         self._validate_pagination(limit, offset)
         query = build_concept_query(
             self._resolve_work_uri(celex),
-            predicate="cdm:work_is_about_concept_eurovoc",
+            predicate=PREDICATES["work_is_about_concept_eurovoc"],
             limit=limit,
             offset=offset,
         )
@@ -95,7 +95,7 @@ class LookupMixin:
         self._validate_pagination(limit, offset)
         query = build_concept_query(
             self._resolve_work_uri(celex),
-            predicate="cdm:resource_legal_is_about_subject-matter",
+            predicate=PREDICATES["subject_matter"],
             limit=limit,
             offset=offset,
         )
@@ -134,7 +134,7 @@ class LookupMixin:
         self._validate_pagination(limit, offset)
         query = build_concept_query(
             self._resolve_work_uri(celex),
-            predicate="cdm:resource_legal_id_directory-code",
+            predicate=PREDICATES["directory_code"],
             limit=limit,
             offset=offset,
         )

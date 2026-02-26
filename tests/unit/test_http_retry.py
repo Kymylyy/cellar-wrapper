@@ -14,8 +14,13 @@ from cellar_wrapper.errors import (
 from cellar_wrapper.http import HttpTransport
 
 
-def _response(status_code: int, *, json_body: dict[str, object] | None = None) -> httpx.Response:
-    request = httpx.Request("GET", "https://example.test/sparql")
+def _response(
+    status_code: int,
+    *,
+    json_body: dict[str, object] | None = None,
+    method: str = "POST",
+) -> httpx.Response:
+    request = httpx.Request(method, "https://example.test/sparql")
     if json_body is not None:
         return httpx.Response(status_code, request=request, json=json_body)
     return httpx.Response(status_code, request=request, text="error")
@@ -47,6 +52,42 @@ def test_retry_on_503_then_success(monkeypatch: pytest.MonkeyPatch) -> None:
     payload = transport.query_sparql("SELECT * WHERE { ?s ?p ?o }")
     assert payload == {"results": {"bindings": []}}
     assert calls["count"] == 2
+    transport.close()
+
+
+def test_query_sparql_uses_post_on_success(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(sparql_endpoint="https://example.test/sparql", retries=1)
+    methods: list[str] = []
+
+    def fake_request(*args: object, **kwargs: object) -> httpx.Response:
+        method = kwargs["method"]
+        methods.append(method)
+        return _response(200, json_body={"results": {"bindings": []}}, method=method)
+
+    monkeypatch.setattr(transport._client, "request", fake_request)
+
+    payload = transport.query_sparql("SELECT * WHERE { ?s ?p ?o }")
+    assert payload == {"results": {"bindings": []}}
+    assert methods == ["POST"]
+    transport.close()
+
+
+def test_query_sparql_falls_back_to_get_when_post_not_supported(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(sparql_endpoint="https://example.test/sparql", retries=1)
+    methods: list[str] = []
+
+    def fake_request(*args: object, **kwargs: object) -> httpx.Response:
+        method = kwargs["method"]
+        methods.append(method)
+        if method == "POST":
+            return _response(405, method=method)
+        return _response(200, json_body={"results": {"bindings": []}}, method=method)
+
+    monkeypatch.setattr(transport._client, "request", fake_request)
+
+    payload = transport.query_sparql("SELECT * WHERE { ?s ?p ?o }")
+    assert payload == {"results": {"bindings": []}}
+    assert methods == ["POST", "GET"]
     transport.close()
 
 

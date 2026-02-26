@@ -9,6 +9,7 @@ from cellar_wrapper.constants import (
     DEFAULT_LIMIT,
     DEFAULT_OFFSET,
     LANGUAGE_URI_TEMPLATE,
+    PREDICATES,
     RESOURCE_TYPE_URI_TEMPLATE,
     SPARQL_PREFIXES,
 )
@@ -77,4 +78,4 @@ def resource_type_clause(resource_type: str | None) -> str:
     """Render optional resource-type filter clause."""
     if resource_type is None:
         return ""
-    return f"?other cdm:work_has_resource-type <{resource_type_uri(resource_type)}> ."
+    return f"?other {PREDICATES['work_has_resource_type']} <{resource_type_uri(resource_type)}> ."

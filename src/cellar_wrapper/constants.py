@@ -18,6 +18,7 @@ DEFAULT_POOL_TIMEOUT = 30.0
 DEFAULT_RETRIES = 3
 RETRY_STATUS_CODES = frozenset({429, 502, 503, 504})
 MAX_BACKOFF_SECONDS = 8.0
+SPARQL_POST_FALLBACK_STATUS_CODES = frozenset({405, 415, 501})
 
 SPARQL_PREFIXES = """
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -42,23 +43,50 @@ LANGUAGE_URI_TEMPLATE = "http://publications.europa.eu/resource/authority/langua
 RESOURCE_TYPE_URI_TEMPLATE = "http://publications.europa.eu/resource/authority/resource-type/{resource_type}"
 
 PREDICATES = {
+    "resource_legal_id_celex": "cdm:resource_legal_id_celex",
+    "resource_legal_eli": "cdm:resource_legal_eli",
+    "work_has_resource_type": "cdm:work_has_resource-type",
+    "resource_legal_in_force": "cdm:resource_legal_in-force",
+    "work_date_document": "cdm:work_date_document",
+    "resource_legal_date_end_of_validity": "cdm:resource_legal_date_end-of-validity",
+    "expression_belongs_to_work": "cdm:expression_belongs_to_work",
+    "expression_uses_language": "cdm:expression_uses_language",
+    "expression_title": "cdm:expression_title",
+    "resource_legal_service_responsible": "cdm:resource_legal_service_responsible",
+    "case_law_ecli": "cdm:case-law_ecli",
+    "case_law_delivered_by_court_formation": "cdm:case-law_delivered_by_court-formation",
+    "case_law_delivered_by_advocate_general": "cdm:case-law_delivered_by_advocate-general",
+    "work_is_about_concept_eurovoc": "cdm:work_is_about_concept_eurovoc",
+    "subject_matter": "cdm:resource_legal_is_about_subject-matter",
+    "directory_code": "cdm:resource_legal_id_directory-code",
     "amends": "cdm:resource_legal_amends_resource_legal",
     "repeals": "cdm:resource_legal_repeals_resource_legal",
     "implicitly_repeals": "cdm:resource_legal_implicitly_repeals_resource_legal",
     "cites": "cdm:work_cites_work",
     "based_on": "cdm:resource_legal_based_on_resource_legal",
+    "based_on_concept_treaty": "cdm:resource_legal_based_on_concept_treaty",
     "completes": "cdm:resource_legal_completes_resource_legal",
     "proposes_to_amend": "cdm:resource_legal_proposes_to_amend_resource_legal",
     "adopts": "cdm:resource_legal_adopts_resource_legal",
     "related": "cdm:work_related_to_work",
+    "dossier_contains_work": "cdm:dossier_contains_work",
+    "contains_eesc_opinion": "cdm:resource_legal_contains_eesc_opinion_on_resource_legal",
+    "contains_ep_opinion": "cdm:resource_legal_contains_ep_opinion_on_resource_legal",
     "suspends": "cdm:resource_legal_suspends_resource_legal",
     "partially_suspends": "cdm:resource_legal_partially_suspends_resource_legal",
     "defers_application": "cdm:resource_legal_defers_application_of_resource_legal",
     "renders_obsolete": "cdm:resource_legal_renders_obsolete_resource_legal",
     "influences": "cdm:resource_legal_influences_resource_legal",
+    "deadline": "cdm:resource_legal_date_deadline",
+    "entry_into_force": "cdm:resource_legal_date_entry-into-force",
+    "directive_transposition": "cdm:directive_date_transposition",
     "consolidates": "cdm:act_consolidated_consolidates_resource_legal",
     "corrects": "cdm:resource_legal_corrects_resource_legal",
     "nims": "cdm:measure_national_implementing_implements_resource_legal",
     "cjeu_interprets": "cdm:case-law_interpretes_resource_legal",
+    "ag_opinion": "cdm:case-law_has_conclusions_opinion_advocate-general",
+    "national_act_reference": "cdm:case-law_national_act_reference_european",
     "preliminary_questions": "cdm:communication_case_new_submits_preliminary_question_resource_legal",
+    "summary_summarizes_work": "cdm:summary_summarizes_work",
+    "summary_legislation_summarizes_resource_legal": "cdm:summary_legislation_eu_summarizes_resource_legal",
 }

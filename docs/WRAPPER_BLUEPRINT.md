@@ -191,7 +191,7 @@ Pełna ścieżka proceduralna propozycji od złożenia do przyjęcia.
 | Jakie dokumenty są w dossier? | Propozycja COM, opinia EESC, opinia ECB, opinia EDPS, stanowisko EP, stanowisko Rady... |
 | Na jakim etapie jest procedura? | Trilog / Pierwsze czytanie / Przyjęty |
 
-Właściwość: `work_part_of_dossier`
+Właściwość: `dossier_contains_work`
 
 **Dotyczy:** propozycje legislacyjne
 

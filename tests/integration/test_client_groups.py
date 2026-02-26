@@ -153,10 +153,17 @@ def test_lookup_group_get_eurovoc_applies_limit_offset() -> None:
 
 
 def test_download_group_get_text() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return _resolver_payload()
+        return sparql_payload([])
+
     def download_handler(url: str, accept: str, language: str | None) -> tuple[bytes, str, str]:
         return (b"abc", "application/pdf", url)
 
-    client = CellarClient(transport=FakeTransport(download_handler=download_handler))
+    client = CellarClient(
+        transport=FakeTransport(query_handler=query_handler, download_handler=download_handler)
+    )
     payload = client.get_text("32022R2554", format="pdf")
     assert payload.content_type == "application/pdf"
     assert payload.content_base64 == "YWJj"

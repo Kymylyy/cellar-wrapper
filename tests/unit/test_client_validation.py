@@ -4,7 +4,7 @@ import pytest
 
 from cellar_wrapper.client import CellarClient
 from cellar_wrapper.constants import SUMMARY_ACCEPT
-from cellar_wrapper.errors import CellarNotFoundError, CellarValidationError
+from cellar_wrapper.errors import CellarHTTPError, CellarNotFoundError, CellarValidationError
 from tests.helpers import FakeTransport, sparql_payload, sparql_row
 
 
@@ -111,6 +111,35 @@ def test_search_by_subject_matter_empty_codes_raises_validation_error() -> None:
     client = CellarClient(transport=FakeTransport())
     with pytest.raises(CellarValidationError, match="codes cannot be empty"):
         client.search_by_subject_matter([" ", "\t"])
+
+
+def test_get_text_missing_celex_raises_not_found() -> None:
+    client = CellarClient(transport=FakeTransport())
+    with pytest.raises(CellarNotFoundError, match="CELEX not found"):
+        client.get_text("32022R2554")
+
+
+def test_get_text_404_download_raises_not_found() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return sparql_payload(
+                [
+                    sparql_row(
+                        work="http://publications.europa.eu/resource/cellar/act",
+                        celex="32022R2554",
+                    )
+                ]
+            )
+        return sparql_payload([])
+
+    def download_handler(url: str, _accept: str, _language: str | None) -> tuple[bytes, str, str]:
+        raise CellarHTTPError("HTTP error 404", status_code=404, url=url)
+
+    client = CellarClient(
+        transport=FakeTransport(query_handler=query_handler, download_handler=download_handler)
+    )
+    with pytest.raises(CellarNotFoundError, match="No document content found for CELEX"):
+        client.get_text("32022R2554")
 
 
 def test_summary_download_uses_xhtml5_accept() -> None:

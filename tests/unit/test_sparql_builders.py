@@ -11,6 +11,7 @@ from cellar_wrapper.sparql import (
     build_relation_query,
     build_resolve_celex_query,
     build_search_by_eurovoc_query,
+    build_search_by_subject_matter_query,
     build_search_communications_query,
 )
 from cellar_wrapper.sparql_builders.common import quote_literal, safe_iri, since_filter
@@ -24,6 +25,12 @@ def test_build_resolve_celex_exact_uses_equals_filter() -> None:
 def test_build_resolve_celex_contains_fallback() -> None:
     query = build_resolve_celex_query("32022R2554", use_contains=True)
     assert "CONTAINS(UCASE(STR(?celex)), '2022R2554')" in query
+    assert "LIMIT 20" in query
+
+
+def test_build_resolve_celex_exact_uses_smaller_limit() -> None:
+    query = build_resolve_celex_query("32022R2554", use_contains=False)
+    assert "LIMIT 5" in query
 
 
 def test_relation_query_uses_since_date_time_filter() -> None:
@@ -88,6 +95,20 @@ def test_search_by_eurovoc_query_matches_labels_only() -> None:
     )
     assert "CONTAINS(LCASE(STR(?conceptLabel))" in query
     assert "CONTAINS(LCASE(STR(?concept))" not in query
+    assert "?concept skos:prefLabel ?conceptLabel ." in query
+    assert "OPTIONAL {\n    ?concept skos:prefLabel ?conceptLabel ." not in query
+
+
+def test_search_by_subject_matter_query_requires_concept_label_binding() -> None:
+    query = build_search_by_subject_matter_query(
+        ["10.40.00"],
+        resource_type=None,
+        since=None,
+        limit=50,
+        offset=0,
+    )
+    assert "?concept skos:prefLabel ?conceptLabel ." in query
+    assert "OPTIONAL {\n    ?concept skos:prefLabel ?conceptLabel ." not in query
 
 
 def test_article_annotations_query_requests_article_level_qualifiers() -> None:
@@ -126,6 +147,19 @@ def test_relation_query_rejects_bad_direction() -> None:
             limit=10,
             offset=0,
         )
+
+
+def test_relation_query_escapes_bind_relation_type_literal() -> None:
+    query = build_relation_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        predicates=[PredicateSpec("cdm:work_cites_work", "rel'ation")],
+        direction="incoming",
+        since=None,
+        resource_type=None,
+        limit=10,
+        offset=0,
+    )
+    assert r"BIND('rel\'ation' AS ?relationType)" in query
 
 
 def test_safe_iri_accepts_valid_http_iri() -> None:

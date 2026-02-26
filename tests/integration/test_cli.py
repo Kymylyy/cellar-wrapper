@@ -81,6 +81,14 @@ def test_cli_retries_validation_returns_json(capsys: pytest.CaptureFixture[str])
     assert payload["error"]["type"] == "CellarValidationError"
 
 
+def test_cli_timeout_validation_returns_json(capsys: pytest.CaptureFixture[str]) -> None:
+    exit_code = cli.run(["--timeout-connect", "0", "lookup", "resolve-celex", "--celex", "32022R2554"])
+    assert exit_code == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is False
+    assert payload["error"]["type"] == "CellarValidationError"
+
+
 def test_cli_rejects_since_for_get_deadlines(capsys: pytest.CaptureFixture[str]) -> None:
     exit_code = cli.run(
         [

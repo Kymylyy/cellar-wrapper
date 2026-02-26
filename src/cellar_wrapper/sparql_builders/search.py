@@ -44,10 +44,8 @@ def build_search_by_eurovoc_query(
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   ?work {PREDICATES["work_is_about_concept_eurovoc"]} ?concept .
-  OPTIONAL {{
-    ?concept skos:prefLabel ?conceptLabel .
-    FILTER(LANG(?conceptLabel) = 'en' || LANG(?conceptLabel) = '')
-  }}
+  ?concept skos:prefLabel ?conceptLabel .
+  FILTER(LANG(?conceptLabel) = 'en' || LANG(?conceptLabel) = '')
   FILTER({filter_clause})
   OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
@@ -93,10 +91,8 @@ def build_search_by_subject_matter_query(
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   ?work {PREDICATES["subject_matter"]} ?concept .
-  OPTIONAL {{
-    ?concept skos:prefLabel ?conceptLabel .
-    FILTER(LANG(?conceptLabel) = 'en' || LANG(?conceptLabel) = '')
-  }}
+  ?concept skos:prefLabel ?conceptLabel .
+  FILTER(LANG(?conceptLabel) = 'en' || LANG(?conceptLabel) = '')
   FILTER({filter_clause})
   OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}

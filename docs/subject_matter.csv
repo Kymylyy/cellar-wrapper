@@ -1,0 +1,386 @@
+code,label_en,usage_count,full_uri
+EXT,External relations,35153,http://publications.europa.eu/resource/authority/subject-matter/EXT
+CONC,Competition,30201,http://publications.europa.eu/resource/authority/subject-matter/CONC
+AGRI,Agriculture and Fisheries,28411,http://publications.europa.eu/resource/authority/subject-matter/AGRI
+PCOM,Commercial policy,25369,http://publications.europa.eu/resource/authority/subject-matter/PCOM
+RAPL,Approximation of laws,23089,http://publications.europa.eu/resource/authority/subject-matter/RAPL
+MARI,Internal market - Principles,20161,http://publications.europa.eu/resource/authority/subject-matter/MARI
+ENV,Environment,19188,http://publications.europa.eu/resource/authority/subject-matter/ENV
+MERG,Concentrations between undertakings,16655,http://publications.europa.eu/resource/authority/subject-matter/MERG
+TRAN,Transport,16474,http://publications.europa.eu/resource/authority/subject-matter/TRAN
+PESC,Common foreign and security policy,16289,http://publications.europa.eu/resource/authority/subject-matter/PESC
+PROT,Consumer protection,15531,http://publications.europa.eu/resource/authority/subject-matter/PROT
+INST,Provisions governing the Institutions,14400,http://publications.europa.eu/resource/authority/subject-matter/INST
+PECH,Fisheries policy,13386,http://publications.europa.eu/resource/authority/subject-matter/PECH
+AIDE,State aids,13272,http://publications.europa.eu/resource/authority/subject-matter/AIDE
+FIN,Financial provisions,10580,http://publications.europa.eu/resource/authority/subject-matter/FIN
+BUDG,Budget,10464,http://publications.europa.eu/resource/authority/subject-matter/BUDG
+VETE,Veterinary legislation,10376,http://publications.europa.eu/resource/authority/subject-matter/VETE
+FISC,Taxation,9681,http://publications.europa.eu/resource/authority/subject-matter/FISC
+SOCI,Social provisions,9180,http://publications.europa.eu/resource/authority/subject-matter/SOCI
+ADH,Accession,9168,http://publications.europa.eu/resource/authority/subject-matter/ADH
+SANT,Public health,8999,http://publications.europa.eu/resource/authority/subject-matter/SANT
+LES,Freedom of establishment,8831,http://publications.europa.eu/resource/authority/subject-matter/LES
+PROP,"Intellectual, industrial and commercial property",8375,http://publications.europa.eu/resource/authority/subject-matter/PROP
+AELE,European Free Trade Association (EFTA),8316,http://publications.europa.eu/resource/authority/subject-matter/AELE
+LCM,Free movement of goods,8038,http://publications.europa.eu/resource/authority/subject-matter/LCM
+LAIT,Milk products,7630,http://publications.europa.eu/resource/authority/subject-matter/LAIT
+D-AL,Foodstuffs,7566,http://publications.europa.eu/resource/authority/subject-matter/D-AL
+STAT,Staff regulations and employment conditions - EC,7080,http://publications.europa.eu/resource/authority/subject-matter/STAT
+ENER,Energy,6628,http://publications.europa.eu/resource/authority/subject-matter/ENER
+TDCM,CCT: derogations,6253,http://publications.europa.eu/resource/authority/subject-matter/TDCM
+TDC,Common customs tariff,6152,http://publications.europa.eu/resource/authority/subject-matter/TDC
+DUMP,Dumping,6146,http://publications.europa.eu/resource/authority/subject-matter/DUMP
+INFO,Information and verification,6087,http://publications.europa.eu/resource/authority/subject-matter/INFO
+ETEC,Technical barriers,6077,http://publications.europa.eu/resource/authority/subject-matter/ETEC
+ASSO,Association Agreement,5868,http://publications.europa.eu/resource/authority/subject-matter/ASSO
+CERE,Cereals,5683,http://publications.europa.eu/resource/authority/subject-matter/CERE
+MARQ,Trade marks,5405,http://publications.europa.eu/resource/authority/subject-matter/MARQ
+FEOG,European Agricultural Guidance and Guarantee Fund (EAGGF),5348,http://publications.europa.eu/resource/authority/subject-matter/FEOG
+CECC,Brussels Convention of 27 September 1968,5154,http://publications.europa.eu/resource/authority/subject-matter/CECC
+RDT,Research and technological development,5152,http://publications.europa.eu/resource/authority/subject-matter/RDT
+PECO,Economic policy,5145,http://publications.europa.eu/resource/authority/subject-matter/PECO
+PRIN,"Principles, objectives and tasks of the Treaties",5120,http://publications.europa.eu/resource/authority/subject-matter/PRIN
+DDLH,Human rights,5012,http://publications.europa.eu/resource/authority/subject-matter/DDLH
+F-L,Fruit and vegetables,4973,http://publications.europa.eu/resource/authority/subject-matter/F-L
+COJC,Judicial cooperation in civil matters,4879,http://publications.europa.eu/resource/authority/subject-matter/COJC
+TVA,Value added tax,4753,http://publications.europa.eu/resource/authority/subject-matter/TVA
+J-AI,Justice and home affairs,4737,http://publications.europa.eu/resource/authority/subject-matter/J-AI
+UD,Customs Union,4572,http://publications.europa.eu/resource/authority/subject-matter/UD
+ETAB,Right of establishment,4520,http://publications.europa.eu/resource/authority/subject-matter/ETAB
+ELSJ,"Area of freedom, security and justice",4409,http://publications.europa.eu/resource/authority/subject-matter/ELSJ
+ENTR,"Agreements, decisions and concerted practices",4387,http://publications.europa.eu/resource/authority/subject-matter/ENTR
+CDEV,Development cooperation,4335,http://publications.europa.eu/resource/authority/subject-matter/CDEV
+BOV,Beef and veal,4334,http://publications.europa.eu/resource/authority/subject-matter/BOV
+LCT,Free movement of workers,4333,http://publications.europa.eu/resource/authority/subject-matter/LCT
+VIN,Wine,4294,http://publications.europa.eu/resource/authority/subject-matter/VIN
+SOPO,Social Policy,4251,http://publications.europa.eu/resource/authority/subject-matter/SOPO
+ALIM,Food aid,4194,http://publications.europa.eu/resource/authority/subject-matter/ALIM
+SERV,Freedom to provide services,4073,http://publications.europa.eu/resource/authority/subject-matter/SERV
+PHYT,Plant health legislation,3921,http://publications.europa.eu/resource/authority/subject-matter/PHYT
+STRA,Agricultural structures,3707,http://publications.europa.eu/resource/authority/subject-matter/STRA
+COOP,Cooperation,3690,http://publications.europa.eu/resource/authority/subject-matter/COOP
+UEM,Economic and Monetary Union,3656,http://publications.europa.eu/resource/authority/subject-matter/UEM
+TELE,Telecommunications,3389,http://publications.europa.eu/resource/authority/subject-matter/TELE
+SESO,Social security for migrant workers,3385,http://publications.europa.eu/resource/authority/subject-matter/SESO
+PREG,Regional policy,3315,http://publications.europa.eu/resource/authority/subject-matter/PREG
+COES,"Economic, social and territorial cohesion",3289,http://publications.europa.eu/resource/authority/subject-matter/COES
+MGRA,Oils and fats,3172,http://publications.europa.eu/resource/authority/subject-matter/MGRA
+IMPL,Provisions under Article 235 EEC,3108,http://publications.europa.eu/resource/authority/subject-matter/IMPL
+EFPJ,"Education, vocational training and youth",3067,http://publications.europa.eu/resource/authority/subject-matter/EFPJ
+EMPL,Employment,3034,http://publications.europa.eu/resource/authority/subject-matter/EMPL
+IFMS,"Food – ingredients, traces, residues, marketing standards",2999,http://publications.europa.eu/resource/authority/subject-matter/IFMS
+AL-A,Animal feedingstuffs,2990,http://publications.europa.eu/resource/authority/subject-matter/AL-A
+LCP,Free movement of persons,2808,http://publications.europa.eu/resource/authority/subject-matter/LCP
+LCC,Free movement of capital,2721,http://publications.europa.eu/resource/authority/subject-matter/LCC
+SAUV,Protective measures,2690,http://publications.europa.eu/resource/authority/subject-matter/SAUV
+IPRO,Intellectual property,2672,http://publications.europa.eu/resource/authority/subject-matter/IPRO
+MONA,Monetary measures in the field of agriculture,2602,http://publications.europa.eu/resource/authority/subject-matter/MONA
+TXTL,Textiles,2596,http://publications.europa.eu/resource/authority/subject-matter/TXTL
+PEM,Economic and monetary policy,2471,http://publications.europa.eu/resource/authority/subject-matter/PEM
+RSTR,Quantitative restrictions,2446,http://publications.europa.eu/resource/authority/subject-matter/RSTR
+ACP,"African, Caribbean and Pacific States (ACP)",2439,http://publications.europa.eu/resource/authority/subject-matter/ACP
+SIDE,Steel industry,2436,http://publications.europa.eu/resource/authority/subject-matter/SIDE
+SUCR,Sugar,2427,http://publications.europa.eu/resource/authority/subject-matter/SUCR
+DISC,Anti-discrimination,2350,http://publications.europa.eu/resource/authority/subject-matter/DISC
+SECU,Safety at work and elsewhere,2238,http://publications.europa.eu/resource/authority/subject-matter/SECU
+MEEQ,Measures having equivalent effect,2076,http://publications.europa.eu/resource/authority/subject-matter/MEEQ
+INDU,Industry,1954,http://publications.europa.eu/resource/authority/subject-matter/INDU
+IMMI,Immigration and asylum policy,1842,http://publications.europa.eu/resource/authority/subject-matter/IMMI
+DGEN,General provisions,1831,http://publications.europa.eu/resource/authority/subject-matter/DGEN
+IOTR,Other,1813,http://publications.europa.eu/resource/authority/subject-matter/IOTR
+CULT,Culture,1710,http://publications.europa.eu/resource/authority/subject-matter/CULT
+TECN,Technology,1691,http://publications.europa.eu/resource/authority/subject-matter/TECN
+RPRE,Preferential systems,1629,http://publications.europa.eu/resource/authority/subject-matter/RPRE
+CORP:OP_DATPRO,Provisional data,1616,http://publications.europa.eu/resource/authority/corporate-body/OP_DATPRO
+RIZ,Rice,1609,http://publications.europa.eu/resource/authority/subject-matter/RIZ
+SEME,Seeds and seedlings,1606,http://publications.europa.eu/resource/authority/subject-matter/SEME
+RECH,Research and training,1530,http://publications.europa.eu/resource/authority/subject-matter/RECH
+PORC,Pigmeat,1522,http://publications.europa.eu/resource/authority/subject-matter/PORC
+NUCL,Nuclear common market,1491,http://publications.europa.eu/resource/authority/subject-matter/NUCL
+COOR,Coordination of structural instruments,1475,http://publications.europa.eu/resource/authority/subject-matter/COOR
+RECO,Judicial proceedings,1398,http://publications.europa.eu/resource/authority/subject-matter/RECO
+PME,Small and medium-sized enterprises,1390,http://publications.europa.eu/resource/authority/subject-matter/PME
+O-V,Eggs and poultry,1374,http://publications.europa.eu/resource/authority/subject-matter/O-V
+TDCC,Customs duties: Community tariff quotas,1369,http://publications.europa.eu/resource/authority/subject-matter/TDCC
+CONT,Quotas - third countries,1354,http://publications.europa.eu/resource/authority/subject-matter/CONT
+DFON,Fundamental rights,1353,http://publications.europa.eu/resource/authority/subject-matter/DFON
+IPBI,"Pesticides, biocides",1344,http://publications.europa.eu/resource/authority/subject-matter/IPBI
+CLUG,Lugano Convention,1318,http://publications.europa.eu/resource/authority/subject-matter/CLUG
+CIT,Citizenship of the Union,1296,http://publications.europa.eu/resource/authority/subject-matter/CIT
+COJP,Judicial cooperation in criminal matters,1270,http://publications.europa.eu/resource/authority/subject-matter/COJP
+MARC,Public procurement in the European Union,1248,http://publications.europa.eu/resource/authority/subject-matter/MARC
+IANO,"Live animals, germinal products and products of animal origin",1202,http://publications.europa.eu/resource/authority/subject-matter/IANO
+RTR,Trans-European networks,1154,http://publications.europa.eu/resource/authority/subject-matter/RTR
+POSI,Dominant position,1130,http://publications.europa.eu/resource/authority/subject-matter/POSI
+RPRO,Own resources,1119,http://publications.europa.eu/resource/authority/subject-matter/RPRO
+HARO,Harmonisation of customs law: origin of goods,1092,http://publications.europa.eu/resource/authority/subject-matter/HARO
+TABA,Tobacco,1091,http://publications.europa.eu/resource/authority/subject-matter/TABA
+ASIL,Asylum policy,1077,http://publications.europa.eu/resource/authority/subject-matter/ASIL
+OVIN,Sheepmeat and goatmeat,1072,http://publications.europa.eu/resource/authority/subject-matter/OVIN
+FINC,Financial provisions ECSC,1048,http://publications.europa.eu/resource/authority/subject-matter/FINC
+PRIV,Privileges and immunities,1046,http://publications.europa.eu/resource/authority/subject-matter/PRIV
+GATT,General Agreement on Tariffs and Trade (GATT),1039,http://publications.europa.eu/resource/authority/subject-matter/GATT
+FLT,Processed fruit and vegetables,1031,http://publications.europa.eu/resource/authority/subject-matter/FLT
+c_962003de,Legal framework of the ESCB,1030,http://publications.europa.eu/resource/authority/subject-matter/c_962003de
+INFQ,Electronic data processing,998,http://publications.europa.eu/resource/authority/subject-matter/INFQ
+FSE,European Social Fund (ESF),987,http://publications.europa.eu/resource/authority/subject-matter/FSE
+ACTE,Acts of the institutions,979,http://publications.europa.eu/resource/authority/subject-matter/ACTE
+CONJ,Conjunctural policy,953,http://publications.europa.eu/resource/authority/subject-matter/CONJ
+OCM,Common organisation of agricultural markets,925,http://publications.europa.eu/resource/authority/subject-matter/OCM
+CHDF,Charter of Fundamental Rights,886,http://publications.europa.eu/resource/authority/subject-matter/CHDF
+POLL,Pollution,860,http://publications.europa.eu/resource/authority/subject-matter/POLL
+ITDI,Trade defence instruments,838,http://publications.europa.eu/resource/authority/subject-matter/ITDI
+IFPH,Feed – products and hygiene,833,http://publications.europa.eu/resource/authority/subject-matter/IFPH
+ASSI,Assistance,818,http://publications.europa.eu/resource/authority/subject-matter/ASSI
+FED,European Development Fund (EDF),811,http://publications.europa.eu/resource/authority/subject-matter/FED
+BCE,European Central Bank (ECB),784,http://publications.europa.eu/resource/authority/subject-matter/BCE
+PTOM,Overseas countries and territories,782,http://publications.europa.eu/resource/authority/subject-matter/PTOM
+c_b1a922fd,Financial market stability,770,http://publications.europa.eu/resource/authority/subject-matter/c_b1a922fd
+HARV,Harmonisation of customs law: value for customs purposes,754,http://publications.europa.eu/resource/authority/subject-matter/HARV
+FEDE,European Regional Development Fund (ERDF),746,http://publications.europa.eu/resource/authority/subject-matter/FEDE
+IOVC,"Official controls, veterinary checks",746,http://publications.europa.eu/resource/authority/subject-matter/IOVC
+TEEQ,Charges having an equivalent effect,711,http://publications.europa.eu/resource/authority/subject-matter/TEEQ
+PDON,Data protection,701,http://publications.europa.eu/resource/authority/subject-matter/PDON
+BEI,European Investment Bank (EIB),695,http://publications.europa.eu/resource/authority/subject-matter/BEI
+SANI,Health and safety,671,http://publications.europa.eu/resource/authority/subject-matter/SANI
+TDCF,CCT: franchise,652,http://publications.europa.eu/resource/authority/subject-matter/TDCF
+INV,Investments,639,http://publications.europa.eu/resource/authority/subject-matter/INV
+DECH,Waste,614,http://publications.europa.eu/resource/authority/subject-matter/DECH
+HUMA,Humanitarian aid,597,http://publications.europa.eu/resource/authority/subject-matter/HUMA
+CECA,ECSC matters,585,http://publications.europa.eu/resource/authority/subject-matter/CECA
+ALCO,Alcohol,569,http://publications.europa.eu/resource/authority/subject-matter/ALCO
+PRAT,Concerted practices,562,http://publications.europa.eu/resource/authority/subject-matter/PRAT
+PRET,Loans and subsidies,554,http://publications.europa.eu/resource/authority/subject-matter/PRET
+PIND,Industrial policy,516,http://publications.europa.eu/resource/authority/subject-matter/PIND
+COMB,Fuels,513,http://publications.europa.eu/resource/authority/subject-matter/COMB
+SILV,Forestry,499,http://publications.europa.eu/resource/authority/subject-matter/SILV
+HORS,Non-Annex II EEC Treaty products,493,http://publications.europa.eu/resource/authority/subject-matter/HORS
+COMP,Accession compensatory amounts,478,http://publications.europa.eu/resource/authority/subject-matter/COMP
+ACCD,Access to documents,472,http://publications.europa.eu/resource/authority/subject-matter/ACCD
+P-F,Plants and flowers,452,http://publications.europa.eu/resource/authority/subject-matter/P-F
+IDST,Scientific and technical information and documentation,451,http://publications.europa.eu/resource/authority/subject-matter/IDST
+DOM,French overseas departments,450,http://publications.europa.eu/resource/authority/subject-matter/DOM
+SPOR,Sport,449,http://publications.europa.eu/resource/authority/subject-matter/SPOR
+TDCS,Customs duties: suspensions,442,http://publications.europa.eu/resource/authority/subject-matter/TDCS
+OMC,World Trade Organization,442,http://publications.europa.eu/resource/authority/subject-matter/OMC
+TOUR,Tourism,438,http://publications.europa.eu/resource/authority/subject-matter/TOUR
+IMPK,Provisions implementing Article 95 - ECSC,436,http://publications.europa.eu/resource/authority/subject-matter/IMPK
+FEADER,Agricultural structural funds,432,http://publications.europa.eu/resource/authority/subject-matter/FEADER
+EURO,Euro,429,http://publications.europa.eu/resource/authority/subject-matter/EURO
+POIS,Peas and field beans,424,http://publications.europa.eu/resource/authority/subject-matter/POIS
+ACIN,International agreements,408,http://publications.europa.eu/resource/authority/subject-matter/ACIN
+COPO,Police cooperation,403,http://publications.europa.eu/resource/authority/subject-matter/COPO
+FDES,Dry fodder,403,http://publications.europa.eu/resource/authority/subject-matter/FDES
+EXCL,Exclusive agreements,392,http://publications.europa.eu/resource/authority/subject-matter/EXCL
+HOUB,Hops,378,http://publications.europa.eu/resource/authority/subject-matter/HOUB
+DIFF,Dissemination of information,363,http://publications.europa.eu/resource/authority/subject-matter/DIFF
+RESP,Non-contractual liability,357,http://publications.europa.eu/resource/authority/subject-matter/RESP
+HARM,Harmonisation of laws,356,http://publications.europa.eu/resource/authority/subject-matter/HARM
+HART,Harmonisation of customs law: Community transit,345,http://publications.europa.eu/resource/authority/subject-matter/HART
+COMT,Brussels Convention of 27 September 1968 - Jurisdiction,344,http://publications.europa.eu/resource/authority/subject-matter/COMT
+COTO,Cotton,341,http://publications.europa.eu/resource/authority/subject-matter/COTO
+FRON,Border checks,332,http://publications.europa.eu/resource/authority/subject-matter/FRON
+ACCE,Accession to agreement,321,http://publications.europa.eu/resource/authority/subject-matter/ACCE
+L-CH,Flax and hemp,316,http://publications.europa.eu/resource/authority/subject-matter/L-CH
+DEMO,Designs,316,http://publications.europa.eu/resource/authority/subject-matter/DEMO
+IGCA,General customs aspects,305,http://publications.europa.eu/resource/authority/subject-matter/IGCA
+ADAP,Adjustment,304,http://publications.europa.eu/resource/authority/subject-matter/ADAP
+DROIT,General principles of Community law,301,http://publications.europa.eu/resource/authority/subject-matter/DROIT
+NAT,Non-discrimination on grounds of nationality,301,http://publications.europa.eu/resource/authority/subject-matter/NAT
+ENTC,Joint undertakings,300,http://publications.europa.eu/resource/authority/subject-matter/ENTC
+PROC,Procedural provisions,288,http://publications.europa.eu/resource/authority/subject-matter/PROC
+PRIX,Prices,276,http://publications.europa.eu/resource/authority/subject-matter/PRIX
+IFAQ,Fisheries and aquaculture,274,http://publications.europa.eu/resource/authority/subject-matter/IFAQ
+ICHR,Chemicals and related,270,http://publications.europa.eu/resource/authority/subject-matter/ICHR
+c_c55af8ef,"Banknotes and coins, means of payment and currency matters",269,http://publications.europa.eu/resource/authority/subject-matter/c_c55af8ef
+ENCO,Agreements and concentrations,263,http://publications.europa.eu/resource/authority/subject-matter/ENCO
+INTE,Internal taxation,262,http://publications.europa.eu/resource/authority/subject-matter/INTE
+IVAT,Value Added Tax,261,http://publications.europa.eu/resource/authority/subject-matter/IVAT
+IPHE,Plant health,259,http://publications.europa.eu/resource/authority/subject-matter/IPHE
+MNOP,State monopolies of a commercial character,258,http://publications.europa.eu/resource/authority/subject-matter/MNOP
+BPAI,Balance of payments,256,http://publications.europa.eu/resource/authority/subject-matter/BPAI
+COHE,Cohesion Fund,247,http://publications.europa.eu/resource/authority/subject-matter/COHE
+c_8c4a6e26,Monetary financing prohibition,245,http://publications.europa.eu/resource/authority/subject-matter/c_8c4a6e26
+SEBC,European system of central banks,238,http://publications.europa.eu/resource/authority/subject-matter/SEBC
+RDOU,Customs procedures,235,http://publications.europa.eu/resource/authority/subject-matter/RDOU
+QUOT,Production quotas,226,http://publications.europa.eu/resource/authority/subject-matter/QUOT
+APPR,Supply agency,214,http://publications.europa.eu/resource/authority/subject-matter/APPR
+IGGP,Goods – general provisions,211,http://publications.europa.eu/resource/authority/subject-matter/IGGP
+ACCI,Excise duties,204,http://publications.europa.eu/resource/authority/subject-matter/ACCI
+IEEE,"Environment, energy efficiency",203,http://publications.europa.eu/resource/authority/subject-matter/IEEE
+ANCO,Non-trade agreement,198,http://publications.europa.eu/resource/authority/subject-matter/ANCO
+IMEP,Medicinal products,195,http://publications.europa.eu/resource/authority/subject-matter/IMEP
+c_02507fc0,"Monetary, financial institutions and markets statistics",192,http://publications.europa.eu/resource/authority/subject-matter/c_02507fc0
+HARX,Harmonisation of customs law: various,191,http://publications.europa.eu/resource/authority/subject-matter/HARX
+COAD,Administrative cooperation,191,http://publications.europa.eu/resource/authority/subject-matter/COAD
+MEXT,Products from third countries,190,http://publications.europa.eu/resource/authority/subject-matter/MEXT
+PDET,Potatoes,189,http://publications.europa.eu/resource/authority/subject-matter/PDET
+c_cd441130,Payment and settlement systems,186,http://publications.europa.eu/resource/authority/subject-matter/c_cd441130
+VA,Value for customs purposes,183,http://publications.europa.eu/resource/authority/subject-matter/VA
+DIPL,External action by the Union,182,http://publications.europa.eu/resource/authority/subject-matter/DIPL
+IRDA,Integration of the German Democratic Republic (GDR),182,http://publications.europa.eu/resource/authority/subject-matter/IRDA
+DDES,Right of entry and residence,181,http://publications.europa.eu/resource/authority/subject-matter/DDES
+EXEC,Brussels Convention of 27 September 1968 - Enforcement,180,http://publications.europa.eu/resource/authority/subject-matter/EXEC
+IGMO,GMOs,180,http://publications.europa.eu/resource/authority/subject-matter/IGMO
+CTEM,Quotas between Member States,163,http://publications.europa.eu/resource/authority/subject-matter/CTEM
+IMVT,"Motor vehicles, including agricultural and forestry tractors",156,http://publications.europa.eu/resource/authority/subject-matter/IMVT
+FEAGA,European Agricultural Guarantee Fund,155,http://publications.europa.eu/resource/authority/subject-matter/FEAGA
+PCIV,Civil protection,155,http://publications.europa.eu/resource/authority/subject-matter/PCIV
+CROM,Rome Convention of 19 June 1980,149,http://publications.europa.eu/resource/authority/subject-matter/CROM
+ORIG,Rules of origin,148,http://publications.europa.eu/resource/authority/subject-matter/ORIG
+c_7b45b05f,Auditing,146,http://publications.europa.eu/resource/authority/subject-matter/c_7b45b05f
+COPT,"Economic, financial and technical cooperation with third countries",142,http://publications.europa.eu/resource/authority/subject-matter/COPT
+c_726ab1b3,General framework,142,http://publications.europa.eu/resource/authority/subject-matter/c_726ab1b3
+PERE,Scrap equalisation,141,http://publications.europa.eu/resource/authority/subject-matter/PERE
+HOUI,Hard coal,139,http://publications.europa.eu/resource/authority/subject-matter/HOUI
+IFOT,Food – other,139,http://publications.europa.eu/resource/authority/subject-matter/IFOT
+DOUA,Customs Cooperation,137,http://publications.europa.eu/resource/authority/subject-matter/DOUA
+FEVT,Eur Foundation Improvement of Living and Working Conditions,133,http://publications.europa.eu/resource/authority/subject-matter/FEVT
+PREL,Levies and loans,133,http://publications.europa.eu/resource/authority/subject-matter/PREL
+INDR,Indirect taxation,132,http://publications.europa.eu/resource/authority/subject-matter/INDR
+LPRA,Free circulation,130,http://publications.europa.eu/resource/authority/subject-matter/LPRA
+RTRA,Community transit systems,125,http://publications.europa.eu/resource/authority/subject-matter/RTRA
+REACH,REACH,124,http://publications.europa.eu/resource/authority/subject-matter/REACH
+IAZC,"Animal disease control, zoonosis control",122,http://publications.europa.eu/resource/authority/subject-matter/IAZC
+BREV,Patents,120,http://publications.europa.eu/resource/authority/subject-matter/BREV
+DADV,Copyright and related rights,120,http://publications.europa.eu/resource/authority/subject-matter/DADV
+BANA,Bananas,117,http://publications.europa.eu/resource/authority/subject-matter/BANA
+V-LG,Rabbit meat and farmed game meat,116,http://publications.europa.eu/resource/authority/subject-matter/V-LG
+RQME,Quantitative restrictions and measures of equivalent effect,116,http://publications.europa.eu/resource/authority/subject-matter/RQME
+ESPA,Space,116,http://publications.europa.eu/resource/authority/subject-matter/ESPA
+IFGE,Food – general,112,http://publications.europa.eu/resource/authority/subject-matter/IFGE
+c_05d7dbed,Supervisory powers and tasks,112,http://publications.europa.eu/resource/authority/subject-matter/c_05d7dbed
+c_9e589776,Trans-European Automated Real-time Gross settlement Express Transfer system (TARGET),111,http://publications.europa.eu/resource/authority/subject-matter/c_9e589776
+VSOI,Silkworms,107,http://publications.europa.eu/resource/authority/subject-matter/VSOI
+c_eef03101,Sanctions,107,http://publications.europa.eu/resource/authority/subject-matter/c_eef03101
+IAFO,Annex 4 Provisions of Union law referred to in Article 9,107,http://publications.europa.eu/resource/authority/subject-matter/IAFO
+HARP,Harmonisation of customs law: inward processing,104,http://publications.europa.eu/resource/authority/subject-matter/HARP
+TDCN,Customs duties: national tariff quotas,103,http://publications.europa.eu/resource/authority/subject-matter/TDCN
+SECR,Security system,103,http://publications.europa.eu/resource/authority/subject-matter/SECR
+CRBM,Conservation of marine biological resources,103,http://publications.europa.eu/resource/authority/subject-matter/CRBM
+c_491cdcaa,Oversight,103,http://publications.europa.eu/resource/authority/subject-matter/c_491cdcaa
+c_8e12de2a,Statistics,102,http://publications.europa.eu/resource/authority/subject-matter/c_8e12de2a
+IEXC,Excise,102,http://publications.europa.eu/resource/authority/subject-matter/IEXC
+c_c3e5c068,Monetary policy and Operations,102,http://publications.europa.eu/resource/authority/subject-matter/c_c3e5c068
+IPRM,Plant reproductive material,102,http://publications.europa.eu/resource/authority/subject-matter/IPRM
+IPPE,"Construction products, machinery, cableways, personal protective equipment",101,http://publications.europa.eu/resource/authority/subject-matter/IPPE
+c_594e5232,Temporary framework,99,http://publications.europa.eu/resource/authority/subject-matter/c_594e5232
+c_76b44336,Banking supervision,98,http://publications.europa.eu/resource/authority/subject-matter/c_76b44336
+c_3ad55b09,Minimum reserves,97,http://publications.europa.eu/resource/authority/subject-matter/c_3ad55b09
+COPE,European political cooperation,95,http://publications.europa.eu/resource/authority/subject-matter/COPE
+EAMA,Associated African States and Madagascar,93,http://publications.europa.eu/resource/authority/subject-matter/EAMA
+PIM,Integrated Mediterranean programmes (IMP),92,http://publications.europa.eu/resource/authority/subject-matter/PIM
+MIN,Ore,85,http://publications.europa.eu/resource/authority/subject-matter/MIN
+c_f6ee40b4,Protection of the euro,84,http://publications.europa.eu/resource/authority/subject-matter/c_f6ee40b4
+CAFE,Coffee,82,http://publications.europa.eu/resource/authority/subject-matter/CAFE
+CEEA,Euratom matters,73,http://publications.europa.eu/resource/authority/subject-matter/CEEA
+ITRA,General trade related aspects,72,http://publications.europa.eu/resource/authority/subject-matter/ITRA
+c_64a25727,Accounting and reporting,71,http://publications.europa.eu/resource/authority/subject-matter/c_64a25727
+CEDH,European Convention on Human Rights,71,http://publications.europa.eu/resource/authority/subject-matter/CEDH
+c_eb901451,Foreign reserves,70,http://publications.europa.eu/resource/authority/subject-matter/c_eb901451
+c_7ca072c7,Coin issuance,68,http://publications.europa.eu/resource/authority/subject-matter/c_7ca072c7
+OBT,Plant varieties,67,http://publications.europa.eu/resource/authority/subject-matter/OBT
+c_964d98cc,Institutional structure and Governance,67,http://publications.europa.eu/resource/authority/subject-matter/c_964d98cc
+EMPR,Loans contracted by the ECSC,64,http://publications.europa.eu/resource/authority/subject-matter/EMPR
+IWAS,Waste,58,http://publications.europa.eu/resource/authority/subject-matter/IWAS
+IRBS,Regulations on bilateral safeguards,57,http://publications.europa.eu/resource/authority/subject-matter/IRBS
+IRTR,Rail transport,56,http://publications.europa.eu/resource/authority/subject-matter/IRTR
+c_06daf249,Organisational principles,55,http://publications.europa.eu/resource/authority/subject-matter/c_06daf249
+c_68aa4a7e,Euro banknotes production,54,http://publications.europa.eu/resource/authority/subject-matter/c_68aa4a7e
+c_abd72d0f,External transactions and positions,53,http://publications.europa.eu/resource/authority/subject-matter/c_abd72d0f
+c_6c9bbb79,Capital of the ECB,52,http://publications.europa.eu/resource/authority/subject-matter/c_6c9bbb79
+SOLD,Products of Annex II EEC Treaty and Regulation No 827/68,52,http://publications.europa.eu/resource/authority/subject-matter/SOLD
+CORE,Closer cooperation,51,http://publications.europa.eu/resource/authority/subject-matter/CORE
+c_d82c4c81,ECB institutional provisions,50,http://publications.europa.eu/resource/authority/subject-matter/c_d82c4c81
+IMED,Medical devices,48,http://publications.europa.eu/resource/authority/subject-matter/IMED
+c_d7a89aa3,Microprudential tasks,47,http://publications.europa.eu/resource/authority/subject-matter/c_d7a89aa3
+c_f3f2224d,Conditions of employment,45,http://publications.europa.eu/resource/authority/subject-matter/c_f3f2224d
+c_adb3ab0f,Capital requirements,43,http://publications.europa.eu/resource/authority/subject-matter/c_adb3ab0f
+ADMI,Common customs tariff: temporary importation,41,http://publications.europa.eu/resource/authority/subject-matter/ADMI
+c_206cfcfa,Cooperation in the field of banking supervision,41,http://publications.europa.eu/resource/authority/subject-matter/c_206cfcfa
+c_29b3ace8,Rules of procedure and other internal arrangements,39,http://publications.europa.eu/resource/authority/subject-matter/c_29b3ace8
+TUC,ECSC unified common tariff,39,http://publications.europa.eu/resource/authority/subject-matter/TUC
+IME,European Monetary Institute,39,http://publications.europa.eu/resource/authority/subject-matter/IME
+CHAR,Coal,39,http://publications.europa.eu/resource/authority/subject-matter/CHAR
+c_6365150f,General statistics,38,http://publications.europa.eu/resource/authority/subject-matter/c_6365150f
+IFHY,Food – hygiene,38,http://publications.europa.eu/resource/authority/subject-matter/IFHY
+c_38e22180,Monetary income,38,http://publications.europa.eu/resource/authority/subject-matter/c_38e22180
+c_5cd67341,Euro banknotes issuance,37,http://publications.europa.eu/resource/authority/subject-matter/c_5cd67341
+c_c47bf652,TARGET2-Securities (T2S),37,http://publications.europa.eu/resource/authority/subject-matter/c_c47bf652
+TDCD,Customs duties: authorisation to defer application of CCT,36,http://publications.europa.eu/resource/authority/subject-matter/TDCD
+CAC,Cocoa,35,http://publications.europa.eu/resource/authority/subject-matter/CAC
+ICOT,"Cosmetics, toys",35,http://publications.europa.eu/resource/authority/subject-matter/ICOT
+BT,Tropical timber,35,http://publications.europa.eu/resource/authority/subject-matter/BT
+HARE,"Harmonisation of customs law: warehouses, free zones",34,http://publications.europa.eu/resource/authority/subject-matter/HARE
+c_64b94fae,Cash changeover,34,http://publications.europa.eu/resource/authority/subject-matter/c_64b94fae
+c_4e12d83d,Exchange of information and public access to documents,34,http://publications.europa.eu/resource/authority/subject-matter/c_4e12d83d
+c_12480e7d,Monetary policy instruments,34,http://publications.europa.eu/resource/authority/subject-matter/c_12480e7d
+c_cc640542,Confidentiality,33,http://publications.europa.eu/resource/authority/subject-matter/c_cc640542
+ICRU,Compatibility rules,32,http://publications.europa.eu/resource/authority/subject-matter/ICRU
+ASTU,Assistance to Ukraine,32,http://publications.europa.eu/resource/authority/subject-matter/ASTU
+c_23d62986,Reporting,31,http://publications.europa.eu/resource/authority/subject-matter/c_23d62986
+c_04b171e5,Financial accounts,27,http://publications.europa.eu/resource/authority/subject-matter/c_04b171e5
+c_ac4906db,Supervisory fees,27,http://publications.europa.eu/resource/authority/subject-matter/c_ac4906db
+HARD,Harmonisation of customs law: customs territory,26,http://publications.europa.eu/resource/authority/subject-matter/HARD
+MECA,"Medium-sized firms, distributive trades and craft industries",24,http://publications.europa.eu/resource/authority/subject-matter/MECA
+c_18755e4d,Exchange rate mechanism (ERM II),24,http://publications.europa.eu/resource/authority/subject-matter/c_18755e4d
+IBER,Block exemption regulations,24,http://publications.europa.eu/resource/authority/subject-matter/IBER
+c_b21ec68a,Transparency,23,http://publications.europa.eu/resource/authority/subject-matter/c_b21ec68a
+ITSA,Trade statistics,21,http://publications.europa.eu/resource/authority/subject-matter/ITSA
+c_714f9151,Foreign exchange,20,http://publications.europa.eu/resource/authority/subject-matter/c_714f9151
+c_625f1587,Securities holdings statistics,20,http://publications.europa.eu/resource/authority/subject-matter/c_625f1587
+ACIE,Steel,19,http://publications.europa.eu/resource/authority/subject-matter/ACIE
+ISHO,Substances of human origin,17,http://publications.europa.eu/resource/authority/subject-matter/ISHO
+IAON,Annex 1 Provisions of Union law referred to in Article 2(1),17,http://publications.europa.eu/resource/authority/subject-matter/IAON
+c_69c82520,Data protection matters,17,http://publications.europa.eu/resource/authority/subject-matter/c_69c82520
+IANW,Animal welfare,16,http://publications.europa.eu/resource/authority/subject-matter/IANW
+c_3e1e305a,Financial assistance,16,http://publications.europa.eu/resource/authority/subject-matter/c_3e1e305a
+ISPH,Sanitary and phytosanitary – Other,15,http://publications.europa.eu/resource/authority/subject-matter/ISPH
+IABR,Animal breeding,15,http://publications.europa.eu/resource/authority/subject-matter/IABR
+IMEQ,Marine equipment,15,http://publications.europa.eu/resource/authority/subject-matter/IMEQ
+c_40b2d24f,Procurement,14,http://publications.europa.eu/resource/authority/subject-matter/c_40b2d24f
+CAO,Rubber,14,http://publications.europa.eu/resource/authority/subject-matter/CAO
+IAID,Animal identification,13,http://publications.europa.eu/resource/authority/subject-matter/IAID
+IERE,Electrical and radio equipment,13,http://publications.europa.eu/resource/authority/subject-matter/IERE
+IEPA,Explosives and pyrotechnic articles,13,http://publications.europa.eu/resource/authority/subject-matter/IEPA
+RSN,Regulation of digital services,13,http://publications.europa.eu/resource/authority/subject-matter/RSN
+c_f7fa4b33,Euro short term rate,12,http://publications.europa.eu/resource/authority/subject-matter/c_f7fa4b33
+IMIN,Measuring instruments,11,http://publications.europa.eu/resource/authority/subject-matter/IMIN
+c_af796aa3,Eurosystem reserve management services,11,http://publications.europa.eu/resource/authority/subject-matter/c_af796aa3
+IPRU,Procedural rules,10,http://publications.europa.eu/resource/authority/subject-matter/IPRU
+IOTH,Others,10,http://publications.europa.eu/resource/authority/subject-matter/IOTH
+c_db8034fd,Close cooperation,10,http://publications.europa.eu/resource/authority/subject-matter/c_db8034fd
+c_cd594a3b,Fraud prevention,9,http://publications.europa.eu/resource/authority/subject-matter/c_cd594a3b
+IGAP,Gas appliances,8,http://publications.europa.eu/resource/authority/subject-matter/IGAP
+IANA,Acts referring to the notion of aid,8,http://publications.europa.eu/resource/authority/subject-matter/IANA
+RMN,Regulation of digital markets,8,http://publications.europa.eu/resource/authority/subject-matter/RMN
+IAPA,Compensation and assistance to passengers,8,http://publications.europa.eu/resource/authority/subject-matter/IAPA
+IPRV,Pressure vessels,6,http://publications.europa.eu/resource/authority/subject-matter/IPRV
+c_0e6e516f,Foreign exchange and Foreign reserves,6,http://publications.europa.eu/resource/authority/subject-matter/c_0e6e516f
+FD,Hard fibres,5,http://publications.europa.eu/resource/authority/subject-matter/FD
+LIEG,Cork,5,http://publications.europa.eu/resource/authority/subject-matter/LIEG
+ISAR,State Aid rules in the TFEU,5,http://publications.europa.eu/resource/authority/subject-matter/ISAR
+c_6f402b92,External relations matters,5,http://publications.europa.eu/resource/authority/subject-matter/c_6f402b92
+c_8a588fbc,Significance assessments,4,http://publications.europa.eu/resource/authority/subject-matter/c_8a588fbc
+IPFI,Protection of the Union’s financial interests,4,http://publications.europa.eu/resource/authority/subject-matter/IPFI
+SUBV,Subsidies and aids of the High Authority,4,http://publications.europa.eu/resource/authority/subject-matter/SUBV
+ITFO,"Textiles, footwear",4,http://publications.europa.eu/resource/authority/subject-matter/ITFO
+TIN,Tin,4,http://publications.europa.eu/resource/authority/subject-matter/TIN
+PENU,Shortage,3,http://publications.europa.eu/resource/authority/subject-matter/PENU
+IFCM,Food contact material,3,http://publications.europa.eu/resource/authority/subject-matter/IFCM
+TDCA,Customs duties: speed-up decisions,3,http://publications.europa.eu/resource/authority/subject-matter/TDCA
+SOLI,Solidarity clause,2,http://publications.europa.eu/resource/authority/subject-matter/SOLI
+IRCR,Recreational craft,2,http://publications.europa.eu/resource/authority/subject-matter/IRCR
+ILMA,Lifting and mechanical handling appliances,2,http://publications.europa.eu/resource/authority/subject-matter/ILMA
+ITPU,Transparency of financial relations between Member States and public undertakings,2,http://publications.europa.eu/resource/authority/subject-matter/ITPU
+COKE,Coke,2,http://publications.europa.eu/resource/authority/subject-matter/COKE
+ACSP,Special steels,2,http://publications.europa.eu/resource/authority/subject-matter/ACSP
+RULESPRO,Rules of procedure,2,http://publications.europa.eu/resource/authority/subject-matter/RULESPRO
+TRDM,Trade measures,2,http://publications.europa.eu/resource/authority/subject-matter/TRDM
+OP_DATPRO,Provisional data,1,http://publications.europa.eu/resource/authority/subject-matter/OP_DATPRO
+FER,Iron,1,http://publications.europa.eu/resource/authority/subject-matter/FER
+FERR,Scrap,1,http://publications.europa.eu/resource/authority/subject-matter/FERR
+ENRM,Energy measures,1,http://publications.europa.eu/resource/authority/subject-matter/ENRM
+CV19,COVID-19,1,http://publications.europa.eu/resource/authority/subject-matter/CV19
+MSWU,EU measures in solidarity with Ukraine,1,http://publications.europa.eu/resource/authority/subject-matter/MSWU

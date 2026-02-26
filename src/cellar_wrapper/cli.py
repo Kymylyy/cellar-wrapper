@@ -146,9 +146,10 @@ def run(argv: list[str] | None = None) -> int:
         return int(exc.code) if isinstance(exc.code, int) else 1
 
     spec: CommandSpec = args.command_spec
-    client = _build_client(args)
+    client: CellarClient | None = None
 
     try:
+        client = _build_client(args)
         method = getattr(client, spec.method)
         kwargs = build_method_kwargs(spec, args)
         result = method(**kwargs)
@@ -162,7 +163,8 @@ def run(argv: list[str] | None = None) -> int:
         )
         return _emit_error(internal_error)
     finally:
-        client.close()
+        if client is not None:
+            client.close()
 
 
 def main() -> None:

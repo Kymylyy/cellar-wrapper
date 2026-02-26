@@ -1,0 +1,3 @@
+
+{ "head": { "link": [], "vars": ["mt", "mtLabel", "domain", "domainLabel"] },
+  "results": { "distinct": false, "ordered": true, "bindings": [ ] } }

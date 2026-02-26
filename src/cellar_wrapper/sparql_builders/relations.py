@@ -46,9 +46,9 @@ def build_relation_query(
                 f"""
   {{
     ?other {spec.iri} <{work_iri}> .
-    BIND('incoming' AS ?direction)
-    BIND('{spec.relation_type}' AS ?relationType)
-    BIND('{spec.iri}' AS ?predicate)
+    BIND({quote_literal("incoming")} AS ?direction)
+    BIND({quote_literal(spec.relation_type)} AS ?relationType)
+    BIND({quote_literal(spec.iri)} AS ?predicate)
   }}
 """.strip()
             )
@@ -57,9 +57,9 @@ def build_relation_query(
                 f"""
   {{
     <{work_iri}> {spec.iri} ?other .
-    BIND('outgoing' AS ?direction)
-    BIND('{spec.relation_type}' AS ?relationType)
-    BIND('{spec.iri}' AS ?predicate)
+    BIND({quote_literal("outgoing")} AS ?direction)
+    BIND({quote_literal(spec.relation_type)} AS ?relationType)
+    BIND({quote_literal(spec.iri)} AS ?predicate)
   }}
 """.strip()
             )
@@ -98,9 +98,9 @@ SELECT DISTINCT ?dossier ?other ?celex ?title ?date ?type ?relationType ?directi
   ?dossier {PREDICATES["dossier_contains_work"]} <{work_iri}> .
   ?dossier {PREDICATES["dossier_contains_work"]} ?other .
   FILTER(?other != <{work_iri}>)
-  BIND('dossier_contains_work' AS ?relationType)
-  BIND('{PREDICATES["dossier_contains_work"]}' AS ?predicate)
-  BIND('incoming' AS ?direction)
+  BIND({quote_literal("dossier_contains_work")} AS ?relationType)
+  BIND({quote_literal(PREDICATES["dossier_contains_work"])} AS ?predicate)
+  BIND({quote_literal("incoming")} AS ?direction)
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}
@@ -125,18 +125,18 @@ SELECT DISTINCT ?other ?celex ?date ?relationType ?direction ?predicate WHERE {{
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
   {{
     ?other {PREDICATES["deadline"]} ?date .
-    BIND('deadline' AS ?relationType)
-    BIND('{PREDICATES["deadline"]}' AS ?predicate)
+    BIND({quote_literal("deadline")} AS ?relationType)
+    BIND({quote_literal(PREDICATES["deadline"])} AS ?predicate)
   }} UNION {{
     ?other {PREDICATES["entry_into_force"]} ?date .
-    BIND('entry_into_force' AS ?relationType)
-    BIND('{PREDICATES["entry_into_force"]}' AS ?predicate)
+    BIND({quote_literal("entry_into_force")} AS ?relationType)
+    BIND({quote_literal(PREDICATES["entry_into_force"])} AS ?predicate)
   }} UNION {{
     ?other {PREDICATES["directive_transposition"]} ?date .
-    BIND('directive_transposition' AS ?relationType)
-    BIND('{PREDICATES["directive_transposition"]}' AS ?predicate)
+    BIND({quote_literal("directive_transposition")} AS ?relationType)
+    BIND({quote_literal(PREDICATES["directive_transposition"])} AS ?predicate)
   }}
-  BIND('outgoing' AS ?direction)
+  BIND({quote_literal("outgoing")} AS ?direction)
 }}
 ORDER BY ?date
 {limit_offset(limit, offset)}
@@ -160,9 +160,9 @@ SELECT DISTINCT ?opinion ?celex ?title ?date ?type ?direction ?relationType ?pre
   ?case {PREDICATES["cjeu_interprets"]} <{work_iri}> .
   ?case {PREDICATES["ag_opinion"]} ?opinion .
   BIND(?opinion AS ?other)
-  BIND('incoming' AS ?direction)
-  BIND('ag_opinion' AS ?relationType)
-  BIND('{PREDICATES["ag_opinion"]}' AS ?predicate)
+  BIND({quote_literal("incoming")} AS ?direction)
+  BIND({quote_literal("ag_opinion")} AS ?relationType)
+  BIND({quote_literal(PREDICATES["ag_opinion"])} AS ?predicate)
   OPTIONAL {{ ?opinion {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?opinion {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?opinion {PREDICATES["work_has_resource_type"]} ?type }}
@@ -195,9 +195,9 @@ SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predi
   ?other {PREDICATES["work_has_resource_type"]} <{dec_nc_uri}> .
   ?other {PREDICATES["national_act_reference"]} ?ref .
   FILTER(CONTAINS(UCASE(STR(?ref)), {quote_literal(celex.upper())}))
-  BIND('incoming' AS ?direction)
-  BIND('national_decision_reference' AS ?relationType)
-  BIND('{PREDICATES["national_act_reference"]}' AS ?predicate)
+  BIND({quote_literal("incoming")} AS ?direction)
+  BIND({quote_literal("national_decision_reference")} AS ?relationType)
+  BIND({quote_literal(PREDICATES["national_act_reference"])} AS ?predicate)
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}
@@ -223,8 +223,8 @@ SELECT DISTINCT ?other ?predicate ?relationType ?direction ?date ?annotation ?ar
   ?annotation owl:annotatedSource ?other .
   ?annotation owl:annotatedProperty ?annProp .
   BIND(STR(?annProp) AS ?predicate)
-  BIND('article_annotation' AS ?relationType)
-  BIND('incoming' AS ?direction)
+  BIND({quote_literal("article_annotation")} AS ?relationType)
+  BIND({quote_literal("incoming")} AS ?direction)
   OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{
     ?annotation ?articlePredicate ?article .

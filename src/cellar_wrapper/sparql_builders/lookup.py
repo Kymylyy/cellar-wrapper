@@ -18,6 +18,7 @@ CONCEPT_PREDICATES = frozenset(
 def build_resolve_celex_query(celex: str, *, use_contains: bool) -> str:
     """Build CELEX-to-work URI resolution query."""
     celex_upper = celex.upper()
+    limit = 20 if use_contains else 5
     if use_contains:
         # CELLAR CELEX fallback: drop sector prefix (first char) and probe by token.
         token = celex_upper[1:] if len(celex_upper) > 1 else celex_upper
@@ -30,7 +31,7 @@ SELECT DISTINCT ?work ?celex WHERE {{
   ?work {PREDICATES["resource_legal_id_celex"]} ?celex .
   {filter_clause}
 }}
-LIMIT 5
+LIMIT {limit}
 """
     return with_prefixes(query)
 
@@ -94,19 +95,19 @@ def build_legal_basis_query(work_uri: str, *, limit: int, offset: int) -> str:
 SELECT DISTINCT ?other ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
   {{
     ?other {PREDICATES["based_on"]} <{work_iri}> .
-    BIND('incoming' AS ?direction)
-    BIND('based_on_resource_legal' AS ?relationType)
-    BIND('{PREDICATES["based_on"]}' AS ?predicate)
+    BIND({quote_literal("incoming")} AS ?direction)
+    BIND({quote_literal("based_on_resource_legal")} AS ?relationType)
+    BIND({quote_literal(PREDICATES["based_on"])} AS ?predicate)
   }} UNION {{
     <{work_iri}> {PREDICATES["based_on"]} ?other .
-    BIND('outgoing' AS ?direction)
-    BIND('based_on_resource_legal' AS ?relationType)
-    BIND('{PREDICATES["based_on"]}' AS ?predicate)
+    BIND({quote_literal("outgoing")} AS ?direction)
+    BIND({quote_literal("based_on_resource_legal")} AS ?relationType)
+    BIND({quote_literal(PREDICATES["based_on"])} AS ?predicate)
   }} UNION {{
     <{work_iri}> {PREDICATES["based_on_concept_treaty"]} ?other .
-    BIND('outgoing' AS ?direction)
-    BIND('based_on_concept_treaty' AS ?relationType)
-    BIND('{PREDICATES["based_on_concept_treaty"]}' AS ?predicate)
+    BIND({quote_literal("outgoing")} AS ?direction)
+    BIND({quote_literal("based_on_concept_treaty")} AS ?relationType)
+    BIND({quote_literal(PREDICATES["based_on_concept_treaty"])} AS ?predicate)
   }}
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}

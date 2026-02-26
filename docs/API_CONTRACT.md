@@ -14,7 +14,7 @@ CellarClient(
 
 ## Input contract
 - `celex: str` -> normalized to uppercase, validated against `^[0-9A-Z()_\-]{5,40}$`.
-- `since: date | datetime | str` -> ISO-8601 parseable, filter semantics `date > since`.
+- `since: date | datetime | str` -> ISO-8601 parseable, filter semantics `date > since` (typed `xsd:date` / `xsd:dateTime` in SPARQL).
 - `lang: str` -> ISO 639-3 (`[a-zA-Z]{3}`), normalized to lowercase.
 - `format: "pdf" | "xhtml" | "xml" | "rdf" | "docx"` for `get_text`.
 - `limit: int` default `200`, max `1000`.
@@ -24,6 +24,14 @@ CellarClient(
 - `QueryMeta(query_name, endpoint, executed_at, limit, offset)`
 - `ListResult[T](items, returned_count, meta)`
 - `ActRef`, `ActDetail`, `RelationItem`, `CaseLawItem`, `EurovocTag`, `SubjectMatterTag`, `ExpressionItem`, `DocumentPayload`
+
+`RelationItem` may include article-level annotation fields for `get_article_annotations`:
+- `annotation_uri`
+- `annotation_article`
+- `annotation_paragraph`
+- `annotation_subparagraph`
+- `annotation_point`
+- `annotation_comment_on_legal_basis`
 
 `DocumentPayload` returns base64-encoded content (`content_base64`).
 
@@ -49,6 +57,7 @@ CellarClient(
 ## CELEX resolution behavior
 1. Exact match query (`=`).
 2. Fallback query using `CONTAINS` token (CELEX without leading sector digit).
+3. Fallback result must still contain an exact CELEX match; otherwise `CellarNotFoundError`.
 
 ## Summary download behavior
 `get_summary` enforces:

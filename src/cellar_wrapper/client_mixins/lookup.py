@@ -51,7 +51,7 @@ class LookupMixin:
         for ref in refs:
             if ref.celex and ref.celex.upper() == normalized:
                 return ref
-        return refs[0]
+        raise CellarNotFoundError(f"Fallback did not return exact CELEX match: {normalized}")
 
     def get_act(self: ClientOpsProtocol, celex: str, *, lang: str = DEFAULT_LANGUAGE) -> ActDetail:
         normalized_lang = self._normalize_lang(lang)
@@ -71,7 +71,12 @@ class LookupMixin:
         offset: int = DEFAULT_OFFSET,
     ) -> ListResult[EurovocTag]:
         self._validate_pagination(limit, offset)
-        query = build_concept_query(self._resolve_work_uri(celex), predicate="cdm:work_is_about_concept_eurovoc")
+        query = build_concept_query(
+            self._resolve_work_uri(celex),
+            predicate="cdm:work_is_about_concept_eurovoc",
+            limit=limit,
+            offset=offset,
+        )
         rows = parse_bindings(self._transport.query_sparql(query))
         return self._list_result(
             query_name="get_eurovoc",
@@ -91,6 +96,8 @@ class LookupMixin:
         query = build_concept_query(
             self._resolve_work_uri(celex),
             predicate="cdm:resource_legal_is_about_subject-matter",
+            limit=limit,
+            offset=offset,
         )
         rows = parse_bindings(self._transport.query_sparql(query))
         return self._list_result(
@@ -128,6 +135,8 @@ class LookupMixin:
         query = build_concept_query(
             self._resolve_work_uri(celex),
             predicate="cdm:resource_legal_id_directory-code",
+            limit=limit,
+            offset=offset,
         )
         rows = parse_bindings(self._transport.query_sparql(query))
         return self._list_result(

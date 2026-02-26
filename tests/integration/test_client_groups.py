@@ -120,7 +120,22 @@ def test_monitoring_group_new_citations_adds_since_filter() -> None:
     client = CellarClient(transport=transport)
     result = client.new_citations("32022R2554", since="2025-01-01")
     assert result.returned_count == 0
-    assert any("STR(?date) > '2025-01-01'" in query for query in transport.queries)
+    assert any("FILTER(?date > '2025-01-01'^^xsd:date)" in query for query in transport.queries)
+
+
+def test_lookup_group_get_eurovoc_applies_limit_offset() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return _resolver_payload()
+        return sparql_payload([])
+
+    transport = FakeTransport(query_handler=query_handler)
+    client = CellarClient(transport=transport)
+    _ = client.get_eurovoc("32022R2554", limit=7, offset=9)
+    concept_queries = [query for query in transport.queries if "work_is_about_concept_eurovoc" in query]
+    assert concept_queries
+    assert "LIMIT 7" in concept_queries[0]
+    assert "OFFSET 9" in concept_queries[0]
 
 
 def test_download_group_get_text() -> None:

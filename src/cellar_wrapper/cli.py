@@ -161,7 +161,7 @@ def run(argv: list[str] | None = None) -> int:
         kwargs = _build_method_kwargs(spec, args)
         result = method(**kwargs)
         return _emit_success(result)
-    except (CellarError, AttributeError, ValueError, TypeError) as exc:
+    except CellarError as exc:
         return _emit_error(exc)
     finally:
         client.close()

@@ -31,7 +31,7 @@ def parse_bindings(payload: dict[str, Any]) -> list[dict[str, dict[str, str]]]:
 def value(row: dict[str, dict[str, str]], key: str) -> str | None:
     """Return string value for a key in SPARQL binding row."""
     slot = row.get(key)
-    if not slot:
+    if slot is None:
         return None
     return slot.get("value")
 
@@ -107,6 +107,12 @@ def parse_relation_items(rows: list[dict[str, dict[str, str]]]) -> list[Relation
                 direction=value(row, "direction"),
                 predicate=value(row, "predicate"),
                 relation_type=value(row, "relationType"),
+                annotation_uri=value(row, "annotation"),
+                annotation_article=value(row, "article"),
+                annotation_paragraph=value(row, "paragraph"),
+                annotation_subparagraph=value(row, "subparagraph"),
+                annotation_point=value(row, "point"),
+                annotation_comment_on_legal_basis=value(row, "commentOnLegalBasis"),
             )
         )
     return result

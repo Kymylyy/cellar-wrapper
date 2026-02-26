@@ -4,7 +4,7 @@ import pytest
 
 from cellar_wrapper.client import CellarClient
 from cellar_wrapper.constants import SUMMARY_ACCEPT
-from cellar_wrapper.errors import CellarValidationError
+from cellar_wrapper.errors import CellarNotFoundError, CellarValidationError
 from tests.helpers import FakeTransport, sparql_payload, sparql_row
 
 
@@ -55,6 +55,33 @@ def test_resolve_celex_exact_then_contains_fallback() -> None:
     assert resolved.uri == "http://publications.europa.eu/resource/cellar/abc"
     assert len(transport.queries) == 2
     assert "CONTAINS" in transport.queries[1]
+
+
+def test_resolve_celex_fallback_requires_exact_match() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return sparql_payload([])
+        if "FILTER(CONTAINS(UCASE(STR(?celex))" in query:
+            return sparql_payload(
+                [
+                    sparql_row(
+                        work="http://publications.europa.eu/resource/cellar/other",
+                        celex="12022R2554",
+                    )
+                ]
+            )
+        return sparql_payload([])
+
+    transport = FakeTransport(query_handler=query_handler)
+    client = CellarClient(transport=transport)
+    with pytest.raises(CellarNotFoundError, match="Fallback did not return exact CELEX"):
+        client.resolve_celex("32022R2554")
+
+
+def test_search_by_title_empty_keyword_raises_validation_error() -> None:
+    client = CellarClient(transport=FakeTransport())
+    with pytest.raises(CellarValidationError, match="keyword cannot be empty"):
+        client.search_by_title("   ")
 
 
 def test_summary_download_uses_xhtml5_accept() -> None:

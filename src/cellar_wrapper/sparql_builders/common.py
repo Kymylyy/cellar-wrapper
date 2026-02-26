@@ -24,7 +24,13 @@ class PredicateSpec:
 
 def quote_literal(value: str) -> str:
     """Escape value for SPARQL single-quoted literal."""
-    escaped = value.replace("\\", "\\\\").replace("'", "\\'")
+    escaped = (
+        value.replace("\\", "\\\\")
+        .replace("'", "\\'")
+        .replace("\n", "\\n")
+        .replace("\r", "\\r")
+        .replace("\t", "\\t")
+    )
     return f"'{escaped}'"
 
 
@@ -61,8 +67,10 @@ def since_filter(var_name: str, since: date | datetime | str | None) -> str:
     """Render strict `>` filter for date-like column."""
     if since is None:
         return ""
-    literal = quote_literal(date_literal(since))
-    return f"FILTER(STR(?{var_name}) > {literal})"
+    normalized = date_literal(since)
+    literal = quote_literal(normalized)
+    datatype = "xsd:dateTime" if "T" in normalized.upper() else "xsd:date"
+    return f"FILTER(?{var_name} > {literal}^^{datatype})"
 
 
 def resource_type_clause(resource_type: str | None) -> str:

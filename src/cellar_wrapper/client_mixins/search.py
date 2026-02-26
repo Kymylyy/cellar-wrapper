@@ -87,6 +87,8 @@ class SearchMixin:
         lang: str = DEFAULT_LANGUAGE,
     ) -> ListResult[ActRef]:
         self._validate_pagination(limit, offset)
+        if not keyword.strip():
+            raise CellarValidationError("keyword cannot be empty")
         query = build_search_by_title_query(
             keyword,
             resource_type=self._normalize_resource_type(resource_type),

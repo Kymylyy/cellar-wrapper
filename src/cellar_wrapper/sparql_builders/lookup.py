@@ -2,15 +2,24 @@
 
 from __future__ import annotations
 
-from cellar_wrapper.constants import DEFAULT_LANGUAGE
+from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
 
 from .common import language_uri, limit_offset, quote_literal, with_prefixes
+
+CONCEPT_PREDICATES = frozenset(
+    {
+        "cdm:work_is_about_concept_eurovoc",
+        "cdm:resource_legal_is_about_subject-matter",
+        "cdm:resource_legal_id_directory-code",
+    }
+)
 
 
 def build_resolve_celex_query(celex: str, *, use_contains: bool) -> str:
     """Build CELEX-to-work URI resolution query."""
     celex_upper = celex.upper()
     if use_contains:
+        # CELLAR CELEX fallback: drop sector prefix (first char) and probe by token.
         token = celex_upper[1:] if len(celex_upper) > 1 else celex_upper
         filter_clause = f"FILTER(CONTAINS(UCASE(STR(?celex)), {quote_literal(token)}))"
     else:
@@ -50,8 +59,17 @@ LIMIT 1
     return with_prefixes(query)
 
 
-def build_concept_query(work_uri: str, *, predicate: str) -> str:
+def build_concept_query(
+    work_uri: str,
+    *,
+    predicate: str,
+    limit: int = DEFAULT_LIMIT,
+    offset: int = DEFAULT_OFFSET,
+) -> str:
     """Build concept lookup query (EuroVoc, subject-matter, directory code)."""
+    if predicate not in CONCEPT_PREDICATES:
+        raise ValueError(f"Unsupported concept predicate: {predicate}")
+
     query = f"""
 SELECT DISTINCT ?concept ?label WHERE {{
   <{work_uri}> {predicate} ?concept .
@@ -61,6 +79,7 @@ SELECT DISTINCT ?concept ?label WHERE {{
   }}
 }}
 ORDER BY ?concept
+{limit_offset(limit, offset)}
 """
     return with_prefixes(query)
 

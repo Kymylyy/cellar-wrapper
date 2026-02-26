@@ -145,7 +145,9 @@ class ClientBase:
         offset: int,
         lang: str,
     ) -> ListResult[RelationItem] | ListResult[CaseLawItem]:
-        spec = RELATION_CALL_SPECS[method_name]
+        spec = RELATION_CALL_SPECS.get(method_name)
+        if spec is None:
+            raise CellarValidationError(f"Unsupported relation method: {method_name}")
         self._validate_pagination(limit, offset)
         normalized_lang = self._normalize_lang(lang)
         normalized_type = self._normalize_resource_type(resource_type) or spec.default_resource_type

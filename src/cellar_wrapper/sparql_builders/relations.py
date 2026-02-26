@@ -202,7 +202,7 @@ ORDER BY DESC(?date)
 def build_article_annotations_query(work_uri: str, *, limit: int, offset: int) -> str:
     """Build OWL annotation-level relation query."""
     query = f"""
-SELECT DISTINCT ?other ?predicate ?relationType ?direction ?date WHERE {{
+SELECT DISTINCT ?other ?predicate ?relationType ?direction ?date ?annotation ?article ?paragraph ?subparagraph ?point ?commentOnLegalBasis WHERE {{
   ?annotation owl:annotatedTarget <{work_uri}> .
   ?annotation owl:annotatedSource ?other .
   ?annotation owl:annotatedProperty ?annProp .
@@ -210,6 +210,26 @@ SELECT DISTINCT ?other ?predicate ?relationType ?direction ?date WHERE {{
   BIND('article_annotation' AS ?relationType)
   BIND('incoming' AS ?direction)
   OPTIONAL {{ ?other cdm:work_date_document ?date }}
+  OPTIONAL {{
+    ?annotation ?articlePredicate ?article .
+    FILTER(REGEX(STR(?articlePredicate), "(^|[#/:])article$", "i"))
+  }}
+  OPTIONAL {{
+    ?annotation ?paragraphPredicate ?paragraph .
+    FILTER(REGEX(STR(?paragraphPredicate), "(^|[#/:])paragraph$", "i"))
+  }}
+  OPTIONAL {{
+    ?annotation ?subparagraphPredicate ?subparagraph .
+    FILTER(REGEX(STR(?subparagraphPredicate), "(^|[#/:])subparagraph$", "i"))
+  }}
+  OPTIONAL {{
+    ?annotation ?pointPredicate ?point .
+    FILTER(REGEX(STR(?pointPredicate), "(^|[#/:])point$", "i"))
+  }}
+  OPTIONAL {{
+    ?annotation ?commentPredicate ?commentOnLegalBasis .
+    FILTER(REGEX(STR(?commentPredicate), "comment_on_legal_basis$", "i"))
+  }}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}

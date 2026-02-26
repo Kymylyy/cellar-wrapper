@@ -30,9 +30,7 @@ def build_search_by_eurovoc_query(
     tag_filters: list[str] = []
     for tag in tags:
         lit = quote_literal(tag)
-        tag_filters.append(
-            f"CONTAINS(LCASE(STR(?concept)), LCASE({lit})) || CONTAINS(LCASE(STR(?conceptLabel)), LCASE({lit}))"
-        )
+        tag_filters.append(f"CONTAINS(LCASE(STR(?conceptLabel)), LCASE({lit}))")
     filter_clause = " || ".join(tag_filters) if tag_filters else "true"
 
     type_clause = ""

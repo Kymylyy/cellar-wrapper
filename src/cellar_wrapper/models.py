@@ -60,6 +60,12 @@ class RelationItem(ActRef):
     direction: str | None = None
     predicate: str | None = None
     relation_type: str | None = None
+    annotation_uri: str | None = None
+    annotation_article: str | None = None
+    annotation_paragraph: str | None = None
+    annotation_subparagraph: str | None = None
+    annotation_point: str | None = None
+    annotation_comment_on_legal_basis: str | None = None
 
 
 class CaseLawItem(ActRef):

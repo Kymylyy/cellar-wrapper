@@ -72,6 +72,14 @@ CellarClient(
 - `Accept: application/xhtml+xml;type=xhtml5`
 - `Accept-Language: <lang>`
 
+## Download content-type validation
+- `get_text` / `get_summary` validate response `Content-Type` compatibility with requested format.
+- Generic `application/octet-stream` is accepted as fallback.
+
+## CLI `--since`
+- `--since` is available only for commands whose API methods support it.
+- Commands like `get-deadlines` and `get-article-annotations` do not accept `--since`.
+
 ## Public methods
 
 ### LOOKUP

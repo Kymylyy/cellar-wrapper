@@ -24,6 +24,7 @@ from cellar_wrapper.constants import (
 )
 from cellar_wrapper.errors import (
     CellarHTTPError,
+    CellarParseError,
     CellarRateLimitError,
     CellarSPARQLError,
     CellarTimeoutError,
@@ -89,6 +90,26 @@ class HttpTransport:
     ) -> None:
         """Context-manager exit."""
         self.close()
+
+    @staticmethod
+    def _media_type(value: str) -> str:
+        return value.split(";", 1)[0].strip().lower()
+
+    @classmethod
+    def _is_content_type_compatible(cls, accept: str, content_type: str) -> bool:
+        expected = cls._media_type(accept)
+        actual = cls._media_type(content_type)
+        if actual == expected:
+            return True
+        if actual == "application/octet-stream":
+            return True
+        if expected in {"application/xml", "application/rdf+xml"} and actual in {
+            "application/xml",
+            "application/rdf+xml",
+            "text/xml",
+        }:
+            return True
+        return False
 
     @staticmethod
     def _parse_retry_after_seconds(value: str | None) -> int | None:
@@ -220,4 +241,8 @@ class HttpTransport:
 
         response = self._request_with_retry("GET", url, headers=headers)
         content_type = response.headers.get("Content-Type", "application/octet-stream")
+        if not self._is_content_type_compatible(accept, content_type):
+            raise CellarParseError(
+                f"Unexpected content type from download endpoint: expected={self._media_type(accept)} got={content_type}"
+            )
         return response.content, content_type, str(response.request.url)

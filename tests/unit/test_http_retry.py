@@ -5,6 +5,7 @@ import pytest
 
 from cellar_wrapper.errors import (
     CellarHTTPError,
+    CellarParseError,
     CellarRateLimitError,
     CellarSPARQLError,
     CellarTimeoutError,
@@ -140,3 +141,32 @@ def test_transport_context_manager_closes_client(monkeypatch: pytest.MonkeyPatch
     with transport as active:
         assert active is transport
     assert closed["value"] is True
+
+
+def test_download_rejects_incompatible_content_type(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(retries=1)
+
+    def fake_request(*args: object, **kwargs: object) -> httpx.Response:
+        request = httpx.Request("GET", "https://example.test/file")
+        return httpx.Response(200, request=request, headers={"Content-Type": "text/html"}, text="<html></html>")
+
+    monkeypatch.setattr(transport._client, "request", fake_request)
+
+    with pytest.raises(CellarParseError, match="Unexpected content type"):
+        transport.download("https://example.test/file", accept="application/pdf")
+    transport.close()
+
+
+def test_download_allows_octet_stream_fallback(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(retries=1)
+
+    def fake_request(*args: object, **kwargs: object) -> httpx.Response:
+        request = httpx.Request("GET", "https://example.test/file")
+        return httpx.Response(200, request=request, headers={"Content-Type": "application/octet-stream"}, content=b"pdf")
+
+    monkeypatch.setattr(transport._client, "request", fake_request)
+
+    content, content_type, _ = transport.download("https://example.test/file", accept="application/pdf")
+    assert content == b"pdf"
+    assert content_type == "application/octet-stream"
+    transport.close()

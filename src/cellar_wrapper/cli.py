@@ -97,7 +97,7 @@ def _configure_command_parser(command_parser: argparse.ArgumentParser, spec: Com
         command_parser.add_argument("--celex", required=True)
     if spec.requires_since:
         command_parser.add_argument("--since", required=True)
-    elif spec.method.startswith("get_") and spec.group in {"relations", "lifecycle", "case-law"}:
+    elif spec.has_since:
         command_parser.add_argument("--since")
 
     if spec.has_resource_type:

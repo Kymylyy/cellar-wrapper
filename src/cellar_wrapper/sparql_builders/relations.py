@@ -31,6 +31,10 @@ def build_relation_query(
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build generic relation query over one or more predicates."""
+    if not predicates:
+        raise ValueError("predicates cannot be empty")
+    if direction not in {"incoming", "outgoing", "both"}:
+        raise ValueError(f"Unsupported direction: {direction}")
     unions: list[str] = []
     for spec in predicates:
         if direction in {"incoming", "both"}:

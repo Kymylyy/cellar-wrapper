@@ -1,0 +1,153 @@
+"""HTTP transport for SPARQL and resource downloads with retry policy."""
+
+from __future__ import annotations
+
+import random
+import time
+from dataclasses import dataclass
+from typing import Any
+
+import httpx
+
+from cellar_wrapper.constants import (
+    DEFAULT_CONNECT_TIMEOUT,
+    DEFAULT_POOL_TIMEOUT,
+    DEFAULT_READ_TIMEOUT,
+    DEFAULT_RETRIES,
+    DEFAULT_SPARQL_ENDPOINT,
+    DEFAULT_WRITE_TIMEOUT,
+    RETRY_STATUS_CODES,
+)
+from cellar_wrapper.errors import CellarHTTPError, CellarRateLimitError, CellarSPARQLError
+
+
+@dataclass(frozen=True)
+class TimeoutConfig:
+    """Connection timeout parameters."""
+
+    connect: float = DEFAULT_CONNECT_TIMEOUT
+    read: float = DEFAULT_READ_TIMEOUT
+    write: float = DEFAULT_WRITE_TIMEOUT
+    pool: float = DEFAULT_POOL_TIMEOUT
+
+
+class HttpTransport:
+    """Encapsulates all HTTP communication with retries."""
+
+    def __init__(
+        self,
+        *,
+        sparql_endpoint: str = DEFAULT_SPARQL_ENDPOINT,
+        retries: int = DEFAULT_RETRIES,
+        user_agent: str = "cellar-wrapper/0.1.0",
+        timeout: TimeoutConfig | None = None,
+    ) -> None:
+        self._sparql_endpoint = sparql_endpoint
+        self._retries = retries
+        self._client = httpx.Client(
+            timeout=httpx.Timeout(
+                connect=(timeout or TimeoutConfig()).connect,
+                read=(timeout or TimeoutConfig()).read,
+                write=(timeout or TimeoutConfig()).write,
+                pool=(timeout or TimeoutConfig()).pool,
+            ),
+            follow_redirects=True,
+            headers={"User-Agent": user_agent},
+        )
+
+    @property
+    def sparql_endpoint(self) -> str:
+        """Return current SPARQL endpoint URL."""
+        return self._sparql_endpoint
+
+    def close(self) -> None:
+        """Close the underlying HTTP client."""
+        self._client.close()
+
+    def _request_with_retry(
+        self,
+        method: str,
+        url: str,
+        *,
+        params: dict[str, str] | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> httpx.Response:
+        last_response: httpx.Response | None = None
+        for attempt in range(1, self._retries + 1):
+            try:
+                response = self._client.request(
+                    method=method,
+                    url=url,
+                    params=params,
+                    headers=headers,
+                )
+            except httpx.HTTPError as exc:
+                if attempt == self._retries:
+                    raise CellarHTTPError(
+                        f"HTTP request failed: {exc}",
+                        status_code=0,
+                        url=url,
+                    ) from exc
+                self._sleep_backoff(attempt)
+                continue
+
+            last_response = response
+            if response.status_code in RETRY_STATUS_CODES and attempt < self._retries:
+                self._sleep_backoff(attempt)
+                continue
+
+            if response.status_code == 429:
+                raise CellarRateLimitError(
+                    "Rate limited by CELLAR endpoint",
+                    status_code=429,
+                    url=str(response.request.url),
+                    retry_after=response.headers.get("Retry-After"),
+                    body_excerpt=response.text[:300],
+                )
+
+            if response.status_code >= 400:
+                raise CellarHTTPError(
+                    f"HTTP error {response.status_code}",
+                    status_code=response.status_code,
+                    url=str(response.request.url),
+                    body_excerpt=response.text[:300],
+                )
+
+            return response
+
+        # Fallback guard, should never happen in practice.
+        assert last_response is not None
+        return last_response
+
+    @staticmethod
+    def _sleep_backoff(attempt: int) -> None:
+        base = 2 ** (attempt - 1)
+        jitter = random.uniform(0.0, 0.25)
+        time.sleep(base + jitter)
+
+    def query_sparql(self, query: str) -> dict[str, Any]:
+        """Execute SPARQL query and return JSON payload."""
+        response = self._request_with_retry(
+            "GET",
+            self._sparql_endpoint,
+            params={"query": query, "format": "application/sparql-results+json"},
+            headers={"Accept": "application/sparql-results+json"},
+        )
+        try:
+            payload = response.json()
+        except ValueError as exc:  # pragma: no cover - defensive guard
+            raise CellarSPARQLError("SPARQL endpoint returned non-JSON payload") from exc
+
+        if not isinstance(payload, dict):
+            raise CellarSPARQLError("SPARQL endpoint JSON payload is not an object")
+        return payload
+
+    def download(self, url: str, *, accept: str, language: str | None = None) -> tuple[bytes, str, str]:
+        """Download binary/text payload from resource endpoint."""
+        headers = {"Accept": accept}
+        if language is not None:
+            headers["Accept-Language"] = language
+
+        response = self._request_with_retry("GET", url, headers=headers)
+        content_type = response.headers.get("Content-Type", "application/octet-stream")
+        return response.content, content_type, str(response.request.url)

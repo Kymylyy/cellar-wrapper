@@ -68,6 +68,14 @@ def test_lifecycle_group_get_dossier() -> None:
                 sparql_row(
                     other="http://publications.europa.eu/resource/cellar/proposal",
                     celex="52020PC0595",
+                    dossier="http://publications.europa.eu/resource/cellar/dossier",
+                    procedureCode="2023/0210/COD",
+                    procedureType="OLP",
+                    statusAdopted="0",
+                    statusPending="1",
+                    statusWithdrawn="0",
+                    producesAct="http://publications.europa.eu/resource/cellar/final",
+                    producesActCelex="32025R0001",
                     relationType="dossier_contains_work",
                 )
             ]
@@ -76,6 +84,30 @@ def test_lifecycle_group_get_dossier() -> None:
     client = CellarClient(transport=FakeTransport(query_handler=query_handler))
     result = client.get_dossier("32022R2554")
     assert result.returned_count == 1
+    assert result.items[0].procedure_code == "2023/0210/COD"
+    assert result.items[0].status_pending is True
+
+
+def test_lifecycle_group_get_nims_exposes_country() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return _resolver_payload()
+        return sparql_payload(
+            [
+                sparql_row(
+                    other="http://publications.europa.eu/resource/cellar/nim",
+                    celex="72015L2366POL_258600",
+                    relationType="nims",
+                    direction="incoming",
+                    implementedByCountry="http://publications.europa.eu/resource/authority/country/POL",
+                )
+            ]
+        )
+
+    client = CellarClient(transport=FakeTransport(query_handler=query_handler))
+    result = client.get_nims("32022R2554")
+    assert result.returned_count == 1
+    assert result.items[0].implemented_by_country is not None
 
 
 def test_case_law_group_get_cjeu_judgments() -> None:
@@ -96,6 +128,29 @@ def test_case_law_group_get_cjeu_judgments() -> None:
     result = client.get_cjeu_judgments("32022R2554")
     assert result.returned_count == 1
     assert result.items[0].ecli == "ECLI:EU:C:2020:897"
+
+
+def test_case_law_group_get_national_decisions_country_filter() -> None:
+    transport = FakeTransport(
+        query_handler=lambda query: (
+            _resolver_payload()
+            if "FILTER(UCASE(STR(?celex))" in query
+            else sparql_payload(
+                [
+                    sparql_row(
+                        other="http://publications.europa.eu/resource/cellar/national-case",
+                        celex="82021DE0115(51)",
+                        originCountry="http://publications.europa.eu/resource/authority/country/DEU",
+                    )
+                ]
+            )
+        )
+    )
+    client = CellarClient(transport=transport)
+    result = client.get_national_decisions("32022R2554", country="DEU")
+    assert result.returned_count == 1
+    assert result.items[0].origin_country is not None
+    assert any("CONTAINS(UCASE(STR(?originCountry)), 'DEU')" in query for query in transport.queries)
 
 
 def test_search_group_search_by_title() -> None:

@@ -49,6 +49,11 @@ class ActDetail(ActRef):
 
     eli: str | None = None
     in_force: bool | None = None
+    eea_relevant: bool | None = None
+    created_by_agents: list[str] = Field(default_factory=list)
+    responsible_agents: list[str] = Field(default_factory=list)
+    addresses_institutions: list[str] = Field(default_factory=list)
+    signatory_names: list[str] = Field(default_factory=list)
     date_document: date | datetime | None = None
     date_entry_into_force: date | datetime | None = None
     date_end_of_validity: date | datetime | None = None
@@ -68,12 +73,32 @@ class RelationItem(ActRef):
     annotation_comment_on_legal_basis: str | None = None
 
 
+class DossierItem(RelationItem):
+    """Dossier relation record with procedure-level metadata."""
+
+    dossier_uri: str | None = None
+    procedure_code: str | None = None
+    procedure_type: str | None = None
+    status_adopted: bool | None = None
+    status_pending: bool | None = None
+    status_withdrawn: bool | None = None
+    produces_act_uri: str | None = None
+    produces_act_celex: str | None = None
+
+
+class NIMItem(RelationItem):
+    """National implementing measure relation record."""
+
+    implemented_by_country: str | None = None
+
+
 class CaseLawItem(ActRef):
     """Case-law specific record."""
 
     ecli: str | None = None
     court_formation: str | None = None
     advocate_general: str | None = None
+    origin_country: str | None = None
 
 
 class EurovocTag(ModelBase):

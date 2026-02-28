@@ -13,9 +13,11 @@ from cellar_wrapper.models import (
     ActRef,
     CaseLawItem,
     DocumentPayload,
+    DossierItem,
     EurovocTag,
     ExpressionItem,
     ListResult,
+    NIMItem,
     RelationItem,
     SubjectMatterTag,
 )
@@ -196,9 +198,7 @@ RELATION_METHODS = {
     "get_corrigenda",
     "get_deadlines",
     "get_delegated_acts",
-    "get_dossier",
     "get_legal_basis",
-    "get_nims",
     "get_opinions",
     "get_other_relations",
     "get_proposals_to_amend",
@@ -209,7 +209,8 @@ RELATION_METHODS = {
     "new_consolidated",
     "new_corrigenda",
     "new_delegated_acts",
-    "new_nims",
+    "new_proposals_to_amend",
+    "new_repeals",
 }
 
 CASE_METHODS = {
@@ -217,8 +218,11 @@ CASE_METHODS = {
     "get_national_decisions",
     "get_preliminary_questions",
     "new_case_law",
+    "new_preliminary_questions",
 }
 
+DOSSIER_METHODS = {"get_dossier"}
+NIM_METHODS = {"get_nims", "new_nims"}
 LOOKUP_CONCEPT_METHODS = {"get_eurovoc", "find_eurovoc_concept"}
 SUBJECT_METHODS = {"get_subject_matter", "get_directory_codes"}
 EXPRESSION_METHODS = {"get_expressions"}
@@ -242,6 +246,10 @@ def _build_contracts() -> dict[str, ReturnContract]:
         contracts[method_name] = ReturnContract(ListResult, item_type=RelationItem, query_name=method_name)
     for method_name in CASE_METHODS:
         contracts[method_name] = ReturnContract(ListResult, item_type=CaseLawItem, query_name=method_name)
+    for method_name in DOSSIER_METHODS:
+        contracts[method_name] = ReturnContract(ListResult, item_type=DossierItem, query_name=method_name)
+    for method_name in NIM_METHODS:
+        contracts[method_name] = ReturnContract(ListResult, item_type=NIMItem, query_name=method_name)
     for method_name in LOOKUP_CONCEPT_METHODS:
         contracts[method_name] = ReturnContract(ListResult, item_type=EurovocTag, query_name=method_name)
     for method_name in SUBJECT_METHODS:
@@ -280,7 +288,7 @@ def test_public_methods_contract_definition_matches_client_surface() -> None:
     }
     assert public_client_methods == set(PUBLIC_METHODS)
     assert set(PUBLIC_METHODS) == set(RETURN_CONTRACTS)
-    assert len(PUBLIC_METHODS) == 42
+    assert len(PUBLIC_METHODS) == 45
 
 
 @pytest.mark.parametrize("method_name", PUBLIC_METHODS)

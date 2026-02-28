@@ -10,8 +10,10 @@ from cellar_wrapper.models import (
     ActDetail,
     ActRef,
     CaseLawItem,
+    DossierItem,
     EurovocTag,
     ExpressionItem,
+    NIMItem,
     RelationItem,
     SubjectMatterTag,
 )
@@ -145,6 +147,30 @@ def parse_date_value(raw: str | None, *, field_name: str) -> date | datetime | N
             ) from exc
 
 
+def parse_bool_value(
+    raw: str | None,
+    *,
+    parser: str,
+    field_name: str,
+    row_index: int | None = None,
+) -> bool | None:
+    """Parse optional bool values represented as true/false/1/0 strings."""
+    if raw is None:
+        return None
+    normalized = raw.strip().lower()
+    if normalized in {"true", "1"}:
+        return True
+    if normalized in {"false", "0"}:
+        return False
+    raise _parse_error(
+        f"Invalid boolean for {field_name}",
+        parser=parser,
+        row_index=row_index,
+        field=field_name,
+        value=raw,
+    )
+
+
 def parse_act_refs(rows: list[dict[str, dict[str, str]]]) -> list[ActRef]:
     """Parse generic work rows into ActRef objects."""
     items: list[ActRef] = []
@@ -187,50 +213,90 @@ def parse_act_detail(rows: list[dict[str, dict[str, str]]]) -> ActDetail | None:
     if not rows:
         return None
 
-    row = _ensure_binding_row(rows[0], parser="parse_act_detail", row_index=0)
-    uri = value(row, "work")
+    normalized_rows = [
+        _ensure_binding_row(row, parser="parse_act_detail", row_index=row_index)
+        for row_index, row in enumerate(rows)
+    ]
+    uri = value(normalized_rows[0], "work")
     if uri is None:
         raise _parse_error(
             "get_act query returned row without work URI",
             parser="parse_act_detail",
             row_index=0,
             field="work",
-            value=row,
+            value=normalized_rows[0],
         )
 
-    in_force_raw = value(row, "inForce")
-    in_force: bool | None
-    if in_force_raw is None:
-        in_force = None
-    else:
-        normalized_bool = in_force_raw.strip().lower()
-        if normalized_bool in {"true", "1"}:
-            in_force = True
-        elif normalized_bool in {"false", "0"}:
-            in_force = False
-        else:
-            raise _parse_error(
-                "Invalid boolean for inForce field",
-                parser="parse_act_detail",
-                row_index=0,
-                field="inForce",
-                value=in_force_raw,
-            )
+    first_values: dict[str, str | None] = {
+        "celex": None,
+        "title": None,
+        "type": None,
+        "eli": None,
+        "inForce": None,
+        "eea": None,
+        "dateDocument": None,
+        "dateEntryIntoForce": None,
+        "dateEndOfValidity": None,
+    }
+    created_by_agents: list[str] = []
+    responsible_agents: list[str] = []
+    addresses_institutions: list[str] = []
+    signatory_names: list[str] = []
+    created_by_seen: set[str] = set()
+    responsible_seen: set[str] = set()
+    addresses_seen: set[str] = set()
+    signatories_seen: set[str] = set()
+
+    for row in normalized_rows:
+        for key in first_values:
+            if first_values[key] is None:
+                first_values[key] = value(row, key)
+        for key, target, seen in (
+            ("createdBy", created_by_agents, created_by_seen),
+            ("responsibleAgent", responsible_agents, responsible_seen),
+            ("addressesInstitution", addresses_institutions, addresses_seen),
+            ("signatoryName", signatory_names, signatories_seen),
+        ):
+            candidate = value(row, key)
+            if candidate is not None and candidate not in seen:
+                target.append(candidate)
+                seen.add(candidate)
+
+    in_force = parse_bool_value(
+        first_values["inForce"],
+        parser="parse_act_detail",
+        field_name="inForce",
+        row_index=0,
+    )
+    eea_relevant = parse_bool_value(
+        first_values["eea"],
+        parser="parse_act_detail",
+        field_name="eea",
+        row_index=0,
+    )
 
     return ActDetail(
         uri=uri,
-        celex=value(row, "celex"),
-        title=value(row, "title"),
-        resource_type=value(row, "type"),
-        eli=value(row, "eli"),
+        celex=first_values["celex"],
+        title=first_values["title"],
+        resource_type=first_values["type"],
+        eli=first_values["eli"],
         in_force=in_force,
-        date_document=parse_date_value(value(row, "dateDocument"), field_name="dateDocument"),
+        eea_relevant=eea_relevant,
+        created_by_agents=created_by_agents,
+        responsible_agents=responsible_agents,
+        addresses_institutions=addresses_institutions,
+        signatory_names=signatory_names,
+        date_document=parse_date_value(
+            first_values["dateDocument"],
+            field_name="dateDocument",
+        ),
         date_entry_into_force=parse_date_value(
-            value(row, "dateEntryIntoForce"),
+            first_values["dateEntryIntoForce"],
             field_name="dateEntryIntoForce",
         ),
         date_end_of_validity=parse_date_value(
-            value(row, "dateEndOfValidity"),
+            first_values["dateEndOfValidity"],
             field_name="dateEndOfValidity",
         ),
     )
@@ -269,6 +335,63 @@ def parse_case_law_items(rows: list[dict[str, dict[str, str]]]) -> list[CaseLawI
                 ecli=value(row, "ecli"),
                 court_formation=value(row, "courtFormation"),
                 advocate_general=value(row, "advocateGeneral"),
+                origin_country=value(row, "originCountry"),
+            )
+        )
+    return result
+
+
+def parse_dossier_items(rows: list[dict[str, dict[str, str]]]) -> list[DossierItem]:
+    """Parse dossier query rows."""
+    refs = parse_act_refs(rows)
+    result: list[DossierItem] = []
+    for row_index, (ref, row) in enumerate(zip(refs, rows, strict=True)):
+        result.append(
+            DossierItem(
+                **ref.model_dump(),
+                direction=value(row, "direction"),
+                predicate=value(row, "predicate"),
+                relation_type=value(row, "relationType"),
+                dossier_uri=value(row, "dossier"),
+                procedure_code=value(row, "procedureCode"),
+                procedure_type=value(row, "procedureType"),
+                status_adopted=parse_bool_value(
+                    value(row, "statusAdopted"),
+                    parser="parse_dossier_items",
+                    field_name="statusAdopted",
+                    row_index=row_index,
+                ),
+                status_pending=parse_bool_value(
+                    value(row, "statusPending"),
+                    parser="parse_dossier_items",
+                    field_name="statusPending",
+                    row_index=row_index,
+                ),
+                status_withdrawn=parse_bool_value(
+                    value(row, "statusWithdrawn"),
+                    parser="parse_dossier_items",
+                    field_name="statusWithdrawn",
+                    row_index=row_index,
+                ),
+                produces_act_uri=value(row, "producesAct"),
+                produces_act_celex=value(row, "producesActCelex"),
+            )
+        )
+    return result
+
+
+def parse_nim_items(rows: list[dict[str, dict[str, str]]]) -> list[NIMItem]:
+    """Parse NIM relation rows."""
+    refs = parse_act_refs(rows)
+    result: list[NIMItem] = []
+    for ref, row in zip(refs, rows, strict=True):
+        result.append(
+            NIMItem(
+                **ref.model_dump(),
+                direction=value(row, "direction"),
+                predicate=value(row, "predicate"),
+                relation_type=value(row, "relationType"),
+                implemented_by_country=value(row, "implementedByCountry"),
             )
         )
     return result

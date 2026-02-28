@@ -41,6 +41,8 @@ def configure_command_parser(command_parser: argparse.ArgumentParser, spec: Comm
 
     if spec.has_resource_type:
         command_parser.add_argument("--resource-type", help="Filter by CELLAR resource type token.")
+    if spec.has_country:
+        command_parser.add_argument("--country", help="Filter by ISO-3 country code.")
     if spec.has_lang:
         command_parser.add_argument("--lang", default=DEFAULT_LANGUAGE, help="Language code.")
     if spec.has_limit_offset:
@@ -85,6 +87,8 @@ def build_method_kwargs(spec: CommandSpec, args: argparse.Namespace) -> dict[str
 
     if spec.has_resource_type:
         kwargs["resource_type"] = getattr(args, "resource_type", None)
+    if spec.has_country:
+        kwargs["country"] = getattr(args, "country", None)
     if spec.has_lang:
         kwargs["lang"] = args.lang
     if spec.has_limit_offset:

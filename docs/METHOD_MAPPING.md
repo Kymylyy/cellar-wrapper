@@ -4,7 +4,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 
 ## LOOKUP
 - `resolve_celex` -> `cdm:resource_legal_id_celex` (exact then `CONTAINS` fallback)
-- `get_act` -> work-level fields (`resource_legal_id_celex`, `resource_legal_eli`, `work_has_resource-type`, `resource_legal_in-force`, dates)
+- `get_act` -> work-level fields (`resource_legal_id_celex`, `resource_legal_eli`, `work_has_resource-type`, `resource_legal_in-force`, `resource_legal_eea`, dates) + institution metadata (`work_created_by_agent`, `resource_legal_responsibility_of_agent`, `resource_legal_addresses_institution`, `resource_legal_signatory_name2`)
 - `get_eurovoc` -> `cdm:work_is_about_concept_eurovoc`
 - `get_subject_matter` -> `cdm:resource_legal_is_about_subject-matter`
 - `get_legal_basis` -> `cdm:resource_legal_based_on_resource_legal`, `cdm:resource_legal_based_on_concept_treaty`
@@ -30,8 +30,8 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 ## LIFECYCLE
 - `get_consolidated_versions` -> `cdm:act_consolidated_consolidates_resource_legal` (incoming)
 - `get_corrigenda` -> `cdm:resource_legal_corrects_resource_legal` (incoming)
-- `get_nims` -> `cdm:measure_national_implementing_implements_resource_legal` (incoming)
-- `get_dossier` -> `cdm:dossier_contains_work`
+- `get_nims` -> `cdm:measure_national_implementing_implements_resource_legal` (incoming) + `cdm:measure_national_implementing_implemented_by_country`
+- `get_dossier` -> `cdm:dossier_contains_work` + dossier procedure metadata (`cdm:procedure_code_interinstitutional_reference_procedure`, `cdm:procedure_code_interinstitutional_has_type`, `cdm:dossier_*`, `cdm:dossier_produces_resource_legal`)
 - `get_opinions` ->
   - `cdm:resource_legal_contains_eesc_opinion_on_resource_legal`
   - `cdm:resource_legal_contains_ep_opinion_on_resource_legal`
@@ -50,6 +50,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `get_national_decisions` ->
   - `cdm:work_has_resource-type` = `DEC_NC`
   - `cdm:case-law_national_act_reference_european` (`CONTAINS` CELEX)
+  - optional country filter via `cdm:case-law_originates_in_country`
 - `get_article_annotations` -> `owl:annotatedTarget`, `owl:annotatedSource`, `owl:annotatedProperty` + qualifier extraction (`article`, `paragraph`, `subparagraph`, `point`, `comment_on_legal_basis`)
 
 ## SEARCH
@@ -64,8 +65,11 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 ## MONITORING
 - `new_citations` -> `get_citations` + `date > since`
 - `new_amendments` -> `get_amendments` + `date > since`
+- `new_repeals` -> `get_repeals` + `date > since`
+- `new_proposals_to_amend` -> `get_proposals_to_amend` + `date > since`
 - `new_delegated_acts` -> `get_delegated_acts` + `date > since`
 - `new_case_law` -> `get_cjeu_judgments` + `date > since`
+- `new_preliminary_questions` -> `get_preliminary_questions` + `date > since`
 - `new_corrigenda` -> `get_corrigenda` + `date > since`
 - `new_consolidated` -> `get_consolidated_versions` + `date > since`
 - `new_nims` -> `get_nims` + `date > since`

@@ -8,6 +8,8 @@ from cellar_wrapper.sparql import (
     build_concept_query,
     build_dossier_query,
     build_find_eurovoc_concept_query,
+    build_get_act_query,
+    build_national_decisions_query,
     build_relation_query,
     build_resolve_celex_query,
     build_search_by_eurovoc_query,
@@ -201,6 +203,41 @@ def test_build_dossier_query_excludes_self_reference() -> None:
         offset=0,
     )
     assert "FILTER(?other != <https://publications.europa.eu/resource/cellar/example>)" in query
+
+
+def test_build_get_act_query_includes_enriched_metadata_predicates() -> None:
+    query = build_get_act_query("https://publications.europa.eu/resource/cellar/example")
+    assert "cdm:work_created_by_agent" in query
+    assert "cdm:resource_legal_responsibility_of_agent" in query
+    assert "cdm:resource_legal_eea" in query
+    assert "cdm:resource_legal_addresses_institution" in query
+    assert "cdm:resource_legal_signatory_name2" in query
+
+
+def test_build_dossier_query_includes_procedure_metadata() -> None:
+    query = build_dossier_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        limit=10,
+        offset=0,
+    )
+    assert "cdm:procedure_code_interinstitutional_reference_procedure" in query
+    assert "cdm:procedure_code_interinstitutional_has_type" in query
+    assert "cdm:dossier_produces_resource_legal" in query
+    assert "?statusAdopted" in query
+    assert "?statusPending" in query
+    assert "?statusWithdrawn" in query
+
+
+def test_build_national_decisions_query_can_filter_by_country() -> None:
+    query = build_national_decisions_query(
+        "32022R2554",
+        since="2025-01-01",
+        country="DEU",
+        limit=10,
+        offset=0,
+    )
+    assert "cdm:case-law_originates_in_country" in query
+    assert "CONTAINS(UCASE(STR(?originCountry)), 'DEU')" in query
 
 
 def test_search_communications_requires_service_binding() -> None:

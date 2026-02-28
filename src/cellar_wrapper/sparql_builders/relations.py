@@ -31,6 +31,8 @@ def build_relation_query(
     offset: int,
     lang: str = DEFAULT_LANGUAGE,
     include_undated: bool = True,
+    include_origin_country: bool = False,
+    include_implemented_by_country: bool = False,
 ) -> str:
     """Build generic relation query over one or more predicates."""
     if not predicates:
@@ -66,8 +68,23 @@ def build_relation_query(
 
     union_block = " UNION\n".join(unions)
 
+    extra_select_vars: list[str] = []
+    optional_blocks: list[str] = []
+    if include_origin_country:
+        extra_select_vars.append("?originCountry")
+        optional_blocks.append(
+            f'OPTIONAL {{ ?other {PREDICATES["case_law_originates_in_country"]} ?originCountry }}'
+        )
+    if include_implemented_by_country:
+        extra_select_vars.append("?implementedByCountry")
+        optional_blocks.append(
+            f'OPTIONAL {{ ?other {PREDICATES["implemented_by_country"]} ?implementedByCountry }}'
+        )
+    extra_select = (" " + " ".join(extra_select_vars)) if extra_select_vars else ""
+    extra_optional = ("\n  " + "\n  ".join(optional_blocks)) if optional_blocks else ""
+
     query = f"""
-SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predicate ?ecli ?courtFormation ?advocateGeneral WHERE {{
+SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predicate ?ecli ?courtFormation ?advocateGeneral{extra_select} WHERE {{
 {union_block}
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
@@ -75,6 +92,7 @@ SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predi
   OPTIONAL {{ ?other {PREDICATES["case_law_ecli"]} ?ecli }}
   OPTIONAL {{ ?other {PREDICATES["case_law_delivered_by_court_formation"]} ?courtFormation }}
   OPTIONAL {{ ?other {PREDICATES["case_law_delivered_by_advocate_general"]} ?advocateGeneral }}
+  {extra_optional}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?other .
     ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
@@ -94,13 +112,22 @@ def build_dossier_query(work_uri: str, *, limit: int, offset: int, lang: str = D
     work_iri = safe_iri(work_uri, field="work_uri")
     lang_iri = language_uri(lang)
     query = f"""
-SELECT DISTINCT ?dossier ?other ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
+SELECT DISTINCT ?dossier ?procedureCode ?procedureType ?statusAdopted ?statusPending ?statusWithdrawn ?producesAct ?producesActCelex ?other ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
   ?dossier {PREDICATES["dossier_contains_work"]} <{work_iri}> .
   ?dossier {PREDICATES["dossier_contains_work"]} ?other .
   FILTER(?other != <{work_iri}>)
   BIND({quote_literal("dossier_contains_work")} AS ?relationType)
   BIND({quote_literal(PREDICATES["dossier_contains_work"])} AS ?predicate)
   BIND({quote_literal("incoming")} AS ?direction)
+  OPTIONAL {{
+    ?dossier {PREDICATES["procedure_code_interinstitutional_reference_procedure"]} ?procedureCode
+  }}
+  OPTIONAL {{ ?dossier {PREDICATES["procedure_code_interinstitutional_has_type"]} ?procedureType }}
+  OPTIONAL {{ ?dossier {PREDICATES["dossier_adopted_proposal"]} ?statusAdopted }}
+  OPTIONAL {{ ?dossier {PREDICATES["dossier_pending_proposal"]} ?statusPending }}
+  OPTIONAL {{ ?dossier {PREDICATES["dossier_withdrawn_proposal"]} ?statusWithdrawn }}
+  OPTIONAL {{ ?dossier {PREDICATES["dossier_produces_resource_legal"]} ?producesAct }}
+  OPTIONAL {{ ?producesAct {PREDICATES["resource_legal_id_celex"]} ?producesActCelex }}
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}
@@ -183,6 +210,7 @@ def build_national_decisions_query(
     celex: str,
     *,
     since: date | datetime | str | None,
+    country: str | None = None,
     limit: int,
     offset: int,
     lang: str = DEFAULT_LANGUAGE,
@@ -190,8 +218,13 @@ def build_national_decisions_query(
     """Build national court decisions query by CELEX reference string."""
     dec_nc_uri = resource_type_uri("DEC_NC")
     lang_iri = language_uri(lang)
+    country_filter = ""
+    if country is not None:
+        country_filter = (
+            f"FILTER(CONTAINS(UCASE(STR(?originCountry)), {quote_literal(country.upper())}))"
+        )
     query = f"""
-SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predicate WHERE {{
+SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predicate ?originCountry WHERE {{
   ?other {PREDICATES["work_has_resource_type"]} <{dec_nc_uri}> .
   ?other {PREDICATES["national_act_reference"]} ?ref .
   FILTER(CONTAINS(UCASE(STR(?ref)), {quote_literal(celex.upper())}))
@@ -201,11 +234,13 @@ SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predi
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}
+  OPTIONAL {{ ?other {PREDICATES["case_law_originates_in_country"]} ?originCountry }}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?other .
     ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
+  {country_filter}
   {since_filter("date", since, include_undated=True)}
 }}
 ORDER BY DESC(?date)

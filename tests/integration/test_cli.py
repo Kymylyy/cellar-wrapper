@@ -13,6 +13,12 @@ class StubClient:
     def __init__(self) -> None:
         self.search_by_title_calls: list[dict[str, object]] = []
         self.get_consolidated_versions_calls: list[dict[str, object]] = []
+        self.get_national_decisions_calls: list[dict[str, object]] = []
+        self.monitoring_calls: dict[str, list[dict[str, object]]] = {
+            "new_repeals": [],
+            "new_proposals_to_amend": [],
+            "new_preliminary_questions": [],
+        }
 
     def resolve_celex(self, celex: str) -> ActRef:
         return ActRef(uri="http://publications.europa.eu/resource/cellar/act", celex=celex)
@@ -32,6 +38,22 @@ class StubClient:
         return {"items": [], "kwargs": kwargs}
 
     def get_nims(self, **kwargs: object) -> dict[str, object]:
+        return {"items": [], "kwargs": kwargs}
+
+    def get_national_decisions(self, **kwargs: object) -> dict[str, object]:
+        self.get_national_decisions_calls.append(kwargs)
+        return {"items": [], "kwargs": kwargs}
+
+    def new_repeals(self, **kwargs: object) -> dict[str, object]:
+        self.monitoring_calls["new_repeals"].append(kwargs)
+        return {"items": [], "kwargs": kwargs}
+
+    def new_proposals_to_amend(self, **kwargs: object) -> dict[str, object]:
+        self.monitoring_calls["new_proposals_to_amend"].append(kwargs)
+        return {"items": [], "kwargs": kwargs}
+
+    def new_preliminary_questions(self, **kwargs: object) -> dict[str, object]:
+        self.monitoring_calls["new_preliminary_questions"].append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
     def close(self) -> None:
@@ -183,6 +205,60 @@ def test_cli_lifecycle_accepts_resource_type(
     payload = json.loads(capsys.readouterr().out)
     assert payload["ok"] is True
     assert stub.get_consolidated_versions_calls[0]["resource_type"] == "CONS_TEXT"
+
+
+def test_cli_case_law_accepts_country_filter(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    stub = StubClient()
+    monkeypatch.setattr(cli, "_build_client", lambda args: stub)
+    exit_code = cli.run(
+        [
+            "case-law",
+            "get-national-decisions",
+            "--celex",
+            "32022R2554",
+            "--country",
+            "DEU",
+        ]
+    )
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is True
+    assert stub.get_national_decisions_calls[0]["country"] == "DEU"
+
+
+@pytest.mark.parametrize(
+    ("command_name", "method_name"),
+    [
+        ("new-repeals", "new_repeals"),
+        ("new-proposals-to-amend", "new_proposals_to_amend"),
+        ("new-preliminary-questions", "new_preliminary_questions"),
+    ],
+)
+def test_cli_supports_new_monitoring_commands(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    command_name: str,
+    method_name: str,
+) -> None:
+    stub = StubClient()
+    monkeypatch.setattr(cli, "_build_client", lambda args: stub)
+    exit_code = cli.run(
+        [
+            "monitoring",
+            command_name,
+            "--celex",
+            "32022R2554",
+            "--since",
+            "2025-01-01",
+        ]
+    )
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is True
+    assert stub.monitoring_calls[method_name]
 
 
 def test_cli_build_client_passes_user_agent(monkeypatch: pytest.MonkeyPatch) -> None:

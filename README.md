@@ -15,6 +15,8 @@ predictable contracts for legal and compliance data workflows.
 - Fail-fast error model with domain exceptions.
 - JSON-first CLI (`cellar`) with command groups mirroring API areas.
 - Stateless monitoring methods (`new_*`) with explicit `since`.
+- Enriched metadata for `get_act`, `get_dossier`, and `get_nims`.
+- Country-aware case-law support (`get_national_decisions(..., country="DEU")`).
 
 ## Installation
 
@@ -81,6 +83,7 @@ pytest
 - `since` semantics:
   - non-monitoring methods (`search_*`, `get_*` with optional `since`): keep undated rows.
   - monitoring methods (`new_*`): strict `BOUND(date) && date > since`.
+- Additional monitoring methods: `new_repeals`, `new_proposals_to_amend`, `new_preliminary_questions`.
 - SPARQL transport is `POST`-first with automatic `GET` fallback for unsupported endpoints.
 - GET fallback is skipped when encoded URL would exceed a safe length guard.
 - HTTP retries respect `Retry-After` both on intermediate and final `429` responses.

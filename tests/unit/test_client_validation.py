@@ -33,6 +33,12 @@ def test_invalid_since_in_monitoring_raises_validation_error() -> None:
         client.new_citations("32022R2554", since="not-a-date")
 
 
+def test_invalid_country_code_raises_validation_error() -> None:
+    client = CellarClient(transport=FakeTransport())
+    with pytest.raises(CellarValidationError, match="Invalid country code"):
+        client.get_national_decisions("32022R2554", country="DE")
+
+
 def test_retries_below_one_raises_validation_error() -> None:
     with pytest.raises(CellarValidationError, match="retries must be >= 1"):
         CellarClient(retries=0)

@@ -6,8 +6,8 @@ from datetime import date, datetime
 
 from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
-from cellar_wrapper.models import ListResult, RelationItem
-from cellar_wrapper.parser import parse_relation_items
+from cellar_wrapper.models import DossierItem, ListResult, NIMItem, RelationItem
+from cellar_wrapper.parser import parse_dossier_items, parse_relation_items
 from cellar_wrapper.sparql import build_deadlines_query, build_dossier_query
 
 
@@ -88,12 +88,12 @@ class LifecycleMixin:
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
-    ) -> ListResult[RelationItem]:
-        return _call_lifecycle_relation(
-            self,
+    ) -> ListResult[NIMItem]:
+        return self._call_nim_items(
             method_name="get_nims",
             celex=celex,
             since=since,
+            include_undated=True,
             resource_type=resource_type,
             limit=limit,
             offset=offset,
@@ -107,7 +107,7 @@ class LifecycleMixin:
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
-    ) -> ListResult[RelationItem]:
+    ) -> ListResult[DossierItem]:
         self._validate_pagination(limit, offset)
         query = build_dossier_query(
             self._resolve_work_uri(celex),
@@ -118,7 +118,7 @@ class LifecycleMixin:
         return self._run_list_query(
             query_name="get_dossier",
             query=query,
-            parser=parse_relation_items,
+            parser=parse_dossier_items,
             limit=limit,
             offset=offset,
         )

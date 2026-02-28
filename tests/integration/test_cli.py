@@ -5,7 +5,7 @@ import json
 import pytest
 
 from cellar_wrapper import cli
-from cellar_wrapper.errors import CellarValidationError
+from cellar_wrapper.errors import CellarNotFoundError, CellarValidationError
 from cellar_wrapper.models import ActRef
 
 
@@ -185,6 +185,52 @@ def test_cli_lifecycle_accepts_resource_type(
     assert stub.get_consolidated_versions_calls[0]["resource_type"] == "CONS_TEXT"
 
 
+def test_cli_build_client_passes_user_agent(monkeypatch: pytest.MonkeyPatch) -> None:
+    parser = cli.build_parser()
+    args = parser.parse_args(
+        [
+            "--user-agent",
+            "cellar-wrapper-tests/1.0",
+            "lookup",
+            "resolve-celex",
+            "--celex",
+            "32022R2554",
+        ]
+    )
+    captured: dict[str, object] = {}
+
+    class CapturingClient:
+        def __init__(self, **kwargs: object) -> None:
+            captured.update(kwargs)
+
+    monkeypatch.setattr(cli, "CellarClient", CapturingClient)
+    _ = cli._build_client(args)
+
+    assert captured["user_agent"] == "cellar-wrapper-tests/1.0"
+
+
+def test_cli_not_found_error_emits_structured_details(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    class MissingClient(StubClient):
+        def resolve_celex(self, celex: str) -> ActRef:
+            raise CellarNotFoundError(
+                f"Missing CELEX: {celex}",
+                details={"entity": "celex", "celex": celex},
+            )
+
+    monkeypatch.setattr(cli, "_build_client", lambda args: MissingClient())
+    exit_code = cli.run(["lookup", "resolve-celex", "--celex", "32022R2554"])
+
+    assert exit_code == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is False
+    assert payload["error"]["type"] == "CellarNotFoundError"
+    assert payload["error"]["details"]["details"]["entity"] == "celex"
+    assert payload["error"]["details"]["details"]["celex"] == "32022R2554"
+
+
 def test_cli_help_mentions_key_flags(capsys: pytest.CaptureFixture[str]) -> None:
     parser = cli.build_parser()
     with pytest.raises(SystemExit) as exc_info:
@@ -194,3 +240,12 @@ def test_cli_help_mentions_key_flags(capsys: pytest.CaptureFixture[str]) -> None
     assert "--resource-type" in help_text
     assert "--since" in help_text
     assert "--limit" in help_text
+
+
+def test_cli_root_help_mentions_user_agent(capsys: pytest.CaptureFixture[str]) -> None:
+    parser = cli.build_parser()
+    with pytest.raises(SystemExit) as exc_info:
+        parser.parse_args(["--help"])
+    assert exc_info.value.code == 0
+    help_text = capsys.readouterr().out
+    assert "--user-agent" in help_text

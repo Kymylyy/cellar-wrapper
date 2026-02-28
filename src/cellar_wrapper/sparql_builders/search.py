@@ -34,11 +34,11 @@ def build_search_by_eurovoc_query(
         lit = quote_literal(tag)
         tag_filters.append(f"CONTAINS(LCASE(STR(?conceptLabel)), LCASE({lit}))")
     filter_clause = " || ".join(tag_filters) if tag_filters else "true"
-    lang_iri = safe_iri(language_uri(lang), field="language_uri")
+    lang_iri = language_uri(lang)
 
     type_clause = ""
     if resource_type is not None:
-        type_iri = safe_iri(resource_type_uri(resource_type), field="resource_type_uri")
+        type_iri = resource_type_uri(resource_type)
         type_clause = f"?work {PREDICATES['work_has_resource_type']} <{type_iri}> ."
 
     query = f"""
@@ -81,11 +81,11 @@ def build_search_by_subject_matter_query(
             f"CONTAINS(LCASE(STR(?concept)), LCASE({lit})) || CONTAINS(LCASE(STR(?conceptLabel)), LCASE({lit}))"
         )
     filter_clause = " || ".join(code_filters) if code_filters else "true"
-    lang_iri = safe_iri(language_uri(lang), field="language_uri")
+    lang_iri = language_uri(lang)
 
     type_clause = ""
     if resource_type is not None:
-        type_iri = safe_iri(resource_type_uri(resource_type), field="resource_type_uri")
+        type_iri = resource_type_uri(resource_type)
         type_clause = f"?work {PREDICATES['work_has_resource_type']} <{type_iri}> ."
 
     query = f"""
@@ -121,10 +121,10 @@ def build_search_by_title_query(
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build search by title keyword query."""
-    lang_iri = safe_iri(language_uri(lang), field="language_uri")
+    lang_iri = language_uri(lang)
     type_clause = ""
     if resource_type is not None:
-        type_iri = safe_iri(resource_type_uri(resource_type), field="resource_type_uri")
+        type_iri = resource_type_uri(resource_type)
         type_clause = f"?work {PREDICATES['work_has_resource_type']} <{type_iri}> ."
 
     query = f"""
@@ -154,8 +154,8 @@ def build_search_communications_query(
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build search query for Commission communications by responsible service."""
-    communic_uri = safe_iri(resource_type_uri("COMMUNIC"), field="resource_type_uri")
-    lang_iri = safe_iri(language_uri(lang), field="language_uri")
+    communic_uri = resource_type_uri("COMMUNIC")
+    lang_iri = language_uri(lang)
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   ?work {PREDICATES["work_has_resource_type"]} <{communic_uri}> .

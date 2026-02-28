@@ -38,6 +38,18 @@ def test_retries_below_one_raises_validation_error() -> None:
         CellarClient(retries=0)
 
 
+def test_resolve_celex_not_found_has_structured_details() -> None:
+    transport = FakeTransport(query_handler=lambda _query: sparql_payload([]))
+    client = CellarClient(transport=transport)
+
+    with pytest.raises(CellarNotFoundError, match="CELEX not found in CELLAR") as exc_info:
+        client.resolve_celex("32022R2554")
+
+    assert exc_info.value.details["entity"] == "celex"
+    assert exc_info.value.details["celex"] == "32022R2554"
+    assert exc_info.value.details["phase"] == "resolve_exact_then_contains"
+
+
 def test_invalid_base_urls_raise_validation_error() -> None:
     with pytest.raises(CellarValidationError, match="base_url_sparql"):
         CellarClient(base_url_sparql="ftp://example.test/sparql", transport=FakeTransport())
@@ -138,8 +150,13 @@ def test_get_text_404_download_raises_not_found() -> None:
     client = CellarClient(
         transport=FakeTransport(query_handler=query_handler, download_handler=download_handler)
     )
-    with pytest.raises(CellarNotFoundError, match="No document content found for CELEX"):
+    with pytest.raises(CellarNotFoundError, match="No document content found for CELEX") as exc_info:
         client.get_text("32022R2554")
+
+    assert exc_info.value.details["entity"] == "document"
+    assert exc_info.value.details["celex"] == "32022R2554"
+    assert exc_info.value.details["lang"] == "eng"
+    assert exc_info.value.details["format"] == "pdf"
 
 
 def test_summary_download_uses_xhtml5_accept() -> None:
@@ -173,6 +190,29 @@ def test_summary_download_uses_xhtml5_accept() -> None:
 
     assert payload.content_base64
     assert transport.downloads[0][1] == SUMMARY_ACCEPT
+
+
+def test_get_summary_not_found_has_structured_details() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "summary_summarizes_work" in query:
+            return sparql_payload([])
+        return sparql_payload(
+            [
+                sparql_row(
+                    work="http://publications.europa.eu/resource/cellar/act",
+                    celex="32015L2366",
+                )
+            ]
+        )
+
+    transport = FakeTransport(query_handler=query_handler)
+    client = CellarClient(transport=transport)
+
+    with pytest.raises(CellarNotFoundError, match="No legislative summary found for CELEX") as exc_info:
+        client.get_summary("32015L2366")
+
+    assert exc_info.value.details["entity"] == "summary"
+    assert exc_info.value.details["celex"] == "32015L2366"
 
 
 def test_client_context_manager_closes_transport() -> None:

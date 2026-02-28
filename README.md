@@ -47,6 +47,7 @@ cellar lookup resolve-celex --celex 32022R2554
 cellar relations get-amendments --celex 32022R2554 --limit 50
 cellar monitoring new-citations --celex 32022R2554 --since 2025-01-01
 cellar download get-text --celex 32022R2554 --lang eng --format pdf
+cellar --user-agent "my-team-cellar-bot/1.0" lookup resolve-celex --celex 32022R2554
 ```
 
 All CLI responses are JSON:
@@ -81,6 +82,7 @@ pytest
   - non-monitoring methods (`search_*`, `get_*` with optional `since`): keep undated rows.
   - monitoring methods (`new_*`): strict `BOUND(date) && date > since`.
 - SPARQL transport is `POST`-first with automatic `GET` fallback for unsupported endpoints.
+- GET fallback is skipped when encoded URL would exceed a safe length guard.
 - HTTP retries respect `Retry-After` both on intermediate and final `429` responses.
 - `get_summary` enforces `Accept: application/xhtml+xml;type=xhtml5`.
 - Search methods validate non-empty list inputs (`tags`, `codes`).

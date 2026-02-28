@@ -15,6 +15,7 @@ from cellar_wrapper.errors import (
     CellarError,
     CellarHTTPError,
     CellarInternalError,
+    CellarNotFoundError,
     CellarParseError,
     CellarRateLimitError,
     CellarSPARQLError,
@@ -65,6 +66,8 @@ def _emit_error(exc: Exception) -> int:
             "response_excerpt": exc.response_excerpt,
             "details": exc.details,
         }
+    elif isinstance(exc, CellarNotFoundError):
+        details = {"details": exc.details}
     elif isinstance(exc, CellarParseError):
         details = {"details": exc.details}
     elif isinstance(exc, CellarInternalError):
@@ -89,6 +92,7 @@ def _positive_int(raw: str) -> int:
 def _add_global_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--base-url-sparql", default=None, help="Override SPARQL endpoint URL.")
     parser.add_argument("--base-url-resource", default=None, help="Override resource base URL.")
+    parser.add_argument("--user-agent", default=None, help="Override HTTP User-Agent header.")
     parser.add_argument("--retries", type=_positive_int, default=None, help="Total retry attempts.")
     parser.add_argument("--timeout-connect", type=float, default=None, help="Connection timeout (seconds).")
     parser.add_argument("--timeout-read", type=float, default=None, help="Read timeout (seconds).")
@@ -131,6 +135,8 @@ def _build_client(args: argparse.Namespace) -> CellarClient:
         kwargs["base_url_sparql"] = args.base_url_sparql
     if args.base_url_resource is not None:
         kwargs["base_url_resource"] = args.base_url_resource
+    if args.user_agent is not None:
+        kwargs["user_agent"] = args.user_agent
     if args.retries is not None:
         kwargs["retries"] = args.retries
     return CellarClient(**kwargs)

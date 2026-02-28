@@ -41,7 +41,13 @@ class DownloadMixin:
                 raise
             raise CellarNotFoundError(
                 "No document content found for CELEX: "
-                f"{normalized_celex} (lang={normalized_lang}, format={format_key})"
+                f"{normalized_celex} (lang={normalized_lang}, format={format_key})",
+                details={
+                    "entity": "document",
+                    "celex": normalized_celex,
+                    "lang": normalized_lang,
+                    "format": format_key,
+                },
             ) from exc
         return DocumentPayload(
             source_url=source_url,
@@ -55,7 +61,10 @@ class DownloadMixin:
         summary_query = build_summary_lookup_query(self._resolve_work_uri(celex))
         rows = parse_bindings(self._transport.query_sparql(summary_query))
         if not rows:
-            raise CellarNotFoundError(f"No legislative summary found for CELEX: {celex}")
+            raise CellarNotFoundError(
+                f"No legislative summary found for CELEX: {celex}",
+                details={"entity": "summary", "celex": celex},
+            )
 
         summary_uri = parse_act_refs(rows)[0].uri
         content, content_type, source_url = self._transport.download(

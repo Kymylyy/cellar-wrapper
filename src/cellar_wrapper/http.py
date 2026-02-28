@@ -34,6 +34,8 @@ from cellar_wrapper.errors import (
     CellarValidationError,
 )
 
+MAX_SPARQL_GET_FALLBACK_URL_LENGTH = 8_000
+
 
 def validate_http_url(url: str, *, field: str) -> str:
     """Validate http/https URL string and return normalized value."""
@@ -261,6 +263,22 @@ class HttpTransport:
         except CellarHTTPError as exc:
             if exc.status_code not in SPARQL_POST_FALLBACK_STATUS_CODES:
                 raise
+            fallback_request = self._client.build_request(
+                "GET",
+                self._sparql_endpoint,
+                params=request_payload,
+                headers={"Accept": accept},
+            )
+            fallback_url_length = len(str(fallback_request.url))
+            if fallback_url_length > MAX_SPARQL_GET_FALLBACK_URL_LENGTH:
+                raise CellarSPARQLError(
+                    "SPARQL GET fallback URL exceeds safe length",
+                    query=query,
+                    details={
+                        "max_url_length": MAX_SPARQL_GET_FALLBACK_URL_LENGTH,
+                        "actual_url_length": fallback_url_length,
+                    },
+                ) from exc
             response = self._request_with_retry(
                 "GET",
                 self._sparql_endpoint,

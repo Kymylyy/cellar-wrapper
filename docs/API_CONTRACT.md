@@ -70,10 +70,12 @@ HttpTransport(
 
 `CellarSPARQLError` carries context fields (`query`, `response_excerpt`) for diagnostics.
 `CellarParseError` carries structured `details` (`parser`, `row_index`, `field`, `value_excerpt`).
+`CellarNotFoundError` carries structured `details` (for example `entity`, `celex`, `phase`).
 
 ## HTTP behavior
 - SPARQL queries are sent with `POST` (`application/x-www-form-urlencoded`) by default.
 - Transport falls back to `GET` for SPARQL when `POST` is not supported (`405`, `415`, `501`).
+- GET fallback is blocked when encoded URL length exceeds a safe guardrail.
 - Retry status codes: `429, 502, 503, 504`.
 - Attempts: `3` total.
 - Backoff: exponential full-jitter (`uniform(0, cap)`), capped per-attempt.

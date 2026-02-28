@@ -41,15 +41,6 @@ def quote_literal(value: str) -> str:
     return f"'{escaped}'"
 
 
-def date_literal(value: date | datetime | str) -> str:
-    """Normalize date-like input to a string literal payload."""
-    if isinstance(value, datetime):
-        return value.isoformat()
-    if isinstance(value, date):
-        return value.isoformat()
-    return value
-
-
 def safe_iri(value: str, *, field: str) -> str:
     """Validate and normalize an IRI used inside `<...>`."""
     candidate = value.strip()
@@ -150,5 +141,5 @@ def resource_type_clause(resource_type: str | None) -> str:
         return ""
     return (
         f"?other {PREDICATES['work_has_resource_type']} "
-        f"<{safe_iri(resource_type_uri(resource_type), field='resource_type_uri')}> ."
+        f"<{resource_type_uri(resource_type)}> ."
     )

@@ -45,13 +45,23 @@ class LookupMixin:
             rows = parse_bindings(self._transport.query_sparql(fallback_query))
 
         if not rows:
-            raise CellarNotFoundError(f"CELEX not found in CELLAR: {normalized}")
+            raise CellarNotFoundError(
+                f"CELEX not found in CELLAR: {normalized}",
+                details={"entity": "celex", "celex": normalized, "phase": "resolve_exact_then_contains"},
+            )
 
         refs = parse_act_refs(rows)
         for ref in refs:
             if ref.celex and ref.celex.upper() == normalized:
                 return ref
-        raise CellarNotFoundError(f"Fallback did not return exact CELEX match: {normalized}")
+        raise CellarNotFoundError(
+            f"Fallback did not return exact CELEX match: {normalized}",
+            details={
+                "entity": "celex",
+                "celex": normalized,
+                "phase": "resolve_contains_exact_check",
+            },
+        )
 
     def get_act(self: ClientOpsProtocol, celex: str, *, lang: str = DEFAULT_LANGUAGE) -> ActDetail:
         normalized_lang = self._normalize_lang(lang)
@@ -60,7 +70,10 @@ class LookupMixin:
         rows = parse_bindings(self._transport.query_sparql(query))
         detail = parse_act_detail(rows)
         if detail is None:
-            raise CellarNotFoundError(f"No act metadata for CELEX: {celex}")
+            raise CellarNotFoundError(
+                f"No act metadata for CELEX: {celex}",
+                details={"entity": "act", "celex": celex},
+            )
         return detail
 
     def get_eurovoc(

@@ -22,6 +22,10 @@ class CellarClient(
     LookupMixin,
     ClientBase,
 ):
-    """Sync-first API client for CELLAR."""
+    """Sync-first API client for CELLAR.
+
+    A single instance is not meant to be shared across threads.
+    Use one ``CellarClient`` per thread.
+    """
 
     pass

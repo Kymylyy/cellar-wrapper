@@ -6,7 +6,7 @@ from collections.abc import Callable, Sequence
 from datetime import date, datetime
 from typing import Any, Protocol, TypeVar
 
-from cellar_wrapper.models import ActRef, CaseLawItem, ListResult, RelationItem
+from cellar_wrapper.models import ActRef, CaseLawItem, ListResult, NIMItem, RelationItem
 
 T = TypeVar("T")
 
@@ -38,6 +38,8 @@ class ClientOpsProtocol(Protocol):
     def _normalize_lang(self, lang: str) -> str: ...
 
     def _normalize_resource_type(self, resource_type: str | None) -> str | None: ...
+
+    def _normalize_country(self, country: str | None) -> str | None: ...
 
     def _coerce_since(self, since: date | datetime | str | None) -> str | None: ...
 
@@ -90,6 +92,55 @@ class ClientOpsProtocol(Protocol):
         offset: int,
         lang: str,
     ) -> ListResult[CaseLawItem]: ...
+
+    def _call_nim_items(
+        self,
+        *,
+        method_name: str,
+        celex: str,
+        since: date | datetime | str | None,
+        include_undated: bool,
+        resource_type: str | None,
+        limit: int,
+        offset: int,
+        lang: str,
+    ) -> ListResult[NIMItem]: ...
+
+    def _new_relation(
+        self,
+        *,
+        method_name: str,
+        celex: str,
+        since: date | datetime | str,
+        resource_type: str | None,
+        limit: int,
+        offset: int,
+        lang: str,
+    ) -> ListResult[RelationItem]: ...
+
+    def _new_case_law(
+        self,
+        *,
+        method_name: str,
+        celex: str,
+        since: date | datetime | str,
+        resource_type: str | None,
+        limit: int,
+        offset: int,
+        lang: str,
+    ) -> ListResult[CaseLawItem]: ...
+
+    def _new_nims(
+        self,
+        *,
+        method_name: str,
+        celex: str,
+        since: date | datetime | str,
+        resource_type: str | None,
+        limit: int,
+        offset: int,
+        lang: str,
+    ) -> ListResult[NIMItem]: ...
 
     def search_by_eurovoc(
         self,

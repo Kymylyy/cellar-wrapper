@@ -14,6 +14,7 @@ class CommandSpec:
     requires_since: bool = False
     has_since: bool = False
     has_resource_type: bool = False
+    has_country: bool = False
     has_lang: bool = False
     has_limit_offset: bool = False
     has_format: bool = False
@@ -47,7 +48,7 @@ COMMANDS: list[CommandSpec] = [
     CommandSpec("case-law", "get-cjeu-judgments", "get_cjeu_judgments", requires_celex=True, has_since=True, has_lang=True, has_limit_offset=True),
     CommandSpec("case-law", "get-ag-opinions", "get_ag_opinions", requires_celex=True, has_since=True, has_lang=True, has_limit_offset=True),
     CommandSpec("case-law", "get-preliminary-questions", "get_preliminary_questions", requires_celex=True, has_since=True, has_lang=True, has_limit_offset=True),
-    CommandSpec("case-law", "get-national-decisions", "get_national_decisions", requires_celex=True, has_since=True, has_lang=True, has_limit_offset=True),
+    CommandSpec("case-law", "get-national-decisions", "get_national_decisions", requires_celex=True, has_since=True, has_country=True, has_lang=True, has_limit_offset=True),
     CommandSpec("case-law", "get-article-annotations", "get_article_annotations", requires_celex=True, has_limit_offset=True),
     CommandSpec("search", "search-by-eurovoc", "search_by_eurovoc", has_since=True, list_arg_name="tags", has_resource_type=True, has_lang=True, has_limit_offset=True),
     CommandSpec("search", "search-by-subject-matter", "search_by_subject_matter", has_since=True, list_arg_name="codes", has_resource_type=True, has_lang=True, has_limit_offset=True),
@@ -56,8 +57,11 @@ COMMANDS: list[CommandSpec] = [
     CommandSpec("search", "find-eurovoc-concept", "find_eurovoc_concept", scalar_arg_name="label", has_limit_offset=True),
     CommandSpec("monitoring", "new-citations", "new_citations", requires_celex=True, requires_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
     CommandSpec("monitoring", "new-amendments", "new_amendments", requires_celex=True, requires_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
+    CommandSpec("monitoring", "new-repeals", "new_repeals", requires_celex=True, requires_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
+    CommandSpec("monitoring", "new-proposals-to-amend", "new_proposals_to_amend", requires_celex=True, requires_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
     CommandSpec("monitoring", "new-delegated-acts", "new_delegated_acts", requires_celex=True, requires_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
     CommandSpec("monitoring", "new-case-law", "new_case_law", requires_celex=True, requires_since=True, has_lang=True, has_limit_offset=True),
+    CommandSpec("monitoring", "new-preliminary-questions", "new_preliminary_questions", requires_celex=True, requires_since=True, has_lang=True, has_limit_offset=True),
     CommandSpec("monitoring", "new-corrigenda", "new_corrigenda", requires_celex=True, requires_since=True, has_lang=True, has_limit_offset=True),
     CommandSpec("monitoring", "new-consolidated", "new_consolidated", requires_celex=True, requires_since=True, has_lang=True, has_limit_offset=True),
     CommandSpec("monitoring", "new-nims", "new_nims", requires_celex=True, requires_since=True, has_lang=True, has_limit_offset=True),

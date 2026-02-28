@@ -113,6 +113,7 @@ class CaseLawMixin:
         celex: str,
         *,
         since: date | datetime | str | None = None,
+        country: str | None = None,
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
@@ -121,6 +122,7 @@ class CaseLawMixin:
         query = build_national_decisions_query(
             self._normalize_celex(celex),
             since=self._coerce_since(since),
+            country=self._normalize_country(country),
             limit=limit,
             offset=offset,
             lang=self._normalize_lang(lang),

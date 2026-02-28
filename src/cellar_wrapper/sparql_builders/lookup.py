@@ -41,22 +41,26 @@ def build_get_act_query(work_uri: str, *, lang: str = DEFAULT_LANGUAGE) -> str:
     lang_uri = language_uri(lang)
     work_iri = safe_iri(work_uri, field="work_uri")
     query = f"""
-SELECT DISTINCT ?work ?celex ?eli ?type ?inForce ?dateDocument ?dateEntryIntoForce ?dateEndOfValidity ?title WHERE {{
+SELECT DISTINCT ?work ?celex ?eli ?type ?inForce ?eea ?dateDocument ?dateEntryIntoForce ?dateEndOfValidity ?title ?createdBy ?responsibleAgent ?addressesInstitution ?signatoryName WHERE {{
   BIND(<{work_iri}> AS ?work)
   OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?work {PREDICATES["resource_legal_eli"]} ?eli }}
   OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{ ?work {PREDICATES["resource_legal_in_force"]} ?inForce }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_eea"]} ?eea }}
   OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?dateDocument }}
   OPTIONAL {{ ?work {PREDICATES["entry_into_force"]} ?dateEntryIntoForce }}
   OPTIONAL {{ ?work {PREDICATES["resource_legal_date_end_of_validity"]} ?dateEndOfValidity }}
+  OPTIONAL {{ ?work {PREDICATES["work_created_by_agent"]} ?createdBy }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_responsibility_of_agent"]} ?responsibleAgent }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_addresses_institution"]} ?addressesInstitution }}
+  OPTIONAL {{ ?work {PREDICATES["resource_legal_signatory_name2"]} ?signatoryName }}
   OPTIONAL {{
     ?expression {PREDICATES["expression_belongs_to_work"]} ?work .
     ?expression {PREDICATES["expression_uses_language"]} <{lang_uri}> .
     ?expression {PREDICATES["expression_title"]} ?title .
   }}
 }}
-LIMIT 1
 """
     return with_prefixes(query)
 

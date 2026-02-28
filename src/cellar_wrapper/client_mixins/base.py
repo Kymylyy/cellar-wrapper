@@ -17,15 +17,21 @@ from cellar_wrapper.constants import (
 )
 from cellar_wrapper.errors import CellarValidationError
 from cellar_wrapper.http import HttpTransport, TimeoutConfig, validate_http_url
-from cellar_wrapper.models import ActRef, CaseLawItem, ListResult, QueryMeta, RelationItem
-from cellar_wrapper.parser import parse_bindings, parse_case_law_items, parse_relation_items
+from cellar_wrapper.models import ActRef, CaseLawItem, ListResult, NIMItem, QueryMeta, RelationItem
+from cellar_wrapper.parser import (
+    parse_bindings,
+    parse_case_law_items,
+    parse_nim_items,
+    parse_relation_items,
+)
 from cellar_wrapper.sparql import build_relation_query
 
-from .relation_specs import RELATION_CALL_SPECS
+from .relation_specs import RELATION_CALL_SPECS, RelationCallSpec
 
 CELEX_RE = re.compile(r"^[0-9A-Z()_\-]{5,40}$")
 LANG_RE = re.compile(r"^[a-zA-Z]{3}$")
 RESOURCE_TYPE_RE = re.compile(r"^[A-Z_]+$")
+COUNTRY_RE = re.compile(r"^[A-Z]{3}$")
 
 T = TypeVar("T")
 
@@ -94,6 +100,14 @@ class ClientBase:
         normalized = resource_type.strip().upper()
         if not RESOURCE_TYPE_RE.fullmatch(normalized):
             raise CellarValidationError(f"Invalid resource_type: {resource_type!r}")
+        return normalized
+
+    def _normalize_country(self, country: str | None) -> str | None:
+        if country is None:
+            return None
+        normalized = country.strip().upper()
+        if not COUNTRY_RE.fullmatch(normalized):
+            raise CellarValidationError(f"Invalid country code (expected ISO-3): {country!r}")
         return normalized
 
     def _coerce_since(self, since: date | datetime | str | None) -> str | None:
@@ -188,6 +202,48 @@ class ClientBase:
         offset: int,
         lang: str,
     ) -> ListResult[RelationItem] | ListResult[CaseLawItem]:
+        spec, rows = self._fetch_relation_rows(
+            method_name=method_name,
+            celex=celex,
+            since=since,
+            include_undated=include_undated,
+            resource_type=resource_type,
+            limit=limit,
+            offset=offset,
+            lang=lang,
+            include_implemented_by_country=False,
+        )
+
+        if spec.case_law:
+            case_items = parse_case_law_items(rows)
+            return self._list_result(
+                query_name=method_name,
+                items=case_items,
+                limit=limit,
+                offset=offset,
+            )
+
+        relation_items = parse_relation_items(rows)
+        return self._list_result(
+            query_name=method_name,
+            items=relation_items,
+            limit=limit,
+            offset=offset,
+        )
+
+    def _fetch_relation_rows(
+        self,
+        *,
+        method_name: str,
+        celex: str,
+        since: date | datetime | str | None,
+        include_undated: bool,
+        resource_type: str | None,
+        limit: int,
+        offset: int,
+        lang: str,
+        include_implemented_by_country: bool,
+    ) -> tuple[RelationCallSpec, list[dict[str, dict[str, str]]]]:
         spec = RELATION_CALL_SPECS.get(method_name)
         if spec is None:
             raise CellarValidationError(f"Unsupported relation method: {method_name}")
@@ -207,25 +263,11 @@ class ClientBase:
             offset=offset,
             lang=normalized_lang,
             include_undated=include_undated,
+            include_origin_country=spec.case_law,
+            include_implemented_by_country=include_implemented_by_country,
         )
         rows = parse_bindings(self._transport.query_sparql(query))
-
-        if spec.case_law:
-            case_items = parse_case_law_items(rows)
-            return self._list_result(
-                query_name=method_name,
-                items=case_items,
-                limit=limit,
-                offset=offset,
-            )
-
-        relation_items = parse_relation_items(rows)
-        return self._list_result(
-            query_name=method_name,
-            items=relation_items,
-            limit=limit,
-            offset=offset,
-        )
+        return spec, rows
 
     def _call_relation_items(
         self,
@@ -274,3 +316,34 @@ class ClientBase:
             lang=lang,
         )
         return cast(ListResult[CaseLawItem], result)
+
+    def _call_nim_items(
+        self,
+        *,
+        method_name: str,
+        celex: str,
+        since: date | datetime | str | None,
+        include_undated: bool,
+        resource_type: str | None,
+        limit: int,
+        offset: int,
+        lang: str,
+    ) -> ListResult[NIMItem]:
+        _, rows = self._fetch_relation_rows(
+            method_name=method_name,
+            celex=celex,
+            since=since,
+            include_undated=include_undated,
+            resource_type=resource_type,
+            limit=limit,
+            offset=offset,
+            lang=lang,
+            include_implemented_by_country=True,
+        )
+        nim_items = parse_nim_items(rows)
+        return self._list_result(
+            query_name=method_name,
+            items=nim_items,
+            limit=limit,
+            offset=offset,
+        )

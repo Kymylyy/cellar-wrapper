@@ -88,6 +88,17 @@ RELATION_CALL_SPECS: dict[str, RelationCallSpec] = {
     ),
     "new_citations": RelationCallSpec([PredicateSpec(PREDICATES["cites"], "cites")], "incoming"),
     "new_amendments": RelationCallSpec([PredicateSpec(PREDICATES["amends"], "amends")], "incoming"),
+    "new_repeals": RelationCallSpec(
+        [
+            PredicateSpec(PREDICATES["repeals"], "repeals"),
+            PredicateSpec(PREDICATES["implicitly_repeals"], "implicitly_repeals"),
+        ],
+        "incoming",
+    ),
+    "new_proposals_to_amend": RelationCallSpec(
+        [PredicateSpec(PREDICATES["proposes_to_amend"], "proposes_to_amend")],
+        "incoming",
+    ),
     "new_delegated_acts": RelationCallSpec(
         [PredicateSpec(PREDICATES["based_on"], "based_on")],
         "incoming",
@@ -111,5 +122,10 @@ RELATION_CALL_SPECS: dict[str, RelationCallSpec] = {
         [PredicateSpec(PREDICATES["nims"], "nims")],
         "incoming",
         default_resource_type="MEAS_NATION_IMPL",
+    ),
+    "new_preliminary_questions": RelationCallSpec(
+        [PredicateSpec(PREDICATES["preliminary_questions"], "preliminary_questions")],
+        "incoming",
+        case_law=True,
     ),
 }

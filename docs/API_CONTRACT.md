@@ -31,6 +31,7 @@ HttpTransport(
   - date input -> `YYYY-MM-DDT00:00:00Z`
   - datetime input -> canonical ISO datetime (UTC-normalized)
 - `lang: str` -> ISO 639-3 (`[a-zA-Z]{3}`), normalized to lowercase.
+- `country: str` -> ISO 3166-1 alpha-3 (`[A-Z]{3}`), normalized to uppercase (for `get_national_decisions`).
 - `format: "pdf" | "xhtml" | "xml" | "rdf" | "docx"` for `get_text`.
 - `limit: int` default `200`, max `1000`.
 - `offset: int` default `0`.
@@ -40,8 +41,19 @@ HttpTransport(
 ## Output contract
 - `QueryMeta(query_name, endpoint, executed_at, limit, offset)`
 - `ListResult[T](items, returned_count, meta)`
-- `ActRef`, `ActDetail`, `RelationItem`, `CaseLawItem`, `EurovocTag`, `SubjectMatterTag`, `ExpressionItem`, `DocumentPayload`
+- `ActRef`, `ActDetail`, `RelationItem`, `DossierItem`, `NIMItem`, `CaseLawItem`, `EurovocTag`, `SubjectMatterTag`, `ExpressionItem`, `DocumentPayload`
 - Date-like model fields (`ActRef.date`, `ActDetail.date_*`) are parsed into typed `date | datetime`.
+
+`ActDetail` exposes enriched metadata:
+- `created_by_agents`
+- `responsible_agents`
+- `eea_relevant`
+- `addresses_institutions`
+- `signatory_names`
+
+`CaseLawItem` may include `origin_country`.
+`NIMItem` may include `implemented_by_country`.
+`DossierItem` may include procedure metadata and status flags (`procedure_code`, `procedure_type`, `status_*`, `produces_act_*`).
 
 `RelationItem` may include article-level annotation fields for `get_article_annotations`:
 - `annotation_uri`
@@ -162,8 +174,11 @@ HttpTransport(
 ### MONITORING
 - `new_citations`
 - `new_amendments`
+- `new_repeals`
+- `new_proposals_to_amend`
 - `new_delegated_acts`
 - `new_case_law`
+- `new_preliminary_questions`
 - `new_corrigenda`
 - `new_consolidated`
 - `new_nims`

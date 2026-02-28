@@ -8,7 +8,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `get_eurovoc` -> `cdm:work_is_about_concept_eurovoc`
 - `get_subject_matter` -> `cdm:resource_legal_is_about_subject-matter`
 - `get_legal_basis` -> `cdm:resource_legal_based_on_resource_legal`, `cdm:resource_legal_based_on_concept_treaty`
-- `get_directory_codes` -> `cdm:resource_legal_id_directory-code`
+- `get_directory_codes` -> `cdm:resource_legal_is_about_concept_directory-code`
 - `get_expressions` -> `cdm:expression_belongs_to_work`, `cdm:expression_uses_language`, `cdm:expression_title`
 
 ## RELATIONS

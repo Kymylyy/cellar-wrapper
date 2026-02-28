@@ -430,7 +430,7 @@ Klasyfikacja tematyczna aktów wg katalogu EUR-Lex (Directory of EU legislation)
 |---|---|
 | Kod klasyfikacji DORA? | np. `10.20.30` (Bankowość / Nadzór ostrożnościowy) |
 
-Właściwość: `resource_legal_id_directory-code`
+Właściwość: `resource_legal_is_about_concept_directory-code`
 
 **Dotyczy:** rozporządzenia, dyrektywy, propozycje
 

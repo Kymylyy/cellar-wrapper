@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pytest
 
+from cellar_wrapper.constants import PREDICATES
 from cellar_wrapper.sparql import (
     PredicateSpec,
     build_article_annotations_query,
@@ -249,3 +250,7 @@ def test_search_communications_requires_service_binding() -> None:
 def test_find_eurovoc_concept_filters_to_eurovoc_namespace() -> None:
     query = build_find_eurovoc_concept_query("payment", limit=10, offset=0)
     assert "STRSTARTS(STR(?concept), 'http://eurovoc.europa.eu/')" in query
+
+
+def test_directory_code_predicate_targets_concept_relation() -> None:
+    assert PREDICATES["directory_code"] == "cdm:resource_legal_is_about_concept_directory-code"

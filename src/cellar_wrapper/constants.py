@@ -64,7 +64,7 @@ PREDICATES = {
     "case_law_originates_in_country": "cdm:case-law_originates_in_country",
     "work_is_about_concept_eurovoc": "cdm:work_is_about_concept_eurovoc",
     "subject_matter": "cdm:resource_legal_is_about_subject-matter",
-    "directory_code": "cdm:resource_legal_id_directory-code",
+    "directory_code": "cdm:resource_legal_is_about_concept_directory-code",
     "amends": "cdm:resource_legal_amends_resource_legal",
     "repeals": "cdm:resource_legal_repeals_resource_legal",
     "implicitly_repeals": "cdm:resource_legal_implicitly_repeals_resource_legal",

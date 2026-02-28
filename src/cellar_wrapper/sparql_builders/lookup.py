@@ -38,7 +38,7 @@ LIMIT {limit}
 
 def build_get_act_query(work_uri: str, *, lang: str = DEFAULT_LANGUAGE) -> str:
     """Build work metadata query."""
-    lang_uri = safe_iri(language_uri(lang), field="language_uri")
+    lang_uri = language_uri(lang)
     work_iri = safe_iri(work_uri, field="work_uri")
     query = f"""
 SELECT DISTINCT ?work ?celex ?eli ?type ?inForce ?dateDocument ?dateEntryIntoForce ?dateEndOfValidity ?title WHERE {{
@@ -90,7 +90,7 @@ ORDER BY ?concept
 def build_legal_basis_query(work_uri: str, *, limit: int, offset: int) -> str:
     """Build legal basis query."""
     work_iri = safe_iri(work_uri, field="work_uri")
-    default_lang_iri = safe_iri(language_uri(DEFAULT_LANGUAGE), field="language_uri")
+    default_lang_iri = language_uri(DEFAULT_LANGUAGE)
     query = f"""
 SELECT DISTINCT ?other ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
   {{

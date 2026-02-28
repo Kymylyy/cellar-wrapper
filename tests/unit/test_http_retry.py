@@ -137,6 +137,29 @@ def test_query_sparql_falls_back_to_get_when_post_not_supported(monkeypatch: pyt
     transport.close()
 
 
+def test_query_sparql_blocks_get_fallback_when_url_too_long(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(sparql_endpoint="https://example.test/sparql", retries=1)
+    methods: list[str] = []
+
+    def fake_request(*args: object, **kwargs: object) -> httpx.Response:
+        method = kwargs["method"]
+        methods.append(method)
+        if method == "POST":
+            return _response(405, method=method)
+        raise AssertionError("GET fallback should be blocked by URL length guard")
+
+    monkeypatch.setattr(transport._client, "request", fake_request)
+    monkeypatch.setattr("cellar_wrapper.http.MAX_SPARQL_GET_FALLBACK_URL_LENGTH", 120)
+
+    long_query = "SELECT * WHERE { ?s ?p ?o } " + (" OPTIONAL { ?s ?p ?o }" * 200)
+    with pytest.raises(CellarSPARQLError, match="GET fallback URL exceeds safe length") as exc_info:
+        transport.query_sparql(long_query)
+
+    assert exc_info.value.details["actual_url_length"] > exc_info.value.details["max_url_length"]
+    assert methods == ["POST"]
+    transport.close()
+
+
 def test_no_retry_on_400(monkeypatch: pytest.MonkeyPatch) -> None:
     transport = HttpTransport(sparql_endpoint="https://example.test/sparql", retries=3)
     calls = {"count": 0}

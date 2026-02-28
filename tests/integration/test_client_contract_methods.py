@@ -253,8 +253,7 @@ def _build_contracts() -> dict[str, ReturnContract]:
     for method_name in EXPRESSION_METHODS:
         contracts[method_name] = ReturnContract(ListResult, item_type=ExpressionItem, query_name=method_name)
     for method_name in ACT_SEARCH_METHODS:
-        query_name = "search_by_eurovoc" if method_name == "new_by_eurovoc" else method_name
-        contracts[method_name] = ReturnContract(ListResult, item_type=ActRef, query_name=query_name)
+        contracts[method_name] = ReturnContract(ListResult, item_type=ActRef, query_name=method_name)
     return contracts
 
 

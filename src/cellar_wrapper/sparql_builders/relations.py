@@ -38,7 +38,7 @@ def build_relation_query(
     if direction not in {"incoming", "outgoing", "both"}:
         raise ValueError(f"Unsupported direction: {direction}")
     work_iri = safe_iri(work_uri, field="work_uri")
-    lang_iri = safe_iri(language_uri(lang), field="language_uri")
+    lang_iri = language_uri(lang)
     unions: list[str] = []
     for spec in predicates:
         if direction in {"incoming", "both"}:
@@ -92,7 +92,7 @@ ORDER BY DESC(?date)
 def build_dossier_query(work_uri: str, *, limit: int, offset: int, lang: str = DEFAULT_LANGUAGE) -> str:
     """Build dossier expansion query."""
     work_iri = safe_iri(work_uri, field="work_uri")
-    lang_iri = safe_iri(language_uri(lang), field="language_uri")
+    lang_iri = language_uri(lang)
     query = f"""
 SELECT DISTINCT ?dossier ?other ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
   ?dossier {PREDICATES["dossier_contains_work"]} <{work_iri}> .
@@ -154,7 +154,7 @@ def build_ag_opinions_query(
 ) -> str:
     """Build advocate-general opinions query."""
     work_iri = safe_iri(work_uri, field="work_uri")
-    lang_iri = safe_iri(language_uri(lang), field="language_uri")
+    lang_iri = language_uri(lang)
     query = f"""
 SELECT DISTINCT ?opinion ?celex ?title ?date ?type ?direction ?relationType ?predicate WHERE {{
   ?case {PREDICATES["cjeu_interprets"]} <{work_iri}> .
@@ -188,8 +188,8 @@ def build_national_decisions_query(
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build national court decisions query by CELEX reference string."""
-    dec_nc_uri = safe_iri(resource_type_uri("DEC_NC"), field="resource_type_uri")
-    lang_iri = safe_iri(language_uri(lang), field="language_uri")
+    dec_nc_uri = resource_type_uri("DEC_NC")
+    lang_iri = language_uri(lang)
     query = f"""
 SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predicate WHERE {{
   ?other {PREDICATES["work_has_resource_type"]} <{dec_nc_uri}> .

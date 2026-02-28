@@ -240,7 +240,7 @@ class MonitoringMixin:
             include_undated=False,
         )
         return self._run_list_query(
-            query_name="search_by_eurovoc",
+            query_name="new_by_eurovoc",
             query=query,
             parser=parse_act_refs,
             limit=limit,

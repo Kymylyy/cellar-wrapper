@@ -6,7 +6,7 @@ Typed, sync-first Python wrapper for EU Publications Office CELLAR, focused on
 predictable contracts for legal and compliance data workflows.
 
 ## Repository overview
-- `src/cellar_wrapper`: core package (`CellarClient`, typed models, SPARQL builders, CLI).
+- `src/cellar_wrapper`: core package (`CellarClient`, typed models, SPARQL builders, CLI, MCP server entrypoint).
 - `tests`: unit and integration tests.
 - `docs`: API contract, blueprint, and research notes.
 
@@ -14,6 +14,7 @@ predictable contracts for legal and compliance data workflows.
 - `CellarClient` with full method surface from wrapper blueprint.
 - Fail-fast error model with domain exceptions.
 - JSON-first CLI (`cellar`) with command groups mirroring API areas.
+- Optional MCP server (`cellar-mcp`) with tools generated 1:1 from `CommandSpec`.
 - Stateless monitoring methods (`new_*`) with explicit `since`.
 - Enriched metadata for `get_act`, `get_dossier`, and `get_nims`.
 - Country-aware case-law support (`get_national_decisions(..., country="DEU")`).
@@ -21,6 +22,13 @@ predictable contracts for legal and compliance data workflows.
 ## Installation
 
 ```bash
+# library + CLI
+pip install cellar-wrapper
+
+# library + CLI + MCP server
+pip install "cellar-wrapper[mcp]"
+
+# local development
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .[dev]
@@ -52,17 +60,56 @@ cellar download get-text --celex 32022R2554 --lang eng --format pdf
 cellar --user-agent "my-team-cellar-bot/1.0" lookup resolve-celex --celex 32022R2554
 ```
 
-All CLI responses are JSON:
+CLI success envelope:
 
 ```json
 {"ok": true, "data": {...}}
 ```
 
-Errors:
+CLI error envelope:
 
 ```json
 {"ok": false, "error": {"type": "CellarValidationError", "message": "...", "details": {...}}}
 ```
+
+`error.details` is always present in CLI output and can be an empty object (`{}`).
+
+## Quick start (MCP)
+
+```bash
+# 1) register MCP server in Claude Code (one-time)
+claude mcp add cellar -- cellar-mcp
+
+# 2) optional runtime overrides (set before starting the MCP process)
+export CELLAR_MCP_USER_AGENT="my-team-cellar-mcp/1.0"
+export CELLAR_MCP_RETRIES=5
+
+# 3) optional manual run for local debugging (stdio, foreground process)
+cellar-mcp
+```
+
+Environment variables accepted by `cellar-mcp`:
+- `CELLAR_MCP_BASE_URL_SPARQL`
+- `CELLAR_MCP_BASE_URL_RESOURCE`
+- `CELLAR_MCP_USER_AGENT`
+- `CELLAR_MCP_RETRIES`
+- `CELLAR_MCP_TIMEOUT_CONNECT`
+- `CELLAR_MCP_TIMEOUT_READ`
+- `CELLAR_MCP_TIMEOUT_WRITE`
+- `CELLAR_MCP_TIMEOUT_POOL`
+
+MCP env validation (startup fail-fast):
+- if set, values cannot be empty/whitespace-only.
+- `CELLAR_MCP_BASE_URL_SPARQL` / `CELLAR_MCP_BASE_URL_RESOURCE`: valid `http|https` URL.
+- `CELLAR_MCP_RETRIES`: integer `>= 1`.
+- `CELLAR_MCP_TIMEOUT_*`: float `> 0`.
+- invalid config stops process before serving tools (`Invalid MCP configuration: ...`).
+
+MCP tool payload contract:
+- success returns raw method payload (for example `ListResult`, `ActDetail`, `DocumentPayload`) without CLI envelope (`ok/data`).
+- domain errors are returned as MCP `ToolError` message:
+  - `<CellarErrorType>: <message>`
+  - optional suffix ` | details=<json>` appears only when details are non-empty.
 
 ## Development checks
 

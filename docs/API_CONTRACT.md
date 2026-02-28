@@ -43,6 +43,7 @@ HttpTransport(
 - `ListResult[T](items, returned_count, meta)`
 - `ActRef`, `ActDetail`, `RelationItem`, `DossierItem`, `NIMItem`, `CaseLawItem`, `EurovocTag`, `SubjectMatterTag`, `ExpressionItem`, `DocumentPayload`
 - Date-like model fields (`ActRef.date`, `ActDetail.date_*`) are parsed into typed `date | datetime`.
+- Collection payload invariant: `returned_count == len(items)` (including empty collections).
 
 `ActDetail` exposes enriched metadata:
 - `created_by_agents`
@@ -65,9 +66,15 @@ HttpTransport(
 
 `DocumentPayload` returns base64-encoded content (`content_base64`).
 
+Method payload categories:
+- collection methods return `ListResult[T]`.
+- single-record metadata methods return typed models (`ActRef` / `ActDetail`).
+- download methods return `DocumentPayload`.
+
 ## Empty result policy
-- Collections return `ListResult(items=[])`.
-- Missing CELEX/work raises `CellarNotFoundError`.
+- Collections return `ListResult(items=[])` when query matches no rows.
+- Methods that resolve CELEX/work URI raise `CellarNotFoundError` when CELEX/work is missing (for example `resolve_celex`, `get_act`, and methods using `_resolve_work_uri`).
+- `get_national_decisions` does not resolve work URI; CELEX is used as a reference substring filter. No matches (including unknown CELEX values) return empty `ListResult`, not `CellarNotFoundError`.
 
 ## Error contract
 - `CellarError` (base)
@@ -83,6 +90,16 @@ HttpTransport(
 `CellarSPARQLError` carries context fields (`query`, `response_excerpt`) for diagnostics.
 `CellarParseError` carries structured `details` (`parser`, `row_index`, `field`, `value_excerpt`).
 `CellarNotFoundError` carries structured `details` (for example `entity`, `celex`, `phase`).
+`details` is optional in practice (error object may expose an empty `{}` payload).
+
+## CLI vs MCP payload envelope
+- CLI success payload: `{"ok": true, "data": <jsonable-method-payload>}`
+- CLI error payload: `{"ok": false, "error": {"type": "...", "message": "...", "details": {...}}}`
+- CLI always includes `error.details` key, but it can be empty (`{}`).
+- MCP success payload: raw method payload only (no `ok/data` envelope).
+- MCP error payload: MCP `ToolError` string, format:
+  - `<CellarErrorType>: <message>`
+  - optional suffix ` | details=<json>` is present only when details are non-empty.
 
 ## HTTP behavior
 - SPARQL queries are sent with `POST` (`application/x-www-form-urlencoded`) by default.
@@ -126,6 +143,44 @@ HttpTransport(
 ## Thread safety
 - `CellarClient` is not safe for shared multi-thread use because one instance wraps one `httpx.Client`.
 - Use one `CellarClient` instance per thread.
+
+## MCP contract
+- Entrypoint: `cellar-mcp` (`cellar_wrapper.mcp_server:main`).
+- Transport: stdio only.
+- Tool surface: generated from `CommandSpec` and `COMMANDS`; currently `45` tools.
+- Tool names match CLI command slugs exactly (for example `resolve-celex`, `get-amendments`, `new-citations`).
+- Tool argument mapping reuses `build_method_kwargs`:
+  - `requires_celex` -> required `celex`
+  - `requires_since` -> required `since`
+  - `has_since` -> optional `since`
+  - `has_resource_type` -> optional `resource_type`
+  - `has_country` -> optional `country`
+  - `has_lang` -> optional `lang` default `eng`
+  - `has_limit_offset` -> optional `limit` default `200`, `offset` default `0`
+  - `has_format` -> optional `format` default `pdf`
+  - `list_arg_name` -> required `list[str]` argument
+  - `scalar_arg_name` -> required `str` argument
+- Result payload:
+  - success returns the method payload directly (JSON-serializable object), not CLI-style `{ok: true}` envelope.
+  - wrapper `CellarError` exceptions are raised as MCP tool errors with message format:
+    - `<CellarErrorType>: <message>`
+    - optional ` | details=<json>` suffix only when details are non-empty.
+- Runtime configuration for `cellar-mcp` uses environment variables:
+  - `CELLAR_MCP_BASE_URL_SPARQL`
+  - `CELLAR_MCP_BASE_URL_RESOURCE`
+  - `CELLAR_MCP_USER_AGENT`
+  - `CELLAR_MCP_RETRIES`
+  - `CELLAR_MCP_TIMEOUT_CONNECT`
+  - `CELLAR_MCP_TIMEOUT_READ`
+  - `CELLAR_MCP_TIMEOUT_WRITE`
+  - `CELLAR_MCP_TIMEOUT_POOL`
+- Environment validation rules (fail-fast on startup):
+  - all env vars above are optional, but if set they cannot be empty/whitespace-only.
+  - `CELLAR_MCP_BASE_URL_SPARQL`, `CELLAR_MCP_BASE_URL_RESOURCE`: must be valid `http|https` URLs.
+  - `CELLAR_MCP_USER_AGENT`: non-empty string.
+  - `CELLAR_MCP_RETRIES`: integer, then validated as `>= 1`.
+  - `CELLAR_MCP_TIMEOUT_CONNECT`, `CELLAR_MCP_TIMEOUT_READ`, `CELLAR_MCP_TIMEOUT_WRITE`, `CELLAR_MCP_TIMEOUT_POOL`: float, then validated as `> 0`.
+  - invalid env configuration aborts startup before `server.run("stdio")` with `SystemExit("Invalid MCP configuration: ...")`.
 
 ## Public methods
 

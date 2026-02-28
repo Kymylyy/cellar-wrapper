@@ -31,7 +31,11 @@ dev = [
   "pytest-cov>=5.0.0,<6.0.0",
   "mypy>=1.11.0,<2.0.0",
   "ruff>=0.6.0,<1.0.0",
-  "types-setuptools"
+  "types-setuptools",
+  "mcp>=1.26.0,<2.0.0"
+]
+mcp = [
+  "mcp>=1.26.0,<2.0.0"
 ]
 
 [project.urls]
@@ -41,6 +45,7 @@ Documentation = "https://github.com/Kymylyy/cellar-wrapper/tree/main/docs"
 
 [project.scripts]
 cellar = "cellar_wrapper.cli:main"
+cellar-mcp = "cellar_wrapper.mcp_server:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

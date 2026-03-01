@@ -241,6 +241,39 @@ def test_mcp_domain_errors_raise_tool_error(monkeypatch: pytest.MonkeyPatch) -> 
     assert "| details=" not in message
 
 
+def test_mcp_unexpected_errors_raise_internal_tool_error(monkeypatch: pytest.MonkeyPatch) -> None:
+    _require_mcp_sdk()
+    class ErrorClient:
+        def __init__(self, **kwargs: Any) -> None:
+            self.kwargs = kwargs
+
+        def __enter__(self) -> ErrorClient:
+            return self
+
+        def __exit__(
+            self,
+            exc_type: type[BaseException] | None,
+            exc: BaseException | None,
+            tb: TracebackType | None,
+        ) -> None:
+            return None
+
+        def resolve_celex(self, celex: str) -> dict[str, str]:
+            raise RuntimeError(f"boom: {celex}")
+
+    monkeypatch.setattr("cellar_wrapper.mcp_server.CellarClient", ErrorClient)
+
+    server = build_mcp_server()
+    with pytest.raises(_tool_error_type()) as exc_info:
+        _call_tool(server, "resolve-celex", {"celex": "32022R2554"})
+
+    message = str(exc_info.value)
+    assert "CellarInternalError" in message
+    assert "Unexpected internal error" in message
+    details = _tool_error_details(message)
+    assert details == {"original_type": "RuntimeError"}
+
+
 def test_mcp_unknown_args_raise_tool_error(monkeypatch: pytest.MonkeyPatch) -> None:
     _require_mcp_sdk()
     calls: list[dict[str, Any]] = []

@@ -366,6 +366,12 @@ def _tool_for_spec(spec: CommandSpec, client_factory: Callable[[], CellarClient]
                 return _to_jsonable(method(**method_kwargs))
         except CellarError as exc:
             raise _tool_error(_format_cellar_error(exc)) from exc
+        except Exception as exc:  # pragma: no cover - guarded via integration test
+            internal_error = CellarInternalError(
+                "Unexpected internal error",
+                details={"original_type": type(exc).__name__},
+            )
+            raise _tool_error(_format_cellar_error(internal_error)) from exc
 
     tool.__name__ = f"tool_{spec.method}"
     tool.__qualname__ = tool.__name__

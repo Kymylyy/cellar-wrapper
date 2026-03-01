@@ -160,6 +160,12 @@ class HttpTransport:
         delta = retry_at - datetime.now(UTC)
         return max(0, int(delta.total_seconds()))
 
+    @staticmethod
+    def _clamp_retry_after_seconds(value: int | None) -> int | None:
+        if value is None:
+            return None
+        return min(value, int(MAX_BACKOFF_SECONDS))
+
     def _request_with_retry(
         self,
         method: str,
@@ -202,7 +208,9 @@ class HttpTransport:
             last_response = response
             if response.status_code == 429:
                 retry_after = response.headers.get("Retry-After")
-                retry_after_seconds = self._parse_retry_after_seconds(retry_after)
+                retry_after_seconds = self._clamp_retry_after_seconds(
+                    self._parse_retry_after_seconds(retry_after)
+                )
                 if attempt < self._retries:
                     if retry_after_seconds is not None:
                         time.sleep(retry_after_seconds)
@@ -314,7 +322,9 @@ class HttpTransport:
                 with self._client.stream("GET", download_url, headers=headers) as response:
                     if response.status_code == 429:
                         retry_after = response.headers.get("Retry-After")
-                        retry_after_seconds = self._parse_retry_after_seconds(retry_after)
+                        retry_after_seconds = self._clamp_retry_after_seconds(
+                            self._parse_retry_after_seconds(retry_after)
+                        )
                         if attempt < self._retries:
                             if retry_after_seconds is not None:
                                 time.sleep(retry_after_seconds)

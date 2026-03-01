@@ -8,6 +8,7 @@ from email.utils import format_datetime
 import httpx
 import pytest
 
+from cellar_wrapper.constants import MAX_BACKOFF_SECONDS
 from cellar_wrapper.errors import (
     CellarHTTPError,
     CellarParseError,
@@ -100,6 +101,34 @@ def test_intermediate_429_uses_retry_after(monkeypatch: pytest.MonkeyPatch) -> N
     payload = transport.query_sparql("SELECT * WHERE { ?s ?p ?o }")
     assert payload == {"results": {"bindings": []}}
     assert sleeps == [5]
+    transport.close()
+
+
+def test_intermediate_429_clamps_retry_after_to_backoff_cap(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(sparql_endpoint="https://example.test/sparql", retries=2)
+    responses = iter(
+        [
+            httpx.Response(
+                429,
+                request=httpx.Request("POST", "https://example.test/sparql"),
+                headers={"Retry-After": "120"},
+                text="slow down",
+            ),
+            _response(200, json_body={"results": {"bindings": []}}),
+        ]
+    )
+    sleeps: list[float] = []
+
+    def fake_request(*args: object, **kwargs: object) -> httpx.Response:
+        return next(responses)
+
+    monkeypatch.setattr(transport._client, "request", fake_request)
+    monkeypatch.setattr("cellar_wrapper.http.time.sleep", lambda value: sleeps.append(float(value)))
+    monkeypatch.setattr("cellar_wrapper.http.random.uniform", lambda *_: 0.0)
+
+    payload = transport.query_sparql("SELECT * WHERE { ?s ?p ?o }")
+    assert payload == {"results": {"bindings": []}}
+    assert sleeps == [MAX_BACKOFF_SECONDS]
     transport.close()
 
 
@@ -208,7 +237,7 @@ def test_rate_limit_parses_retry_after_seconds(monkeypatch: pytest.MonkeyPatch) 
         transport.query_sparql("SELECT * WHERE { ?s ?p ?o }")
 
     assert exc_info.value.retry_after == "120"
-    assert exc_info.value.retry_after_seconds == 120
+    assert exc_info.value.retry_after_seconds == int(MAX_BACKOFF_SECONDS)
     transport.close()
 
 
@@ -277,6 +306,29 @@ def test_download_rejects_invalid_url() -> None:
     transport.close()
 
 
+def test_download_rate_limit_error_clamps_retry_after_seconds(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(retries=1)
+
+    def fake_stream(*args: object, **kwargs: object) -> object:
+        request = httpx.Request("GET", "https://example.test/file")
+        response = httpx.Response(
+            429,
+            request=request,
+            headers={"Retry-After": "120"},
+            text="slow down",
+        )
+        return _stream_response(response)
+
+    monkeypatch.setattr(transport._client, "stream", fake_stream)
+
+    with pytest.raises(CellarRateLimitError) as exc_info:
+        transport.download("https://example.test/file", accept="application/pdf")
+
+    assert exc_info.value.retry_after == "120"
+    assert exc_info.value.retry_after_seconds == int(MAX_BACKOFF_SECONDS)
+    transport.close()
+
+
 def test_download_retries_on_429_with_retry_after_seconds(monkeypatch: pytest.MonkeyPatch) -> None:
     transport = HttpTransport(retries=2)
     responses = iter(
@@ -340,8 +392,7 @@ def test_download_retries_on_429_with_retry_after_http_date(monkeypatch: pytest.
     content, content_type, _ = transport.download("https://example.test/file", accept="application/pdf")
     assert content == b"ok"
     assert content_type == "application/pdf"
-    assert len(sleeps) == 1
-    assert sleeps[0] >= 3500.0
+    assert sleeps == [MAX_BACKOFF_SECONDS]
     transport.close()
 
 

@@ -198,6 +198,40 @@ def test_summary_download_uses_xhtml5_accept() -> None:
     assert transport.downloads[0][1] == SUMMARY_ACCEPT
 
 
+def test_get_summary_404_download_raises_not_found() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "summary_summarizes_work" in query:
+            return sparql_payload(
+                [
+                    sparql_row(
+                        summary="http://publications.europa.eu/resource/legissum/2404020302_1"
+                    )
+                ]
+            )
+        return sparql_payload(
+            [
+                sparql_row(
+                    work="http://publications.europa.eu/resource/cellar/act",
+                    celex="32015L2366",
+                )
+            ]
+        )
+
+    def download_handler(url: str, _accept: str, _language: str | None) -> tuple[bytes, str, str]:
+        raise CellarHTTPError("HTTP error 404", status_code=404, url=url)
+
+    client = CellarClient(
+        transport=FakeTransport(query_handler=query_handler, download_handler=download_handler)
+    )
+
+    with pytest.raises(CellarNotFoundError, match="No legislative summary found for CELEX") as exc_info:
+        client.get_summary("32015L2366")
+
+    assert exc_info.value.details["entity"] == "summary"
+    assert exc_info.value.details["celex"] == "32015L2366"
+    assert exc_info.value.details["lang"] == "eng"
+
+
 def test_get_summary_not_found_has_structured_details() -> None:
     def query_handler(query: str) -> dict[str, object]:
         if "summary_summarizes_work" in query:

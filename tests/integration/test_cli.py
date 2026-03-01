@@ -230,6 +230,83 @@ def test_cli_case_law_accepts_country_filter(
 
 
 @pytest.mark.parametrize(
+    "argv",
+    [
+        [
+            "case-law",
+            "get-cjeu-judgments",
+            "--celex",
+            "32022R2554",
+            "--resource-type",
+            "JUDG",
+        ],
+        [
+            "case-law",
+            "get-preliminary-questions",
+            "--celex",
+            "32022R2554",
+            "--resource-type",
+            "JUDG",
+        ],
+        [
+            "monitoring",
+            "new-case-law",
+            "--celex",
+            "32022R2554",
+            "--since",
+            "2025-01-01",
+            "--resource-type",
+            "JUDG",
+        ],
+        [
+            "monitoring",
+            "new-preliminary-questions",
+            "--celex",
+            "32022R2554",
+            "--since",
+            "2025-01-01",
+            "--resource-type",
+            "JUDG",
+        ],
+        [
+            "monitoring",
+            "new-corrigenda",
+            "--celex",
+            "32022R2554",
+            "--since",
+            "2025-01-01",
+            "--resource-type",
+            "JUDG",
+        ],
+        [
+            "monitoring",
+            "new-consolidated",
+            "--celex",
+            "32022R2554",
+            "--since",
+            "2025-01-01",
+            "--resource-type",
+            "JUDG",
+        ],
+        [
+            "monitoring",
+            "new-nims",
+            "--celex",
+            "32022R2554",
+            "--since",
+            "2025-01-01",
+            "--resource-type",
+            "JUDG",
+        ],
+    ],
+)
+def test_cli_parser_exposes_resource_type_for_regressed_commands(argv: list[str]) -> None:
+    parser = cli.build_parser()
+    args = parser.parse_args(argv)
+    assert args.resource_type == "JUDG"
+
+
+@pytest.mark.parametrize(
     ("command_name", "method_name"),
     [
         ("new-repeals", "new_repeals"),

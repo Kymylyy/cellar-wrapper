@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from collections.abc import Generator
 from contextlib import contextmanager
+from datetime import UTC, datetime, timedelta
+from email.utils import format_datetime
 
 import httpx
 import pytest
@@ -228,6 +230,20 @@ def test_non_json_sparql_response_has_query_context(monkeypatch: pytest.MonkeyPa
     transport.close()
 
 
+def test_sparql_rejects_non_object_json_payload(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(sparql_endpoint="https://example.test/sparql", retries=1)
+
+    def fake_request(*args: object, **kwargs: object) -> httpx.Response:
+        request = httpx.Request("POST", "https://example.test/sparql")
+        return httpx.Response(200, request=request, json=["not", "an", "object"])
+
+    monkeypatch.setattr(transport._client, "request", fake_request)
+
+    with pytest.raises(CellarSPARQLError, match="payload is not an object"):
+        transport.query_sparql("SELECT * WHERE { ?s ?p ?o }")
+    transport.close()
+
+
 def test_backoff_full_jitter_uses_cap(monkeypatch: pytest.MonkeyPatch) -> None:
     capture: dict[str, float] = {}
 
@@ -261,6 +277,74 @@ def test_download_rejects_invalid_url() -> None:
     transport.close()
 
 
+def test_download_retries_on_429_with_retry_after_seconds(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(retries=2)
+    responses = iter(
+        [
+            httpx.Response(
+                429,
+                request=httpx.Request("GET", "https://example.test/file"),
+                headers={"Retry-After": "5"},
+                text="slow down",
+            ),
+            httpx.Response(
+                200,
+                request=httpx.Request("GET", "https://example.test/file"),
+                headers={"Content-Type": "application/pdf"},
+                content=b"ok",
+            ),
+        ]
+    )
+    sleeps: list[float] = []
+
+    def fake_stream(*args: object, **kwargs: object) -> object:
+        return _stream_response(next(responses))
+
+    monkeypatch.setattr(transport._client, "stream", fake_stream)
+    monkeypatch.setattr("cellar_wrapper.http.time.sleep", lambda value: sleeps.append(float(value)))
+
+    content, content_type, _ = transport.download("https://example.test/file", accept="application/pdf")
+    assert content == b"ok"
+    assert content_type == "application/pdf"
+    assert sleeps == [5.0]
+    transport.close()
+
+
+def test_download_retries_on_429_with_retry_after_http_date(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(retries=2)
+    retry_at = datetime.now(UTC) + timedelta(hours=1)
+    responses = iter(
+        [
+            httpx.Response(
+                429,
+                request=httpx.Request("GET", "https://example.test/file"),
+                headers={"Retry-After": format_datetime(retry_at, usegmt=True)},
+                text="slow down",
+            ),
+            httpx.Response(
+                200,
+                request=httpx.Request("GET", "https://example.test/file"),
+                headers={"Content-Type": "application/pdf"},
+                content=b"ok",
+            ),
+        ]
+    )
+    sleeps: list[float] = []
+
+    def fake_stream(*args: object, **kwargs: object) -> object:
+        return _stream_response(next(responses))
+
+    monkeypatch.setattr(transport._client, "stream", fake_stream)
+    monkeypatch.setattr("cellar_wrapper.http.time.sleep", lambda value: sleeps.append(float(value)))
+
+    content, content_type, _ = transport.download("https://example.test/file", accept="application/pdf")
+    assert content == b"ok"
+    assert content_type == "application/pdf"
+    assert len(sleeps) == 1
+    assert sleeps[0] >= 3500.0
+    transport.close()
+
+
 def test_download_rejects_incompatible_content_type(monkeypatch: pytest.MonkeyPatch) -> None:
     transport = HttpTransport(retries=1)
 
@@ -277,6 +361,40 @@ def test_download_rejects_incompatible_content_type(monkeypatch: pytest.MonkeyPa
     monkeypatch.setattr(transport._client, "stream", fake_stream)
 
     with pytest.raises(CellarParseError, match="Unexpected content type"):
+        transport.download("https://example.test/file", accept="application/pdf")
+    transport.close()
+
+
+def test_download_timeout_after_retries_raises_structured_error(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(retries=2)
+
+    def fake_stream(*args: object, **kwargs: object) -> object:
+        request = httpx.Request("GET", "https://example.test/file")
+        raise httpx.ReadTimeout("timed out", request=request)
+
+    monkeypatch.setattr(transport._client, "stream", fake_stream)
+    monkeypatch.setattr("cellar_wrapper.http.time.sleep", lambda *_: None)
+    monkeypatch.setattr("cellar_wrapper.http.random.uniform", lambda *_: 0.0)
+
+    with pytest.raises(CellarTimeoutError) as exc_info:
+        transport.download("https://example.test/file", accept="application/pdf")
+
+    assert exc_info.value.details["timeout_type"] == "ReadTimeout"
+    transport.close()
+
+
+def test_download_http_error_after_retries_raises_structured_error(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(retries=2)
+
+    def fake_stream(*args: object, **kwargs: object) -> object:
+        request = httpx.Request("GET", "https://example.test/file")
+        raise httpx.ConnectError("network down", request=request)
+
+    monkeypatch.setattr(transport._client, "stream", fake_stream)
+    monkeypatch.setattr("cellar_wrapper.http.time.sleep", lambda *_: None)
+    monkeypatch.setattr("cellar_wrapper.http.random.uniform", lambda *_: 0.0)
+
+    with pytest.raises(CellarHTTPError, match="HTTP request failed"):
         transport.download("https://example.test/file", accept="application/pdf")
     transport.close()
 

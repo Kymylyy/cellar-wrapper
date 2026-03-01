@@ -22,6 +22,22 @@ def test_parse_bindings_missing_results_raises() -> None:
     assert exc_info.value.details["field"] == "results.bindings"
 
 
+def test_parse_bindings_rejects_non_object_results() -> None:
+    with pytest.raises(CellarParseError) as exc_info:
+        parse_bindings({"results": None})
+
+    assert exc_info.value.details["parser"] == "parse_bindings"
+    assert exc_info.value.details["field"] == "results.bindings"
+
+
+def test_parse_bindings_rejects_non_object_payload() -> None:
+    with pytest.raises(CellarParseError) as exc_info:
+        parse_bindings([])  # type: ignore[arg-type]
+
+    assert exc_info.value.details["parser"] == "parse_bindings"
+    assert exc_info.value.details["field"] == "payload"
+
+
 def test_parse_act_refs_requires_uri_column() -> None:
     rows = [sparql_row(celex="32022R2554")]
     with pytest.raises(CellarParseError) as exc_info:

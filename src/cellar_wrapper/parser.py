@@ -84,9 +84,20 @@ def _ensure_binding_row(row: Any, *, parser: str, row_index: int) -> dict[str, d
 
 def parse_bindings(payload: dict[str, Any]) -> list[dict[str, dict[str, str]]]:
     """Extract SPARQL bindings or raise a parse error."""
+    if not isinstance(payload, dict):
+        raise _parse_error(
+            "SPARQL response payload is not an object",
+            parser="parse_bindings",
+            field="payload",
+            value=payload,
+        )
+
     try:
-        raw_bindings = payload["results"]["bindings"]
-    except KeyError as exc:  # pragma: no cover - defensive guard
+        results = payload["results"]
+        if not isinstance(results, dict):
+            raise TypeError("results must be an object")
+        raw_bindings = results["bindings"]
+    except (KeyError, TypeError) as exc:  # pragma: no cover - defensive guard
         raise _parse_error(
             "SPARQL response missing results.bindings",
             parser="parse_bindings",

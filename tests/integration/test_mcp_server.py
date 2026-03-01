@@ -152,6 +152,25 @@ def test_mcp_tool_schemas_cover_all_commands() -> None:
             assert "default" not in properties[name]
 
 
+def test_mcp_regressed_commands_expose_resource_type_in_schema() -> None:
+    _require_mcp_sdk()
+    server = build_mcp_server()
+    tools = {tool.name: tool for tool in _list_tools(server)}
+
+    for command_name in (
+        "get-cjeu-judgments",
+        "get-preliminary-questions",
+        "new-case-law",
+        "new-preliminary-questions",
+        "new-corrigenda",
+        "new-consolidated",
+        "new-nims",
+    ):
+        properties = tools[command_name].inputSchema["properties"]
+        assert "resource_type" in properties
+        assert properties["resource_type"]["default"] is None
+
+
 def test_mcp_tool_dispatch_maps_kwargs_correctly(monkeypatch: pytest.MonkeyPatch) -> None:
     _require_mcp_sdk()
     calls: list[dict[str, Any]] = []

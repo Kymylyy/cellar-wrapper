@@ -110,6 +110,7 @@ Method payload categories:
 - Backoff: exponential full-jitter (`uniform(0, cap)`), capped per-attempt.
 - Default timeout: connect `10s`, read `30s`, write `30s`, pool `30s`.
 - `Retry-After` is parsed to seconds when available on `429` (also for intermediate retries).
+- Parsed `Retry-After` is clamped to `MAX_BACKOFF_SECONDS` before sleeping.
 
 ## Search input validation
 - `search_by_eurovoc(tags=...)` requires at least one non-empty tag.
@@ -124,6 +125,7 @@ Method payload categories:
 `get_summary` enforces:
 - `Accept: application/xhtml+xml;type=xhtml5`
 - `Accept-Language: <lang>`
+- Download `404` is mapped to `CellarNotFoundError` with `details.entity = "summary"`.
 
 ## Download content-type validation
 - `get_text` / `get_summary` validate response `Content-Type` compatibility with requested format.
@@ -165,6 +167,7 @@ Method payload categories:
   - wrapper `CellarError` exceptions are raised as MCP tool errors with message format:
     - `<CellarErrorType>: <message>`
     - optional ` | details=<json>` suffix only when details are non-empty.
+  - unexpected runtime exceptions are mapped to `CellarInternalError` with `details.original_type`.
 - Runtime configuration for `cellar-mcp` uses environment variables:
   - `CELLAR_MCP_BASE_URL_SPARQL`
   - `CELLAR_MCP_BASE_URL_RESOURCE`

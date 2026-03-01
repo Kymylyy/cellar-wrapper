@@ -1,0 +1,2329 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manual Contract Test Report</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #f5f8ff 0%, #ffffff 35%, #eef4f7 100%);
+      color: #14202e;
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    h1, h2 {
+      margin: 0 0 12px 0;
+    }
+    .meta {
+      background: #ffffffcc;
+      border: 1px solid #d8e2ef;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      background: #0f1622;
+      color: #d6e4ff;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 8px 0 0 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: #fff;
+      border: 1px solid #d8e2ef;
+    }
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px;
+      border-bottom: 1px solid #e3eaf4;
+    }
+    th {
+      background: #eff5ff;
+    }
+    .method {
+      margin-top: 20px;
+      padding: 16px;
+      border: 1px solid #d8e2ef;
+      border-radius: 12px;
+      background: #ffffffdb;
+    }
+    .method-summary {
+      font-size: 14px;
+      font-weight: 600;
+      color: #31445f;
+      margin-bottom: 8px;
+    }
+    .note {
+      margin: 0;
+      color: #5f6f84;
+      font-size: 13px;
+    }
+    .ok {
+      color: #0b6b36;
+      font-weight: 700;
+    }
+    .error {
+      color: #9c1c1c;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Manual Contract Test Report</h1>
+  <section class="meta">
+    <h2>Summary</h2>
+    <pre>{
+  &quot;methods_total&quot;: 45,
+  &quot;runs_per_method&quot;: 1,
+  &quot;runs_total&quot;: 45,
+  &quot;runs_ok&quot;: 44,
+  &quot;runs_failed&quot;: 1,
+  &quot;methods_with_failures_count&quot;: 1,
+  &quot;methods_with_failures&quot;: [
+    {
+      &quot;method&quot;: &quot;search_by_subject_matter&quot;,
+      &quot;failed_runs&quot;: 1,
+      &quot;errors&quot;: [
+        {
+          &quot;attempt&quot;: 1,
+          &quot;type&quot;: &quot;CellarTimeoutError&quot;,
+          &quot;message&quot;: &quot;HTTP request timed out: The read operation timed out&quot;
+        }
+      ]
+    }
+  ],
+  &quot;elapsed_ms_ok&quot;: {
+    &quot;avg&quot;: 6334.056,
+    &quot;min&quot;: 23.125,
+    &quot;max&quot;: 17000.162
+  }
+}</pre>
+    <h2>Failures</h2>
+    <ul><li><b>search_by_subject_matter</b><br/>attempt 1: CellarTimeoutError - HTTP request timed out: The read operation timed out</li></ul>
+  </section>
+  <section class='method'><h2 id='find_eurovoc_concept'>find_eurovoc_concept</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>23.125 ms</td><td><pre>{
+  &quot;label&quot;: &quot;banking supervision&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/3251&quot;,
+      &quot;label&quot;: &quot;banking supervision&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 1,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;find_eurovoc_concept&quot;,
+    &quot;endpoint&quot;: &quot;local://eurovoc-index&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:49.868828Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_act'>get_act</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>8766.75 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;title&quot;: &quot;Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012  Text with EEA relevance&quot;,
+  &quot;date&quot;: null,
+  &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+  &quot;eli&quot;: &quot;http://data.europa.eu/eli/reg/2014/600/oj&quot;,
+  &quot;in_force&quot;: true,
+  &quot;eea_relevant&quot;: null,
+  &quot;created_by_agents&quot;: [
+    &quot;http://publications.europa.eu/resource/authority/corporate-body/CONSIL&quot;,
+    &quot;http://publications.europa.eu/resource/authority/corporate-body/EP&quot;
+  ],
+  &quot;responsible_agents&quot;: [
+    &quot;http://publications.europa.eu/resource/authority/corporate-body/FISMA&quot;
+  ],
+  &quot;addresses_institutions&quot;: [],
+  &quot;signatory_names&quot;: [],
+  &quot;date_document&quot;: &quot;2014-05-15&quot;,
+  &quot;date_entry_into_force&quot;: &quot;2014-07-02&quot;,
+  &quot;date_end_of_validity&quot;: &quot;9999-12-31&quot;
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_adopted_act'>get_adopted_act</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>8002.386 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_adopted_act&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:57.844448Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_ag_opinions'>get_ag_opinions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>7129.556 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_ag_opinions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:56.975980Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_amendments'>get_amendments</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>8191.52 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/43add894-a229-11ef-85f0-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32024R2809&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2024/2809 of the European Parliament and of the Council of 23 October 2024 amending Regulations (EU) 2017/1129, (EU) No 596/2014 and (EU) No 600/2014 to make public capital markets in the Union more attractive for companies and to facilitate access to capital for small and medium-sized enterprises (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2024-10-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c57254b9-dcf0-11ee-b9d9-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32024R0791&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2024/791 of the European Parliament and of the Council of 28 February 2024 amending Regulation (EU) No 600/2014 as regards enhancing data transparency, removing obstacles to the emergence of consolidated tapes, optimising the trading obligations and prohibiting receiving payment for order flow (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2024-02-28T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e934cc57-9ed8-11ee-b164-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32023R2869&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2023/2869 of the European Parliament and of the Council of 13 December 2023 amending certain Regulations as regards the establishment and functioning of the European single access point (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2023-12-13T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0caf473a-85bd-11ed-9887-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32022R2554&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2022/2554 of the European Parliament and of the Council of 14 December 2022 on digital operational resilience for the financial sector and amending Regulations (EC) No 1060/2009, (EU) No 648/2012, (EU) No 600/2014, (EU) No 909/2014 and (EU) 2016/1011 (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2022-12-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b563a601-e245-11ec-a534-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32022R0858&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2022/858 of the European Parliament and of the Council of 30 May 2022 on a pilot regime for market infrastructures based on distributed ledger technology, and amending Regulations (EU) No 600/2014 and (EU) No 909/2014 and Directive 2014/65/EU (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2022-05-30T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_amendments&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:58.036597Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_article_annotations'>get_article_annotations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>12480.509 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a578f185-d0ff-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-04T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/a578f185-d0ff-11f0-8da2-01aa75ed71a1/de78822a-5a1f-4604-99fc-0f777d7cc315&quot;,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/8334f435-7470-11f0-9af8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-08-08T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/8334f435-7470-11f0-9af8-01aa75ed71a1/97c69596-f22a-435c-a8a4-e08c309fb11d&quot;,
+      &quot;annotation_article&quot;: &quot;8a&quot;,
+      &quot;annotation_paragraph&quot;: &quot;4&quot;,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: &quot;A08aP4&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/8334f435-7470-11f0-9af8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-08-08T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/8334f435-7470-11f0-9af8-01aa75ed71a1/9ab2f2e0-1e38-42bc-ac56-16ce4205276a&quot;,
+      &quot;annotation_article&quot;: &quot;2&quot;,
+      &quot;annotation_paragraph&quot;: &quot;2&quot;,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: &quot;A02P2&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/8334f435-7470-11f0-9af8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-08-08T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/8334f435-7470-11f0-9af8-01aa75ed71a1/ccd28c49-faf6-404f-bd39-c3fe94ca497f&quot;,
+      &quot;annotation_article&quot;: &quot;31&quot;,
+      &quot;annotation_paragraph&quot;: &quot;4&quot;,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: &quot;A31P4PTA)&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ed0f6fb9-b858-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-06-18T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/ed0f6fb9-b858-11f0-b37f-01aa75ed71a1/4b7a7f4a-eb48-46de-952c-6422f86fd373&quot;,
+      &quot;annotation_article&quot;: &quot;9&quot;,
+      &quot;annotation_paragraph&quot;: &quot;5&quot;,
+      &quot;annotation_subparagraph&quot;: &quot;3&quot;,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: &quot;A09P5L3&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_article_annotations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:02.325443Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_citations'>get_citations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>7268.237 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e669f689-d0fe-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025PC0942&quot;,
+      &quot;title&quot;: &quot;Proposal for a DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union&quot;,
+      &quot;date&quot;: &quot;2025-12-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/729cec7e-d0ff-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025DC0940&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Further development of capital market integration and supervision within the Union&quot;,
+      &quot;date&quot;: &quot;2025-12-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/db5d0668-d0ff-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025SC0943&quot;,
+      &quot;title&quot;: &quot;COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements&quot;,
+      &quot;date&quot;: &quot;2025-12-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/IMPACT_ASSESS&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0283e2ff-b982-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025SC0755&quot;,
+      &quot;title&quot;: &quot;COMMISSION STAFF WORKING DOCUMENT Serbia 2025 Report Accompanying the document COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS 2025 Communication on EU enlargement policy&quot;,
+      &quot;date&quot;: &quot;2025-11-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/SWD&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b0aabce6-b320-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025SC0334&quot;,
+      &quot;title&quot;: &quot;COMMISSION STAFF WORKING DOCUMENT Accompanying the document Report from the Commission to the European Parliament and the Council on the working of committees in 2024&quot;,
+      &quot;date&quot;: &quot;2025-10-27T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/SWD&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_citations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:57.110881Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_cjeu_judgments'>get_cjeu_judgments</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>7627.873 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_cjeu_judgments&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:57.470973Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_completing_acts'>get_completing_acts</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>9371.074 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a8109ff9-b858-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1156&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1156 of 12 June 2025 supplementing Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to regulatory technical standards on the obligation to make market data available to the public on a reasonable commercial basis&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_completes_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;completes&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/83674a81-b859-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1155&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1155 of 12 June 2025 supplementing Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to regulatory technical standards specifying the input and output data of consolidated tapes, the synchronisation of business clocks and the revenue redistribution by the consolidated tape provider for shares and ETFs, and repealing Commission Delegated Regulation (EU) 2017/574&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_completes_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;completes&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/bcca740b-b859-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1143&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1143 of 12 June 2025 supplementing Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to regulatory technical standards on the authorisation and organisational requirements for approved publication arrangements and approved reporting mechanisms, and on the authorisation requirements for consolidated tape providers, and repealing Commission Delegated Regulation (EU) 2017/571&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_completes_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;completes&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/7a853810-36a5-11f0-8a44-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1003&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1003 of 24 January 2025 supplementing Regulation (EU) No 600/2014 of the European Parliament and of the Council as regards OTC derivatives identifying reference data to be used for the purposes of the transparency requirements laid down in Article 8a(2) and Articles 10 and 21&quot;,
+      &quot;date&quot;: &quot;2025-01-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_completes_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;completes&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a96bfd12-ee00-11ec-a534-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32022R0930&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2022/930 of 10 March 2022 supplementing Regulation (EU) No 600/2014 of the European Parliament and of the Council by specifying fees relating to the supervision by the European Securities Markets Authority of data reporting service providers&quot;,
+      &quot;date&quot;: &quot;2022-03-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_completes_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;completes&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_completing_acts&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:59.244889Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_consolidated_versions'>get_consolidated_versions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>15013.508 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/f759d033-0147-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;02014R0600-20251123&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2025-11-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/f4dc9b32-0147-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2025-11-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/36f87942-dd8f-11ef-be2a-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;02014R0600-20250117&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2025-01-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1a12b521-dd8f-11ef-be2a-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2025-01-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/494729b3-b402-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-01-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_consolidated_versions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:12.001957Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_corrigenda'>get_corrigenda</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>4763.629 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0265af69-17fb-11ea-8c1f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32014R0600R(11)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2019-12-06T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0265af69-17fb-11ea-8c1f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32014R0600R(11)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2019-12-06T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ed641450-5998-11e8-ab41-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32014R0600R(10)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2018-05-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ed641450-5998-11e8-ab41-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32014R0600R(10)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2018-05-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b7a2798b-46c5-11e8-be1d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32014R0600R(09)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2018-04-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_corrigenda&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:01.888488Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_deadlines'>get_deadlines</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>7994.283 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32014R0600&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2014-07-02T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_date_entry-into-force&quot;,
+      &quot;relation_type&quot;: &quot;entry_into_force&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32014R0600&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2018-01-03T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_date_entry-into-force&quot;,
+      &quot;relation_type&quot;: &quot;entry_into_force&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32014R0600&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2019-01-03T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_date_entry-into-force&quot;,
+      &quot;relation_type&quot;: &quot;entry_into_force&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32014R0600&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2019-03-03T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_date_deadline&quot;,
+      &quot;relation_type&quot;: &quot;deadline&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32014R0600&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2020-01-03T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_date_entry-into-force&quot;,
+      &quot;relation_type&quot;: &quot;entry_into_force&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_deadlines&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:05.479631Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_delegated_acts'>get_delegated_acts</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>4813.508 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/8334f435-7470-11f0-9af8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;COMMISSION DELEGATED REGULATION (EU) …/... amending Delegated Regulation (EU) 2017/567 as regards the obligation to provide market data on a reasonable commercial basis, the determination of what constitutes a liquid market for equity instruments, and the definition of and disclosure for post-trade risk reduction services&quot;,
+      &quot;date&quot;: &quot;2025-08-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL_DRAFT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ed0f6fb9-b858-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1246&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1246 of 18 June 2025 amending the regulatory technical standards laid down in Delegated Regulations (EU) 2017/583 and (EU) 2017/587 as regards transparency requirements for trading venues and investment firms in respect of bonds, structured finance products, emission allowances, and equity instruments&quot;,
+      &quot;date&quot;: &quot;2025-06-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a8109ff9-b858-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1156&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1156 of 12 June 2025 supplementing Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to regulatory technical standards on the obligation to make market data available to the public on a reasonable commercial basis&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0226c253-b859-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1157&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Regulation (EU) 2025/1157 of 12 June 2025 laying down implementing technical standards for the application of Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to the standard forms, templates and procedures for the authorisation of approved publication arrangements, approved reporting mechanisms and consolidated tape providers, and related notifications, and repealing Commission Implementing Regulation (EU) 2017/1110&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/83674a81-b859-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1155&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1155 of 12 June 2025 supplementing Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to regulatory technical standards specifying the input and output data of consolidated tapes, the synchronisation of business clocks and the revenue redistribution by the consolidated tape provider for shares and ETFs, and repealing Commission Delegated Regulation (EU) 2017/574&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_delegated_acts&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:02.671992Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_directory_codes'>get_directory_codes</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>7413.155 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/dir-eu-legal-act/06202025&quot;,
+      &quot;label&quot;: &quot;Stock exchanges and other securities markets&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 1,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_directory_codes&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:05.463979Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_dossier'>get_dossier</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>14315.032 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOC_2012_037_R_0017_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/470a63d2-d4c3-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2011/0296/COD&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32014R0600&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOC_2017_443_R_0781_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/470a63d2-d4c3-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2011/0296/COD&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32014R0600&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOL_2014_341_R_0031_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/470a63d2-d4c3-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2011/0296/COD&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32014R0600&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOL_2015_270_R_0004_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/470a63d2-d4c3-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2011/0296/COD&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32014R0600&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOL_2016_187_R_0030_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/470a63d2-d4c3-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2011/0296/COD&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32014R0600&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_dossier&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:12.936911Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_eurovoc'>get_eurovoc</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3448.307 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/1459&quot;,
+      &quot;label&quot;: &quot;financial instrument&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/171&quot;,
+      &quot;label&quot;: &quot;administrative check&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/189&quot;,
+      &quot;label&quot;: &quot;financial control&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/3246&quot;,
+      &quot;label&quot;: &quot;credit institution&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/4195&quot;,
+      &quot;label&quot;: &quot;investment company&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_eurovoc&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:02.707571Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_expressions'>get_expressions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3430.669 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1.0001&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/BUL&quot;,
+      &quot;title&quot;: &quot;Регламент (ЕС) № 600/2014 на Европейския парламент и на Съвета от 15 май 2014 година относно пазарите на финансови инструменти и за изменение на Регламент (ЕС) № 648/2012  текст от значение за ЕИП&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1.0002&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/CES&quot;,
+      &quot;title&quot;: &quot;Nařízení Evropského parlamentu a Rady (EU) č. 600/2014 ze dne 15. května 2014 o trzích finančních nástrojů a o změně nařízení (EU) č. 648/2012  Text s významem pro EHP&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1.0003&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/DAN&quot;,
+      &quot;title&quot;: &quot;Europa-Parlamentets og Rådets forordning (EU) nr. 600/2014 af 15. maj 2014 om markeder for finansielle instrumenter og om ændring af forordning (EU) nr. 648/2012  EØS-relevant tekst&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1.0004&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/DEU&quot;,
+      &quot;title&quot;: &quot;Verordnung (EU) Nr. 600/2014 des Europäischen Parlaments und des Rates vom 15. Mai 2014 über Märkte für Finanzinstrumente und zur Änderung der Verordnung (EU) Nr. 648/2012  Text von Bedeutung für den EWR&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1.0005&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/ELL&quot;,
+      &quot;title&quot;: &quot;Κανονισμός (ΕΕ) αριθ. 600/2014 του Ευρωπαϊκού Κοινοβουλίου και του Συμβουλίου, της 15ης Μαΐου 2014 , για τις αγορές χρηματοπιστωτικών μέσων και για την τροποποίηση του κανονισμού (ΕΕ) αριθ. 648/2012  Κείμενο που παρουσιάζει ενδιαφέρον για τον ΕΟΧ&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_expressions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:05.333122Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_legal_basis'>get_legal_basis</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3211.982 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/8334f435-7470-11f0-9af8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;COMMISSION DELEGATED REGULATION (EU) …/... amending Delegated Regulation (EU) 2017/567 as regards the obligation to provide market data on a reasonable commercial basis, the determination of what constitutes a liquid market for equity instruments, and the definition of and disclosure for post-trade risk reduction services&quot;,
+      &quot;date&quot;: &quot;2025-08-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL_DRAFT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ed0f6fb9-b858-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1246&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1246 of 18 June 2025 amending the regulatory technical standards laid down in Delegated Regulations (EU) 2017/583 and (EU) 2017/587 as regards transparency requirements for trading venues and investment firms in respect of bonds, structured finance products, emission allowances, and equity instruments&quot;,
+      &quot;date&quot;: &quot;2025-06-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a8109ff9-b858-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1156&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1156 of 12 June 2025 supplementing Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to regulatory technical standards on the obligation to make market data available to the public on a reasonable commercial basis&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0226c253-b859-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1157&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Regulation (EU) 2025/1157 of 12 June 2025 laying down implementing technical standards for the application of Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to the standard forms, templates and procedures for the authorisation of approved publication arrangements, approved reporting mechanisms and consolidated tape providers, and related notifications, and repealing Commission Implementing Regulation (EU) 2017/1110&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/83674a81-b859-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1155&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1155 of 12 June 2025 supplementing Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to regulatory technical standards specifying the input and output data of consolidated tapes, the synchronisation of business clocks and the revenue redistribution by the consolidated tape provider for shares and ETFs, and repealing Commission Delegated Regulation (EU) 2017/574&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_legal_basis&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:05.545839Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_national_decisions'>get_national_decisions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>344.586 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/8cca247d-deb7-11e9-9c4e-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;82018SI0919(51)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2018-09-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_NC&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVN&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 1,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_national_decisions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:03.027477Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_nims'>get_nims</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>13246.115 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_nims&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:15.962208Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_opinions'>get_opinions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>13289.845 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_opinions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:16.329337Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_other_relations'>get_other_relations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>7532.122 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_other_relations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:12.874988Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_preliminary_questions'>get_preliminary_questions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3160.885 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_preliminary_questions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:08.639509Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_proposals_to_amend'>get_proposals_to_amend</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>12554.478 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a578f185-d0ff-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025PC0943&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union&quot;,
+      &quot;date&quot;: &quot;2025-12-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b213de69-770d-11ed-9887-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52022PC0762&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2017/1129, (EU) No 596/2014 and (EU) No 600/2014 to make public capital markets in the Union more attractive for companies and to facilitate access to capital for small and medium-sized enterprises&quot;,
+      &quot;date&quot;: &quot;2022-12-07T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/00af8696-4de7-11ec-91ac-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52021PC0725&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending certain Regulations as regards the establishment and functioning of the European single access point&quot;,
+      &quot;date&quot;: &quot;2021-11-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/00c3ec33-4e21-11ec-91ac-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52021PC0727&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulation (EU) No 600/2014 as regards enhancing market data transparency, removing obstacles to the emergence of a consolidated tape, optimising the trading obligations and prohibiting receiving payments for forwarding client orders&quot;,
+      &quot;date&quot;: &quot;2021-11-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/58e03312-fe48-11ea-b44f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52020PC0595&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on digital operational resilience for the financial sector and amending Regulations (EC) No 1060/2009, (EU) No 648/2012, (EU) No 600/2014 and (EU) No 909/2014&quot;,
+      &quot;date&quot;: &quot;2020-09-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_proposals_to_amend&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:18.041156Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_related_works'>get_related_works</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>11706.57 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_related_works&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:17.257971Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_repeals'>get_repeals</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>5798.754 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_repeals&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:14.446451Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_subject_matter'>get_subject_matter</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3085.951 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/subject-matter/LCC&quot;,
+      &quot;label&quot;: &quot;Free movement of capital&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/subject-matter/LES&quot;,
+      &quot;label&quot;: &quot;Freedom of establishment&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 2,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_subject_matter&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:15.101703Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_summary'>get_summary</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>4788.579 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;source_url&quot;: &quot;http://publications.europa.eu/resource/cellar/16817962-59d9-11e9-a8ed-01aa75ed71a1.0001.03/DOC_1&quot;,
+  &quot;content_type&quot;: &quot;application/xhtml+xml;type=xhtml5;charset=UTF-8&quot;,
+  &quot;language&quot;: &quot;eng&quot;,
+  &quot;content_base64&quot;: &quot;[omitted]&quot;,
+  &quot;content_base64_length&quot;: 49556,
+  &quot;content_base64_preview&quot;: &quot;PCFET0NUWVBFIGh0bWw+PGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIGxhbmc9ImVuIiB4bWw6bGFuZz0iZW4iPjxoZWFkPiA8&quot;
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_text'>get_text</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>7042.76 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;lang&quot;: &quot;eng&quot;,
+  &quot;format&quot;: &quot;pdf&quot;
+}</pre></td><td><pre>{
+  &quot;source_url&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1.0006.01/DOC_1&quot;,
+  &quot;content_type&quot;: &quot;application/pdf;charset=UTF-8&quot;,
+  &quot;language&quot;: &quot;eng&quot;,
+  &quot;content_base64&quot;: &quot;[omitted]&quot;,
+  &quot;content_base64_length&quot;: 1621864,
+  &quot;content_base64_preview&quot;: &quot;JVBERi0xLjQNCiXi48/TDQoxMjUxIDAgb2JqDQo8PA0KL0xpbmVhcml6ZWQgMQ0KL0wgMTIxNjM5OA0KL0ggWyA5NzMgNjc3IF0NCi9PIDEyNTMNCi9FIDYw&quot;
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_amendments'>new_amendments</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>4077.493 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;since&quot;: &quot;2021-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/43add894-a229-11ef-85f0-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32024R2809&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2024/2809 of the European Parliament and of the Council of 23 October 2024 amending Regulations (EU) 2017/1129, (EU) No 596/2014 and (EU) No 600/2014 to make public capital markets in the Union more attractive for companies and to facilitate access to capital for small and medium-sized enterprises (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2024-10-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c57254b9-dcf0-11ee-b9d9-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32024R0791&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2024/791 of the European Parliament and of the Council of 28 February 2024 amending Regulation (EU) No 600/2014 as regards enhancing data transparency, removing obstacles to the emergence of consolidated tapes, optimising the trading obligations and prohibiting receiving payment for order flow (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2024-02-28T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e934cc57-9ed8-11ee-b164-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32023R2869&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2023/2869 of the European Parliament and of the Council of 13 December 2023 amending certain Regulations as regards the establishment and functioning of the European single access point (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2023-12-13T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0caf473a-85bd-11ed-9887-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32022R2554&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2022/2554 of the European Parliament and of the Council of 14 December 2022 on digital operational resilience for the financial sector and amending Regulations (EC) No 1060/2009, (EU) No 648/2012, (EU) No 600/2014, (EU) No 909/2014 and (EU) 2016/1011 (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2022-12-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b563a601-e245-11ec-a534-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32022R0858&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2022/858 of the European Parliament and of the Council of 30 May 2022 on a pilot regime for market infrastructures based on distributed ledger technology, and amending Regulations (EU) No 600/2014 and (EU) No 909/2014 and Directive 2014/65/EU (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2022-05-30T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_amendments&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:18.542466Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_by_eurovoc'>new_by_eurovoc</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>492.666 ms</td><td><pre>{
+  &quot;tags&quot;: [
+    &quot;banking supervision&quot;
+  ],
+  &quot;since&quot;: &quot;2021-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/7d3c8cba-0c6b-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026XC00854&quot;,
+      &quot;title&quot;: &quot;Communication from the Commission – Guidance concerning the treatment of equity exposures incurred under legislative programmes according to Article 133(5) of Regulation (EU) No 575/2013&quot;,
+      &quot;date&quot;: &quot;2026-02-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/NOTICE&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/d8c55cfc-0ad9-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1355R(01)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/d8c55cfc-0ad9-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1355R(01)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/27d2f44a-f5fe-11f0-b9bc-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026AB0002&quot;,
+      &quot;title&quot;: &quot;Opinion of the European Central Bank of 19 January 2026 on the supervisory independence of the Banque nationale de Belgique/Nationale Bank van België, the prevention of conflicts of interest of its members of staff and governance bodies, independent directors and strategic decisions of credit institutions (CON/2026/2)&quot;,
+      &quot;date&quot;: &quot;2026-01-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e84e4a3e-e4af-11f0-abd8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025AB0045&quot;,
+      &quot;title&quot;: &quot;Opinion of the European Central Bank of 19 December 2025 on an increase in a tax imposed on credit institutions (CON/2025/45)&quot;,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_by_eurovoc&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:15.607532Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_case_law'>new_case_law</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3209.137 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;since&quot;: &quot;2021-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_case_law&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:18.828834Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_citations'>new_citations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>6002.511 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;since&quot;: &quot;2021-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e669f689-d0fe-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025PC0942&quot;,
+      &quot;title&quot;: &quot;Proposal for a DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union&quot;,
+      &quot;date&quot;: &quot;2025-12-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/729cec7e-d0ff-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025DC0940&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Further development of capital market integration and supervision within the Union&quot;,
+      &quot;date&quot;: &quot;2025-12-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/db5d0668-d0ff-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025SC0943&quot;,
+      &quot;title&quot;: &quot;COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements&quot;,
+      &quot;date&quot;: &quot;2025-12-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/IMPACT_ASSESS&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0283e2ff-b982-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025SC0755&quot;,
+      &quot;title&quot;: &quot;COMMISSION STAFF WORKING DOCUMENT Serbia 2025 Report Accompanying the document COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS 2025 Communication on EU enlargement policy&quot;,
+      &quot;date&quot;: &quot;2025-11-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/SWD&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b0aabce6-b320-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025SC0334&quot;,
+      &quot;title&quot;: &quot;COMMISSION STAFF WORKING DOCUMENT Accompanying the document Report from the Commission to the European Parliament and the Council on the working of committees in 2024&quot;,
+      &quot;date&quot;: &quot;2025-10-27T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/SWD&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_citations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:21.976882Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_consolidated'>new_consolidated</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3480.258 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;since&quot;: &quot;2021-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/f759d033-0147-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;02014R0600-20251123&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2025-11-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/f4dc9b32-0147-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2025-11-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/36f87942-dd8f-11ef-be2a-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;02014R0600-20250117&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2025-01-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1a12b521-dd8f-11ef-be2a-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2025-01-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/494729b3-b402-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-01-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_consolidated&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:19.823208Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_corrigenda'>new_corrigenda</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3309.918 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;since&quot;: &quot;2021-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_corrigenda&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:20.581249Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_delegated_acts'>new_delegated_acts</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>5769.324 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;since&quot;: &quot;2021-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/8334f435-7470-11f0-9af8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;COMMISSION DELEGATED REGULATION (EU) …/... amending Delegated Regulation (EU) 2017/567 as regards the obligation to provide market data on a reasonable commercial basis, the determination of what constitutes a liquid market for equity instruments, and the definition of and disclosure for post-trade risk reduction services&quot;,
+      &quot;date&quot;: &quot;2025-08-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL_DRAFT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ed0f6fb9-b858-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1246&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1246 of 18 June 2025 amending the regulatory technical standards laid down in Delegated Regulations (EU) 2017/583 and (EU) 2017/587 as regards transparency requirements for trading venues and investment firms in respect of bonds, structured finance products, emission allowances, and equity instruments&quot;,
+      &quot;date&quot;: &quot;2025-06-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a8109ff9-b858-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1156&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1156 of 12 June 2025 supplementing Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to regulatory technical standards on the obligation to make market data available to the public on a reasonable commercial basis&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0226c253-b859-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1157&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Regulation (EU) 2025/1157 of 12 June 2025 laying down implementing technical standards for the application of Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to the standard forms, templates and procedures for the authorisation of approved publication arrangements, approved reporting mechanisms and consolidated tape providers, and related notifications, and repealing Commission Implementing Regulation (EU) 2017/1110&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/83674a81-b859-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1155&quot;,
+      &quot;title&quot;: &quot;Commission Delegated Regulation (EU) 2025/1155 of 12 June 2025 supplementing Regulation (EU) No 600/2014 of the European Parliament and of the Council with regard to regulatory technical standards specifying the input and output data of consolidated tapes, the synchronisation of business clocks and the revenue redistribution by the consolidated tape provider for shares and ETFs, and repealing Commission Delegated Regulation (EU) 2017/574&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_delegated_acts&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:23.460348Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_nims'>new_nims</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3943.358 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;since&quot;: &quot;2021-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_nims&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:22.000443Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_preliminary_questions'>new_preliminary_questions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3410.598 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;since&quot;: &quot;2021-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_preliminary_questions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:21.964654Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_proposals_to_amend'>new_proposals_to_amend</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3514.498 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;since&quot;: &quot;2021-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a578f185-d0ff-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025PC0943&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union&quot;,
+      &quot;date&quot;: &quot;2025-12-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b213de69-770d-11ed-9887-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52022PC0762&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2017/1129, (EU) No 596/2014 and (EU) No 600/2014 to make public capital markets in the Union more attractive for companies and to facilitate access to capital for small and medium-sized enterprises&quot;,
+      &quot;date&quot;: &quot;2022-12-07T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/00af8696-4de7-11ec-91ac-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52021PC0725&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending certain Regulations as regards the establishment and functioning of the European single access point&quot;,
+      &quot;date&quot;: &quot;2021-11-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/00c3ec33-4e21-11ec-91ac-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52021PC0727&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulation (EU) No 600/2014 as regards enhancing market data transparency, removing obstacles to the emergence of a consolidated tape, optimising the trading obligations and prohibiting receiving payments for forwarding client orders&quot;,
+      &quot;date&quot;: &quot;2021-11-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 4,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_proposals_to_amend&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:22.357711Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_repeals'>new_repeals</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>3318.214 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;since&quot;: &quot;2021-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_repeals&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:23.154384Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='resolve_celex'>resolve_celex</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>4594.937 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32014R0600&quot;
+}</pre></td><td><pre>{
+  &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b729ddf-f1f7-11e3-8cd4-01aa75ed71a1&quot;,
+  &quot;celex&quot;: &quot;32014R0600&quot;,
+  &quot;title&quot;: null,
+  &quot;date&quot;: null,
+  &quot;resource_type&quot;: null
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_by_eurovoc'>search_by_eurovoc</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>344.549 ms</td><td><pre>{
+  &quot;tags&quot;: [
+    &quot;banking supervision&quot;
+  ],
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/7d3c8cba-0c6b-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026XC00854&quot;,
+      &quot;title&quot;: &quot;Communication from the Commission – Guidance concerning the treatment of equity exposures incurred under legislative programmes according to Article 133(5) of Regulation (EU) No 575/2013&quot;,
+      &quot;date&quot;: &quot;2026-02-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/NOTICE&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/d8c55cfc-0ad9-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1355R(01)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/d8c55cfc-0ad9-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R1355R(01)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/27d2f44a-f5fe-11f0-b9bc-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026AB0002&quot;,
+      &quot;title&quot;: &quot;Opinion of the European Central Bank of 19 January 2026 on the supervisory independence of the Banque nationale de Belgique/Nationale Bank van België, the prevention of conflicts of interest of its members of staff and governance bodies, independent directors and strategic decisions of credit institutions (CON/2026/2)&quot;,
+      &quot;date&quot;: &quot;2026-01-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e84e4a3e-e4af-11f0-abd8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025AB0045&quot;,
+      &quot;title&quot;: &quot;Opinion of the European Central Bank of 19 December 2025 on an increase in a tax imposed on credit institutions (CON/2025/45)&quot;,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;search_by_eurovoc&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:20.940686Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_by_subject_matter'>search_by_subject_matter</h2><div class='method-summary'>ok_runs=0 | error_runs=1</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='error'>ERROR</td><td>92023.254 ms</td><td><pre>{
+  &quot;codes&quot;: [
+    &quot;banking supervision&quot;
+  ],
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>CellarTimeoutError: HTTP request timed out: The read operation timed out</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_by_title'>search_by_title</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>17000.162 ms</td><td><pre>{
+  &quot;keyword&quot;: &quot;payment&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/82aa2c32-0812-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;COMMISSION DELEGATED REGULATION (EU) …/... supplementing Regulation (EU) 648/2012 of the European Parliament and of the Council by specifying the method for the determination of fees charged by the European Banking Authority for the validation of the pro forma models referred to in Article 11(3), fourth subparagraph, of that Regulation, and specifying the modalities of the payment of those fees&quot;,
+      &quot;date&quot;: &quot;2026-02-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_DEL_DRAFT&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/417c6464-07f1-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Letter from Frank Elderson, Member of the Executive Board of the European Central Bank (ECB), to Richard Raši, Speaker of the National Council of the Slovak Republic, regarding certain amendments to the law on restrictions on cash payments&quot;,
+      &quot;date&quot;: &quot;2026-02-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/LET_DRAFT_NATION_LEGIS&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/25f2573f-062d-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of “payments not based on costs” : final report&quot;,
+      &quot;date&quot;: &quot;2026-02-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/STU&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/25f2573f-062d-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of “payments not based on costs” : final report&quot;,
+      &quot;date&quot;: &quot;2026-02-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REPORT_FINAL&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c33a34f3-062e-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of “payments not based on costs” : second interim report&quot;,
+      &quot;date&quot;: &quot;2026-02-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REPORT&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;search_by_title&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:38.980294Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_communications'>search_communications</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_f</td><td class='ok'>OK</td><td>415.074 ms</td><td><pre>{
+  &quot;dg&quot;: &quot;GROW&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9ad2b0e2-fdcc-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0046&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS The 2026 Annual Single Market and Competitiveness Report&quot;,
+      &quot;date&quot;: &quot;2026-01-30T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c6e41f71-da6b-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025DC0772&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION (First) CPR Working Plan for 2026-2029&quot;,
+      &quot;date&quot;: &quot;2025-12-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/acf25dab-db65-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025DC0991&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS The European Strategy for Housing Construction: a more competitive and productive construction industry&quot;,
+      &quot;date&quot;: &quot;2025-12-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e339a954-d060-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025DC0945&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS RESourceEU Action Plan Accelerating our critical raw materials strategy to adapt to a new reality&quot;,
+      &quot;date&quot;: &quot;2025-12-03T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/578f100e-5ca8-11f0-a9d0-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025DC0530&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS A European Chemicals Industry Action Plan&quot;,
+      &quot;date&quot;: &quot;2025-07-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;search_communications&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:22.405590Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section>
+</main>
+</body>
+</html>

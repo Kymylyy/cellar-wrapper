@@ -55,6 +55,7 @@ class ClientOpsProtocol(Protocol):
         items: list[T],
         limit: int | None,
         offset: int | None,
+        endpoint: str | None = None,
     ) -> ListResult[T]: ...
 
     def _run_list_query(
@@ -66,6 +67,18 @@ class ClientOpsProtocol(Protocol):
         limit: int | None,
         offset: int | None,
     ) -> ListResult[T]: ...
+
+    def _find_local_eurovoc_concepts(
+        self,
+        label: str,
+        *,
+        limit: int,
+        offset: int,
+    ) -> list[EurovocTag]: ...
+
+    def _normalize_non_empty_tags(self, tags: Sequence[str], *, field_name: str = "tags") -> list[str]: ...
+
+    def _resolve_eurovoc_concept_uris(self, tags: Sequence[str]) -> list[str]: ...
 
     def _call_relation_items(
         self,

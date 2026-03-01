@@ -1,0 +1,1981 @@
+{
+  "meta": {
+    "generated_at_utc": "2026-03-01T16:38:05.933429+00:00",
+    "run_id": "profile_b",
+    "output_root": "docs/manual_test/20260301_163706",
+    "workers": 8,
+    "runs_per_method": 1,
+    "kwargs_profiles_source": "/tmp/kwargs_profile_b.json",
+    "kwargs_profiles": [
+      "profile_b"
+    ],
+    "methods_requested": [
+      "find_eurovoc_concept",
+      "get_act",
+      "get_adopted_act",
+      "get_ag_opinions",
+      "get_amendments",
+      "get_article_annotations",
+      "get_citations",
+      "get_cjeu_judgments",
+      "get_completing_acts",
+      "get_consolidated_versions",
+      "get_corrigenda",
+      "get_deadlines",
+      "get_delegated_acts",
+      "get_directory_codes",
+      "get_dossier",
+      "get_eurovoc",
+      "get_expressions",
+      "get_legal_basis",
+      "get_national_decisions",
+      "get_nims",
+      "get_opinions",
+      "get_other_relations",
+      "get_preliminary_questions",
+      "get_proposals_to_amend",
+      "get_related_works",
+      "get_repeals",
+      "get_subject_matter",
+      "get_summary",
+      "get_text",
+      "new_amendments",
+      "new_by_eurovoc",
+      "new_case_law",
+      "new_citations",
+      "new_consolidated",
+      "new_corrigenda",
+      "new_delegated_acts",
+      "new_nims",
+      "new_preliminary_questions",
+      "new_proposals_to_amend",
+      "new_repeals",
+      "resolve_celex",
+      "search_by_eurovoc",
+      "search_by_subject_matter",
+      "search_by_title",
+      "search_communications"
+    ],
+    "started_unix": 1772383076.4639292,
+    "ended_unix": 1772383085.933373,
+    "duration_s": 9.469
+  },
+  "summary": {
+    "methods_total": 45,
+    "runs_per_method": 1,
+    "runs_total": 45,
+    "runs_ok": 1,
+    "runs_failed": 44,
+    "methods_with_failures_count": 44,
+    "methods_with_failures": [
+      {
+        "method": "get_act",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_adopted_act",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_ag_opinions",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_amendments",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_article_annotations",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_citations",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_cjeu_judgments",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_completing_acts",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_consolidated_versions",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_corrigenda",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_deadlines",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_delegated_acts",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_directory_codes",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_dossier",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_eurovoc",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_expressions",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_legal_basis",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_national_decisions",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_nims",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_opinions",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_other_relations",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_preliminary_questions",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_proposals_to_amend",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_related_works",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_repeals",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_subject_matter",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_summary",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "get_text",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "new_amendments",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "new_by_eurovoc",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "new_case_law",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "new_citations",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "new_consolidated",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "new_corrigenda",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "new_delegated_acts",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "new_nims",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "new_preliminary_questions",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "new_proposals_to_amend",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "new_repeals",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "resolve_celex",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "search_by_eurovoc",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "search_by_subject_matter",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "search_by_title",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      },
+      {
+        "method": "search_communications",
+        "failed_runs": 1,
+        "errors": [
+          {
+            "attempt": 1,
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        ]
+      }
+    ],
+    "elapsed_ms_ok": {
+      "avg": 26.331,
+      "min": 26.331,
+      "max": 26.331
+    }
+  },
+  "results": [
+    {
+      "method": "find_eurovoc_concept",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "label": "competition policy",
+            "limit": 5,
+            "offset": 0
+          },
+          "ok": true,
+          "elapsed_ms": 26.331,
+          "output": {
+            "items": [
+              {
+                "concept_uri": "http://eurovoc.europa.eu/435330",
+                "label": "EU competition policy"
+              },
+              {
+                "concept_uri": "http://eurovoc.europa.eu/2474",
+                "label": "competition policy"
+              }
+            ],
+            "returned_count": 2,
+            "meta": {
+              "query_name": "find_eurovoc_concept",
+              "endpoint": "local://eurovoc-index",
+              "executed_at": "2026-03-01T16:37:56.529046Z",
+              "limit": 5,
+              "offset": 0
+            }
+          },
+          "output_summary": {
+            "preview": "{\"items\": [{\"concept_uri\": \"http://eurovoc.europa.eu/435330\", \"label\": \"EU competition policy\"}, {\"concept_uri\": \"http://eurovoc.europa.eu/2474\", \"label\": \"competition policy\"}], \"returned_count\": 2, \"meta\": {\"query_name\": \"find_eurovoc_concept\", \"endpoint\": \"local://eurovoc-index\", \"executed_at\": \"2026-03-01T16:37:56.529046Z\", \"limit\": 5, \"offset\": 0}}",
+            "size_chars": 355,
+            "truncated": false
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 1,
+        "error_runs": 0,
+        "avg_elapsed_ms_ok": 26.331,
+        "min_elapsed_ms_ok": 26.331,
+        "max_elapsed_ms_ok": 26.331
+      }
+    },
+    {
+      "method": "get_act",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1751.835,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_adopted_act",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 2234.102,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_ag_opinions",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1531.008,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_amendments",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 2109.01,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_article_annotations",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0
+          },
+          "ok": false,
+          "elapsed_ms": 1007.031,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_citations",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1934.886,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_cjeu_judgments",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1653.56,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_completing_acts",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1766.855,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_consolidated_versions",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1184.511,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_corrigenda",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 878.57,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_deadlines",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0
+          },
+          "ok": false,
+          "elapsed_ms": 416.34,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_delegated_acts",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 525.491,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_directory_codes",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0
+          },
+          "ok": false,
+          "elapsed_ms": 969.54,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_dossier",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1563.145,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_eurovoc",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0
+          },
+          "ok": false,
+          "elapsed_ms": 2601.28,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_expressions",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0
+          },
+          "ok": false,
+          "elapsed_ms": 2417.128,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_legal_basis",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0
+          },
+          "ok": false,
+          "elapsed_ms": 1886.234,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_national_decisions",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1063.302,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_nims",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 877.397,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_opinions",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1482.753,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_other_relations",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 799.076,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_preliminary_questions",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 642.072,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_proposals_to_amend",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 850.921,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_related_works",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 2226.446,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_repeals",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 639.831,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_subject_matter",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "limit": 5,
+            "offset": 0
+          },
+          "ok": false,
+          "elapsed_ms": 1143.197,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_summary",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 2060.891,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "get_text",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "lang": "eng",
+            "format": "pdf"
+          },
+          "ok": false,
+          "elapsed_ms": 2001.084,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "new_amendments",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "since": "2024-01-01",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1828.574,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "new_by_eurovoc",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "tags": [
+              "competition policy"
+            ],
+            "since": "2024-01-01",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 2025.458,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "new_case_law",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "since": "2024-01-01",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 715.262,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "new_citations",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "since": "2024-01-01",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1269.771,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "new_consolidated",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "since": "2024-01-01",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1974.814,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "new_corrigenda",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "since": "2024-01-01",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 608.848,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "new_delegated_acts",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "since": "2024-01-01",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1507.556,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "new_nims",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "since": "2024-01-01",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 667.846,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "new_preliminary_questions",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "since": "2024-01-01",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 2015.342,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "new_proposals_to_amend",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "since": "2024-01-01",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 2064.485,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "new_repeals",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575",
+            "since": "2024-01-01",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 2714.975,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "resolve_celex",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "celex": "32013R0575"
+          },
+          "ok": false,
+          "elapsed_ms": 2631.82,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "search_by_eurovoc",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "tags": [
+              "competition policy"
+            ],
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 1543.434,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "search_by_subject_matter",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "codes": [
+              "competition"
+            ],
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 2300.046,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "search_by_title",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "keyword": "capital requirements",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 835.001,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    },
+    {
+      "method": "search_communications",
+      "kwargs_profiles_used": [
+        "profile_b"
+      ],
+      "runs": [
+        {
+          "attempt": 1,
+          "kwargs_profile": "profile_b",
+          "kwargs": {
+            "dg": "COMP",
+            "limit": 5,
+            "offset": 0,
+            "lang": "eng"
+          },
+          "ok": false,
+          "elapsed_ms": 2153.092,
+          "error": {
+            "type": "CellarHTTPError",
+            "message": "HTTP request failed: [Errno 8] nodename nor servname provided, or not known"
+          }
+        }
+      ],
+      "summary": {
+        "ok_runs": 0,
+        "error_runs": 1,
+        "avg_elapsed_ms_ok": null,
+        "min_elapsed_ms_ok": null,
+        "max_elapsed_ms_ok": null
+      }
+    }
+  ]
+}

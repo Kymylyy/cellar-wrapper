@@ -18,6 +18,7 @@ predictable contracts for legal and compliance data workflows.
 - Stateless monitoring methods (`new_*`) with explicit `since`.
 - Enriched metadata for `get_act`, `get_dossier`, and `get_nims`.
 - Country-aware case-law support (`get_national_decisions(..., country="DEU")`).
+- Local packaged EuroVoc index for `find_eurovoc_concept`, `search_by_eurovoc`, and `new_by_eurovoc`.
 
 ## Installation
 
@@ -117,6 +118,39 @@ MCP tool payload contract:
 ruff check
 mypy
 pytest
+```
+
+## Runtime EuroVoc index refresh
+
+Runtime EuroVoc resolve uses packaged file `src/cellar_wrapper/data/eurovoc_index.json`.
+Refresh it from `docs/eurovoc_all.json` with:
+
+```bash
+python3 scripts/build_runtime_eurovoc_index.py
+```
+
+## Manual contract test reports
+
+Run manual checks for all public methods and generate JSON + HTML report:
+
+```bash
+PYTHONPATH=src python3 scripts/manual_test_contracts.py --workers 8 --runs 2
+```
+
+Default output location:
+- `docs/manual_test/<YYYYMMDD_HHMMSS>/contract_methods_manual_test_report.json`
+- `docs/manual_test/<YYYYMMDD_HHMMSS>/contract_methods_manual_test_report.html`
+
+Report behavior:
+- kwargs profiles are loaded from `docs/manual_test/kwargs_profiles.json`.
+- profile list currently contains `7` profiles (`profile_a` ... `profile_g`).
+- attempts cycle through profiles in order (`attempt 1 -> profile_a`, `attempt 2 -> profile_b`, ...).
+- HTML shows kwargs and output inline (no expandable sections).
+
+Render HTML for an existing report JSON:
+
+```bash
+PYTHONPATH=src python3 scripts/manual_test_contracts.py --from-json docs/manual_test/<RUN_ID>/contract_methods_manual_test_report.json
 ```
 
 ## Documentation map

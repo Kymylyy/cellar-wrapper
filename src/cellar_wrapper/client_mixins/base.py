@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from datetime import UTC, date, datetime
 from types import TracebackType
 from typing import TypeVar, cast
@@ -16,8 +16,17 @@ from cellar_wrapper.constants import (
     MAX_LIMIT,
 )
 from cellar_wrapper.errors import CellarValidationError
+from cellar_wrapper.eurovoc_index import load_default_eurovoc_index
 from cellar_wrapper.http import HttpTransport, TimeoutConfig, validate_http_url
-from cellar_wrapper.models import ActRef, CaseLawItem, ListResult, NIMItem, QueryMeta, RelationItem
+from cellar_wrapper.models import (
+    ActRef,
+    CaseLawItem,
+    EurovocTag,
+    ListResult,
+    NIMItem,
+    QueryMeta,
+    RelationItem,
+)
 from cellar_wrapper.parser import (
     parse_bindings,
     parse_case_law_items,
@@ -143,10 +152,17 @@ class ClientBase:
         if offset < 0:
             raise CellarValidationError("offset cannot be negative")
 
-    def _meta(self, query_name: str, *, limit: int | None, offset: int | None) -> QueryMeta:
+    def _meta(
+        self,
+        query_name: str,
+        *,
+        limit: int | None,
+        offset: int | None,
+        endpoint: str | None = None,
+    ) -> QueryMeta:
         return QueryMeta(
             query_name=query_name,
-            endpoint=self._transport.sparql_endpoint,
+            endpoint=endpoint or self._transport.sparql_endpoint,
             executed_at=datetime.now(UTC),
             limit=limit,
             offset=offset,
@@ -159,12 +175,44 @@ class ClientBase:
         items: list[T],
         limit: int | None,
         offset: int | None,
+        endpoint: str | None = None,
     ) -> ListResult[T]:
         return ListResult[T](
             items=items,
             returned_count=len(items),
-            meta=self._meta(query_name, limit=limit, offset=offset),
+            meta=self._meta(query_name, limit=limit, offset=offset, endpoint=endpoint),
         )
+
+    def _find_local_eurovoc_concepts(
+        self,
+        label: str,
+        *,
+        limit: int,
+        offset: int,
+    ) -> list[EurovocTag]:
+        index = load_default_eurovoc_index()
+        return index.find_by_label(label, limit=limit, offset=offset)
+
+    def _normalize_non_empty_tags(self, tags: Sequence[str], *, field_name: str = "tags") -> list[str]:
+        normalized_tags = [tag.strip() for tag in tags if tag.strip()]
+        if not normalized_tags:
+            raise CellarValidationError(f"{field_name} cannot be empty")
+        return normalized_tags
+
+    def _resolve_eurovoc_concept_uris(self, tags: Sequence[str]) -> list[str]:
+        unique_tags: list[str] = []
+        seen_tags: set[str] = set()
+        for tag in tags:
+            normalized = tag.strip()
+            if not normalized:
+                continue
+            dedupe_key = normalized.casefold()
+            if dedupe_key in seen_tags:
+                continue
+            seen_tags.add(dedupe_key)
+            unique_tags.append(normalized)
+        index = load_default_eurovoc_index()
+        return index.resolve_concept_uris(unique_tags)
 
     def _run_list_query(
         self,

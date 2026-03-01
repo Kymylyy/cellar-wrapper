@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 from cellar_wrapper.client import CellarClient
 from tests.helpers import FakeTransport, sparql_payload, sparql_row
 
@@ -170,17 +172,10 @@ def test_search_group_search_by_title() -> None:
     assert result.returned_count == 1
 
 
-def test_search_group_search_by_eurovoc_resolves_tags_before_search() -> None:
-    def query_handler(query: str) -> dict[str, object]:
-        if "SELECT DISTINCT ?concept ?label WHERE" in query:
-            return sparql_payload(
-                [
-                    sparql_row(
-                        concept="http://eurovoc.europa.eu/2220",
-                        label="intra-EU payment",
-                    )
-                ]
-            )
+def test_search_group_search_by_eurovoc_resolves_tags_before_search(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def query_handler(_query: str) -> dict[str, object]:
         return sparql_payload(
             [
                 sparql_row(
@@ -193,23 +188,29 @@ def test_search_group_search_by_eurovoc_resolves_tags_before_search() -> None:
 
     transport = FakeTransport(query_handler=query_handler)
     client = CellarClient(transport=transport)
+    monkeypatch.setattr(
+        client,
+        "_resolve_eurovoc_concept_uris",
+        lambda tags: ["http://eurovoc.europa.eu/2220"] if tags else [],
+    )
     result = client.search_by_eurovoc(["payment"], since="2025-01-01")
 
     assert result.returned_count == 1
-    assert len(transport.queries) == 2
-    assert "SELECT DISTINCT ?concept ?label WHERE" in transport.queries[0]
-    assert "VALUES ?concept { <http://eurovoc.europa.eu/2220> }" in transport.queries[1]
-    assert "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[1]
+    assert len(transport.queries) == 1
+    assert "VALUES ?concept { <http://eurovoc.europa.eu/2220> }" in transport.queries[0]
+    assert "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[0]
 
 
-def test_search_group_search_by_eurovoc_returns_empty_when_no_concept_resolved() -> None:
+def test_search_group_search_by_eurovoc_returns_empty_when_no_concept_resolved(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     transport = FakeTransport(query_handler=lambda _query: sparql_payload([]))
     client = CellarClient(transport=transport)
+    monkeypatch.setattr(client, "_resolve_eurovoc_concept_uris", lambda tags: [])
     result = client.search_by_eurovoc(["unknown-term"])
 
     assert result.returned_count == 0
-    assert len(transport.queries) == 1
-    assert "SELECT DISTINCT ?concept ?label WHERE" in transport.queries[0]
+    assert len(transport.queries) == 0
 
 
 def test_monitoring_group_new_citations_adds_since_filter() -> None:
@@ -223,28 +224,25 @@ def test_monitoring_group_new_citations_adds_since_filter() -> None:
     )
 
 
-def test_monitoring_group_new_by_eurovoc_uses_strict_since_after_resolve() -> None:
-    def query_handler(query: str) -> dict[str, object]:
-        if "SELECT DISTINCT ?concept ?label WHERE" in query:
-            return sparql_payload(
-                [
-                    sparql_row(
-                        concept="http://eurovoc.europa.eu/2220",
-                        label="intra-EU payment",
-                    )
-                ]
-            )
+def test_monitoring_group_new_by_eurovoc_uses_strict_since_after_resolve(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def query_handler(_query: str) -> dict[str, object]:
         return sparql_payload([])
 
     transport = FakeTransport(query_handler=query_handler)
     client = CellarClient(transport=transport)
+    monkeypatch.setattr(
+        client,
+        "_resolve_eurovoc_concept_uris",
+        lambda tags: ["http://eurovoc.europa.eu/2220"] if tags else [],
+    )
     result = client.new_by_eurovoc(["payment"], since="2025-01-01")
 
     assert result.returned_count == 0
-    assert len(transport.queries) == 2
-    assert "SELECT DISTINCT ?concept ?label WHERE" in transport.queries[0]
-    assert "VALUES ?concept { <http://eurovoc.europa.eu/2220> }" in transport.queries[1]
-    assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[1]
+    assert len(transport.queries) == 1
+    assert "VALUES ?concept { <http://eurovoc.europa.eu/2220> }" in transport.queries[0]
+    assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[0]
 
 
 def test_non_monitoring_since_filter_keeps_undated_rows() -> None:

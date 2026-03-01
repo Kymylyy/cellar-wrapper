@@ -4,9 +4,10 @@ This document explains large non-code files stored in `docs/`.
 
 ## Purpose
 
-These files are research/support artifacts for exploration and analysis. They are
-not consumed by the runtime package (`src/cellar_wrapper`) and should not be
-treated as API contract.
+These files are research/support artifacts for exploration and analysis.
+They are not consumed directly by runtime code.
+Runtime EuroVoc resolve uses packaged data file:
+`src/cellar_wrapper/data/eurovoc_index.json`.
 
 ## Inventory
 
@@ -28,3 +29,5 @@ treated as API contract.
 - If an artifact is superseded, replace it in-place or remove it in the same
   commit as related doc updates.
 - Any behavioral/API changes must be documented in `API_CONTRACT.md`, not here.
+- Refresh packaged runtime EuroVoc index with:
+  `python3 scripts/build_runtime_eurovoc_index.py`

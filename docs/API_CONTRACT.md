@@ -70,6 +70,7 @@ Method payload categories:
 - collection methods return `ListResult[T]`.
 - single-record metadata methods return typed models (`ActRef` / `ActDetail`).
 - download methods return `DocumentPayload`.
+- `find_eurovoc_concept` sets `meta.endpoint = "local://eurovoc-index"` (local packaged index).
 
 ## Empty result policy
 - Collections return `ListResult(items=[])` when query matches no rows.
@@ -89,6 +90,7 @@ Method payload categories:
 
 `CellarSPARQLError` carries context fields (`query`, `response_excerpt`) for diagnostics.
 `CellarParseError` carries structured `details` (`parser`, `row_index`, `field`, `value_excerpt`).
+For local EuroVoc index failures, details include `source = "local_eurovoc_index"` and phase metadata.
 `CellarNotFoundError` carries structured `details` (for example `entity`, `celex`, `phase`).
 `details` is optional in practice (error object may expose an empty `{}` payload).
 
@@ -117,11 +119,13 @@ Method payload categories:
 - `search_by_subject_matter(codes=...)` requires at least one non-empty code.
 
 ## EuroVoc execution model
+- `find_eurovoc_concept` resolves tags from a packaged local index (`src/cellar_wrapper/data/eurovoc_index.json`), not via live SPARQL.
 - `search_by_eurovoc` and `new_by_eurovoc` run in two steps:
-  1. resolve each tag via `find_eurovoc_concept`,
-  2. final query by exact concept URIs with `VALUES ?concept`.
-- Concept resolve remains language-scoped to label `LANG = 'en' || ''` (independent from `lang` argument used for title expression lookup).
+  1. resolve each tag against the local index,
+  2. final live SPARQL query by exact concept URIs with `VALUES ?concept`.
+- Local resolve keeps current business semantics: case-insensitive substring match on label (`CONTAINS`-style behavior).
 - If no concept URI is resolved for provided tags, methods return an empty list result without executing the final work query.
+- Local index load/parse failures are fail-fast (`CellarParseError`) and do not fall back to live resolve queries.
 
 ## CELEX resolution behavior
 1. Exact match query (`=`).

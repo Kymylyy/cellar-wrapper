@@ -1,0 +1,128 @@
+[
+  {
+    "name": "profile_a",
+    "required": {
+      "celex": "32022R2554",
+      "since": "2025-01-01",
+      "tags": ["banking supervision"],
+      "codes": ["banking supervision"],
+      "keyword": "resilience",
+      "dg": "FISMA",
+      "label": "banking supervision"
+    },
+    "optional": {
+      "limit": 5,
+      "offset": 0,
+      "lang": "eng",
+      "format": "pdf"
+    }
+  },
+  {
+    "name": "profile_b",
+    "required": {
+      "celex": "32013R0575",
+      "since": "2024-01-01",
+      "tags": ["competition policy"],
+      "codes": ["competition"],
+      "keyword": "capital requirements",
+      "dg": "COMP",
+      "label": "competition policy"
+    },
+    "optional": {
+      "limit": 5,
+      "offset": 0,
+      "lang": "eng",
+      "format": "pdf"
+    }
+  },
+  {
+    "name": "profile_c",
+    "required": {
+      "celex": "32006L0112",
+      "since": "2023-01-01",
+      "tags": ["environmental protection"],
+      "codes": ["taxation"],
+      "keyword": "tax",
+      "dg": "TAXUD",
+      "label": "environmental protection"
+    },
+    "optional": {
+      "limit": 5,
+      "offset": 0,
+      "lang": "eng",
+      "format": "pdf"
+    }
+  },
+  {
+    "name": "profile_d",
+    "required": {
+      "celex": "32016R0679",
+      "since": "2020-01-01",
+      "tags": ["data protection"],
+      "codes": ["data protection"],
+      "keyword": "data protection",
+      "dg": "JUST",
+      "label": "data protection"
+    },
+    "optional": {
+      "limit": 5,
+      "offset": 0,
+      "lang": "eng",
+      "format": "pdf"
+    }
+  },
+  {
+    "name": "profile_e",
+    "required": {
+      "celex": "32014R0596",
+      "since": "2021-01-01",
+      "tags": ["competition policy"],
+      "codes": ["competition"],
+      "keyword": "regulation",
+      "dg": "FISMA",
+      "label": "competition policy"
+    },
+    "optional": {
+      "limit": 5,
+      "offset": 0,
+      "lang": "eng",
+      "format": "pdf"
+    }
+  },
+  {
+    "name": "profile_f",
+    "required": {
+      "celex": "32014R0600",
+      "since": "2021-01-01",
+      "tags": ["banking supervision"],
+      "codes": ["banking supervision"],
+      "keyword": "payment",
+      "dg": "GROW",
+      "label": "banking supervision"
+    },
+    "optional": {
+      "limit": 5,
+      "offset": 0,
+      "lang": "eng",
+      "format": "pdf"
+    }
+  },
+  {
+    "name": "profile_g",
+    "required": {
+      "celex": "32014R0909",
+      "since": "2022-01-01",
+      "tags": ["data protection"],
+      "codes": ["environment"],
+      "keyword": "regulation",
+      "dg": "ENV",
+      "label": "data protection"
+    },
+    "optional": {
+      "limit": 5,
+      "offset": 0,
+      "lang": "eng",
+      "format": "pdf"
+    }
+  }
+]

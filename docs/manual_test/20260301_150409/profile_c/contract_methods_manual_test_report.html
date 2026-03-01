@@ -1,0 +1,2873 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manual Contract Test Report</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #f5f8ff 0%, #ffffff 35%, #eef4f7 100%);
+      color: #14202e;
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    h1, h2 {
+      margin: 0 0 12px 0;
+    }
+    .meta {
+      background: #ffffffcc;
+      border: 1px solid #d8e2ef;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      background: #0f1622;
+      color: #d6e4ff;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 8px 0 0 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: #fff;
+      border: 1px solid #d8e2ef;
+    }
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px;
+      border-bottom: 1px solid #e3eaf4;
+    }
+    th {
+      background: #eff5ff;
+    }
+    .method {
+      margin-top: 20px;
+      padding: 16px;
+      border: 1px solid #d8e2ef;
+      border-radius: 12px;
+      background: #ffffffdb;
+    }
+    .method-summary {
+      font-size: 14px;
+      font-weight: 600;
+      color: #31445f;
+      margin-bottom: 8px;
+    }
+    .note {
+      margin: 0;
+      color: #5f6f84;
+      font-size: 13px;
+    }
+    .ok {
+      color: #0b6b36;
+      font-weight: 700;
+    }
+    .error {
+      color: #9c1c1c;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Manual Contract Test Report</h1>
+  <section class="meta">
+    <h2>Summary</h2>
+    <pre>{
+  &quot;methods_total&quot;: 45,
+  &quot;runs_per_method&quot;: 1,
+  &quot;runs_total&quot;: 45,
+  &quot;runs_ok&quot;: 43,
+  &quot;runs_failed&quot;: 2,
+  &quot;methods_with_failures_count&quot;: 2,
+  &quot;methods_with_failures&quot;: [
+    {
+      &quot;method&quot;: &quot;get_summary&quot;,
+      &quot;failed_runs&quot;: 1,
+      &quot;errors&quot;: [
+        {
+          &quot;attempt&quot;: 1,
+          &quot;type&quot;: &quot;ResponseNotRead&quot;,
+          &quot;message&quot;: &quot;Attempted to access streaming response content, without having called `read()`.&quot;
+        }
+      ]
+    },
+    {
+      &quot;method&quot;: &quot;search_by_subject_matter&quot;,
+      &quot;failed_runs&quot;: 1,
+      &quot;errors&quot;: [
+        {
+          &quot;attempt&quot;: 1,
+          &quot;type&quot;: &quot;CellarTimeoutError&quot;,
+          &quot;message&quot;: &quot;HTTP request timed out: The read operation timed out&quot;
+        }
+      ]
+    }
+  ],
+  &quot;elapsed_ms_ok&quot;: {
+    &quot;avg&quot;: 10128.914,
+    &quot;min&quot;: 373.478,
+    &quot;max&quot;: 58730.33
+  }
+}</pre>
+    <h2>Failures</h2>
+    <ul><li><b>get_summary</b><br/>attempt 1: ResponseNotRead - Attempted to access streaming response content, without having called `read()`.</li><li><b>search_by_subject_matter</b><br/>attempt 1: CellarTimeoutError - HTTP request timed out: The read operation timed out</li></ul>
+  </section>
+  <section class='method'><h2 id='find_eurovoc_concept'>find_eurovoc_concept</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>58730.33 ms</td><td><pre>{
+  &quot;label&quot;: &quot;environmental protection&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/2825&quot;,
+      &quot;label&quot;: &quot;environmental protection&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 1,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;find_eurovoc_concept&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:06:20.045518Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_act'>get_act</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>4827.511 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6&quot;,
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;title&quot;: &quot;Council Directive 2006/112/EC of 28 November 2006 on the common system of value added tax&quot;,
+  &quot;date&quot;: null,
+  &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+  &quot;eli&quot;: &quot;http://data.europa.eu/eli/dir/2006/112/oj&quot;,
+  &quot;in_force&quot;: true,
+  &quot;eea_relevant&quot;: null,
+  &quot;created_by_agents&quot;: [
+    &quot;http://publications.europa.eu/resource/authority/corporate-body/CONSIL&quot;
+  ],
+  &quot;responsible_agents&quot;: [
+    &quot;http://publications.europa.eu/resource/authority/corporate-body/TAXUD&quot;
+  ],
+  &quot;addresses_institutions&quot;: [
+    &quot;http://publications.europa.eu/resource/authority/corporate-body/EUMS25&quot;
+  ],
+  &quot;signatory_names&quot;: [],
+  &quot;date_document&quot;: &quot;2006-11-28&quot;,
+  &quot;date_entry_into_force&quot;: &quot;2007-01-01&quot;,
+  &quot;date_end_of_validity&quot;: &quot;9999-12-31&quot;
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_adopted_act'>get_adopted_act</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>4616.121 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_adopted_act&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:25.929993Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_ag_opinions'>get_ag_opinions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>4508.638 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/aa31854e-897b-11f0-9af8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024CC0121&quot;,
+      &quot;title&quot;: &quot;Opinion of Advocate General Kokott delivered on 4 September 2025.#„Vaniz“ EOOD v Direktor na Direktsia „Obzhalvane i danachno-osiguritelna praktika“ – Veliko Tarnovo.#Request for a preliminary ruling from the Administrativen sad Veliko Tarnovo.#Reference for a preliminary ruling – Common system of value added tax (VAT) – Directive 2006/112/EC – Article 205 – Joint and several liability – Insolvency of the principal debtor – Continued obligation to pay VAT – Joint and several liability of a third party after the removal of the principal debtor from the commercial register – Principle of legal certainty – Principle of proportionality.#Case C-121/24.&quot;,
+      &quot;date&quot;: &quot;2025-09-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_AG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:case-law_has_conclusions_opinion_advocate-general&quot;,
+      &quot;relation_type&quot;: &quot;ag_opinion&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/68435952-57fa-11f0-a9d0-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CC0796&quot;,
+      &quot;title&quot;: &quot;Opinion of Advocate General Kokott delivered on 3 July 2025.#Česká síť s. r. o. v Odvolací finanční ředitelství.#Request for a preliminary ruling from the Nejvyšší správní soud.#Reference for a preliminary ruling – Taxation – Common system of value added tax (VAT) – Directive 2006/112/EC – Article 9(1) – Concept of ‘taxable person’ – Partners in a civil law partnership devoid of legal personality – Article 193 – Determination of the taxable person liable to pay VAT.#Case C-796/23.&quot;,
+      &quot;date&quot;: &quot;2025-07-03T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_AG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:case-law_has_conclusions_opinion_advocate-general&quot;,
+      &quot;relation_type&quot;: &quot;ag_opinion&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a9671857-477f-11f0-85ba-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024CC0433&quot;,
+      &quot;title&quot;: &quot;Opinion of Advocate General Szpunar delivered on 12 June 2025.#Galerie Karsten Greve v Ministère de l&#x27;Économie, des Finances et de la Souveraineté industrielle et numérique.#Request for a preliminary ruling from the Conseil d&#x27;État.#Reference for a preliminary ruling – Taxation – Common system of value added tax (VAT) – Directive 2006/112/EC – Special arrangements for second-hand goods, works of art, collectors’ items and antiques – Taxable dealers – Margin scheme – Article 316(1)(b) – Option to apply the margin scheme – Concept of ‘supply of a work of art by the creator’ – Supply by the creator through a legal person.#Case C-433/24.&quot;,
+      &quot;date&quot;: &quot;2025-06-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_AG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:case-law_has_conclusions_opinion_advocate-general&quot;,
+      &quot;relation_type&quot;: &quot;ag_opinion&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/13168487-2bf5-11f0-8a44-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CC0744&quot;,
+      &quot;title&quot;: &quot;Opinion of Advocate General Kokott delivered on 8 May 2025.#Т.P.T. v „Financial Bulgaria“ EOOD.#Request for a preliminary ruling from the Sofiyski rayonen sad.#Reference for a preliminary ruling – Taxation – Common system of value added tax (VAT) – Directive 2006/112/EC – Transactions subject to VAT – Article 2(1)(c) – Supply of services for consideration – Article 9(1) – Taxable person – Legal assistance provided free of charge by a lawyer to a party in legal proceedings – Payment of that lawyer’s fees by the unsuccessful opposing party.#Case C-744/23.&quot;,
+      &quot;date&quot;: &quot;2025-05-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_AG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:case-law_has_conclusions_opinion_advocate-general&quot;,
+      &quot;relation_type&quot;: &quot;ag_opinion&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/4958eaca-15f5-11f0-b1a3-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024CC0101&quot;,
+      &quot;title&quot;: &quot;Opinion of Advocate General Szpunar delivered on 10 April 2025.#Finanzamt Hamburg-Altona v XYRALITY GmbH.#Request for a preliminary ruling from the Bundesfinanzhof.#Reference for a preliminary ruling – Taxation – Common system of value added tax (VAT) – Directive 2006/112/EC – Article 28 – Taking part in a supply of services – Articles 44 and 45 – Place of supply of services – Article 203 – VAT entered on an invoice – Electronically supplied services – App store – ‘In-app’ purchases.#Case C-101/24.&quot;,
+      &quot;date&quot;: &quot;2025-04-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_AG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:case-law_has_conclusions_opinion_advocate-general&quot;,
+      &quot;relation_type&quot;: &quot;ag_opinion&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_ag_opinions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:25.819876Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_amendments'>get_amendments</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>6417.949 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b3fadcf4-68ef-11f0-bf4e-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025L1539&quot;,
+      &quot;title&quot;: &quot;Council Directive (EU) 2025/1539 of 18 July 2025 amending Directive 2006/112/EC as regards VAT rules relating to taxable persons who facilitate distance sales of imported goods and the application of the special scheme for distance sales of goods imported from third territories or third countries and special arrangements for declaration and payment of import VAT&quot;,
+      &quot;date&quot;: &quot;2025-07-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/fcfae9d6-0919-11f0-b1a3-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025L0516&quot;,
+      &quot;title&quot;: &quot;Council Directive (EU) 2025/516 of 11 March 2025 amending Directive 2006/112/EC as regards VAT rules for the digital age&quot;,
+      &quot;date&quot;: &quot;2025-03-11T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/23a50223-f575-11ef-b7db-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025L0425&quot;,
+      &quot;title&quot;: &quot;Council Directive (EU) 2025/425 of 18 February 2025 amending Directive 2006/112/EC as regards the electronic value added tax exemption certificate&quot;,
+      &quot;date&quot;: &quot;2025-02-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/34d092cc-e6c6-11ec-a534-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32022L0890&quot;,
+      &quot;title&quot;: &quot;Council Directive (EU) 2022/890 of 3 June 2022 amending Directive 2006/112/EC as regards the extension of the application period of the optional reverse charge mechanism in relation to supplies of certain goods and services susceptible to fraud and of the Quick Reaction Mechanism against VAT fraud&quot;,
+      &quot;date&quot;: &quot;2022-06-03T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/f09670e0-b543-11ec-b6f4-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32022L0542&quot;,
+      &quot;title&quot;: &quot;Council Directive (EU) 2022/542 of 5 April 2022 amending Directives 2006/112/EC and (EU) 2020/285 as regards rates of value added tax&quot;,
+      &quot;date&quot;: &quot;2022-04-05T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_amendments&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:27.727899Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_article_annotations'>get_article_annotations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>17417.941 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b7688291-0b1e-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/b7688291-0b1e-11f1-8870-01aa75ed71a1/398a341a-e184-42fb-a154-d972ce708bd3&quot;,
+      &quot;annotation_article&quot;: &quot;395&quot;,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: &quot;A395&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0e6b088f-0348-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-06T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/0e6b088f-0348-11f1-825d-01aa75ed71a1/a7ec5518-cb68-4b59-bd5a-0d41aa157e04&quot;,
+      &quot;annotation_article&quot;: &quot;395&quot;,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: &quot;A395&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ee44ea9e-fa65-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-01-26T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/ee44ea9e-fa65-11f0-8da5-01aa75ed71a1/aaffb948-3484-4b4e-8b2c-be12b54fe9f4&quot;,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/d023abbb-f778-11f0-b9bc-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-01-22T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#case-law_interpretes_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/d023abbb-f778-11f0-b9bc-01aa75ed71a1/a4654046-b7b9-43ab-b6fd-0732b533d6cb&quot;,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b057a092-08df-481f-a13f-96ce92b7d956&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#measure_national_implementing_implements_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/b057a092-08df-481f-a13f-96ce92b7d956/bfce9163-3b27-4231-8da4-a1abafc5ae31&quot;,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_article_annotations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:38.731878Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_citations'>get_citations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>4870.331 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/2ae65d0b-0c6b-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0382&quot;,
+      &quot;title&quot;: &quot;Council Regulation (EU) 2026/382 of 11 February 2026 amending Regulation (EC) No 1186/2009 as regards the elimination of the threshold-based customs duty relief&quot;,
+      &quot;date&quot;: &quot;2026-02-11T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b1a9c02c-eb6d-11f0-8d3c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026XC00123&quot;,
+      &quot;title&quot;: &quot;Communication from the Commission – Guidance on the implementation of Article 28 of Regulation (EU) 2024/1735 establishing a framework of measures for strengthening Europe’s net-zero technology manufacturing ecosystem and amending Regulation (EU) 2018/1724 (NZIA)&quot;,
+      &quot;date&quot;: &quot;2026-01-07T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/NOTICE&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/da79dcfa-dbdd-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025SC1053&quot;,
+      &quot;title&quot;: &quot;COMMISSION STAFF WORKING DOCUMENT Understanding the housing crisis Accompanying the document COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS European Affordable Housing Plan&quot;,
+      &quot;date&quot;: &quot;2025-12-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/SWD&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/7a35ec88-e47b-11f0-abd8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R2643&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2025/2643 of the European Parliament and of the Council of 16 December 2025 establishing the European Defence Industry Programme and a framework of measures to ensure the timely availability and supply of defence products (‘EDIP Regulation’) (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2025-12-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/4178324d-d671-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024CJ0121&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Sixth Chamber) of 11 December 2025.#„Vaniz“ EOOD v Direktor na Direktsia „Obzhalvane i danachno-osiguritelna praktika“ – Veliko Tarnovo.#Request for a preliminary ruling from the Administrativen sad Veliko Tarnovo.#Reference for a preliminary ruling – Common system of value added tax (VAT) – Directive 2006/112/EC – Article 205 – Joint and several liability – Insolvency of the principal debtor – Continued obligation to pay VAT – Joint and several liability of a third party after the removal of the principal debtor from the commercial register – Principle of legal certainty – Principle of proportionality.#Case C-121/24.&quot;,
+      &quot;date&quot;: &quot;2025-12-11T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_citations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:26.183515Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_cjeu_judgments'>get_cjeu_judgments</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>5656.904 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/d023abbb-f778-11f0-b9bc-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024CJ0379&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Second Chamber) of 22 January 2026.#Agrupació de Neteja Sanitària, AIE and Educat Serveis Auxiliars SCCL v Tribunal Económico-Administrativo Regional de Cataluña (TEARC).#Requests for a preliminary ruling from the Tribunal Superior de Justicia de Cataluña.#References for a preliminary ruling – Taxation – Common system of value added tax (VAT) – Directive 2006/112/EC – Supply of services by independent groups of persons, who are carrying on an activity which is exempt from VAT – Services directly necessary for the exercise of the exempt activity – Risk of distortion of competition – Cleaning services in the healthcare and education sectors – National legislation requiring that the services be directly and exclusively linked to the exempt activity and necessary for the exercise of that activity.#Joined Cases C-379/24 and C-380/24.&quot;,
+      &quot;date&quot;: &quot;2026-01-22T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2026:29&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_02_C&quot;,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/ESP&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/4178324d-d671-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024CJ0121&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Sixth Chamber) of 11 December 2025.#„Vaniz“ EOOD v Direktor na Direktsia „Obzhalvane i danachno-osiguritelna praktika“ – Veliko Tarnovo.#Request for a preliminary ruling from the Administrativen sad Veliko Tarnovo.#Reference for a preliminary ruling – Common system of value added tax (VAT) – Directive 2006/112/EC – Article 205 – Joint and several liability – Insolvency of the principal debtor – Continued obligation to pay VAT – Joint and several liability of a third party after the removal of the principal debtor from the commercial register – Principle of legal certainty – Principle of proportionality.#Case C-121/24.&quot;,
+      &quot;date&quot;: &quot;2025-12-11T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:957&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_06_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/15fdff65-be9f-498f-b1aa-755246e40f6e&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/BGR&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/8d5658ad-d671-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0796&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Tenth Chamber) of 11 December 2025.#Česká síť s. r. o. v Odvolací finanční ředitelství.#Request for a preliminary ruling from the Nejvyšší správní soud.#Reference for a preliminary ruling – Taxation – Common system of value added tax (VAT) – Directive 2006/112/EC – Article 9(1) – Concept of ‘taxable person’ – Partners in a civil law partnership devoid of legal personality – Article 193 – Determination of the taxable person liable to pay VAT.#Case C-796/23.&quot;,
+      &quot;date&quot;: &quot;2025-12-11T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:963&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_10_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/15fdff65-be9f-498f-b1aa-755246e40f6e&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/CZE&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/85d5d25a-d027-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024TJ0646&quot;,
+      &quot;title&quot;: &quot;Judgment of the General Court (Chamber giving preliminary rulings) of 3 December 2025.#MS KLJUČAROVCI, d. o. o. - v stečaju v Republic of Slovenia.#Request for a preliminary ruling from the Upravno sodišče Republike Slovenije.#Reference for a preliminary ruling – Harmonisation of fiscal legislation – Common system of VAT – Articles 41 and 42 of Directive 2006/112/EC – Place of an intra-Community acquisition of goods – Article 141(c) of Directive 2006/112 – Triangular transaction – Simplification measure – Chain of supplies comprising four operators identified in three different Member States – Taxable person who is or should have been aware of transactions constituting an abuse of the VAT system.#Case T-646/24.&quot;,
+      &quot;date&quot;: &quot;2025-12-03T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:T:2025:1081&quot;,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/337410c8-eb2e-11ec-a534-01aa75ed71a1&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVN&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/513ef691-caa9-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024TJ0657&quot;,
+      &quot;title&quot;: &quot;Judgment of the General Court (Chamber giving preliminary rulings) of 26 November 2025.#Versãofast, Unipessoal, Lda. v Autoridade Tributária e Aduaneira.#Request for a preliminary ruling from the Tribunal Arbitral Tributário (Centro de Arbitragem Administrativa - CAAD).#Reference for a preliminary ruling – Common system of VAT – Article 135(1)(b) of Directive 2006/112/EC – Exemptions for other activities – Negotiation of credit – Activities of a credit intermediary – Classification.#Case T-657/24.&quot;,
+      &quot;date&quot;: &quot;2025-11-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:T:2025:1062&quot;,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/04044c02-843b-11ec-8c40-01aa75ed71a1&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/PRT&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_cjeu_judgments&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:26.970021Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_completing_acts'>get_completing_acts</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>8010.487 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_completing_acts&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:33.843905Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_consolidated_versions'>get_consolidated_versions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>4697.797 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/03c42d77-512a-11f0-a9d0-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;02006L0112-20250414&quot;,
+      &quot;title&quot;: &quot;Council Directive 2006/112/EC of 28 November 2006 on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-04-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/fac79c26-5129-11f0-a9d0-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Council Directive 2006/112/EC of 28 November 2006 on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-04-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/93521587-6ca1-11f0-bf4e-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-04-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/183040e9-2a93-11f0-8a44-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;02006L0112-20250320&quot;,
+      &quot;title&quot;: &quot;Council Directive 2006/112/EC of 28 November 2006 on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-03-20T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/152c9dd8-2a93-11f0-8a44-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Council Directive 2006/112/EC of 28 November 2006 on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-03-20T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_consolidated_versions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:30.638474Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_corrigenda'>get_corrigenda</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>6544.99 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ee44ea9e-fa65-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32006L0112R(22)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-01-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ee44ea9e-fa65-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32006L0112R(22)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-01-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9e87b019-e361-11ef-be2a-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32006L0112R(21)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-02-05T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9e87b019-e361-11ef-be2a-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32006L0112R(21)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-02-05T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a89b4053-f46e-11ed-a05c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32006L0112R(20)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2023-05-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_corrigenda&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:32.694010Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_deadlines'>get_deadlines</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>8249.824 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6&quot;,
+      &quot;celex&quot;: &quot;32006L0112&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2007-01-01T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_date_entry-into-force&quot;,
+      &quot;relation_type&quot;: &quot;entry_into_force&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6&quot;,
+      &quot;celex&quot;: &quot;32006L0112&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2008-01-01T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:directive_date_transposition&quot;,
+      &quot;relation_type&quot;: &quot;directive_transposition&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6&quot;,
+      &quot;celex&quot;: &quot;32006L0112&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2022-12-31T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_date_deadline&quot;,
+      &quot;relation_type&quot;: &quot;deadline&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6&quot;,
+      &quot;celex&quot;: &quot;32006L0112&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-12-31T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_date_deadline&quot;,
+      &quot;relation_type&quot;: &quot;deadline&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 4,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_deadlines&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:34.445091Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_delegated_acts'>get_delegated_acts</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>7104.824 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b7688291-0b1e-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0078&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE COUNCIL in accordance with Article 395 of Council Directive 2006/112/EC&quot;,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0e6b088f-0348-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0064&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE COUNCIL in accordance with Article 395 of Council Directive 2006/112/EC&quot;,
+      &quot;date&quot;: &quot;2026-02-06T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ab1bebdd-d704-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D2529&quot;,
+      &quot;title&quot;: &quot;Council Implementing Decision (EU) 2025/2529 of 8 December 2025 amending Decision 2007/441/EC authorising the Italian Republic to apply measures derogating from Articles 26(1)(a) and 168 of Directive 2006/112/EC on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-12-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3d7f6ab4-c0fb-11f0-a612-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025XC05923&quot;,
+      &quot;title&quot;: &quot;VALUE ADDED TAX (VAT) – EXEMPT INVESTMENT GOLD – List of gold coins meeting the criteria established in Article 344(1), point (2) of Council Directive 2006/112/EC of 28 November 2006 (special scheme for investment gold) – Valid for the year 2026&quot;,
+      &quot;date&quot;: &quot;2025-11-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/NOTICE&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/375ab6f5-b0e0-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025PC0641&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL IMPLEMENTING DECISION amending Decision 2007/441/EC authorising the Italian Republic to apply measures derogating from Articles 26(1)(a) and 168 of Directive 2006/112/EC on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-10-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_delegated_acts&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:34.088707Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_directory_codes'>get_directory_codes</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>3476.623 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/dir-eu-legal-act/093010&quot;,
+      &quot;label&quot;: &quot;Turnover tax/VAT&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 1,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_directory_codes&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:31.219648Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_dossier'>get_dossier</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>8704.563 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOC_2005_074_R_0021_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c24818a9-d34e-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2004/0079/CNS&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/54f62f00-9e45-11e5-8781-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32006L0112R(12)&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOC_2005_074_R_0021_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c24818a9-d34e-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2004/0079/CNS&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6&quot;,
+      &quot;produces_act_celex&quot;: &quot;32006L0112&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOL_2015_323_R_0031_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c24818a9-d34e-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2004/0079/CNS&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/54f62f00-9e45-11e5-8781-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32006L0112R(12)&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOC_2004_122_R_0055_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c24818a9-d34e-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2004/0079/CNS&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/54f62f00-9e45-11e5-8781-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32006L0112R(12)&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOL_2007_335_R_0060_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c24818a9-d34e-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2004/0079/CNS&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6&quot;,
+      &quot;produces_act_celex&quot;: &quot;32006L0112&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_dossier&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:39.356841Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_eurovoc'>get_eurovoc</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>6245.778 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/1234&quot;,
+      &quot;label&quot;: &quot;tax harmonisation&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/1684&quot;,
+      &quot;label&quot;: &quot;delivery&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/2602&quot;,
+      &quot;label&quot;: &quot;provision of services&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/2900&quot;,
+      &quot;label&quot;: &quot;basis of tax assessment&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/365&quot;,
+      &quot;label&quot;: &quot;tax relief&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_eurovoc&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:37.480384Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_expressions'>get_expressions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>5622.526 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6.0021&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/BUL&quot;,
+      &quot;title&quot;: &quot;Директива 2006/112/ЕО на Съвета от 28 ноември 2006 година относно общата система на данъка върху добавената стойност&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6.0001&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/CES&quot;,
+      &quot;title&quot;: &quot;Směrnice Rady 2006/112/ES ze dne 28. listopadu 2006 o společném systému daně z přidané hodnoty&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6.0002&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/DAN&quot;,
+      &quot;title&quot;: &quot;Rådets direktiv 2006/112/EF af 28. november 2006 om det fælles merværdiafgiftssystem&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6.0003&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/DEU&quot;,
+      &quot;title&quot;: &quot;Richtlinie 2006/112/EG des Rates vom 28. November 2006 über das gemeinsame Mehrwertsteuersystem&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6.0004&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/ELL&quot;,
+      &quot;title&quot;: &quot;Οδηγία 2006/112/ΕΚ του Συμβουλίου, της 28ης Νοεμβρίου 2006 , σχετικά με το κοινό σύστημα φόρου προστιθέμενης αξίας&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_expressions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:38.335010Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_legal_basis'>get_legal_basis</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>9657.147 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b7688291-0b1e-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0078&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE COUNCIL in accordance with Article 395 of Council Directive 2006/112/EC&quot;,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0e6b088f-0348-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0064&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE COUNCIL in accordance with Article 395 of Council Directive 2006/112/EC&quot;,
+      &quot;date&quot;: &quot;2026-02-06T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ab1bebdd-d704-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D2529&quot;,
+      &quot;title&quot;: &quot;Council Implementing Decision (EU) 2025/2529 of 8 December 2025 amending Decision 2007/441/EC authorising the Italian Republic to apply measures derogating from Articles 26(1)(a) and 168 of Directive 2006/112/EC on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-12-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3d7f6ab4-c0fb-11f0-a612-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025XC05923&quot;,
+      &quot;title&quot;: &quot;VALUE ADDED TAX (VAT) – EXEMPT INVESTMENT GOLD – List of gold coins meeting the criteria established in Article 344(1), point (2) of Council Directive 2006/112/EC of 28 November 2006 (special scheme for investment gold) – Valid for the year 2026&quot;,
+      &quot;date&quot;: &quot;2025-11-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/NOTICE&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/375ab6f5-b0e0-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025PC0641&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL IMPLEMENTING DECISION amending Decision 2007/441/EC authorising the Italian Republic to apply measures derogating from Articles 26(1)(a) and 168 of Directive 2006/112/EC on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-10-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_legal_basis&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:43.506915Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_national_decisions'>get_national_decisions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>373.478 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_national_decisions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:34.471116Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_nims'>get_nims</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>6945.066 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b057a092-08df-481f-a13f-96ce92b7d956&quot;,
+      &quot;celex&quot;: &quot;72006L0112SVK_202601180&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:measure_national_implementing_implements_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;nims&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;implemented_by_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVK&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b057a092-08df-481f-a13f-96ce92b7d956&quot;,
+      &quot;celex&quot;: &quot;72010L0045SVK_202601180&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:measure_national_implementing_implements_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;nims&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;implemented_by_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVK&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b057a092-08df-481f-a13f-96ce92b7d956&quot;,
+      &quot;celex&quot;: &quot;72025L0516SVK_202601180&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:measure_national_implementing_implements_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;nims&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;implemented_by_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVK&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/2caf4432-4b02-4376-85ea-a0154a8a608e&quot;,
+      &quot;celex&quot;: &quot;72006L0112SVK_202601168&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-10-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:measure_national_implementing_implements_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;nims&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;implemented_by_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVK&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/2caf4432-4b02-4376-85ea-a0154a8a608e&quot;,
+      &quot;celex&quot;: &quot;72022L0542SVK_202601168&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-10-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:measure_national_implementing_implements_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;nims&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;implemented_by_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVK&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_nims&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:41.396017Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_opinions'>get_opinions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>9148.568 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_opinions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:43.623994Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_other_relations'>get_other_relations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>3827.952 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_other_relations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:41.321435Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_preliminary_questions'>get_preliminary_questions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>10199.072 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/cf39e46f-1058-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025TN0859&quot;,
+      &quot;title&quot;: &quot;Case T-859/25, Kabakum 3808: Request for a preliminary ruling from the Administrativen sad Varna (Bulgaria) made on 26 November 2025 – Kabakum 3808 EOOD v Direktor na direktsia Obzhalvane i danachno-osiguritelna praktika Varna pri tsentralno upravlenie na Natsionalnata agentsia za prihodite&quot;,
+      &quot;date&quot;: &quot;2025-11-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/2a523389-1059-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025TN0851&quot;,
+      &quot;title&quot;: &quot;Case T-851/25, Roenes: Request for a preliminary ruling from the Hoge Raad der Nederlanden (Netherlands) made on 26 November 2025 – Staatssecretaris van Financiën v X BV&quot;,
+      &quot;date&quot;: &quot;2025-11-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e5d83e76-ef58-11f0-8d3c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025TN0773&quot;,
+      &quot;title&quot;: &quot;Case T-773/25, Finanzamt für Großbetriebe: Request for a preliminary ruling from the Verwaltungsgerichtshof (Austria) made on 15 October 2025 – Finanzamt für Großbetriebe v F GmbH&quot;,
+      &quot;date&quot;: &quot;2025-10-15T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ce16c8aa-ce5f-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025TN0680&quot;,
+      &quot;title&quot;: &quot;Case T-680/25, Mercedes Benz: Request for a preliminary ruling from the Curtea de Apel București (Romania) made on 15 September 2025 – Mercedes-Benz AG v Ministerul Finanțelor – Direcția Generală de Soluționare a Contestațiilor and Direcția Generală Regională a Finanțelor Publice București – Administrația Fiscală pentru Contribuabili Nerezidenți&quot;,
+      &quot;date&quot;: &quot;2025-09-15T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/92ff6ec1-c357-11f0-a612-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025TN0614&quot;,
+      &quot;title&quot;: &quot;Case T-614/25, Trading 4: Request for a preliminary ruling from the Augstākā tiesa (Senāts) (Latvia) made on 25 August 2025 – AS Trading 4 v Valsts ieņēmumu dienests&quot;,
+      &quot;date&quot;: &quot;2025-08-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_preliminary_questions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:48.540122Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_proposals_to_amend'>get_proposals_to_amend</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>10089.254 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e8d9497c-3d10-11ef-ab8f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52024PC0278&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL DIRECTIVE amending Directive 2006/112/EC as regards the electronic value added tax exemption certificate&quot;,
+      &quot;date&quot;: &quot;2024-07-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1fa572ea-f4c3-11ed-a05c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52023PC0262&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL DIRECTIVE amending Directive 2006/112/EC as regards VAT rules relating to taxable persons who facilitate distance sales of imported goods and the application of the special scheme for distance sales of goods imported from third territories or third countries and special arrangements for declaration and payment of import VAT&quot;,
+      &quot;date&quot;: &quot;2023-05-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1b04b9a6-76eb-11ed-9887-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52022PC0701&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL DIRECTIVE amending Directive 2006/112/EC as regards VAT rules for the digital age&quot;,
+      &quot;date&quot;: &quot;2022-12-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/dd3e9360-8a5d-11ec-8c40-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52022PC0039&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL DIRECTIVE amending Directive 2006/112/EC as regards the extension of the application period of the optional reverse charge mechanism in relation to supplies of certain goods and services susceptible to fraud and of the Quick Reaction Mechanism against VAT fraud&quot;,
+      &quot;date&quot;: &quot;2022-02-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3252c64e-9b70-11eb-b85c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52021PC0181&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL DIRECTIVE amending Directive 2006/112/EC as regards exemptions on importations and on certain supplies, in respect of Union measures in the public interest&quot;,
+      &quot;date&quot;: &quot;2021-04-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_proposals_to_amend&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:48.824790Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_related_works'>get_related_works</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>4689.322 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ad81bf47-8790-11e5-b8b7-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52015PC0557&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL IMPLEMENTING DECISION on authorising Hungary to apply a measure derogating from Article 193 of Directive 2006/112/EC on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2015-11-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_related_to_work&quot;,
+      &quot;relation_type&quot;: &quot;related&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/62f7e7eb-879c-11e5-b8b7-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52015PC0560&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL IMPLEMENTING DECISION authorising the Republic of Latvia to extend the application of a measure derogating from Article 193 of Council Directive 2006/112/EC on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2015-11-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_related_to_work&quot;,
+      &quot;relation_type&quot;: &quot;related&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e93a06e9-8791-11e5-b8b7-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52015PC0558&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL IMPLEMENTING DECISION authorising the Republic of Lithuania to extend the application of a measure derogating from Article 193 of Council Directive 2006/112/EC on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2015-11-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_related_to_work&quot;,
+      &quot;relation_type&quot;: &quot;related&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/178754f2-7b0c-4b2e-80a5-d899067c0b7b&quot;,
+      &quot;celex&quot;: &quot;52012DC0337&quot;,
+      &quot;title&quot;: &quot;REPORT FROM THE COMMISSION TO THE COUNCIL on the application of Article 263 (1) of Council Directive 2006/112/EC concerning the reduction of timeframes&quot;,
+      &quot;date&quot;: &quot;2012-06-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REPORT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_related_to_work&quot;,
+      &quot;relation_type&quot;: &quot;related&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 4,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_related_works&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:44.050869Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_repeals'>get_repeals</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>7316.194 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/92a7c9dd-e93e-4570-bbee-916fa494f8dd&quot;,
+      &quot;celex&quot;: &quot;32006L0098&quot;,
+      &quot;title&quot;: &quot;Council Directive 2006/98/EC of 20 November 2006 adapting certain Directives in the field of taxation, by reason of the accession of Bulgaria and Romania&quot;,
+      &quot;date&quot;: &quot;2006-11-20T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_repeals_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;repeals&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e0739ae4-ea19-4473-983d-b2d2e25af5aa&quot;,
+      &quot;celex&quot;: &quot;32006L0069&quot;,
+      &quot;title&quot;: &quot;Council Directive 2006/69/EC of 24 July 2006 amending Directive 77/388/EEC as regards certain measures to simplify the procedure for charging value added tax and to assist in countering tax evasion or avoidance, and repealing certain Decisions granting derogations&quot;,
+      &quot;date&quot;: &quot;2006-07-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_repeals_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;repeals&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e0739ae4-ea19-4473-983d-b2d2e25af5aa&quot;,
+      &quot;celex&quot;: &quot;32006L0069&quot;,
+      &quot;title&quot;: &quot;Council Directive 2006/69/EC of 24 July 2006 amending Directive 77/388/EEC as regards certain measures to simplify the procedure for charging value added tax and to assist in countering tax evasion or avoidance, and repealing certain Decisions granting derogations&quot;,
+      &quot;date&quot;: &quot;2006-07-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_implicitly_repeals_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;implicitly_repeals&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/2e1c4e43-b537-4197-b91a-6119c6573122&quot;,
+      &quot;celex&quot;: &quot;32006L0058&quot;,
+      &quot;title&quot;: &quot;Council Directive 2006/58/EC of  27 June 2006  amending Council Directive 2002/38/EC as regards the period of application of the value added tax arrangements applicable to radio and television broadcasting services and certain electronically supplied services&quot;,
+      &quot;date&quot;: &quot;2006-06-27T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_repeals_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;repeals&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/87b30c95-f585-41ca-ab84-c4088e88ad16&quot;,
+      &quot;celex&quot;: &quot;32006L0018&quot;,
+      &quot;title&quot;: &quot;Council Directive 2006/18/EC of  14 February 2006  amending Directive 77/388/EEC with regard to reduced rates of value added tax&quot;,
+      &quot;date&quot;: &quot;2006-02-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_repeals_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;repeals&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_repeals&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:48.649984Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_subject_matter'>get_subject_matter</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>7134.022 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/subject-matter/FISC&quot;,
+      &quot;label&quot;: &quot;Taxation&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/subject-matter/IVAT&quot;,
+      &quot;label&quot;: &quot;Value Added Tax&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/subject-matter/RAPL&quot;,
+      &quot;label&quot;: &quot;Approximation of laws&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/subject-matter/TVA&quot;,
+      &quot;label&quot;: &quot;Value added tax&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 4,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_subject_matter&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:48.536721Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_summary'>get_summary</h2><div class='method-summary'>ok_runs=0 | error_runs=1</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='error'>ERROR</td><td>9580.878 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>ResponseNotRead: Attempted to access streaming response content, without having called `read()`.</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_text'>get_text</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>9782.294 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;lang&quot;: &quot;eng&quot;,
+  &quot;format&quot;: &quot;pdf&quot;
+}</pre></td><td><pre>{
+  &quot;source_url&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6.0005.02/DOC_1&quot;,
+  &quot;content_type&quot;: &quot;application/pdf;charset=UTF-8&quot;,
+  &quot;language&quot;: &quot;eng&quot;,
+  &quot;content_base64&quot;: &quot;[omitted]&quot;,
+  &quot;content_base64_length&quot;: 648192,
+  &quot;content_base64_preview&quot;: &quot;JVBERi0xLjQNCiXi48/TDQozNTcgMCBvYmoNCjw8DQovTGluZWFyaXplZCAxDQovTCA0ODYxNDINCi9IIFsgOTMxIDkzMCBdDQovTyAzNTkNCi9FIDU5MDUz&quot;
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_amendments'>new_amendments</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>6091.545 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;since&quot;: &quot;2023-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b3fadcf4-68ef-11f0-bf4e-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025L1539&quot;,
+      &quot;title&quot;: &quot;Council Directive (EU) 2025/1539 of 18 July 2025 amending Directive 2006/112/EC as regards VAT rules relating to taxable persons who facilitate distance sales of imported goods and the application of the special scheme for distance sales of goods imported from third territories or third countries and special arrangements for declaration and payment of import VAT&quot;,
+      &quot;date&quot;: &quot;2025-07-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/fcfae9d6-0919-11f0-b1a3-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025L0516&quot;,
+      &quot;title&quot;: &quot;Council Directive (EU) 2025/516 of 11 March 2025 amending Directive 2006/112/EC as regards VAT rules for the digital age&quot;,
+      &quot;date&quot;: &quot;2025-03-11T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/23a50223-f575-11ef-b7db-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025L0425&quot;,
+      &quot;title&quot;: &quot;Council Directive (EU) 2025/425 of 18 February 2025 amending Directive 2006/112/EC as regards the electronic value added tax exemption certificate&quot;,
+      &quot;date&quot;: &quot;2025-02-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_amends_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;amends&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 3,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_amendments&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:50.151148Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_by_eurovoc'>new_by_eurovoc</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>58659.391 ms</td><td><pre>{
+  &quot;tags&quot;: [
+    &quot;environmental protection&quot;
+  ],
+  &quot;since&quot;: &quot;2023-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/91ea98a3-12b4-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0389&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Regulation (EU) 2026/389 of 23 February 2026 amending Implementing Regulation (EU) 2021/447 as regards the determination of a revised soda ash benchmark value for the year 2025&quot;,
+      &quot;date&quot;: &quot;2026-02-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_IMPL&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/dd0d5112-0c6a-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D2493R(01)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/dd0d5112-0c6a-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D2493R(01)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1d122d36-0ad8-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32018L0851R(06)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1d122d36-0ad8-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32018L0851R(06)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_by_eurovoc&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:06:47.214023Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_case_law'>new_case_law</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>4723.573 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;since&quot;: &quot;2023-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/d023abbb-f778-11f0-b9bc-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024CJ0379&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Second Chamber) of 22 January 2026.#Agrupació de Neteja Sanitària, AIE and Educat Serveis Auxiliars SCCL v Tribunal Económico-Administrativo Regional de Cataluña (TEARC).#Requests for a preliminary ruling from the Tribunal Superior de Justicia de Cataluña.#References for a preliminary ruling – Taxation – Common system of value added tax (VAT) – Directive 2006/112/EC – Supply of services by independent groups of persons, who are carrying on an activity which is exempt from VAT – Services directly necessary for the exercise of the exempt activity – Risk of distortion of competition – Cleaning services in the healthcare and education sectors – National legislation requiring that the services be directly and exclusively linked to the exempt activity and necessary for the exercise of that activity.#Joined Cases C-379/24 and C-380/24.&quot;,
+      &quot;date&quot;: &quot;2026-01-22T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2026:29&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_02_C&quot;,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/ESP&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/4178324d-d671-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024CJ0121&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Sixth Chamber) of 11 December 2025.#„Vaniz“ EOOD v Direktor na Direktsia „Obzhalvane i danachno-osiguritelna praktika“ – Veliko Tarnovo.#Request for a preliminary ruling from the Administrativen sad Veliko Tarnovo.#Reference for a preliminary ruling – Common system of value added tax (VAT) – Directive 2006/112/EC – Article 205 – Joint and several liability – Insolvency of the principal debtor – Continued obligation to pay VAT – Joint and several liability of a third party after the removal of the principal debtor from the commercial register – Principle of legal certainty – Principle of proportionality.#Case C-121/24.&quot;,
+      &quot;date&quot;: &quot;2025-12-11T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:957&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_06_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/15fdff65-be9f-498f-b1aa-755246e40f6e&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/BGR&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/8d5658ad-d671-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0796&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Tenth Chamber) of 11 December 2025.#Česká síť s. r. o. v Odvolací finanční ředitelství.#Request for a preliminary ruling from the Nejvyšší správní soud.#Reference for a preliminary ruling – Taxation – Common system of value added tax (VAT) – Directive 2006/112/EC – Article 9(1) – Concept of ‘taxable person’ – Partners in a civil law partnership devoid of legal personality – Article 193 – Determination of the taxable person liable to pay VAT.#Case C-796/23.&quot;,
+      &quot;date&quot;: &quot;2025-12-11T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:963&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_10_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/15fdff65-be9f-498f-b1aa-755246e40f6e&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/CZE&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/85d5d25a-d027-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024TJ0646&quot;,
+      &quot;title&quot;: &quot;Judgment of the General Court (Chamber giving preliminary rulings) of 3 December 2025.#MS KLJUČAROVCI, d. o. o. - v stečaju v Republic of Slovenia.#Request for a preliminary ruling from the Upravno sodišče Republike Slovenije.#Reference for a preliminary ruling – Harmonisation of fiscal legislation – Common system of VAT – Articles 41 and 42 of Directive 2006/112/EC – Place of an intra-Community acquisition of goods – Article 141(c) of Directive 2006/112 – Triangular transaction – Simplification measure – Chain of supplies comprising four operators identified in three different Member States – Taxable person who is or should have been aware of transactions constituting an abuse of the VAT system.#Case T-646/24.&quot;,
+      &quot;date&quot;: &quot;2025-12-03T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:T:2025:1081&quot;,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/337410c8-eb2e-11ec-a534-01aa75ed71a1&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVN&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/513ef691-caa9-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024TJ0657&quot;,
+      &quot;title&quot;: &quot;Judgment of the General Court (Chamber giving preliminary rulings) of 26 November 2025.#Versãofast, Unipessoal, Lda. v Autoridade Tributária e Aduaneira.#Request for a preliminary ruling from the Tribunal Arbitral Tributário (Centro de Arbitragem Administrativa - CAAD).#Reference for a preliminary ruling – Common system of VAT – Article 135(1)(b) of Directive 2006/112/EC – Exemptions for other activities – Negotiation of credit – Activities of a credit intermediary – Classification.#Case T-657/24.&quot;,
+      &quot;date&quot;: &quot;2025-11-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:T:2025:1062&quot;,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/04044c02-843b-11ec-8c40-01aa75ed71a1&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/PRT&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_case_law&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:53.278160Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_citations'>new_citations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>5532.61 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;since&quot;: &quot;2023-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/2ae65d0b-0c6b-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0382&quot;,
+      &quot;title&quot;: &quot;Council Regulation (EU) 2026/382 of 11 February 2026 amending Regulation (EC) No 1186/2009 as regards the elimination of the threshold-based customs duty relief&quot;,
+      &quot;date&quot;: &quot;2026-02-11T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b1a9c02c-eb6d-11f0-8d3c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026XC00123&quot;,
+      &quot;title&quot;: &quot;Communication from the Commission – Guidance on the implementation of Article 28 of Regulation (EU) 2024/1735 establishing a framework of measures for strengthening Europe’s net-zero technology manufacturing ecosystem and amending Regulation (EU) 2018/1724 (NZIA)&quot;,
+      &quot;date&quot;: &quot;2026-01-07T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/NOTICE&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/7a35ec88-e47b-11f0-abd8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025R2643&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2025/2643 of the European Parliament and of the Council of 16 December 2025 establishing the European Defence Industry Programme and a framework of measures to ensure the timely availability and supply of defence products (‘EDIP Regulation’) (Text with EEA relevance)&quot;,
+      &quot;date&quot;: &quot;2025-12-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/da79dcfa-dbdd-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025SC1053&quot;,
+      &quot;title&quot;: &quot;COMMISSION STAFF WORKING DOCUMENT Understanding the housing crisis Accompanying the document COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS European Affordable Housing Plan&quot;,
+      &quot;date&quot;: &quot;2025-12-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/SWD&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/4178324d-d671-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024CJ0121&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Sixth Chamber) of 11 December 2025.#„Vaniz“ EOOD v Direktor na Direktsia „Obzhalvane i danachno-osiguritelna praktika“ – Veliko Tarnovo.#Request for a preliminary ruling from the Administrativen sad Veliko Tarnovo.#Reference for a preliminary ruling – Common system of value added tax (VAT) – Directive 2006/112/EC – Article 205 – Joint and several liability – Insolvency of the principal debtor – Continued obligation to pay VAT – Joint and several liability of a third party after the removal of the principal debtor from the commercial register – Principle of legal certainty – Principle of proportionality.#Case C-121/24.&quot;,
+      &quot;date&quot;: &quot;2025-12-11T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_citations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:54.191857Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_consolidated'>new_consolidated</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>5132.943 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;since&quot;: &quot;2023-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/03c42d77-512a-11f0-a9d0-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;02006L0112-20250414&quot;,
+      &quot;title&quot;: &quot;Council Directive 2006/112/EC of 28 November 2006 on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-04-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/fac79c26-5129-11f0-a9d0-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Council Directive 2006/112/EC of 28 November 2006 on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-04-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/93521587-6ca1-11f0-bf4e-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-04-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/183040e9-2a93-11f0-8a44-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;02006L0112-20250320&quot;,
+      &quot;title&quot;: &quot;Council Directive 2006/112/EC of 28 November 2006 on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-03-20T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/152c9dd8-2a93-11f0-8a44-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Council Directive 2006/112/EC of 28 November 2006 on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-03-20T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_consolidated&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:53.970734Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_corrigenda'>new_corrigenda</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>6532.296 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;since&quot;: &quot;2023-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ee44ea9e-fa65-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32006L0112R(22)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-01-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ee44ea9e-fa65-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32006L0112R(22)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-01-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9e87b019-e361-11ef-be2a-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32006L0112R(21)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-02-05T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9e87b019-e361-11ef-be2a-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32006L0112R(21)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-02-05T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a89b4053-f46e-11ed-a05c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32006L0112R(20)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2023-05-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_corrigenda&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:56.695368Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_delegated_acts'>new_delegated_acts</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>5355.606 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;since&quot;: &quot;2023-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b7688291-0b1e-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0078&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE COUNCIL in accordance with Article 395 of Council Directive 2006/112/EC&quot;,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0e6b088f-0348-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0064&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE COUNCIL in accordance with Article 395 of Council Directive 2006/112/EC&quot;,
+      &quot;date&quot;: &quot;2026-02-06T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ab1bebdd-d704-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D2529&quot;,
+      &quot;title&quot;: &quot;Council Implementing Decision (EU) 2025/2529 of 8 December 2025 amending Decision 2007/441/EC authorising the Italian Republic to apply measures derogating from Articles 26(1)(a) and 168 of Directive 2006/112/EC on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-12-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3d7f6ab4-c0fb-11f0-a612-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025XC05923&quot;,
+      &quot;title&quot;: &quot;VALUE ADDED TAX (VAT) – EXEMPT INVESTMENT GOLD – List of gold coins meeting the criteria established in Article 344(1), point (2) of Council Directive 2006/112/EC of 28 November 2006 (special scheme for investment gold) – Valid for the year 2026&quot;,
+      &quot;date&quot;: &quot;2025-11-14T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/NOTICE&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/375ab6f5-b0e0-11f0-b37f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025PC0641&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL IMPLEMENTING DECISION amending Decision 2007/441/EC authorising the Italian Republic to apply measures derogating from Articles 26(1)(a) and 168 of Directive 2006/112/EC on the common system of value added tax&quot;,
+      &quot;date&quot;: &quot;2025-10-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_delegated_acts&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:58.457566Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_nims'>new_nims</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>5384.607 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;since&quot;: &quot;2023-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b057a092-08df-481f-a13f-96ce92b7d956&quot;,
+      &quot;celex&quot;: &quot;72006L0112SVK_202601180&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:measure_national_implementing_implements_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;nims&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;implemented_by_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVK&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b057a092-08df-481f-a13f-96ce92b7d956&quot;,
+      &quot;celex&quot;: &quot;72010L0045SVK_202601180&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:measure_national_implementing_implements_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;nims&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;implemented_by_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVK&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b057a092-08df-481f-a13f-96ce92b7d956&quot;,
+      &quot;celex&quot;: &quot;72025L0516SVK_202601180&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:measure_national_implementing_implements_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;nims&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;implemented_by_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVK&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/2caf4432-4b02-4376-85ea-a0154a8a608e&quot;,
+      &quot;celex&quot;: &quot;72006L0112SVK_202601168&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-10-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:measure_national_implementing_implements_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;nims&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;implemented_by_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVK&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/2caf4432-4b02-4376-85ea-a0154a8a608e&quot;,
+      &quot;celex&quot;: &quot;72022L0542SVK_202601168&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-10-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:measure_national_implementing_implements_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;nims&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;implemented_by_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SVK&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_nims&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:58.668148Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_preliminary_questions'>new_preliminary_questions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>3328.444 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;since&quot;: &quot;2023-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/cf39e46f-1058-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025TN0859&quot;,
+      &quot;title&quot;: &quot;Case T-859/25, Kabakum 3808: Request for a preliminary ruling from the Administrativen sad Varna (Bulgaria) made on 26 November 2025 – Kabakum 3808 EOOD v Direktor na direktsia Obzhalvane i danachno-osiguritelna praktika Varna pri tsentralno upravlenie na Natsionalnata agentsia za prihodite&quot;,
+      &quot;date&quot;: &quot;2025-11-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/2a523389-1059-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025TN0851&quot;,
+      &quot;title&quot;: &quot;Case T-851/25, Roenes: Request for a preliminary ruling from the Hoge Raad der Nederlanden (Netherlands) made on 26 November 2025 – Staatssecretaris van Financiën v X BV&quot;,
+      &quot;date&quot;: &quot;2025-11-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e5d83e76-ef58-11f0-8d3c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025TN0773&quot;,
+      &quot;title&quot;: &quot;Case T-773/25, Finanzamt für Großbetriebe: Request for a preliminary ruling from the Verwaltungsgerichtshof (Austria) made on 15 October 2025 – Finanzamt für Großbetriebe v F GmbH&quot;,
+      &quot;date&quot;: &quot;2025-10-15T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ce16c8aa-ce5f-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025TN0680&quot;,
+      &quot;title&quot;: &quot;Case T-680/25, Mercedes Benz: Request for a preliminary ruling from the Curtea de Apel București (Romania) made on 15 September 2025 – Mercedes-Benz AG v Ministerul Finanțelor – Direcția Generală de Soluționare a Contestațiilor and Direcția Generală Regională a Finanțelor Publice București – Administrația Fiscală pentru Contribuabili Nerezidenți&quot;,
+      &quot;date&quot;: &quot;2025-09-15T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/92ff6ec1-c357-11f0-a612-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025TN0614&quot;,
+      &quot;title&quot;: &quot;Case T-614/25, Trading 4: Request for a preliminary ruling from the Augstākā tiesa (Senāts) (Latvia) made on 25 August 2025 – AS Trading 4 v Valsts ieņēmumu dienests&quot;,
+      &quot;date&quot;: &quot;2025-08-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_preliminary_questions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:56.749052Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_proposals_to_amend'>new_proposals_to_amend</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>6469.636 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;since&quot;: &quot;2023-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e8d9497c-3d10-11ef-ab8f-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52024PC0278&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL DIRECTIVE amending Directive 2006/112/EC as regards the electronic value added tax exemption certificate&quot;,
+      &quot;date&quot;: &quot;2024-07-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1fa572ea-f4c3-11ed-a05c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52023PC0262&quot;,
+      &quot;title&quot;: &quot;Proposal for a COUNCIL DIRECTIVE amending Directive 2006/112/EC as regards VAT rules relating to taxable persons who facilitate distance sales of imported goods and the application of the special scheme for distance sales of goods imported from third territories or third countries and special arrangements for declaration and payment of import VAT&quot;,
+      &quot;date&quot;: &quot;2023-05-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_DIR&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 2,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_proposals_to_amend&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:06:00.447497Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_repeals'>new_repeals</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>5744.26 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;since&quot;: &quot;2023-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_repeals&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:05:59.935634Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='resolve_celex'>resolve_celex</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>4151.444 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32006L0112&quot;
+}</pre></td><td><pre>{
+  &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ded2ee9c-f30e-4ed1-ab74-b2b7d7a7a6b6&quot;,
+  &quot;celex&quot;: &quot;32006L0112&quot;,
+  &quot;title&quot;: null,
+  &quot;date&quot;: null,
+  &quot;resource_type&quot;: null
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_by_eurovoc'>search_by_eurovoc</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>55101.641 ms</td><td><pre>{
+  &quot;tags&quot;: [
+    &quot;environmental protection&quot;
+  ],
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/91ea98a3-12b4-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0389&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Regulation (EU) 2026/389 of 23 February 2026 amending Implementing Regulation (EU) 2021/447 as regards the determination of a revised soda ash benchmark value for the year 2025&quot;,
+      &quot;date&quot;: &quot;2026-02-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_IMPL&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/dd0d5112-0c6a-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D2493R(01)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/dd0d5112-0c6a-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D2493R(01)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1d122d36-0ad8-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32018L0851R(06)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1d122d36-0ad8-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32018L0851R(06)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;search_by_eurovoc&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:06:51.869245Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_by_subject_matter'>search_by_subject_matter</h2><div class='method-summary'>ok_runs=0 | error_runs=1</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='error'>ERROR</td><td>92342.441 ms</td><td><pre>{
+  &quot;codes&quot;: [
+    &quot;taxation&quot;
+  ],
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>CellarTimeoutError: HTTP request timed out: The read operation timed out</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_by_title'>search_by_title</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>17891.81 ms</td><td><pre>{
+  &quot;keyword&quot;: &quot;tax&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c218b709-1335-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Proposal for a Council Regulation amending Regulation (EU) No 904/2010 as regards the access of the European Public Prosecutor’s Office (EPPO) and the European Anti-Fraud Office (OLAF) to value added tax information at Union level(COM(2025) 685 final – 2025/0348 (CNS)) - Opinion of the European Economic and Social Committee&quot;,
+      &quot;date&quot;: &quot;2026-02-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/NOTE&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/efbf8bce-122a-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024TJ0575&quot;,
+      &quot;title&quot;: &quot;Judgment of the General Court (Chamber giving preliminary rulings) of 25 February 2026.#Belgische Staat / Federale Overheidsdienst Financiën v Digipolis Antwerpen AG and District09 AG.#Reference for a preliminary ruling – Taxation – Common system of VAT – Scope – Liability to tax – Body governed by public law – Articles 2, 9 and 13 of Directive 2006/112/EC – Intermunicipal cooperation – Conferral of management – Commissioning association – Provision of telematics services for the benefit of members of the association.#Case T-575/24.&quot;,
+      &quot;date&quot;: &quot;2026-02-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/357d8cd5-122b-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024TJ0638&quot;,
+      &quot;title&quot;: &quot;Judgment of the General Court (Chamber giving preliminary rulings) of 25 February 2026.#Finanzamt Österreich v D GmbH.#Reference for a preliminary ruling – Taxation – Common system of VAT – Place of intra-Community acquisitions of goods – Articles 40 and 41 of Directive 2006/112/EC – VAT liability – Article 203 of Directive 2006/112 – Principle of fiscal neutrality – Principle of proportionality – Intra-Community acquisitions made under a VAT identification number issued by the Member State of origin of the goods – VAT incorrectly entered on the invoices for the corresponding intra-Community supplies.#Case T-638/24.&quot;,
+      &quot;date&quot;: &quot;2026-02-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b0dc9673-0e68-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Proposal for a Council Regulation amending Regulation (EU) No 904/2010 as regards the access of the European Public Prosecutor&#x27;s Office (EPPO) and the European Anti-Fraud Office (OLAF) to value added tax information at Union level [15453/25 - COM(2025) 685] - Opinion on the application of the Principles of Subsidiarity and Proportionality&quot;,
+      &quot;date&quot;: &quot;2026-02-20T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/NOTE_COVER&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/188c9910-00f9-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;02013R0612-20260212&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Regulation (EU) No 612/2013 of 25 June 2013 on the operation of the register of economic operators and tax warehouses, related statistics and reporting pursuant to Council Regulation (EU) No 389/2012 on administrative cooperation in the field of excise duties&quot;,
+      &quot;date&quot;: &quot;2026-02-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;search_by_title&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:06:16.571595Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_communications'>search_communications</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_c</td><td class='ok'>OK</td><td>577.976 ms</td><td><pre>{
+  &quot;dg&quot;: &quot;TAXUD&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b7688291-0b1e-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0078&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE COUNCIL in accordance with Article 395 of Council Directive 2006/112/EC&quot;,
+      &quot;date&quot;: &quot;2026-02-16T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0e6b088f-0348-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0064&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE COUNCIL in accordance with Article 395 of Council Directive 2006/112/EC&quot;,
+      &quot;date&quot;: &quot;2026-02-06T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/595b45b6-f4c2-11ed-a05c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52023DC0257&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL AND THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE Customs reform: Taking the Customs Union to the next level&quot;,
+      &quot;date&quot;: &quot;2023-05-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/422eb407-b8aa-11eb-8aca-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52021DC0251&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT AND THE COUNCIL Business Taxation for the 21st Century&quot;,
+      &quot;date&quot;: &quot;2021-05-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/53e7bf29-4050-11eb-b27b-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52020DC0811&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE COUNCIL in accordance with Article 395 of Council Directive 2006/112/EC&quot;,
+      &quot;date&quot;: &quot;2020-12-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;search_communications&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T15:06:00.533475Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section>
+</main>
+</body>
+</html>

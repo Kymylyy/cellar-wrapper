@@ -8,6 +8,7 @@ import pytest
 
 from cellar_wrapper.cli_specs import COMMANDS
 from cellar_wrapper.client import CellarClient
+from cellar_wrapper.eurovoc_index import LOCAL_EUROVOC_ENDPOINT
 from cellar_wrapper.models import (
     ActDetail,
     ActRef,
@@ -336,6 +337,17 @@ def test_monitoring_since_is_strictly_date_bound() -> None:
         "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
         for query in transport.queries
     )
+
+
+def test_find_eurovoc_concept_uses_local_index_meta_endpoint() -> None:
+    transport = FakeTransport(query_handler=_query_handler, download_handler=_download_handler)
+    client = CellarClient(transport=transport)
+
+    result = client.find_eurovoc_concept("payment", limit=5, offset=0)
+
+    assert result.returned_count >= 1
+    assert result.meta.endpoint == LOCAL_EUROVOC_ENDPOINT
+    assert not any("SELECT DISTINCT ?concept ?label" in query for query in transport.queries)
 
 
 def test_plural_alias_get_adopted_acts_matches_existing_method() -> None:

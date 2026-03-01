@@ -7,6 +7,7 @@ Use this index as the entry point for repository documentation.
 - API/runtime contract: [API_CONTRACT.md](API_CONTRACT.md)
 - Method-to-predicate mapping: [METHOD_MAPPING.md](METHOD_MAPPING.md)
 - Data artifact inventory and role: [DATA_ARTIFACTS.md](DATA_ARTIFACTS.md)
+- Manual contract test runs: [manual_test/README.md](manual_test/README.md)
 
 ## Performance / research notes
 

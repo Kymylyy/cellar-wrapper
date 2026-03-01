@@ -10,8 +10,9 @@ Data researchu: 2026-03-01.
 
 ## Status implementacji (as-of 2026-03-01)
 
+- Runtime `find_eurovoc_concept` używa lokalnego indeksu (`src/cellar_wrapper/data/eurovoc_index.json`).
 - Runtime `search_by_eurovoc` i `new_by_eurovoc` używa modelu 2-krokowego:
-  resolve tagu tekstowego do `concept_uri`, a następnie finalny query po
+  resolve tagu tekstowego lokalnie do `concept_uri`, a następnie finalny query po
   `VALUES ?concept`.
 - Publiczne API pozostało bez zmian (`tags` jako wejście); zmieniła się tylko
   mechanika wykonania.

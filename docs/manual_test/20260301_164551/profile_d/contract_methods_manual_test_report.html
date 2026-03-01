@@ -1,0 +1,2331 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manual Contract Test Report</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #f5f8ff 0%, #ffffff 35%, #eef4f7 100%);
+      color: #14202e;
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    h1, h2 {
+      margin: 0 0 12px 0;
+    }
+    .meta {
+      background: #ffffffcc;
+      border: 1px solid #d8e2ef;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      background: #0f1622;
+      color: #d6e4ff;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 8px 0 0 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: #fff;
+      border: 1px solid #d8e2ef;
+    }
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px;
+      border-bottom: 1px solid #e3eaf4;
+    }
+    th {
+      background: #eff5ff;
+    }
+    .method {
+      margin-top: 20px;
+      padding: 16px;
+      border: 1px solid #d8e2ef;
+      border-radius: 12px;
+      background: #ffffffdb;
+    }
+    .method-summary {
+      font-size: 14px;
+      font-weight: 600;
+      color: #31445f;
+      margin-bottom: 8px;
+    }
+    .note {
+      margin: 0;
+      color: #5f6f84;
+      font-size: 13px;
+    }
+    .ok {
+      color: #0b6b36;
+      font-weight: 700;
+    }
+    .error {
+      color: #9c1c1c;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Manual Contract Test Report</h1>
+  <section class="meta">
+    <h2>Summary</h2>
+    <pre>{
+  &quot;methods_total&quot;: 45,
+  &quot;runs_per_method&quot;: 1,
+  &quot;runs_total&quot;: 45,
+  &quot;runs_ok&quot;: 43,
+  &quot;runs_failed&quot;: 2,
+  &quot;methods_with_failures_count&quot;: 2,
+  &quot;methods_with_failures&quot;: [
+    {
+      &quot;method&quot;: &quot;get_text&quot;,
+      &quot;failed_runs&quot;: 1,
+      &quot;errors&quot;: [
+        {
+          &quot;attempt&quot;: 1,
+          &quot;type&quot;: &quot;ResponseNotRead&quot;,
+          &quot;message&quot;: &quot;Attempted to access streaming response content, without having called `read()`.&quot;
+        }
+      ]
+    },
+    {
+      &quot;method&quot;: &quot;search_by_subject_matter&quot;,
+      &quot;failed_runs&quot;: 1,
+      &quot;errors&quot;: [
+        {
+          &quot;attempt&quot;: 1,
+          &quot;type&quot;: &quot;CellarTimeoutError&quot;,
+          &quot;message&quot;: &quot;HTTP request timed out: The read operation timed out&quot;
+        }
+      ]
+    }
+  ],
+  &quot;elapsed_ms_ok&quot;: {
+    &quot;avg&quot;: 6528.864,
+    &quot;min&quot;: 21.5,
+    &quot;max&quot;: 21279.814
+  }
+}</pre>
+    <h2>Failures</h2>
+    <ul><li><b>get_text</b><br/>attempt 1: ResponseNotRead - Attempted to access streaming response content, without having called `read()`.</li><li><b>search_by_subject_matter</b><br/>attempt 1: CellarTimeoutError - HTTP request timed out: The read operation timed out</li></ul>
+  </section>
+  <section class='method'><h2 id='find_eurovoc_concept'>find_eurovoc_concept</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>21.5 ms</td><td><pre>{
+  &quot;label&quot;: &quot;data protection&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/c_edee9606&quot;,
+      &quot;label&quot;: &quot;European Data Protection Board&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/7927&quot;,
+      &quot;label&quot;: &quot;European Data Protection Supervisor&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/5181&quot;,
+      &quot;label&quot;: &quot;data protection&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 3,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;find_eurovoc_concept&quot;,
+    &quot;endpoint&quot;: &quot;local://eurovoc-index&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:44.079293Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_act'>get_act</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>5092.42 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1&quot;,
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;title&quot;: &quot;Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation) (Text with EEA relevance)&quot;,
+  &quot;date&quot;: null,
+  &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+  &quot;eli&quot;: &quot;http://data.europa.eu/eli/reg/2016/679/oj&quot;,
+  &quot;in_force&quot;: true,
+  &quot;eea_relevant&quot;: true,
+  &quot;created_by_agents&quot;: [
+    &quot;http://publications.europa.eu/resource/authority/corporate-body/EP&quot;,
+    &quot;http://publications.europa.eu/resource/authority/corporate-body/CONSIL&quot;
+  ],
+  &quot;responsible_agents&quot;: [
+    &quot;http://publications.europa.eu/resource/authority/corporate-body/ESTAT&quot;,
+    &quot;http://publications.europa.eu/resource/authority/corporate-body/JUST&quot;
+  ],
+  &quot;addresses_institutions&quot;: [],
+  &quot;signatory_names&quot;: [
+    &quot;M. SCHULZ (m) - J.A. HENNIS-PLASSCHAERT (f)&quot;
+  ],
+  &quot;date_document&quot;: &quot;2016-04-27&quot;,
+  &quot;date_entry_into_force&quot;: &quot;2016-05-24&quot;,
+  &quot;date_end_of_validity&quot;: &quot;9999-12-31&quot;
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_adopted_act'>get_adopted_act</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>3872.742 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_adopted_act&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:47.927225Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_ag_opinions'>get_ag_opinions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>6571.398 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/32bd1013-057c-11f0-b1a3-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CC0655&quot;,
+      &quot;title&quot;: &quot;Opinion of Advocate General Campos Sánchez-Bordona delivered on 20 March 2025.#IP v Quirin Privatbank AG.#Request for a preliminary ruling from the Bundesgerichtshof.#Reference for a preliminary ruling – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Rights of the data subject – Article 17 – Right to erasure of data – Article 18 – Right to restriction of processing – Article 79 – Right to an effective judicial remedy – Unlawful processing of personal data – Action seeking an order requiring the controller to refrain from any further unlawful processing in the future – Basis – Conditions – Article 82(1) – Right to compensation – Concept of ‘non-material damage’ – Assessment of the compensation – Possible consideration of the degree of fault on the part of the controller – Possible impact of the grant of a ‘prohibitory injunction’.#Case C-655/23.&quot;,
+      &quot;date&quot;: &quot;2025-03-20T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_AG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:case-law_has_conclusions_opinion_advocate-general&quot;,
+      &quot;relation_type&quot;: &quot;ag_opinion&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/7d994215-e47f-11ef-bc1c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CC0492&quot;,
+      &quot;title&quot;: &quot;Opinion of Advocate General Szpunar delivered on 6 February 2025.#X v Russmedia Digital SRL and Inform Media Press SRL.#Request for a preliminary ruling from the Curtea de Apel Cluj.#Reference for a preliminary ruling – Protection of personal data – Regulation (EU) 2016/679 – Article 4(7) – Concept of ‘controller’ – Responsibility of the operator of an online marketplace for the publication of personal data contained in advertisements placed on its online marketplace by user advertisers – Article 5(2) – Principle of accountability – Article 26 – Joint control with user advertisers – Article 9(1) and (2)(a) – Advertisements containing sensitive data – Lawfulness of processing – Consent – Articles 24, 25 and 32 – Obligations of the controller – Prior identification of the advertisements containing such data – Prior identification of the identity of the user advertiser – Refusal of publication of unlawful advertisements – Security measures such as to prevent the copying of advertisements and their publication on other websites – Electronic commerce – Directive 2000/31/EC – Articles 12 to 15 – Possibility for such an operator, with regard to an infringement of those obligations, to rely on the exemption from liability of an intermediary information society service provider.#Case C-492/23.&quot;,
+      &quot;date&quot;: &quot;2025-02-06T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_AG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:case-law_has_conclusions_opinion_advocate-general&quot;,
+      &quot;relation_type&quot;: &quot;ag_opinion&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/6c4df7a6-8253-11ef-a67d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CC0313&quot;,
+      &quot;title&quot;: &quot;Opinion of Advocate General Pikamäe delivered on 4 October 2024.#Inspektorat kam Visshia sadeben savet.#Requests for a preliminary ruling from the Sofiyski rayonen sad.#References for a preliminary ruling – Rule of law – Judicial independence – Second subparagraph of Article 19(1) TEU – Effective legal protection in the fields covered by Union law – Judicial body competent to propose the initiation of disciplinary proceedings against judges, public prosecutors and investigating magistrates, with a view to the imposition of disciplinary penalties – Members of the judicial body remaining in office after the expiry of their term of office – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Data security – Access by a judicial body to data relating to the bank accounts of judges and public prosecutors and of their family members – Judicial authorisation for the purpose of lifting banking secrecy – Court authorising the lifting of banking secrecy – Article 4(7) – Concept of ‘controller’ – Article 51 – Concept of ‘supervisory authority’.#Joined Cases C-313/23, C-316/23 and C-332/23.&quot;,
+      &quot;date&quot;: &quot;2024-10-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_AG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:case-law_has_conclusions_opinion_advocate-general&quot;,
+      &quot;relation_type&quot;: &quot;ag_opinion&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0c54920e-713c-11ef-a8ba-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CC0383&quot;,
+      &quot;title&quot;: &quot;Opinion of Advocate General Medina delivered on 12 September 2024.#Criminal proceedings against ILVA A/S.#Request for a preliminary ruling from the Vestre Landsret.#Reference for a preliminary ruling – Protection of personal data – Regulation (EU) 2016/679 – Article 83(4) to (6) and (9) – Concept of an ‘undertaking’ – Parent company and subsidiary – Infringement of that regulation by a subsidiary – Calculation of the amount of the fine – Consideration of the total turnover of the group of which that subsidiary forms part.#Case C-383/23.&quot;,
+      &quot;date&quot;: &quot;2024-09-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_AG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:case-law_has_conclusions_opinion_advocate-general&quot;,
+      &quot;relation_type&quot;: &quot;ag_opinion&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/5acdbfad-7145-11ef-a8ba-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CC0247&quot;,
+      &quot;title&quot;: &quot;Opinion of Advocate General Collins delivered on 12 September 2024.#VP v Országos Idegenrendészeti Főigazgatóság.#Request for a preliminary ruling from the Fővárosi Törvényszék.#Reference for a preliminary ruling – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Article 5(1)(d) – Principle of accuracy – Article 16 – Right to rectification – Article 23 – Restrictions – Data relating to gender identity – Data incorrect from the time of inclusion in a public register – Means of proof – Administrative practice of requesting proof of gender reassignment surgery.#Case C-247/23.&quot;,
+      &quot;date&quot;: &quot;2024-09-12T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/OPIN_AG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:case-law_has_conclusions_opinion_advocate-general&quot;,
+      &quot;relation_type&quot;: &quot;ag_opinion&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_ag_opinions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:50.629540Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_amendments'>get_amendments</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>8324.089 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_amendments&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:52.379849Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_article_annotations'>get_article_annotations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>13463.405 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c5ae831f-fbeb-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-01-26T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/c5ae831f-fbeb-11f0-8da5-01aa75ed71a1/29b5c20d-55cc-4ec3-ac5a-aa82b19dbda1&quot;,
+      &quot;annotation_article&quot;: &quot;45&quot;,
+      &quot;annotation_paragraph&quot;: &quot;3&quot;,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: &quot;A45P3&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c33195e2-dfa5-11f0-8439-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/c33195e2-dfa5-11f0-8439-01aa75ed71a1/5f6a7719-1207-47cc-a700-72f0c1dfbec5&quot;,
+      &quot;annotation_article&quot;: &quot;45&quot;,
+      &quot;annotation_paragraph&quot;: &quot;3&quot;,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: &quot;A45P3&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/07c982ad-dc01-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-18T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/07c982ad-dc01-11f0-8da2-01aa75ed71a1/7da7c951-bc80-40c6-89a0-f7704c2270c4&quot;,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/07c982ad-dc01-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-18T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/07c982ad-dc01-11f0-8da2-01aa75ed71a1/1d6657b4-d36c-4ca1-9a7d-b56f4d341a4f&quot;,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/07c982ad-dc01-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2025-12-18T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;http://publications.europa.eu/ontology/cdm#work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;article_annotation&quot;,
+      &quot;annotation_uri&quot;: &quot;http://publications.europa.eu/.well-known/genid/07c982ad-dc01-11f0-8da2-01aa75ed71a1/e5fb9b29-656a-494c-afde-96def86b0bb0&quot;,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_article_annotations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:57.520329Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_citations'>get_citations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>6565.06 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e62822fb-131f-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0456&quot;,
+      &quot;title&quot;: &quot;Council Regulation (EU) 2026/456 of 26 February 2026 amending Regulation (EC) No 2580/2001 on specific restrictive measures directed against certain persons and entities with a view to combating terrorism and repealing Implementing Regulation (EU) 2025/1578 and Implementing Regulation (EU) 2026/420&quot;,
+      &quot;date&quot;: &quot;2026-02-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e2a9125e-1121-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0394&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Regulation (EU) 2026/394 of 23 February 2026 laying down rules for the application of Regulation (EU) 2023/1805 of the European Parliament and of the Council, as regards access rights and the functional and technical specifications of the FuelEU database&quot;,
+      &quot;date&quot;: &quot;2026-02-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ce712a46-0735-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0071&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Action plan against cyberbullying \&quot;Safer online, stronger together\&quot;&quot;,
+      &quot;date&quot;: &quot;2026-02-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3cabaf35-05c0-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52022PC0712(01)&quot;,
+      &quot;title&quot;: &quot;Recommendation for a COUNCIL DECISION authorising the opening of negotiations for an agreement between the European Union and the Swiss Confederation establishing a basis for the exchange of information on persons benefitting from temporary protection&quot;,
+      &quot;date&quot;: &quot;2026-02-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/RECO_DEC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/beb9a1a1-0621-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0253&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Regulation (EU) 2026/253 of 6 February 2026 on a technical specification relating to the telematics subsystem of the rail system in the European Union for interoperability of data sharing in rail transport (TEL TSI) and repealing Regulations (EU) No 454/2011 (TAP TSI) and (EU) No 1305/2014 (TAF TSI)&quot;,
+      &quot;date&quot;: &quot;2026-02-06T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_citations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:50.620001Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_cjeu_judgments'>get_cjeu_judgments</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>8751.291 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/07c982ad-dc01-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024CJ0422&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (First Chamber) of 18 December 2025.#Integritetsskyddsmyndigheten v AB Storstockholms Lokaltrafik.#Request for a preliminary ruling from the Högsta förvaltningsdomstolen.#Reference for a preliminary ruling – Protection of personal data – Regulation (EU) 2016/679 – Articles 13 and 14 – Scope – Personal data collected by means of body cameras worn by ticket inspectors on public transport – Legal basis for the obligation on the data controller to provide information to the data subject.#Case C-422/24.&quot;,
+      &quot;date&quot;: &quot;2025-12-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:980&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_01_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/02e7c761-52c2-11ec-91ac-01aa75ed71a1&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SWE&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1a7e56c4-cf61-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0492&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Grand Chamber) of 2 December 2025.#X v Russmedia Digital SRL and Inform Media Press SRL.#Request for a preliminary ruling from the Curtea de Apel Cluj.#Reference for a preliminary ruling – Protection of personal data – Regulation (EU) 2016/679 – Article 4(7) – Concept of ‘controller’ – Responsibility of the operator of an online marketplace for the publication of personal data contained in advertisements placed on its online marketplace by user advertisers – Article 5(2) – Principle of accountability – Article 26 – Joint control with user advertisers – Article 9(1) and (2)(a) – Advertisements containing sensitive data – Lawfulness of processing – Consent – Articles 24, 25 and 32 – Obligations of the controller – Prior identification of the advertisements containing such data – Prior identification of the identity of the user advertiser – Refusal of publication of unlawful advertisements – Security measures such as to prevent the copying of advertisements and their publication on other websites – Electronic commerce – Directive 2000/31/EC – Articles 12 to 15 – Possibility for such an operator, with regard to an infringement of those obligations, to rely on the exemption from liability of an intermediary information society service provider.#Case C-492/23.&quot;,
+      &quot;date&quot;: &quot;2025-12-02T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:935&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_GD_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/3ca6f0a7-954d-4b0b-8898-78c385afdf90&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/ROU&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b686325-896e-11f0-9af8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0655&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Fourth Chamber) of 4 September 2025.#IP v Quirin Privatbank AG.#Request for a preliminary ruling from the Bundesgerichtshof.#Reference for a preliminary ruling – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Rights of the data subject – Article 17 – Right to erasure of data – Article 18 – Right to restriction of processing – Article 79 – Right to an effective judicial remedy – Unlawful processing of personal data – Action seeking an order requiring the controller to refrain from any further unlawful processing in the future – Basis – Conditions – Article 82(1) – Right to compensation – Concept of ‘non-material damage’ – Assessment of the compensation – Possible consideration of the degree of fault on the part of the controller – Possible impact of the grant of a ‘prohibitory injunction’.#Case C-655/23.&quot;,
+      &quot;date&quot;: &quot;2025-09-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:655&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_04_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/8e01d479-c04c-11e5-9e54-01aa75ed71a1&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/DEU&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/25c3cc4a-25c1-11f0-829d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0313&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (First Chamber) of 30 April 2025.#Inspektorat kam Visshia sadeben savet.#Requests for a preliminary ruling from the Sofiyski rayonen sad.#References for a preliminary ruling – Rule of law – Judicial independence – Second subparagraph of Article 19(1) TEU – Effective legal protection in the fields covered by Union law – Judicial body competent to propose the initiation of disciplinary proceedings against judges, public prosecutors and investigating magistrates, with a view to the imposition of disciplinary penalties – Members of the judicial body remaining in office after the expiry of their term of office – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Data security – Access by a judicial body to data relating to the bank accounts of judges and public prosecutors and of their family members – Judicial authorisation for the purpose of lifting banking secrecy – Court authorising the lifting of banking secrecy – Article 4(7) – Concept of ‘controller’ – Article 51 – Concept of ‘supervisory authority’.#Joined Cases C-313/23, C-316/23 and C-332/23.&quot;,
+      &quot;date&quot;: &quot;2025-04-30T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:303&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_01_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/eb8869f3-bbfe-402d-ba9e-141449ccf989&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/BGR&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e49c11ac-1065-11f0-b1a3-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0710&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (First Chamber) of 3 April 2025.#L. H. v Ministerstvo zdravotnictví.#Request for a preliminary ruling from the Nejvyšší správní soud.#Reference for a preliminary ruling – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Article 4 – Definitions – Article 6 – Lawfulness of processing – Article 86 – Public access to official documents – Data concerning the representative of a legal person – Case-law of a national court imposing an obligation to inform and consult the data subject prior to disclosure of official documents containing such data.#Case C-710/23.&quot;,
+      &quot;date&quot;: &quot;2025-04-03T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:231&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_01_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/957a16f7-c757-11ea-adf7-01aa75ed71a1&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/CZE&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_cjeu_judgments&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:52.803369Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_completing_acts'>get_completing_acts</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>6105.746 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_completing_acts&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:50.189822Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_consolidated_versions'>get_consolidated_versions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>6659.61 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/335ef9fc-250a-4dfa-a76d-5583b689e91e&quot;,
+      &quot;celex&quot;: &quot;01995L0046-20180525&quot;,
+      &quot;title&quot;: &quot;Directive 95/46/EC of the european parliament and of the council of 24. October 1995 on the protection of individuals with regard to the processing of personal data and on the free movement of such data &quot;,
+      &quot;date&quot;: &quot;2018-05-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/7a27f5c5-9927-4dc7-a811-d3bba80e03cf&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Directive 95/46/EC of the european parliament and of the council of 24. October 1995 on the protection of individuals with regard to the processing of personal data and on the free movement of such data &quot;,
+      &quot;date&quot;: &quot;2018-05-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/5f2552c2-cc45-11e6-ad7c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;02016R0679-20160504&quot;,
+      &quot;title&quot;: &quot;Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation) (Text with EEA relevance) &quot;,
+      &quot;date&quot;: &quot;2016-05-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/69c567aa-0ce3-4ba7-b13d-7142a9225a3c&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation) (Text with EEA relevance) &quot;,
+      &quot;date&quot;: &quot;2016-05-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/fbd2555d-8c40-427f-af50-f28b27ba7179&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2016-05-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:act_consolidated_consolidates_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;consolidates&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_consolidated_versions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:54.601017Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_corrigenda'>get_corrigenda</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>9646.976 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1b20ec09-7c8c-11eb-9ac9-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32016R0679R(03)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2021-03-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1b20ec09-7c8c-11eb-9ac9-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32016R0679R(03)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2021-03-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/683d5816-5e52-11e8-ab9c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32016R0679R(02)&quot;,
+      &quot;title&quot;: &quot;Corrigendum to Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation) (OJ L 119, 4.5.2016)&quot;,
+      &quot;date&quot;: &quot;2018-05-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/683d5816-5e52-11e8-ab9c-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32016R0679R(02)&quot;,
+      &quot;title&quot;: &quot;Corrigendum to Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation) (OJ L 119, 4.5.2016)&quot;,
+      &quot;date&quot;: &quot;2018-05-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c0c14e1e-b043-11e6-aab7-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32016R0679R(01)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2016-11-22T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_corrigenda&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:58.806218Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_deadlines'>get_deadlines</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>8650.208 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32016R0679&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2016-05-24T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_date_entry-into-force&quot;,
+      &quot;relation_type&quot;: &quot;entry_into_force&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32016R0679&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2018-05-25T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_date_entry-into-force&quot;,
+      &quot;relation_type&quot;: &quot;entry_into_force&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32016R0679&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2020-05-25T00:00:00&quot;,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_date_deadline&quot;,
+      &quot;relation_type&quot;: &quot;deadline&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 3,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_deadlines&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:58.855224Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_delegated_acts'>get_delegated_acts</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>5428.572 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c5ae831f-fbeb-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026D0179&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2026/179 of 26 January 2026 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate level of protection of personal data by Brazil (notified under document C(2026) 373)&quot;,
+      &quot;date&quot;: &quot;2026-01-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c33195e2-dfa5-11f0-8439-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D2574&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2025/2574 of 19 December 2025 amending Commission Implementing Decision (EU) 2021/1772 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate protection of personal data by the United Kingdom (notified under document C(2025) 8771)&quot;,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e9e23150-636f-11f0-bf4e-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D1382&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2025/1382 of 15 July 2025 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate protection of personal data by the European Patent Organisation (notified under document C(2025) 4626)&quot;,
+      &quot;date&quot;: &quot;2025-07-15T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9a8dff4a-5225-11f0-a9d0-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D1226&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2025/1226 of 24 June 2025 amending Implementing Decision (EU) 2021/1772 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate protection of personal data by the United Kingdom (notified under document C(2025) 3928)&quot;,
+      &quot;date&quot;: &quot;2025-06-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/91844ce9-4a5f-11ef-acbc-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52024DC0357&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT AND THE COUNCIL Second Report on the application of the General Data Protection Regulation&quot;,
+      &quot;date&quot;: &quot;2024-07-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_delegated_acts&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:56.061665Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_directory_codes'>get_directory_codes</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>9103.271 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/dir-eu-legal-act/152020&quot;,
+      &quot;label&quot;: &quot;Consumer information, education and representation&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/dir-eu-legal-act/1940&quot;,
+      &quot;label&quot;: &quot;Programmes&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 2,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_directory_codes&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:59.745070Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_dossier'>get_dossier</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>12057.263 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOL_2016_119_R_0001_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9cd0a4b3-d4af-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2012/0011/COD&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32016R0679&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/oj/JOC_2015_301_R_0001_01&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9cd0a4b3-d4af-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2012/0011/COD&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32016R0679&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/pegase/CSST_2014_10771_0000_0000_0000&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9cd0a4b3-d4af-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2012/0011/COD&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32016R0679&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/pegase/CSST_2015_7166_0000_0000_0000&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9cd0a4b3-d4af-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2012/0011/COD&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32016R0679&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/pegase/CSST_2014_7467_ADD1_0000_0000&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: null,
+      &quot;date&quot;: null,
+      &quot;resource_type&quot;: null,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:dossier_contains_work&quot;,
+      &quot;relation_type&quot;: &quot;dossier_contains_work&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null,
+      &quot;dossier_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9cd0a4b3-d4af-11e1-905c-01aa75ed71a1&quot;,
+      &quot;procedure_code&quot;: &quot;2012/0011/COD&quot;,
+      &quot;procedure_type&quot;: null,
+      &quot;status_adopted&quot;: true,
+      &quot;status_pending&quot;: false,
+      &quot;status_withdrawn&quot;: false,
+      &quot;produces_act_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1&quot;,
+      &quot;produces_act_celex&quot;: &quot;32016R0679&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_dossier&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:04.451396Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_eurovoc'>get_eurovoc</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>11041.941 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/2338&quot;,
+      &quot;label&quot;: &quot;natural person&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/2828&quot;,
+      &quot;label&quot;: &quot;protection of privacy&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/3011&quot;,
+      &quot;label&quot;: &quot;cross-frontier data flow&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/3028&quot;,
+      &quot;label&quot;: &quot;data-processing law&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://eurovoc.europa.eu/453&quot;,
+      &quot;label&quot;: &quot;access to information&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_eurovoc&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:03.862714Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_expressions'>get_expressions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>12194.024 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1.0001&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/BUL&quot;,
+      &quot;title&quot;: &quot;Регламент (ЕС) 2016/679 на Европейския парламент и на Съвета от 27 април 2016 година относно защитата на физическите лица във връзка с обработването на лични данни и относно свободното движение на такива данни и за отмяна на Директива 95/46/EО (Общ регламент относно защитата на данните) (Текст от значение за ЕИП)&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1.0002&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/CES&quot;,
+      &quot;title&quot;: &quot;Nařízení Evropského parlamentu a Rady (EU) 2016/679 ze dne 27. dubna 2016 o ochraně fyzických osob v souvislosti se zpracováním osobních údajů a o volném pohybu těchto údajů a o zrušení směrnice 95/46/ES (obecné nařízení o ochraně osobních údajů) (Text s významem pro EHP)&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1.0003&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/DAN&quot;,
+      &quot;title&quot;: &quot;Europa-Parlamentets og Rådets forordning (EU) 2016/679 af 27. april 2016 om beskyttelse af fysiske personer i forbindelse med behandling af personoplysninger og om fri udveksling af sådanne oplysninger og om ophævelse af direktiv 95/46/EF (generel forordning om databeskyttelse) (EØS-relevant tekst)&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1.0004&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/DEU&quot;,
+      &quot;title&quot;: &quot;Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG (Datenschutz-Grundverordnung) (Text von Bedeutung für den EWR)&quot;
+    },
+    {
+      &quot;expression_uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1.0005&quot;,
+      &quot;language_uri&quot;: &quot;http://publications.europa.eu/resource/authority/language/ELL&quot;,
+      &quot;title&quot;: &quot;Κανονισμός (ΕΕ) 2016/679 του Ευρωπαϊκού Κοινοβουλίου και του Συμβουλίου, της 27ης Απριλίου 2016, για την προστασία των φυσικών προσώπων έναντι της επεξεργασίας των δεδομένων προσωπικού χαρακτήρα και για την ελεύθερη κυκλοφορία των δεδομένων αυτών και την κατάργηση της οδηγίας 95/46/ΕΚ (Γενικός Κανονισμός για την Προστασία Δεδομένων) (Κείμενο που παρουσιάζει ενδιαφέρον για τον ΕΟΧ)&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_expressions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:06.806419Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_legal_basis'>get_legal_basis</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>4121.633 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c5ae831f-fbeb-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026D0179&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2026/179 of 26 January 2026 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate level of protection of personal data by Brazil (notified under document C(2026) 373)&quot;,
+      &quot;date&quot;: &quot;2026-01-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c33195e2-dfa5-11f0-8439-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D2574&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2025/2574 of 19 December 2025 amending Commission Implementing Decision (EU) 2021/1772 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate protection of personal data by the United Kingdom (notified under document C(2025) 8771)&quot;,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e9e23150-636f-11f0-bf4e-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D1382&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2025/1382 of 15 July 2025 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate protection of personal data by the European Patent Organisation (notified under document C(2025) 4626)&quot;,
+      &quot;date&quot;: &quot;2025-07-15T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9a8dff4a-5225-11f0-a9d0-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D1226&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2025/1226 of 24 June 2025 amending Implementing Decision (EU) 2021/1772 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate protection of personal data by the United Kingdom (notified under document C(2025) 3928)&quot;,
+      &quot;date&quot;: &quot;2025-06-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/91844ce9-4a5f-11ef-acbc-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52024DC0357&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT AND THE COUNCIL Second Report on the application of the General Data Protection Regulation&quot;,
+      &quot;date&quot;: &quot;2024-07-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on_resource_legal&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_legal_basis&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:00.198182Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_national_decisions'>get_national_decisions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>502.66 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/85640cc0-3290-11ee-83b8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;82022DE0809(51)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2022-08-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_NC&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/DEU&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/5df0cbd1-19f0-11ec-b4fe-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;82020DE1208(51)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2020-12-08T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_NC&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/DEU&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c91afd2f-19ef-11ec-b4fe-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;82020DE0804(51)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2020-08-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_NC&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/DEU&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3d5974ac-19f4-11ec-b4fe-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;82020DE0218(51)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2020-02-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_NC&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/DEU&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/95381fc7-e798-11ea-ad25-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;82019DE0924(51)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2019-09-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_NC&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/DEU&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_national_decisions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:46:58.033780Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_nims'>get_nims</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>3465.194 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_nims&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:01.512969Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_opinions'>get_opinions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>3429.394 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_opinions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:02.245296Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_other_relations'>get_other_relations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>12723.684 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_other_relations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:11.588836Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_preliminary_questions'>get_preliminary_questions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>3532.194 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/7c68b858-1058-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025CN0730&quot;,
+      &quot;title&quot;: &quot;Case C-730/25, Vinted: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 17 November 2025 – Vinted UAB v Valstybinė duomenų apsaugos inspekcija&quot;,
+      &quot;date&quot;: &quot;2025-11-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/fd745088-fa63-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025CN0676&quot;,
+      &quot;title&quot;: &quot;Case C-676/25, Viva credit: Request for a preliminary ruling from the Administrativen sad Varna (Bulgaria) lodged on 22 October 2025 – I. N. R. v Viva credit AD&quot;,
+      &quot;date&quot;: &quot;2025-10-22T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/4f346d23-ffd8-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025CN0654&quot;,
+      &quot;title&quot;: &quot;Case C-654/25, Undelam: Request for a preliminary ruling from the Bundesgerichtshof (Germany) lodged on 6 October 2025 – US and DR v KY&quot;,
+      &quot;date&quot;: &quot;2025-10-06T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/60eda4a0-d960-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025CN0594&quot;,
+      &quot;title&quot;: &quot;Case C-594/25, Vodafone: Request for a preliminary ruling from the Landgericht Lübeck (Germany) lodged on 9 September 2025 – KL v Vodafone GmbH&quot;,
+      &quot;date&quot;: &quot;2025-09-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/be001ba8-c8d6-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025CN0568&quot;,
+      &quot;title&quot;: &quot;Case C-568/25, Universal Versand: Request for a preliminary ruling from the Oberster Gerichtshof (Austria) lodged on 27 August 2025 – Verein für Konsumenteninformation v Universal Versand GmbH&quot;,
+      &quot;date&quot;: &quot;2025-08-27T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_preliminary_questions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:03.288218Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_proposals_to_amend'>get_proposals_to_amend</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>8902.107 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ebf17714-c56e-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025PC0837&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2016/679, (EU) 2018/1724, (EU) 2018/1725, (EU) 2023/2854 and Directives 2002/58/EC, (EU) 2022/2555 and (EU) 2022/2557 as regards the simplification of the digital legislative framework, and repealing Regulations (EU) 2018/1807, (EU) 2019/1150, (EU) 2022/868, and Directive (EU) 2019/1024 (Digital Omnibus)&quot;,
+      &quot;date&quot;: &quot;2025-11-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/856bddea-3639-11f0-8a44-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025PC0501&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2016/679, (EU) 2016/1036, (EU) 2016/1037, (EU) 2017/1129, (EU) 2023/1542 and (EU) 2024/573 as regards the extension of certain mitigating measures available for small and medium sized enterprises to small mid-cap enterprises and further simplification measures&quot;,
+      &quot;date&quot;: &quot;2025-05-21T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 2,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_proposals_to_amend&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:09.112398Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_related_works'>get_related_works</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>12308.559 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_related_works&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:13.833697Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_repeals'>get_repeals</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>3261.695 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/102e48a9-478f-4fee-8b8d-ef9068ea3936&quot;,
+      &quot;celex&quot;: &quot;32003R1882&quot;,
+      &quot;title&quot;: &quot;Regulation (EC) No 1882/2003 of the European Parliament and of the Council of 29 September 2003 adapting to Council Decision 1999/468/EC the provisions relating to committees which assist the Commission in the exercise of its implementing powers laid down in instruments subject to the procedure referred to in Article 251 of the EC Treaty&quot;,
+      &quot;date&quot;: &quot;2003-09-29T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_implicitly_repeals_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;implicitly_repeals&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/775a4724-2086-4a06-9213-1a4e6489053b&quot;,
+      &quot;celex&quot;: &quot;31995L0046&quot;,
+      &quot;title&quot;: &quot;Directive 95/46/EC of the European Parliament and of the Council of 24 October 1995 on the protection of individuals with regard to the processing of personal data and on the free movement of such data&quot;,
+      &quot;date&quot;: &quot;1995-10-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DIR&quot;,
+      &quot;direction&quot;: &quot;outgoing&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_repeals_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;repeals&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 2,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_repeals&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:05.523707Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_subject_matter'>get_subject_matter</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>3224.035 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/subject-matter/ELSJ&quot;,
+      &quot;label&quot;: &quot;Area of freedom, security and justice&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/subject-matter/INFO&quot;,
+      &quot;label&quot;: &quot;Information and verification&quot;
+    },
+    {
+      &quot;concept_uri&quot;: &quot;http://publications.europa.eu/resource/authority/subject-matter/PROT&quot;,
+      &quot;label&quot;: &quot;Consumer protection&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 3,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;get_subject_matter&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:06.526336Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_summary'>get_summary</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>3621.751 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;source_url&quot;: &quot;http://publications.europa.eu/resource/cellar/e899a0de-be12-405c-84ae-34e8a22d6acd.0006.04/DOC_1&quot;,
+  &quot;content_type&quot;: &quot;application/xhtml+xml;type=xhtml5;charset=UTF-8&quot;,
+  &quot;language&quot;: &quot;eng&quot;,
+  &quot;content_base64&quot;: &quot;[omitted]&quot;,
+  &quot;content_base64_length&quot;: 17992,
+  &quot;content_base64_preview&quot;: &quot;PCFET0NUWVBFIGh0bWw+PGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiIGxhbmc9ImVuIiB4bWw6bGFuZz0iZW4iPjxoZWFkPiA8&quot;
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='get_text'>get_text</h2><div class='method-summary'>ok_runs=0 | error_runs=1</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='error'>ERROR</td><td>3420.967 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;lang&quot;: &quot;eng&quot;,
+  &quot;format&quot;: &quot;pdf&quot;
+}</pre></td><td><pre>ResponseNotRead: Attempted to access streaming response content, without having called `read()`.</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_amendments'>new_amendments</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>7693.062 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;since&quot;: &quot;2020-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_amendments&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:13.225363Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_by_eurovoc'>new_by_eurovoc</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>395.062 ms</td><td><pre>{
+  &quot;tags&quot;: [
+    &quot;data protection&quot;
+  ],
+  &quot;since&quot;: &quot;2020-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ce712a46-0735-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0071&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Action plan against cyberbullying \&quot;Safer online, stronger together\&quot;&quot;,
+      &quot;date&quot;: &quot;2026-02-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b40cabe6-00a1-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32024R1183R(05)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-03T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b40cabe6-00a1-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32024R1183R(05)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-03T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/bece1ebb-00a1-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0247&quot;,
+      &quot;title&quot;: &quot;Commission Regulation (EU) 2026/247 of 2 February 2026 amending Regulation (EC) No 300/2008 of the European Parliament and of the Council as regards specifications for national quality control programmes in the field of civil aviation security&quot;,
+      &quot;date&quot;: &quot;2026-02-02T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0fa8762a-055a-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026D00866&quot;,
+      &quot;title&quot;: &quot;Decision No 2/2026 of the Secretary-General of the Council of the European Union of 30 January 2026 laying down implementing rules concerning the application of Regulation (EU) 2018/1725 of the European Parliament and of the Council and the restriction of data subjects’ rights for the purpose of restrictive measures&quot;,
+      &quot;date&quot;: &quot;2026-01-30T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_by_eurovoc&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:06.935150Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_case_law'>new_case_law</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>6505.425 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;since&quot;: &quot;2020-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/07c982ad-dc01-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62024CJ0422&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (First Chamber) of 18 December 2025.#Integritetsskyddsmyndigheten v AB Storstockholms Lokaltrafik.#Request for a preliminary ruling from the Högsta förvaltningsdomstolen.#Reference for a preliminary ruling – Protection of personal data – Regulation (EU) 2016/679 – Articles 13 and 14 – Scope – Personal data collected by means of body cameras worn by ticket inspectors on public transport – Legal basis for the obligation on the data controller to provide information to the data subject.#Case C-422/24.&quot;,
+      &quot;date&quot;: &quot;2025-12-18T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:980&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_01_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/02e7c761-52c2-11ec-91ac-01aa75ed71a1&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/SWE&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1a7e56c4-cf61-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0492&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Grand Chamber) of 2 December 2025.#X v Russmedia Digital SRL and Inform Media Press SRL.#Request for a preliminary ruling from the Curtea de Apel Cluj.#Reference for a preliminary ruling – Protection of personal data – Regulation (EU) 2016/679 – Article 4(7) – Concept of ‘controller’ – Responsibility of the operator of an online marketplace for the publication of personal data contained in advertisements placed on its online marketplace by user advertisers – Article 5(2) – Principle of accountability – Article 26 – Joint control with user advertisers – Article 9(1) and (2)(a) – Advertisements containing sensitive data – Lawfulness of processing – Consent – Articles 24, 25 and 32 – Obligations of the controller – Prior identification of the advertisements containing such data – Prior identification of the identity of the user advertiser – Refusal of publication of unlawful advertisements – Security measures such as to prevent the copying of advertisements and their publication on other websites – Electronic commerce – Directive 2000/31/EC – Articles 12 to 15 – Possibility for such an operator, with regard to an infringement of those obligations, to rely on the exemption from liability of an intermediary information society service provider.#Case C-492/23.&quot;,
+      &quot;date&quot;: &quot;2025-12-02T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:935&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_GD_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/3ca6f0a7-954d-4b0b-8898-78c385afdf90&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/ROU&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3b686325-896e-11f0-9af8-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0655&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Fourth Chamber) of 4 September 2025.#IP v Quirin Privatbank AG.#Request for a preliminary ruling from the Bundesgerichtshof.#Reference for a preliminary ruling – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Rights of the data subject – Article 17 – Right to erasure of data – Article 18 – Right to restriction of processing – Article 79 – Right to an effective judicial remedy – Unlawful processing of personal data – Action seeking an order requiring the controller to refrain from any further unlawful processing in the future – Basis – Conditions – Article 82(1) – Right to compensation – Concept of ‘non-material damage’ – Assessment of the compensation – Possible consideration of the degree of fault on the part of the controller – Possible impact of the grant of a ‘prohibitory injunction’.#Case C-655/23.&quot;,
+      &quot;date&quot;: &quot;2025-09-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:655&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_04_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/8e01d479-c04c-11e5-9e54-01aa75ed71a1&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/DEU&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/25c3cc4a-25c1-11f0-829d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0313&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (First Chamber) of 30 April 2025.#Inspektorat kam Visshia sadeben savet.#Requests for a preliminary ruling from the Sofiyski rayonen sad.#References for a preliminary ruling – Rule of law – Judicial independence – Second subparagraph of Article 19(1) TEU – Effective legal protection in the fields covered by Union law – Judicial body competent to propose the initiation of disciplinary proceedings against judges, public prosecutors and investigating magistrates, with a view to the imposition of disciplinary penalties – Members of the judicial body remaining in office after the expiry of their term of office – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Data security – Access by a judicial body to data relating to the bank accounts of judges and public prosecutors and of their family members – Judicial authorisation for the purpose of lifting banking secrecy – Court authorising the lifting of banking secrecy – Article 4(7) – Concept of ‘controller’ – Article 51 – Concept of ‘supervisory authority’.#Joined Cases C-313/23, C-316/23 and C-332/23.&quot;,
+      &quot;date&quot;: &quot;2025-04-30T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:303&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_01_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/eb8869f3-bbfe-402d-ba9e-141449ccf989&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/BGR&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e49c11ac-1065-11f0-b1a3-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0710&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (First Chamber) of 3 April 2025.#L. H. v Ministerstvo zdravotnictví.#Request for a preliminary ruling from the Nejvyšší správní soud.#Reference for a preliminary ruling – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Article 4 – Definitions – Article 6 – Lawfulness of processing – Article 86 – Public access to official documents – Data concerning the representative of a legal person – Case-law of a national court imposing an obligation to inform and consult the data subject prior to disclosure of official documents containing such data.#Case C-710/23.&quot;,
+      &quot;date&quot;: &quot;2025-04-03T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;,
+      &quot;ecli&quot;: &quot;ECLI:EU:C:2025:231&quot;,
+      &quot;court_formation&quot;: &quot;http://publications.europa.eu/resource/authority/formjug/CHAMB_01_C&quot;,
+      &quot;advocate_general&quot;: &quot;http://publications.europa.eu/resource/cellar/957a16f7-c757-11ea-adf7-01aa75ed71a1&quot;,
+      &quot;origin_country&quot;: &quot;http://publications.europa.eu/resource/authority/country/CZE&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_case_law&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:13.324157Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_citations'>new_citations</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>6457.366 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;since&quot;: &quot;2020-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e62822fb-131f-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0456&quot;,
+      &quot;title&quot;: &quot;Council Regulation (EU) 2026/456 of 26 February 2026 amending Regulation (EC) No 2580/2001 on specific restrictive measures directed against certain persons and entities with a view to combating terrorism and repealing Implementing Regulation (EU) 2025/1578 and Implementing Regulation (EU) 2026/420&quot;,
+      &quot;date&quot;: &quot;2026-02-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e2a9125e-1121-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0394&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Regulation (EU) 2026/394 of 23 February 2026 laying down rules for the application of Regulation (EU) 2023/1805 of the European Parliament and of the Council, as regards access rights and the functional and technical specifications of the FuelEU database&quot;,
+      &quot;date&quot;: &quot;2026-02-23T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ce712a46-0735-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0071&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Action plan against cyberbullying \&quot;Safer online, stronger together\&quot;&quot;,
+      &quot;date&quot;: &quot;2026-02-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3cabaf35-05c0-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52022PC0712(01)&quot;,
+      &quot;title&quot;: &quot;Recommendation for a COUNCIL DECISION authorising the opening of negotiations for an agreement between the European Union and the Swiss Confederation establishing a basis for the exchange of information on persons benefitting from temporary protection&quot;,
+      &quot;date&quot;: &quot;2026-02-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/RECO_DEC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/beb9a1a1-0621-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0253&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Regulation (EU) 2026/253 of 6 February 2026 on a technical specification relating to the telematics subsystem of the rail system in the European Union for interoperability of data sharing in rail transport (TEL TSI) and repealing Regulations (EU) No 454/2011 (TAP TSI) and (EU) No 1305/2014 (TAF TSI)&quot;,
+      &quot;date&quot;: &quot;2026-02-06T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:work_cites_work&quot;,
+      &quot;relation_type&quot;: &quot;cites&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_citations&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:13.404374Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_consolidated'>new_consolidated</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>5067.488 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;since&quot;: &quot;2020-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_consolidated&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:12.578180Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_corrigenda'>new_corrigenda</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>5702.837 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;since&quot;: &quot;2020-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1b20ec09-7c8c-11eb-9ac9-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32016R0679R(03)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2021-03-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1b20ec09-7c8c-11eb-9ac9-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32016R0679R(03)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2021-03-04T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_corrects_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;corrects&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 2,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_corrigenda&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:13.597829Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_delegated_acts'>new_delegated_acts</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>4726.214 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;since&quot;: &quot;2020-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c5ae831f-fbeb-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026D0179&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2026/179 of 26 January 2026 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate level of protection of personal data by Brazil (notified under document C(2026) 373)&quot;,
+      &quot;date&quot;: &quot;2026-01-26T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/c33195e2-dfa5-11f0-8439-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D2574&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2025/2574 of 19 December 2025 amending Commission Implementing Decision (EU) 2021/1772 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate protection of personal data by the United Kingdom (notified under document C(2025) 8771)&quot;,
+      &quot;date&quot;: &quot;2025-12-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e9e23150-636f-11f0-bf4e-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D1382&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2025/1382 of 15 July 2025 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate protection of personal data by the European Patent Organisation (notified under document C(2025) 4626)&quot;,
+      &quot;date&quot;: &quot;2025-07-15T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/9a8dff4a-5225-11f0-a9d0-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32025D1226&quot;,
+      &quot;title&quot;: &quot;Commission Implementing Decision (EU) 2025/1226 of 24 June 2025 amending Implementing Decision (EU) 2021/1772 pursuant to Regulation (EU) 2016/679 of the European Parliament and of the Council on the adequate protection of personal data by the United Kingdom (notified under document C(2025) 3928)&quot;,
+      &quot;date&quot;: &quot;2025-06-24T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/91844ce9-4a5f-11ef-acbc-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52024DC0357&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT AND THE COUNCIL Second Report on the application of the General Data Protection Regulation&quot;,
+      &quot;date&quot;: &quot;2024-07-25T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_based_on_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;based_on&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_delegated_acts&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:13.848070Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_nims'>new_nims</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>8665.019 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;since&quot;: &quot;2020-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_nims&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:20.266868Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_preliminary_questions'>new_preliminary_questions</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>3047.8 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;since&quot;: &quot;2020-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/7c68b858-1058-11f1-8870-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025CN0730&quot;,
+      &quot;title&quot;: &quot;Case C-730/25, Vinted: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 17 November 2025 – Vinted UAB v Valstybinė duomenų apsaugos inspekcija&quot;,
+      &quot;date&quot;: &quot;2025-11-17T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/fd745088-fa63-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025CN0676&quot;,
+      &quot;title&quot;: &quot;Case C-676/25, Viva credit: Request for a preliminary ruling from the Administrativen sad Varna (Bulgaria) lodged on 22 October 2025 – I. N. R. v Viva credit AD&quot;,
+      &quot;date&quot;: &quot;2025-10-22T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/4f346d23-ffd8-11f0-8da5-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025CN0654&quot;,
+      &quot;title&quot;: &quot;Case C-654/25, Undelam: Request for a preliminary ruling from the Bundesgerichtshof (Germany) lodged on 6 October 2025 – US and DR v KY&quot;,
+      &quot;date&quot;: &quot;2025-10-06T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/60eda4a0-d960-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025CN0594&quot;,
+      &quot;title&quot;: &quot;Case C-594/25, Vodafone: Request for a preliminary ruling from the Landgericht Lübeck (Germany) lodged on 9 September 2025 – KL v Vodafone GmbH&quot;,
+      &quot;date&quot;: &quot;2025-09-09T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/be001ba8-c8d6-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62025CN0568&quot;,
+      &quot;title&quot;: &quot;Case C-568/25, Universal Versand: Request for a preliminary ruling from the Oberster Gerichtshof (Austria) lodged on 27 August 2025 – Verein für Konsumenteninformation v Universal Versand GmbH&quot;,
+      &quot;date&quot;: &quot;2025-08-27T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL&quot;,
+      &quot;ecli&quot;: null,
+      &quot;court_formation&quot;: null,
+      &quot;advocate_general&quot;: null,
+      &quot;origin_country&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_preliminary_questions&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:15.636318Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_proposals_to_amend'>new_proposals_to_amend</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>3955.944 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;since&quot;: &quot;2020-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ebf17714-c56e-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025PC0837&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2016/679, (EU) 2018/1724, (EU) 2018/1725, (EU) 2023/2854 and Directives 2002/58/EC, (EU) 2022/2555 and (EU) 2022/2557 as regards the simplification of the digital legislative framework, and repealing Regulations (EU) 2018/1807, (EU) 2019/1150, (EU) 2022/868, and Directive (EU) 2019/1024 (Digital Omnibus)&quot;,
+      &quot;date&quot;: &quot;2025-11-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/856bddea-3639-11f0-8a44-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025PC0501&quot;,
+      &quot;title&quot;: &quot;Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2016/679, (EU) 2016/1036, (EU) 2016/1037, (EU) 2017/1129, (EU) 2023/1542 and (EU) 2024/573 as regards the extension of certain mitigating measures available for small and medium sized enterprises to small mid-cap enterprises and further simplification measures&quot;,
+      &quot;date&quot;: &quot;2025-05-21T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/PROP_REG&quot;,
+      &quot;direction&quot;: &quot;incoming&quot;,
+      &quot;predicate&quot;: &quot;cdm:resource_legal_proposes_to_amend_resource_legal&quot;,
+      &quot;relation_type&quot;: &quot;proposes_to_amend&quot;,
+      &quot;annotation_uri&quot;: null,
+      &quot;annotation_article&quot;: null,
+      &quot;annotation_paragraph&quot;: null,
+      &quot;annotation_subparagraph&quot;: null,
+      &quot;annotation_point&quot;: null,
+      &quot;annotation_comment_on_legal_basis&quot;: null
+    }
+  ],
+  &quot;returned_count&quot;: 2,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_proposals_to_amend&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:17.193570Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='new_repeals'>new_repeals</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>5897.58 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;since&quot;: &quot;2020-01-01&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [],
+  &quot;returned_count&quot;: 0,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;new_repeals&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:19.230599Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='resolve_celex'>resolve_celex</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>7542.287 ms</td><td><pre>{
+  &quot;celex&quot;: &quot;32016R0679&quot;
+}</pre></td><td><pre>{
+  &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/3e485e15-11bd-11e6-ba9a-01aa75ed71a1&quot;,
+  &quot;celex&quot;: &quot;32016R0679&quot;,
+  &quot;title&quot;: null,
+  &quot;date&quot;: null,
+  &quot;resource_type&quot;: null
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_by_eurovoc'>search_by_eurovoc</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>599.082 ms</td><td><pre>{
+  &quot;tags&quot;: [
+    &quot;data protection&quot;
+  ],
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ce712a46-0735-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0071&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Action plan against cyberbullying \&quot;Safer online, stronger together\&quot;&quot;,
+      &quot;date&quot;: &quot;2026-02-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b40cabe6-00a1-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32024R1183R(05)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-03T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/b40cabe6-00a1-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32024R1183R(05)&quot;,
+      &quot;title&quot;: null,
+      &quot;date&quot;: &quot;2026-02-03T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/bece1ebb-00a1-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026R0247&quot;,
+      &quot;title&quot;: &quot;Commission Regulation (EU) 2026/247 of 2 February 2026 amending Regulation (EC) No 300/2008 of the European Parliament and of the Council as regards specifications for national quality control programmes in the field of civil aviation security&quot;,
+      &quot;date&quot;: &quot;2026-02-02T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/REG&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/0fa8762a-055a-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;32026D00866&quot;,
+      &quot;title&quot;: &quot;Decision No 2/2026 of the Secretary-General of the Council of the European Union of 30 January 2026 laying down implementing rules concerning the application of Regulation (EU) 2018/1725 of the European Parliament and of the Council and the restriction of data subjects’ rights for the purpose of restrictive measures&quot;,
+      &quot;date&quot;: &quot;2026-01-30T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/DEC&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;search_by_eurovoc&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:14.210923Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_by_subject_matter'>search_by_subject_matter</h2><div class='method-summary'>ok_runs=0 | error_runs=1</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='error'>ERROR</td><td>91527.157 ms</td><td><pre>{
+  &quot;codes&quot;: [
+    &quot;data protection&quot;
+  ],
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>CellarTimeoutError: HTTP request timed out: The read operation timed out</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_by_title'>search_by_title</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>21279.814 ms</td><td><pre>{
+  &quot;keyword&quot;: &quot;data protection&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/de00935f-0661-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0097_RES&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Grand Chamber) of 10 February 2026.#WhatsApp Ireland Ltd v European Data Protection Board.#Appeal – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Article 63 – Consistency mechanism – Article 65 – Dispute resolution by the European Data Protection Board – Binding decision – Action for annulment – First paragraph of Article 263 TFEU – Act open to challenge – Fourth paragraph of Article 263 TFEU – Condition that the measure against which the action has been brought must be of direct concern to the applicant.#Case C-97/23 P.&quot;,
+      &quot;date&quot;: &quot;2026-02-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/ABSTRACT_JUR&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/1d5cdcc1-0663-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0097&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Grand Chamber) of 10 February 2026.#WhatsApp Ireland Ltd v European Data Protection Board.#Appeal – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Article 63 – Consistency mechanism – Article 65 – Dispute resolution by the European Data Protection Board – Binding decision – Action for annulment – First paragraph of Article 263 TFEU – Act open to challenge – Fourth paragraph of Article 263 TFEU – Condition that the measure against which the action has been brought must be of direct concern to the applicant.#Case C-97/23 P.&quot;,
+      &quot;date&quot;: &quot;2026-02-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/21bbf122-0663-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;62023CJ0097&quot;,
+      &quot;title&quot;: &quot;Judgment of the Court (Grand Chamber) of 10 February 2026.#WhatsApp Ireland Ltd v European Data Protection Board.#Appeal – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Article 63 – Consistency mechanism – Article 65 – Dispute resolution by the European Data Protection Board – Binding decision – Action for annulment – First paragraph of Article 263 TFEU – Act open to challenge – Fourth paragraph of Article 263 TFEU – Condition that the measure against which the action has been brought must be of direct concern to the applicant.#Case C-97/23 P.&quot;,
+      &quot;date&quot;: &quot;2026-02-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/JUDG&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/e0b0e650-0661-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Judgment of the Court (Grand Chamber) of 10 February 2026.#WhatsApp Ireland Ltd v European Data Protection Board.#Appeal – Protection of natural persons with regard to the processing of personal data – Regulation (EU) 2016/679 – Article 63 – Consistency mechanism – Article 65 – Dispute resolution by the European Data Protection Board – Binding decision – Action for annulment – First paragraph of Article 263 TFEU – Act open to challenge – Fourth paragraph of Article 263 TFEU – Condition that the measure against which the action has been brought must be of direct concern to the applicant.#Case C-97/23 P.&quot;,
+      &quot;date&quot;: &quot;2026-02-10T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/CASE_LAW&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/255f7563-005c-11f1-825d-01aa75ed71a1&quot;,
+      &quot;celex&quot;: null,
+      &quot;title&quot;: &quot;Opinion of the European Data Protection Supervisor on the Proposal for a Regulation of the European Parliament and of the Council amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union&quot;,
+      &quot;date&quot;: &quot;2026-02-02T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/NOTE_COVER&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;search_by_title&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:35.140276Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section><section class='method'><h2 id='search_communications'>search_communications</h2><div class='method-summary'>ok_runs=1 | error_runs=0</div><table><thead><tr><th>Attempt</th><th>Profile</th><th>Status</th><th>Elapsed</th><th>Kwargs</th><th>Output/Error</th></tr></thead><tbody><tr><td>1</td><td>profile_d</td><td class='ok'>OK</td><td>563.739 ms</td><td><pre>{
+  &quot;dg&quot;: &quot;JUST&quot;,
+  &quot;limit&quot;: 5,
+  &quot;offset&quot;: 0,
+  &quot;lang&quot;: &quot;eng&quot;
+}</pre></td><td><pre>{
+  &quot;items&quot;: [
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/4e17bef9-f6e8-11f0-b9bc-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52026DC0012&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Union of Equality: Anti-Racism Strategy 2026-2030&quot;,
+      &quot;date&quot;: &quot;2026-01-20T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/46f243e0-d1c5-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025DC0751&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS 2025 Annual report on the application of the EU Charter of Fundamental Rights Taking stock of the implementation of the Strategy to strengthen the application of the Charter of Fundamental Rights in the EU&quot;,
+      &quot;date&quot;: &quot;2025-12-05T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/a07903ec-c5f5-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025DC0802&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS DigitalJustice@2030&quot;,
+      &quot;date&quot;: &quot;2025-11-20T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/ef4ecd46-c5fa-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025DC0801&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS European Judicial Training Strategy 2025 - 2030 Creating a supportive environment for DigitalJustice@2030&quot;,
+      &quot;date&quot;: &quot;2025-11-20T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    },
+    {
+      &quot;uri&quot;: &quot;http://publications.europa.eu/resource/cellar/395c6072-c61a-11f0-8da2-01aa75ed71a1&quot;,
+      &quot;celex&quot;: &quot;52025DC0848&quot;,
+      &quot;title&quot;: &quot;COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS 2030 Consumer Agenda and action plan for consumers in the single market &#x27;A new impulse for consumer protection, competitiveness and sustainable growth&#x27;&quot;,
+      &quot;date&quot;: &quot;2025-11-19T00:00:00&quot;,
+      &quot;resource_type&quot;: &quot;http://publications.europa.eu/resource/authority/resource-type/COMMUNIC&quot;
+    }
+  ],
+  &quot;returned_count&quot;: 5,
+  &quot;meta&quot;: {
+    &quot;query_name&quot;: &quot;search_communications&quot;,
+    &quot;endpoint&quot;: &quot;https://publications.europa.eu/webapi/rdf/sparql&quot;,
+    &quot;executed_at&quot;: &quot;2026-03-01T16:47:14.786495Z&quot;,
+    &quot;limit&quot;: 5,
+    &quot;offset&quot;: 0
+  }
+}</pre></td></tr></tbody></table></section>
+</main>
+</body>
+</html>

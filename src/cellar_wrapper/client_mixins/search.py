@@ -6,12 +6,12 @@ from collections.abc import Sequence
 from datetime import date, datetime
 
 from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
-from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET, MAX_LIMIT
+from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
 from cellar_wrapper.errors import CellarValidationError
+from cellar_wrapper.eurovoc_index import LOCAL_EUROVOC_ENDPOINT
 from cellar_wrapper.models import ActRef, EurovocTag, ListResult
-from cellar_wrapper.parser import parse_act_refs, parse_eurovoc_tags
+from cellar_wrapper.parser import parse_act_refs
 from cellar_wrapper.sparql import (
-    build_find_eurovoc_concept_query,
     build_search_by_eurovoc_query,
     build_search_by_subject_matter_query,
     build_search_by_title_query,
@@ -33,23 +33,8 @@ class SearchMixin:
         lang: str = DEFAULT_LANGUAGE,
     ) -> ListResult[ActRef]:
         self._validate_pagination(limit, offset)
-        normalized_tags = [tag.strip() for tag in tags if tag.strip()]
-        if not normalized_tags:
-            raise CellarValidationError("tags cannot be empty")
-        concept_uris: list[str] = []
-        seen_concepts: set[str] = set()
-        for tag in normalized_tags:
-            concept_offset = 0
-            while True:
-                concept_page = self.find_eurovoc_concept(tag, limit=MAX_LIMIT, offset=concept_offset)
-                for concept in concept_page.items:
-                    if concept.concept_uri in seen_concepts:
-                        continue
-                    seen_concepts.add(concept.concept_uri)
-                    concept_uris.append(concept.concept_uri)
-                if concept_page.returned_count < MAX_LIMIT:
-                    break
-                concept_offset += MAX_LIMIT
+        normalized_tags = self._normalize_non_empty_tags(tags)
+        concept_uris = self._resolve_eurovoc_concept_uris(normalized_tags)
         if not concept_uris:
             return self._list_result(
                 query_name="search_by_eurovoc",
@@ -170,12 +155,11 @@ class SearchMixin:
         self._validate_pagination(limit, offset)
         if not label.strip():
             raise CellarValidationError("label cannot be empty")
-
-        query = build_find_eurovoc_concept_query(label, limit=limit, offset=offset)
-        return self._run_list_query(
+        items = self._find_local_eurovoc_concepts(label, limit=limit, offset=offset)
+        return self._list_result(
             query_name="find_eurovoc_concept",
-            query=query,
-            parser=parse_eurovoc_tags,
+            items=items,
             limit=limit,
             offset=offset,
+            endpoint=LOCAL_EUROVOC_ENDPOINT,
         )

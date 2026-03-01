@@ -4,7 +4,12 @@ import pytest
 
 from cellar_wrapper.client import CellarClient
 from cellar_wrapper.constants import SUMMARY_ACCEPT
-from cellar_wrapper.errors import CellarHTTPError, CellarNotFoundError, CellarValidationError
+from cellar_wrapper.errors import (
+    CellarHTTPError,
+    CellarNotFoundError,
+    CellarParseError,
+    CellarValidationError,
+)
 from tests.helpers import FakeTransport, sparql_payload, sparql_row
 
 
@@ -123,6 +128,22 @@ def test_search_by_eurovoc_empty_tags_raises_validation_error() -> None:
     client = CellarClient(transport=FakeTransport())
     with pytest.raises(CellarValidationError, match="tags cannot be empty"):
         client.search_by_eurovoc([])
+
+
+def test_find_eurovoc_concept_fails_fast_when_local_index_is_unavailable(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def _raise_parse_error() -> object:
+        raise CellarParseError(
+            "Failed to load local EuroVoc index",
+            details={"source": "local_eurovoc_index"},
+        )
+
+    monkeypatch.setattr("cellar_wrapper.client_mixins.base.load_default_eurovoc_index", _raise_parse_error)
+
+    client = CellarClient(transport=FakeTransport())
+    with pytest.raises(CellarParseError, match="Failed to load local EuroVoc index"):
+        client.find_eurovoc_concept("payment")
 
 
 def test_search_by_subject_matter_empty_codes_raises_validation_error() -> None:

@@ -123,6 +123,12 @@ Method payload categories:
 - Concept resolve remains language-scoped to label `LANG = 'en' || ''` (independent from `lang` argument used for title expression lookup).
 - If no concept URI is resolved for provided tags, methods return an empty list result without executing the final work query.
 
+## Dossier execution model
+- `get_dossier` uses staged SPARQL execution to improve latency on larger dossiers:
+  1. a core-relation step selects dossier links via `cdm:dossier_contains_work` and paginates that reduced set early,
+  2. a metadata enrichment step resolves optional procedure/status and work metadata (`cdm:procedure_code_interinstitutional_reference_procedure`, `cdm:procedure_code_interinstitutional_has_type`, `cdm:dossier_*`, `cdm:dossier_produces_resource_legal`, CELEX/title/date/type).
+- Result ordering is deterministic for pagination: primary sort by `date`, secondary tie-break by resource key (`other` work URI).
+
 ## CELEX resolution behavior
 1. Exact match query (`=`).
 2. Fallback query using `CONTAINS` token (CELEX without leading sector digit).

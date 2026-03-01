@@ -170,6 +170,48 @@ def test_search_group_search_by_title() -> None:
     assert result.returned_count == 1
 
 
+def test_search_group_search_by_eurovoc_resolves_tags_before_search() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "SELECT DISTINCT ?concept ?label WHERE" in query:
+            return sparql_payload(
+                [
+                    sparql_row(
+                        concept="http://eurovoc.europa.eu/2220",
+                        label="intra-EU payment",
+                    )
+                ]
+            )
+        return sparql_payload(
+            [
+                sparql_row(
+                    work="http://publications.europa.eu/resource/cellar/work",
+                    celex="52023PC0367",
+                    title="Proposal on payment services",
+                )
+            ]
+        )
+
+    transport = FakeTransport(query_handler=query_handler)
+    client = CellarClient(transport=transport)
+    result = client.search_by_eurovoc(["payment"], since="2025-01-01")
+
+    assert result.returned_count == 1
+    assert len(transport.queries) == 2
+    assert "SELECT DISTINCT ?concept ?label WHERE" in transport.queries[0]
+    assert "VALUES ?concept { <http://eurovoc.europa.eu/2220> }" in transport.queries[1]
+    assert "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[1]
+
+
+def test_search_group_search_by_eurovoc_returns_empty_when_no_concept_resolved() -> None:
+    transport = FakeTransport(query_handler=lambda _query: sparql_payload([]))
+    client = CellarClient(transport=transport)
+    result = client.search_by_eurovoc(["unknown-term"])
+
+    assert result.returned_count == 0
+    assert len(transport.queries) == 1
+    assert "SELECT DISTINCT ?concept ?label WHERE" in transport.queries[0]
+
+
 def test_monitoring_group_new_citations_adds_since_filter() -> None:
     transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
     client = CellarClient(transport=transport)
@@ -179,6 +221,30 @@ def test_monitoring_group_new_citations_adds_since_filter() -> None:
         "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
         for query in transport.queries
     )
+
+
+def test_monitoring_group_new_by_eurovoc_uses_strict_since_after_resolve() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "SELECT DISTINCT ?concept ?label WHERE" in query:
+            return sparql_payload(
+                [
+                    sparql_row(
+                        concept="http://eurovoc.europa.eu/2220",
+                        label="intra-EU payment",
+                    )
+                ]
+            )
+        return sparql_payload([])
+
+    transport = FakeTransport(query_handler=query_handler)
+    client = CellarClient(transport=transport)
+    result = client.new_by_eurovoc(["payment"], since="2025-01-01")
+
+    assert result.returned_count == 0
+    assert len(transport.queries) == 2
+    assert "SELECT DISTINCT ?concept ?label WHERE" in transport.queries[0]
+    assert "VALUES ?concept { <http://eurovoc.europa.eu/2220> }" in transport.queries[1]
+    assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[1]
 
 
 def test_non_monitoring_since_filter_keeps_undated_rows() -> None:

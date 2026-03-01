@@ -116,6 +116,13 @@ Method payload categories:
 - `search_by_eurovoc(tags=...)` requires at least one non-empty tag.
 - `search_by_subject_matter(codes=...)` requires at least one non-empty code.
 
+## EuroVoc execution model
+- `search_by_eurovoc` and `new_by_eurovoc` run in two steps:
+  1. resolve each tag via `find_eurovoc_concept`,
+  2. final query by exact concept URIs with `VALUES ?concept`.
+- Concept resolve remains language-scoped to label `LANG = 'en' || ''` (independent from `lang` argument used for title expression lookup).
+- If no concept URI is resolved for provided tags, methods return an empty list result without executing the final work query.
+
 ## CELEX resolution behavior
 1. Exact match query (`=`).
 2. Fallback query using `CONTAINS` token (CELEX without leading sector digit).

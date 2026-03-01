@@ -88,18 +88,17 @@ def test_build_concept_query_has_limit_offset() -> None:
     assert "OFFSET 9" in query
 
 
-def test_search_by_eurovoc_query_matches_labels_only() -> None:
+def test_search_by_eurovoc_query_filters_by_concept_values() -> None:
     query = build_search_by_eurovoc_query(
-        ["payment"],
+        ["http://eurovoc.europa.eu/2220"],
         resource_type=None,
         since=None,
         limit=50,
         offset=0,
     )
-    assert "CONTAINS(LCASE(STR(?conceptLabel))" in query
-    assert "CONTAINS(LCASE(STR(?concept))" not in query
-    assert "?concept skos:prefLabel ?conceptLabel ." in query
-    assert "OPTIONAL {\n    ?concept skos:prefLabel ?conceptLabel ." not in query
+    assert "VALUES ?concept { <http://eurovoc.europa.eu/2220> }" in query
+    assert "CONTAINS(LCASE(STR(?conceptLabel))" not in query
+    assert "?concept skos:prefLabel ?conceptLabel ." not in query
 
 
 def test_search_by_subject_matter_query_requires_concept_label_binding() -> None:

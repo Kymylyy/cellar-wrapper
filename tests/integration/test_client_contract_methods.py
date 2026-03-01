@@ -336,3 +336,14 @@ def test_monitoring_since_is_strictly_date_bound() -> None:
         "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
         for query in transport.queries
     )
+
+
+def test_plural_alias_get_adopted_acts_matches_existing_method() -> None:
+    transport = FakeTransport(query_handler=_query_handler, download_handler=_download_handler)
+    client = CellarClient(transport=transport)
+
+    singular = client.get_adopted_act("32022R2554")
+    plural = client.get_adopted_acts("32022R2554")
+
+    assert singular.items == plural.items
+    assert singular.returned_count == plural.returned_count

@@ -8,6 +8,13 @@ sensu biznesowego.
 
 Data researchu: 2026-03-01.
 
+## Status implementacji (as-of 2026-03-01)
+
+- Obecna implementacja runtime nadal korzysta z modelu labelowego
+  (`CONTAINS` po `skos:prefLabel`) w `search_by_eurovoc` / `new_by_eurovoc`.
+- Opisany niżej model 2-krokowy (resolve tekstu do URI + query po URI) jest
+  rekomendacją projektową, ale nie został jeszcze wdrożony.
+
 ## Zakres analizy
 
 - Kod builderów SPARQL:

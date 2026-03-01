@@ -19,6 +19,12 @@ _SCALAR_ARG_HELP: dict[str, str] = {
     "label": "EuroVoc label to match.",
 }
 
+_SIMPLE_OPTIONAL_ARG_SPECS: tuple[tuple[str, str, str, Any], ...] = (
+    ("has_resource_type", "--resource-type", "Filter by CELLAR resource type token.", None),
+    ("has_country", "--country", "Filter by ISO-3 country code.", None),
+    ("has_lang", "--lang", "Language code.", DEFAULT_LANGUAGE),
+)
+
 
 def _list_arg_help(arg_name: str) -> str:
     return _LIST_ARG_HELP.get(arg_name, f"One or more values for {arg_name}.")
@@ -28,38 +34,40 @@ def _scalar_arg_help(arg_name: str) -> str:
     return _SCALAR_ARG_HELP.get(arg_name, f"Value for {arg_name}.")
 
 
-def configure_command_parser(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
-    """Attach command-specific arguments based on a command spec."""
-    command_parser.set_defaults(command_spec=spec)
-
-    if spec.requires_celex:
-        command_parser.add_argument("--celex", required=True, help="CELEX identifier.")
+def _add_since_argument(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
     if spec.requires_since:
         command_parser.add_argument("--since", required=True, help="Include items from this date/time.")
-    elif spec.has_since:
+        return
+    if spec.has_since:
         command_parser.add_argument("--since", help="Optional lower date/time bound.")
 
-    if spec.has_resource_type:
-        command_parser.add_argument("--resource-type", help="Filter by CELLAR resource type token.")
-    if spec.has_country:
-        command_parser.add_argument("--country", help="Filter by ISO-3 country code.")
-    if spec.has_lang:
-        command_parser.add_argument("--lang", default=DEFAULT_LANGUAGE, help="Language code.")
-    if spec.has_limit_offset:
-        command_parser.add_argument(
-            "--limit",
-            type=int,
-            default=DEFAULT_LIMIT,
-            help="Maximum number of items to return.",
-        )
-        command_parser.add_argument(
-            "--offset",
-            type=int,
-            default=DEFAULT_OFFSET,
-            help="Number of items to skip before returning results.",
-        )
-    if spec.has_format:
-        command_parser.add_argument("--format", default="pdf", help="Document format (for example pdf).")
+
+def _add_simple_optional_arguments(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
+    for field_name, option_name, help_text, default in _SIMPLE_OPTIONAL_ARG_SPECS:
+        if not getattr(spec, field_name):
+            continue
+        kwargs: dict[str, Any] = {"help": help_text}
+        if default is not None:
+            kwargs["default"] = default
+        command_parser.add_argument(option_name, **kwargs)
+
+
+def _add_pagination_arguments(command_parser: argparse.ArgumentParser) -> None:
+    command_parser.add_argument(
+        "--limit",
+        type=int,
+        default=DEFAULT_LIMIT,
+        help="Maximum number of items to return.",
+    )
+    command_parser.add_argument(
+        "--offset",
+        type=int,
+        default=DEFAULT_OFFSET,
+        help="Number of items to skip before returning results.",
+    )
+
+
+def _add_custom_value_arguments(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
     if spec.list_arg_name is not None:
         command_parser.add_argument(
             f"--{spec.list_arg_name}",
@@ -73,6 +81,21 @@ def configure_command_parser(command_parser: argparse.ArgumentParser, spec: Comm
             required=True,
             help=_scalar_arg_help(spec.scalar_arg_name),
         )
+
+
+def configure_command_parser(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
+    """Attach command-specific arguments based on a command spec."""
+    command_parser.set_defaults(command_spec=spec)
+
+    if spec.requires_celex:
+        command_parser.add_argument("--celex", required=True, help="CELEX identifier.")
+    _add_since_argument(command_parser, spec)
+    _add_simple_optional_arguments(command_parser, spec)
+    if spec.has_limit_offset:
+        _add_pagination_arguments(command_parser)
+    if spec.has_format:
+        command_parser.add_argument("--format", default="pdf", help="Document format (for example pdf).")
+    _add_custom_value_arguments(command_parser, spec)
 
 
 def build_method_kwargs(spec: CommandSpec, args: argparse.Namespace) -> dict[str, Any]:

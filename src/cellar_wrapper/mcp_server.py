@@ -10,7 +10,7 @@ from collections.abc import Callable, Mapping
 from inspect import Parameter, Signature
 from typing import Annotated, Any, Literal, Protocol, cast
 
-from pydantic import BaseModel, Field
+from pydantic import Field
 
 from cellar_wrapper.cli_policy import build_method_kwargs
 from cellar_wrapper.cli_specs import COMMANDS, CommandSpec
@@ -27,6 +27,7 @@ from cellar_wrapper.errors import (
     CellarValidationError,
 )
 from cellar_wrapper.http import TimeoutConfig, validate_http_url
+from cellar_wrapper.serialization import to_jsonable
 
 CELLAR_MCP_BASE_URL_SPARQL = "CELLAR_MCP_BASE_URL_SPARQL"
 CELLAR_MCP_BASE_URL_RESOURCE = "CELLAR_MCP_BASE_URL_RESOURCE"
@@ -169,18 +170,6 @@ def _client_kwargs_from_env(env: Mapping[str, str] | None = None) -> dict[str, A
     return kwargs
 
 
-def _to_jsonable(value: Any) -> Any:
-    if isinstance(value, BaseModel):
-        return value.model_dump(mode="json")
-    if isinstance(value, tuple | set):
-        return [_to_jsonable(item) for item in value]
-    if isinstance(value, Mapping):
-        return {str(key): _to_jsonable(item) for key, item in value.items()}
-    if isinstance(value, list):
-        return [_to_jsonable(item) for item in value]
-    return value
-
-
 def _safe_repr(value: Any) -> str:
     try:
         return repr(value)
@@ -189,7 +178,7 @@ def _safe_repr(value: Any) -> str:
 
 
 def _json_default(value: Any) -> Any:
-    converted = _to_jsonable(value)
+    converted = to_jsonable(value)
     if converted is value:
         return _safe_repr(value)
     return converted
@@ -198,7 +187,7 @@ def _json_default(value: Any) -> Any:
 def _safe_json_dumps(value: Any) -> str:
     try:
         return json.dumps(
-            _to_jsonable(value),
+            to_jsonable(value),
             ensure_ascii=False,
             sort_keys=True,
             default=_json_default,
@@ -248,60 +237,79 @@ def _format_cellar_error(exc: CellarError) -> str:
     )
 
 
+_NO_DEFAULT = object()
+
+
+def _append_signature_parameter(
+    parameters: list[Parameter],
+    *,
+    name: str,
+    annotation: Any,
+    default: Any = _NO_DEFAULT,
+) -> None:
+    kwargs: dict[str, Any] = {}
+    if default is not _NO_DEFAULT:
+        kwargs["default"] = default
+    parameters.append(
+        Parameter(
+            name,
+            kind=Parameter.KEYWORD_ONLY,
+            annotation=annotation,
+            **kwargs,
+        )
+    )
+
+
+def _add_optional_signature_parameters(parameters: list[Parameter], spec: CommandSpec) -> None:
+    optional_specs: tuple[tuple[bool, str, Any, Any], ...] = (
+        (spec.has_resource_type, "resource_type", ResourceTypeArg | None, None),
+        (spec.has_country, "country", CountryArg | None, None),
+        (spec.has_lang, "lang", LangArg, DEFAULT_LANGUAGE),
+        (spec.has_limit_offset, "limit", LimitArg, DEFAULT_LIMIT),
+        (spec.has_limit_offset, "offset", OffsetArg, DEFAULT_OFFSET),
+        (spec.has_format, "format", FormatArg, "pdf"),
+    )
+    for enabled, name, annotation, default in optional_specs:
+        if not enabled:
+            continue
+        _append_signature_parameter(
+            parameters,
+            name=name,
+            annotation=annotation,
+            default=default,
+        )
+
+
 def _signature_for_spec(spec: CommandSpec) -> Signature:
     parameters: list[Parameter] = []
 
     if spec.requires_celex:
-        parameters.append(Parameter("celex", kind=Parameter.KEYWORD_ONLY, annotation=CelexArg))
+        _append_signature_parameter(parameters, name="celex", annotation=CelexArg)
 
     if spec.requires_since:
-        parameters.append(Parameter("since", kind=Parameter.KEYWORD_ONLY, annotation=SinceArg))
+        _append_signature_parameter(parameters, name="since", annotation=SinceArg)
     elif spec.has_since:
-        parameters.append(
-            Parameter("since", kind=Parameter.KEYWORD_ONLY, annotation=SinceArg | None, default=None)
+        _append_signature_parameter(
+            parameters,
+            name="since",
+            annotation=SinceArg | None,
+            default=None,
         )
 
-    if spec.has_resource_type:
-        parameters.append(
-            Parameter(
-                "resource_type",
-                kind=Parameter.KEYWORD_ONLY,
-                annotation=ResourceTypeArg | None,
-                default=None,
-            )
-        )
-
-    if spec.has_country:
-        parameters.append(
-            Parameter("country", kind=Parameter.KEYWORD_ONLY, annotation=CountryArg | None, default=None)
-        )
-
-    if spec.has_lang:
-        parameters.append(
-            Parameter("lang", kind=Parameter.KEYWORD_ONLY, annotation=LangArg, default=DEFAULT_LANGUAGE)
-        )
-
-    if spec.has_limit_offset:
-        parameters.append(
-            Parameter("limit", kind=Parameter.KEYWORD_ONLY, annotation=LimitArg, default=DEFAULT_LIMIT)
-        )
-        parameters.append(
-            Parameter("offset", kind=Parameter.KEYWORD_ONLY, annotation=OffsetArg, default=DEFAULT_OFFSET)
-        )
-
-    if spec.has_format:
-        parameters.append(
-            Parameter("format", kind=Parameter.KEYWORD_ONLY, annotation=FormatArg, default="pdf")
-        )
+    _add_optional_signature_parameters(parameters, spec)
 
     if spec.list_arg_name is not None:
-        parameters.append(
-            Parameter(spec.list_arg_name, kind=Parameter.KEYWORD_ONLY, annotation=NonEmptyStrListArg)
+        _append_signature_parameter(
+            parameters,
+            name=spec.list_arg_name,
+            annotation=NonEmptyStrListArg,
         )
 
     if spec.scalar_arg_name is not None:
-        parameters.append(
-            Parameter(spec.scalar_arg_name, kind=Parameter.KEYWORD_ONLY, annotation=NonEmptyStrArg)
+        _append_signature_parameter(
+            parameters,
+            name=spec.scalar_arg_name,
+            annotation=NonEmptyStrArg,
         )
 
     return Signature(parameters=parameters)
@@ -363,7 +371,7 @@ def _tool_for_spec(spec: CommandSpec, client_factory: Callable[[], CellarClient]
         try:
             with client_factory() as client:
                 method = getattr(client, spec.method)
-                return _to_jsonable(method(**method_kwargs))
+                return to_jsonable(method(**method_kwargs))
         except CellarError as exc:
             raise _tool_error(_format_cellar_error(exc)) from exc
         except Exception as exc:  # pragma: no cover - guarded via integration test

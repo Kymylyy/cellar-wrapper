@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from datetime import date, datetime
+from typing import cast
 
 from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
@@ -222,4 +224,14 @@ class RelationsMixin:
             limit=limit,
             offset=offset,
             lang=lang,
+        )
+
+    @property
+    def get_adopted_acts(
+        self: ClientOpsProtocol,
+    ) -> Callable[..., ListResult[RelationItem]]:
+        """Plural alias kept for API naming consistency."""
+        return cast(
+            Callable[..., ListResult[RelationItem]],
+            self.get_adopted_act,  # type: ignore[attr-defined]
         )

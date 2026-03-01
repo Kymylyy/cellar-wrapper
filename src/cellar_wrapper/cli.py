@@ -6,8 +6,6 @@ import argparse
 import json
 from typing import Any, NoReturn
 
-from pydantic import BaseModel
-
 from cellar_wrapper.cli_policy import build_method_kwargs, configure_command_parser
 from cellar_wrapper.cli_specs import COMMANDS, CommandSpec
 from cellar_wrapper.client import CellarClient
@@ -23,6 +21,7 @@ from cellar_wrapper.errors import (
 )
 from cellar_wrapper.http import TimeoutConfig
 from cellar_wrapper.models import ErrorPayload
+from cellar_wrapper.serialization import to_jsonable
 
 
 class JsonArgumentParser(argparse.ArgumentParser):
@@ -32,18 +31,8 @@ class JsonArgumentParser(argparse.ArgumentParser):
         raise CellarValidationError(message)
 
 
-def _to_jsonable(value: Any) -> Any:
-    if isinstance(value, BaseModel):
-        return value.model_dump(mode="json")
-    if isinstance(value, list):
-        return [_to_jsonable(item) for item in value]
-    if isinstance(value, dict):
-        return {key: _to_jsonable(item) for key, item in value.items()}
-    return value
-
-
 def _emit_success(data: Any) -> int:
-    payload = {"ok": True, "data": _to_jsonable(data)}
+    payload = {"ok": True, "data": to_jsonable(data)}
     print(json.dumps(payload, ensure_ascii=False))
     return 0
 

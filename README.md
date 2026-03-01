@@ -120,8 +120,10 @@ pytest
 ```
 
 ## Documentation map
+- Docs index (start here): `docs/README.md`
 - API contract: `docs/API_CONTRACT.md`
 - Method mapping: `docs/METHOD_MAPPING.md`
+- Data artifacts inventory: `docs/DATA_ARTIFACTS.md`
 - Wrapper blueprint (deprecated, historical): `docs/WRAPPER_BLUEPRINT.md`
 - Research notes archive: `docs/research/`
 - EuroVoc performance notes: `docs/EUROVOC.md`

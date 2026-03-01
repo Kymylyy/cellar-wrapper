@@ -166,6 +166,76 @@ class HttpTransport:
             return None
         return min(value, int(MAX_BACKOFF_SECONDS))
 
+    @staticmethod
+    def _sleep_retry_after_or_backoff(retry_after_seconds: int | None, attempt: int) -> None:
+        if retry_after_seconds is not None:
+            time.sleep(retry_after_seconds)
+            return
+        HttpTransport._sleep_backoff(attempt)
+
+    @staticmethod
+    def _raise_http_error_from_response(response: httpx.Response) -> None:
+        raise CellarHTTPError(
+            f"HTTP error {response.status_code}",
+            status_code=response.status_code,
+            url=str(response.request.url),
+            body_excerpt=response.text[:300],
+        )
+
+    @staticmethod
+    def _raise_rate_limit_error(
+        response: httpx.Response,
+        *,
+        retry_after: str | None,
+        retry_after_seconds: int | None,
+    ) -> None:
+        raise CellarRateLimitError(
+            "Rate limited by CELLAR endpoint",
+            status_code=429,
+            url=str(response.request.url),
+            retry_after=retry_after,
+            retry_after_seconds=retry_after_seconds,
+            body_excerpt=response.text[:300],
+        )
+
+    def _handle_rate_limit_response(self, response: httpx.Response, *, attempt: int) -> bool:
+        if response.status_code != 429:
+            return False
+
+        retry_after = response.headers.get("Retry-After")
+        retry_after_seconds = self._clamp_retry_after_seconds(
+            self._parse_retry_after_seconds(retry_after)
+        )
+        if attempt < self._retries:
+            self._sleep_retry_after_or_backoff(retry_after_seconds, attempt)
+            return True
+
+        self._raise_rate_limit_error(
+            response,
+            retry_after=retry_after,
+            retry_after_seconds=retry_after_seconds,
+        )
+        return False
+
+    def _retry_or_raise_timeout(self, exc: httpx.TimeoutException, *, url: str, attempt: int) -> None:
+        if attempt == self._retries:
+            raise CellarTimeoutError(
+                f"HTTP request timed out: {exc}",
+                status_code=0,
+                url=url,
+                details={"timeout_type": type(exc).__name__},
+            ) from exc
+        self._sleep_backoff(attempt)
+
+    def _retry_or_raise_http_error(self, exc: httpx.HTTPError, *, url: str, attempt: int) -> None:
+        if attempt == self._retries:
+            raise CellarHTTPError(
+                f"HTTP request failed: {exc}",
+                status_code=0,
+                url=url,
+            ) from exc
+        self._sleep_backoff(attempt)
+
     def _request_with_retry(
         self,
         method: str,
@@ -175,7 +245,6 @@ class HttpTransport:
         data: dict[str, str] | None = None,
         headers: dict[str, str] | None = None,
     ) -> httpx.Response:
-        last_response: httpx.Response | None = None
         for attempt in range(1, self._retries + 1):
             try:
                 response = self._client.request(
@@ -186,68 +255,30 @@ class HttpTransport:
                     headers=headers,
                 )
             except httpx.TimeoutException as exc:
-                if attempt == self._retries:
-                    raise CellarTimeoutError(
-                        f"HTTP request timed out: {exc}",
-                        status_code=0,
-                        url=url,
-                        details={"timeout_type": type(exc).__name__},
-                    ) from exc
-                self._sleep_backoff(attempt)
+                self._retry_or_raise_timeout(exc, url=url, attempt=attempt)
                 continue
             except httpx.HTTPError as exc:
-                if attempt == self._retries:
-                    raise CellarHTTPError(
-                        f"HTTP request failed: {exc}",
-                        status_code=0,
-                        url=url,
-                    ) from exc
-                self._sleep_backoff(attempt)
+                self._retry_or_raise_http_error(exc, url=url, attempt=attempt)
                 continue
 
-            last_response = response
-            if response.status_code == 429:
-                retry_after = response.headers.get("Retry-After")
-                retry_after_seconds = self._clamp_retry_after_seconds(
-                    self._parse_retry_after_seconds(retry_after)
-                )
-                if attempt < self._retries:
-                    if retry_after_seconds is not None:
-                        time.sleep(retry_after_seconds)
-                    else:
-                        self._sleep_backoff(attempt)
-                    continue
-                raise CellarRateLimitError(
-                    "Rate limited by CELLAR endpoint",
-                    status_code=429,
-                    url=str(response.request.url),
-                    retry_after=retry_after,
-                    retry_after_seconds=retry_after_seconds,
-                    body_excerpt=response.text[:300],
-                )
+            if self._handle_rate_limit_response(response, attempt=attempt):
+                continue
 
             if response.status_code in RETRY_STATUS_CODES and attempt < self._retries:
                 self._sleep_backoff(attempt)
                 continue
 
             if response.status_code >= 400:
-                raise CellarHTTPError(
-                    f"HTTP error {response.status_code}",
-                    status_code=response.status_code,
-                    url=str(response.request.url),
-                    body_excerpt=response.text[:300],
-                )
+                self._raise_http_error_from_response(response)
 
             return response
 
-        if last_response is None:
-            raise CellarHTTPError(
-                "Retry loop exhausted without receiving a response",
-                status_code=0,
-                url=url,
-                details={"attempts": self._retries},
-            )
-        return last_response
+        raise CellarHTTPError(
+            "Retry loop exhausted without receiving a response",
+            status_code=0,
+            url=url,
+            details={"attempts": self._retries},
+        )
 
     @staticmethod
     def _sleep_backoff(attempt: int) -> None:
@@ -310,6 +341,65 @@ class HttpTransport:
             )
         return payload
 
+    def _validate_download_content_type(self, *, accept: str, content_type: str) -> None:
+        if self._is_content_type_compatible(accept, content_type):
+            return
+        raise CellarParseError(
+            f"Unexpected content type from download endpoint: expected={self._media_type(accept)} got={content_type}",
+            details={
+                "expected_content_type": self._media_type(accept),
+                "content_type": content_type,
+            },
+        )
+
+    def _raise_download_size_error(self, response: httpx.Response, *, received_bytes: int) -> None:
+        raise CellarHTTPError(
+            "Download exceeds max_download_bytes",
+            status_code=response.status_code,
+            url=str(response.request.url),
+            details={
+                "max_download_bytes": self._max_download_bytes,
+                "received_bytes": received_bytes,
+            },
+        )
+
+    def _validate_content_length_header(self, response: httpx.Response) -> None:
+        raw_content_length = response.headers.get("Content-Length")
+        if raw_content_length is None or not raw_content_length.isdigit():
+            return
+        content_length = int(raw_content_length)
+        if content_length > self._max_download_bytes:
+            self._raise_download_size_error(response, received_bytes=content_length)
+
+    def _read_download_content(self, response: httpx.Response) -> bytes:
+        content = bytearray()
+        for chunk in response.iter_bytes():
+            content.extend(chunk)
+            if len(content) > self._max_download_bytes:
+                self._raise_download_size_error(response, received_bytes=len(content))
+        return bytes(content)
+
+    def _handle_download_response(
+        self,
+        response: httpx.Response,
+        *,
+        accept: str,
+        attempt: int,
+    ) -> tuple[bytes, str, str] | None:
+        if self._handle_rate_limit_response(response, attempt=attempt):
+            return None
+        if response.status_code in RETRY_STATUS_CODES and attempt < self._retries:
+            self._sleep_backoff(attempt)
+            return None
+        if response.status_code >= 400:
+            self._raise_http_error_from_response(response)
+
+        content_type = response.headers.get("Content-Type", "application/octet-stream")
+        self._validate_download_content_type(accept=accept, content_type=content_type)
+        self._validate_content_length_header(response)
+        content = self._read_download_content(response)
+        return content, content_type, str(response.request.url)
+
     def download(self, url: str, *, accept: str, language: str | None = None) -> tuple[bytes, str, str]:
         """Download binary/text payload from resource endpoint."""
         download_url = validate_http_url(url, field="download_url")
@@ -320,95 +410,19 @@ class HttpTransport:
         for attempt in range(1, self._retries + 1):
             try:
                 with self._client.stream("GET", download_url, headers=headers) as response:
-                    if response.status_code == 429:
-                        retry_after = response.headers.get("Retry-After")
-                        retry_after_seconds = self._clamp_retry_after_seconds(
-                            self._parse_retry_after_seconds(retry_after)
-                        )
-                        if attempt < self._retries:
-                            if retry_after_seconds is not None:
-                                time.sleep(retry_after_seconds)
-                            else:
-                                self._sleep_backoff(attempt)
-                            continue
-                        raise CellarRateLimitError(
-                            "Rate limited by CELLAR endpoint",
-                            status_code=429,
-                            url=str(response.request.url),
-                            retry_after=retry_after,
-                            retry_after_seconds=retry_after_seconds,
-                            body_excerpt=response.text[:300],
-                        )
-
-                    if response.status_code in RETRY_STATUS_CODES and attempt < self._retries:
-                        self._sleep_backoff(attempt)
-                        continue
-
-                    if response.status_code >= 400:
-                        raise CellarHTTPError(
-                            f"HTTP error {response.status_code}",
-                            status_code=response.status_code,
-                            url=str(response.request.url),
-                            body_excerpt=response.text[:300],
-                        )
-
-                    content_type = response.headers.get("Content-Type", "application/octet-stream")
-                    if not self._is_content_type_compatible(accept, content_type):
-                        raise CellarParseError(
-                            f"Unexpected content type from download endpoint: expected={self._media_type(accept)} got={content_type}",
-                            details={
-                                "expected_content_type": self._media_type(accept),
-                                "content_type": content_type,
-                            },
-                        )
-
-                    raw_content_length = response.headers.get("Content-Length")
-                    if raw_content_length is not None and raw_content_length.isdigit():
-                        content_length = int(raw_content_length)
-                        if content_length > self._max_download_bytes:
-                            raise CellarHTTPError(
-                                "Download exceeds max_download_bytes",
-                                status_code=response.status_code,
-                                url=str(response.request.url),
-                                details={
-                                    "max_download_bytes": self._max_download_bytes,
-                                    "received_bytes": content_length,
-                                },
-                            )
-
-                    content = bytearray()
-                    for chunk in response.iter_bytes():
-                        content.extend(chunk)
-                        if len(content) > self._max_download_bytes:
-                            raise CellarHTTPError(
-                                "Download exceeds max_download_bytes",
-                                status_code=response.status_code,
-                                url=str(response.request.url),
-                                details={
-                                    "max_download_bytes": self._max_download_bytes,
-                                    "received_bytes": len(content),
-                                },
-                            )
-                    return bytes(content), content_type, str(response.request.url)
+                    payload = self._handle_download_response(
+                        response,
+                        accept=accept,
+                        attempt=attempt,
+                    )
+                    if payload is not None:
+                        return payload
 
             except httpx.TimeoutException as exc:
-                if attempt == self._retries:
-                    raise CellarTimeoutError(
-                        f"HTTP request timed out: {exc}",
-                        status_code=0,
-                        url=download_url,
-                        details={"timeout_type": type(exc).__name__},
-                    ) from exc
-                self._sleep_backoff(attempt)
+                self._retry_or_raise_timeout(exc, url=download_url, attempt=attempt)
                 continue
             except httpx.HTTPError as exc:
-                if attempt == self._retries:
-                    raise CellarHTTPError(
-                        f"HTTP request failed: {exc}",
-                        status_code=0,
-                        url=download_url,
-                    ) from exc
-                self._sleep_backoff(attempt)
+                self._retry_or_raise_http_error(exc, url=download_url, attempt=attempt)
                 continue
 
         raise CellarHTTPError(

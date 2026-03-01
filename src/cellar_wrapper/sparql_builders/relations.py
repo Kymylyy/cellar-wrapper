@@ -113,9 +113,16 @@ def build_dossier_query(work_uri: str, *, limit: int, offset: int, lang: str = D
     lang_iri = language_uri(lang)
     query = f"""
 SELECT DISTINCT ?dossier ?procedureCode ?procedureType ?statusAdopted ?statusPending ?statusWithdrawn ?producesAct ?producesActCelex ?other ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
-  ?dossier {PREDICATES["dossier_contains_work"]} <{work_iri}> .
-  ?dossier {PREDICATES["dossier_contains_work"]} ?other .
-  FILTER(?other != <{work_iri}>)
+  {{
+    SELECT DISTINCT ?dossier ?other ?date WHERE {{
+      ?dossier {PREDICATES["dossier_contains_work"]} <{work_iri}> .
+      ?dossier {PREDICATES["dossier_contains_work"]} ?other .
+      FILTER(?other != <{work_iri}>)
+      OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
+    }}
+    ORDER BY ?date ?other ?dossier
+    {limit_offset(limit, offset)}
+  }}
   BIND({quote_literal("dossier_contains_work")} AS ?relationType)
   BIND({quote_literal(PREDICATES["dossier_contains_work"])} AS ?predicate)
   BIND({quote_literal("incoming")} AS ?direction)
@@ -126,10 +133,11 @@ SELECT DISTINCT ?dossier ?procedureCode ?procedureType ?statusAdopted ?statusPen
   OPTIONAL {{ ?dossier {PREDICATES["dossier_adopted_proposal"]} ?statusAdopted }}
   OPTIONAL {{ ?dossier {PREDICATES["dossier_pending_proposal"]} ?statusPending }}
   OPTIONAL {{ ?dossier {PREDICATES["dossier_withdrawn_proposal"]} ?statusWithdrawn }}
-  OPTIONAL {{ ?dossier {PREDICATES["dossier_produces_resource_legal"]} ?producesAct }}
-  OPTIONAL {{ ?producesAct {PREDICATES["resource_legal_id_celex"]} ?producesActCelex }}
+  OPTIONAL {{
+    ?dossier {PREDICATES["dossier_produces_resource_legal"]} ?producesAct .
+    OPTIONAL {{ ?producesAct {PREDICATES["resource_legal_id_celex"]} ?producesActCelex }}
+  }}
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
-  OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?other .
@@ -137,8 +145,7 @@ SELECT DISTINCT ?dossier ?procedureCode ?procedureType ?statusAdopted ?statusPen
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
 }}
-ORDER BY ?date
-{limit_offset(limit, offset)}
+ORDER BY ?date ?other ?dossier
 """
     return with_prefixes(query)
 

@@ -31,7 +31,10 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `get_consolidated_versions` -> `cdm:act_consolidated_consolidates_resource_legal` (incoming)
 - `get_corrigenda` -> `cdm:resource_legal_corrects_resource_legal` (incoming)
 - `get_nims` -> `cdm:measure_national_implementing_implements_resource_legal` (incoming) + `cdm:measure_national_implementing_implemented_by_country`
-- `get_dossier` -> `cdm:dossier_contains_work` + dossier procedure metadata (`cdm:procedure_code_interinstitutional_reference_procedure`, `cdm:procedure_code_interinstitutional_has_type`, `cdm:dossier_*`, `cdm:dossier_produces_resource_legal`)
+- `get_dossier` -> 2-stage SPARQL execution:
+  - stage 1 (core relation selection): `cdm:dossier_contains_work` (early paginated selection of dossier member works)
+  - stage 2 (metadata enrichment): dossier procedure/status predicates (`cdm:procedure_code_interinstitutional_reference_procedure`, `cdm:procedure_code_interinstitutional_has_type`, `cdm:dossier_*`, `cdm:dossier_produces_resource_legal`) + optional work metadata (`cdm:resource_legal_id_celex`, `cdm:work_date_document`, `cdm:work_has_resource-type`, `cdm:expression_*`)
+  - ordering: deterministic by `date` with resource-key tie-break (`other` URI)
 - `get_opinions` ->
   - `cdm:resource_legal_contains_eesc_opinion_on_resource_legal`
   - `cdm:resource_legal_contains_ep_opinion_on_resource_legal`

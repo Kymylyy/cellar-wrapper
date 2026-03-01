@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 import pytest
 
 from cellar_wrapper.constants import PREDICATES
@@ -226,6 +228,85 @@ def test_build_dossier_query_includes_procedure_metadata() -> None:
     assert "?statusAdopted" in query
     assert "?statusPending" in query
     assert "?statusWithdrawn" in query
+
+
+def test_build_dossier_query_windows_items_in_subquery() -> None:
+    query = build_dossier_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        limit=7,
+        offset=3,
+    )
+    subquery = re.search(
+        r"SELECT DISTINCT\s+\?dossier\s+\?other\s+\?date\s+WHERE\s*\{.*?\}\s*"
+        r"ORDER BY\s+\?date\s+\?other(?:\s+\?[A-Za-z_][A-Za-z0-9_]*)*\s+LIMIT\s+7\s+OFFSET\s+3",
+        query,
+        re.DOTALL,
+    )
+    assert subquery is not None
+
+
+def test_build_dossier_query_keeps_outer_projection_for_parser() -> None:
+    query = build_dossier_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        limit=10,
+        offset=0,
+    )
+    select_match = re.search(
+        r"SELECT DISTINCT\s+(?P<select_clause>.*?)\s+WHERE\s*\{",
+        query,
+        re.DOTALL,
+    )
+    assert select_match is not None
+    select_clause = select_match.group("select_clause")
+    expected_vars = (
+        "?dossier",
+        "?procedureCode",
+        "?procedureType",
+        "?statusAdopted",
+        "?statusPending",
+        "?statusWithdrawn",
+        "?producesAct",
+        "?producesActCelex",
+        "?other",
+        "?celex",
+        "?title",
+        "?date",
+        "?type",
+        "?relationType",
+        "?direction",
+        "?predicate",
+    )
+    for var in expected_vars:
+        assert var in select_clause
+
+
+def test_build_dossier_query_orders_inner_and_outer_by_date_other() -> None:
+    query = build_dossier_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        limit=11,
+        offset=4,
+    )
+    order_by_matches = list(re.finditer(r"ORDER BY\s+\?date\s+\?other", query))
+    assert len(order_by_matches) == 2
+    tail_after_outer_order = query[order_by_matches[-1].end() :]
+    assert "LIMIT 11" not in tail_after_outer_order
+    assert "OFFSET 4" not in tail_after_outer_order
+
+
+def test_build_dossier_query_nests_produces_act_celex_under_produces_act_optional() -> None:
+    query = build_dossier_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        limit=10,
+        offset=0,
+    )
+    nested_optional = re.search(
+        rf"OPTIONAL\s*\{{\s*\?dossier\s+{re.escape(PREDICATES['dossier_produces_resource_legal'])}"
+        r"\s+\?producesAct\s*\.\s*OPTIONAL\s*\{\s*\?producesAct\s+"
+        rf"{re.escape(PREDICATES['resource_legal_id_celex'])}\s+\?producesActCelex\s*\}}\s*\}}",
+        query,
+        re.DOTALL,
+    )
+    assert nested_optional is not None
 
 
 def test_build_national_decisions_query_can_filter_by_country() -> None:

@@ -5,9 +5,9 @@
 > Od czasu jego powstania API i implementacja ulegly zmianom.
 >
 > Aktualne zrodla:
-> - `docs/API_CONTRACT.md`
-> - `docs/METHOD_MAPPING.md`
-> - `docs/research/` (archiwum notatek badawczych)
+> - [API_CONTRACT.md](API_CONTRACT.md)
+> - [METHOD_MAPPING.md](METHOD_MAPPING.md)
+> - [research/README.md](research/README.md) (archiwum notatek badawczych)
 
 ## Co jest w CELLAR, a czego nie ma
 

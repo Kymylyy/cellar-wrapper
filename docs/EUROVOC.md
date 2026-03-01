@@ -10,10 +10,11 @@ Data researchu: 2026-03-01.
 
 ## Status implementacji (as-of 2026-03-01)
 
-- Obecna implementacja runtime nadal korzysta z modelu labelowego
-  (`CONTAINS` po `skos:prefLabel`) w `search_by_eurovoc` / `new_by_eurovoc`.
-- Opisany niżej model 2-krokowy (resolve tekstu do URI + query po URI) jest
-  rekomendacją projektową, ale nie został jeszcze wdrożony.
+- Runtime `search_by_eurovoc` i `new_by_eurovoc` używa modelu 2-krokowego:
+  resolve tagu tekstowego do `concept_uri`, a następnie finalny query po
+  `VALUES ?concept`.
+- Publiczne API pozostało bez zmian (`tags` jako wejście); zmieniła się tylko
+  mechanika wykonania.
 
 ## Zakres analizy
 
@@ -27,7 +28,7 @@ Data researchu: 2026-03-01.
 - Live benchmarki na endpointzie CELLAR:
   - `https://publications.europa.eu/webapi/rdf/sparql`
 
-## Jak działa obecna implementacja
+## Jak działała implementacja bazowa (przed zmianą)
 
 Dla `search_by_eurovoc(tags=[...])` query robi:
 
@@ -118,7 +119,7 @@ Podanie `timeout=30000` do endpointu dało:
 Nie należy opierać jakości odpowiedzi na tym parametrze. To jest co najwyżej
 awaryjny fail-fast, nie stabilna strategia produktu.
 
-## Co zmieniamy w implementacji (rekomendacja)
+## Co zmieniono w implementacji
 
 ### Docelowy flow
 
@@ -164,10 +165,8 @@ Konsekwencja:
 
 ## Najważniejsza decyzja projektowa
 
-Nie optymalizować dalej pojedynczego query labelowego.
-
-Wdrożyć model 2-krokowy:
+Zrezygnować z pojedynczego query labelowego i przejść na model 2-krokowy:
 - resolve tekstu do URI,
 - finalny query po URI.
 
-To adresuje root cause i daje największy skok wydajności.
+Ta decyzja adresuje root cause i daje największy skok wydajności.

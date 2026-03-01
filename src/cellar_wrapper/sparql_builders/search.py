@@ -28,12 +28,13 @@ def build_search_by_eurovoc_query(
     lang: str = DEFAULT_LANGUAGE,
     include_undated: bool = True,
 ) -> str:
-    """Build search by EuroVoc tags query."""
-    tag_filters: list[str] = []
-    for tag in tags:
-        lit = quote_literal(tag)
-        tag_filters.append(f"CONTAINS(LCASE(STR(?conceptLabel)), LCASE({lit}))")
-    filter_clause = " || ".join(tag_filters) if tag_filters else "true"
+    """Build search by EuroVoc concept URI query."""
+    concept_values: list[str] = []
+    for concept_uri in tags:
+        concept_values.append(f"<{safe_iri(concept_uri, field='eurovoc_concept_uri')}>")
+    if not concept_values:
+        raise ValueError("concept_uris cannot be empty")
+    values_clause = " ".join(concept_values)
     lang_iri = language_uri(lang)
 
     type_clause = ""
@@ -44,9 +45,7 @@ def build_search_by_eurovoc_query(
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   ?work {PREDICATES["work_is_about_concept_eurovoc"]} ?concept .
-  ?concept skos:prefLabel ?conceptLabel .
-  FILTER(LANG(?conceptLabel) = 'en' || LANG(?conceptLabel) = '')
-  FILTER({filter_clause})
+  VALUES ?concept {{ {values_clause} }}
   OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}

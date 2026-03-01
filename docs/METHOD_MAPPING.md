@@ -54,7 +54,9 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `get_article_annotations` -> `owl:annotatedTarget`, `owl:annotatedSource`, `owl:annotatedProperty` + qualifier extraction (`article`, `paragraph`, `subparagraph`, `point`, `comment_on_legal_basis`)
 
 ## SEARCH
-- `search_by_eurovoc` -> `cdm:work_is_about_concept_eurovoc` + optional label filter
+- `search_by_eurovoc` -> 2-step:
+  - resolve `tags` przez `find_eurovoc_concept` (`skos:prefLabel`, EN/empty)
+  - finalne filtrowanie po `cdm:work_is_about_concept_eurovoc` + `VALUES ?concept { <uri...> }`
 - `search_by_subject_matter` -> `cdm:resource_legal_is_about_subject-matter` + optional label filter
 - `search_by_title` -> `cdm:expression_title` + language filter
 - `search_communications` ->
@@ -73,7 +75,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `new_corrigenda` -> `get_corrigenda` + `date > since`
 - `new_consolidated` -> `get_consolidated_versions` + `date > since`
 - `new_nims` -> `get_nims` + `date > since`
-- `new_by_eurovoc` -> `search_by_eurovoc` + `date > since`
+- `new_by_eurovoc` -> `search_by_eurovoc` (2-step) + strict `date > since`
 
 ## DOWNLOAD
 - `get_text` -> REST `resource/celex/{CELEX}` with negotiated MIME and language

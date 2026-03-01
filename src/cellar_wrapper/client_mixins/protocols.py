@@ -6,7 +6,7 @@ from collections.abc import Callable, Sequence
 from datetime import date, datetime
 from typing import Any, Protocol, TypeVar
 
-from cellar_wrapper.models import ActRef, CaseLawItem, ListResult, NIMItem, RelationItem
+from cellar_wrapper.models import ActRef, CaseLawItem, EurovocTag, ListResult, NIMItem, RelationItem
 
 T = TypeVar("T")
 
@@ -152,5 +152,13 @@ class ClientOpsProtocol(Protocol):
         offset: int,
         lang: str,
     ) -> ListResult[ActRef]: ...
+
+    def find_eurovoc_concept(
+        self,
+        label: str,
+        *,
+        limit: int,
+        offset: int,
+    ) -> ListResult[EurovocTag]: ...
 
     def resolve_celex(self, celex: str) -> ActRef: ...

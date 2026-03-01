@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from datetime import date, datetime
 
 from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
-from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
+from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET, MAX_LIMIT
 from cellar_wrapper.errors import CellarValidationError
 from cellar_wrapper.models import ActRef, CaseLawItem, ListResult, NIMItem, RelationItem
 from cellar_wrapper.parser import parse_act_refs
@@ -371,9 +371,30 @@ class MonitoringMixin:
         normalized_tags = [tag.strip() for tag in tags if tag.strip()]
         if not normalized_tags:
             raise CellarValidationError("tags cannot be empty")
+        concept_uris: list[str] = []
+        seen_concepts: set[str] = set()
+        for tag in normalized_tags:
+            concept_offset = 0
+            while True:
+                concept_page = self.find_eurovoc_concept(tag, limit=MAX_LIMIT, offset=concept_offset)
+                for concept in concept_page.items:
+                    if concept.concept_uri in seen_concepts:
+                        continue
+                    seen_concepts.add(concept.concept_uri)
+                    concept_uris.append(concept.concept_uri)
+                if concept_page.returned_count < MAX_LIMIT:
+                    break
+                concept_offset += MAX_LIMIT
+        if not concept_uris:
+            return self._list_result(
+                query_name="new_by_eurovoc",
+                items=[],
+                limit=limit,
+                offset=offset,
+            )
         since_value = self._coerce_since(_require_since("new_by_eurovoc", since))
         query = build_search_by_eurovoc_query(
-            normalized_tags,
+            concept_uris,
             resource_type=self._normalize_resource_type(resource_type),
             since=since_value,
             limit=limit,

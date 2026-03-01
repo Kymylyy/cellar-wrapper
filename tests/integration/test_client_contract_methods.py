@@ -174,7 +174,7 @@ REQUIRED_ARG_VALUES: dict[str, Any] = {
     "celex": "32022R2554",
     "since": "2025-01-01",
     "tags": ["payment"],
-    "codes": ["06.30.10"],
+    "codes": ["data protection"],
     "keyword": "payment",
     "dg": "FISMA",
     "label": "payment",

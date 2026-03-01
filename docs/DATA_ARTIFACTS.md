@@ -6,8 +6,9 @@ This document explains large non-code files stored in `docs/`.
 
 These files are research/support artifacts for exploration and analysis.
 They are not consumed directly by runtime code.
-Runtime EuroVoc resolve uses packaged data file:
-`src/cellar_wrapper/data/eurovoc_index.json`.
+Runtime resolve uses packaged data files:
+`src/cellar_wrapper/data/eurovoc_index.json` and
+`src/cellar_wrapper/data/subject_matter_index.json`.
 
 ## Inventory
 
@@ -31,3 +32,5 @@ Runtime EuroVoc resolve uses packaged data file:
 - Any behavioral/API changes must be documented in `API_CONTRACT.md`, not here.
 - Refresh packaged runtime EuroVoc index with:
   `python3 scripts/build_runtime_eurovoc_index.py`
+- Refresh packaged runtime subject-matter index with:
+  `python3 scripts/build_runtime_subject_matter_index.py`

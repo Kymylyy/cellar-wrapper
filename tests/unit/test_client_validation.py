@@ -152,6 +152,47 @@ def test_search_by_subject_matter_empty_codes_raises_validation_error() -> None:
         client.search_by_subject_matter([" ", "\t"])
 
 
+def test_search_by_subject_matter_fails_fast_when_local_index_is_unavailable(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def _raise_parse_error() -> object:
+        raise CellarParseError(
+            "Failed to load local subject-matter index",
+            details={"source": "local_subject_matter_index"},
+        )
+
+    monkeypatch.setattr(
+        "cellar_wrapper.client_mixins.base.load_default_subject_matter_index",
+        _raise_parse_error,
+    )
+
+    client = CellarClient(transport=FakeTransport())
+    with pytest.raises(CellarParseError, match="Failed to load local subject-matter index"):
+        client.search_by_subject_matter(["data protection"])
+
+
+def test_search_by_subject_matter_returns_empty_without_live_query_when_no_match(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class _EmptySubjectMatterIndex:
+        @staticmethod
+        def resolve_concept_uris(_codes: list[str]) -> list[str]:
+            return []
+
+    monkeypatch.setattr(
+        "cellar_wrapper.client_mixins.base.load_default_subject_matter_index",
+        lambda: _EmptySubjectMatterIndex(),
+    )
+
+    transport = FakeTransport()
+    client = CellarClient(transport=transport)
+    result = client.search_by_subject_matter(["no-such-subject"])
+
+    assert result.returned_count == 0
+    assert result.items == []
+    assert transport.queries == []
+
+
 def test_get_text_missing_celex_raises_not_found() -> None:
     client = CellarClient(transport=FakeTransport())
     with pytest.raises(CellarNotFoundError, match="CELEX not found"):

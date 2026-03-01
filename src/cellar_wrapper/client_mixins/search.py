@@ -70,11 +70,17 @@ class SearchMixin:
         lang: str = DEFAULT_LANGUAGE,
     ) -> ListResult[ActRef]:
         self._validate_pagination(limit, offset)
-        normalized_codes = [code.strip() for code in codes if code.strip()]
-        if not normalized_codes:
-            raise CellarValidationError("codes cannot be empty")
+        normalized_codes = self._normalize_non_empty_tags(codes, field_name="codes")
+        concept_uris = self._resolve_subject_matter_concept_uris(normalized_codes)
+        if not concept_uris:
+            return self._list_result(
+                query_name="search_by_subject_matter",
+                items=[],
+                limit=limit,
+                offset=offset,
+            )
         query = build_search_by_subject_matter_query(
-            normalized_codes,
+            concept_uris,
             resource_type=self._normalize_resource_type(resource_type),
             since=self._coerce_since(since),
             limit=limit,

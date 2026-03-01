@@ -80,6 +80,8 @@ class ClientOpsProtocol(Protocol):
 
     def _resolve_eurovoc_concept_uris(self, tags: Sequence[str]) -> list[str]: ...
 
+    def _resolve_subject_matter_concept_uris(self, codes: Sequence[str]) -> list[str]: ...
+
     def _call_relation_items(
         self,
         *,

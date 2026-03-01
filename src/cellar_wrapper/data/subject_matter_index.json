@@ -1,0 +1,1542 @@
+[
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ACCD",
+    "label": "Access to documents"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ADH",
+    "label": "Accession"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COMP",
+    "label": "Accession compensatory amounts"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ACCE",
+    "label": "Accession to agreement"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_64a25727",
+    "label": "Accounting and reporting"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ACTE",
+    "label": "Acts of the institutions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IANA",
+    "label": "Acts referring to the notion of aid"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ADAP",
+    "label": "Adjustment"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COAD",
+    "label": "Administrative cooperation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ACP",
+    "label": "African, Caribbean and Pacific States (ACP)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ENCO",
+    "label": "Agreements and concentrations"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ENTR",
+    "label": "Agreements, decisions and concerted practices"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FEADER",
+    "label": "Agricultural structural funds"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/STRA",
+    "label": "Agricultural structures"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/AGRI",
+    "label": "Agriculture and Fisheries"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ALCO",
+    "label": "Alcohol"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IABR",
+    "label": "Animal breeding"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IAZC",
+    "label": "Animal disease control, zoonosis control"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/AL-A",
+    "label": "Animal feedingstuffs"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IAID",
+    "label": "Animal identification"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IANW",
+    "label": "Animal welfare"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IAON",
+    "label": "Annex 1 Provisions of Union law referred to in Article 2(1)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IAFO",
+    "label": "Annex 4 Provisions of Union law referred to in Article 9"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DISC",
+    "label": "Anti-discrimination"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RAPL",
+    "label": "Approximation of laws"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ELSJ",
+    "label": "Area of freedom, security and justice"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ASSI",
+    "label": "Assistance"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ASTU",
+    "label": "Assistance to Ukraine"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/EAMA",
+    "label": "Associated African States and Madagascar"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ASSO",
+    "label": "Association Agreement"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ASIL",
+    "label": "Asylum policy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_7b45b05f",
+    "label": "Auditing"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/BPAI",
+    "label": "Balance of payments"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/BANA",
+    "label": "Bananas"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_76b44336",
+    "label": "Banking supervision"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_c55af8ef",
+    "label": "Banknotes and coins, means of payment and currency matters"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/BOV",
+    "label": "Beef and veal"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IBER",
+    "label": "Block exemption regulations"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FRON",
+    "label": "Border checks"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CECC",
+    "label": "Brussels Convention of 27 September 1968"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/EXEC",
+    "label": "Brussels Convention of 27 September 1968 - Enforcement"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COMT",
+    "label": "Brussels Convention of 27 September 1968 - Jurisdiction"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/BUDG",
+    "label": "Budget"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TDCM",
+    "label": "CCT: derogations"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TDCF",
+    "label": "CCT: franchise"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CV19",
+    "label": "COVID-19"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_6c9bbb79",
+    "label": "Capital of the ECB"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_adb3ab0f",
+    "label": "Capital requirements"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_64b94fae",
+    "label": "Cash changeover"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CERE",
+    "label": "Cereals"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TEEQ",
+    "label": "Charges having an equivalent effect"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CHDF",
+    "label": "Charter of Fundamental Rights"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ICHR",
+    "label": "Chemicals and related"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CIT",
+    "label": "Citizenship of the Union"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PCIV",
+    "label": "Civil protection"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_db8034fd",
+    "label": "Close cooperation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CORE",
+    "label": "Closer cooperation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CHAR",
+    "label": "Coal"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CAC",
+    "label": "Cocoa"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CAFE",
+    "label": "Coffee"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COHE",
+    "label": "Cohesion Fund"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_7ca072c7",
+    "label": "Coin issuance"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COKE",
+    "label": "Coke"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PCOM",
+    "label": "Commercial policy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TDC",
+    "label": "Common customs tariff"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ADMI",
+    "label": "Common customs tariff: temporary importation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PESC",
+    "label": "Common foreign and security policy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/OCM",
+    "label": "Common organisation of agricultural markets"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RTRA",
+    "label": "Community transit systems"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ICRU",
+    "label": "Compatibility rules"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IAPA",
+    "label": "Compensation and assistance to passengers"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CONC",
+    "label": "Competition"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MERG",
+    "label": "Concentrations between undertakings"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PRAT",
+    "label": "Concerted practices"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_f3f2224d",
+    "label": "Conditions of employment"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_cc640542",
+    "label": "Confidentiality"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CONJ",
+    "label": "Conjunctural policy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CRBM",
+    "label": "Conservation of marine biological resources"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IPPE",
+    "label": "Construction products, machinery, cableways, personal protective equipment"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PROT",
+    "label": "Consumer protection"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COOP",
+    "label": "Cooperation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_206cfcfa",
+    "label": "Cooperation in the field of banking supervision"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COOR",
+    "label": "Coordination of structural instruments"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DADV",
+    "label": "Copyright and related rights"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/LIEG",
+    "label": "Cork"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ICOT",
+    "label": "Cosmetics, toys"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COTO",
+    "label": "Cotton"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CULT",
+    "label": "Culture"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DOUA",
+    "label": "Customs Cooperation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/UD",
+    "label": "Customs Union"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TDCC",
+    "label": "Customs duties: Community tariff quotas"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TDCD",
+    "label": "Customs duties: authorisation to defer application of CCT"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TDCN",
+    "label": "Customs duties: national tariff quotas"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TDCA",
+    "label": "Customs duties: speed-up decisions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TDCS",
+    "label": "Customs duties: suspensions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RDOU",
+    "label": "Customs procedures"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PDON",
+    "label": "Data protection"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_69c82520",
+    "label": "Data protection matters"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DEMO",
+    "label": "Designs"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CDEV",
+    "label": "Development cooperation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DIFF",
+    "label": "Dissemination of information"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/POSI",
+    "label": "Dominant position"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FDES",
+    "label": "Dry fodder"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DUMP",
+    "label": "Dumping"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_d82c4c81",
+    "label": "ECB institutional provisions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CECA",
+    "label": "ECSC matters"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TUC",
+    "label": "ECSC unified common tariff"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MSWU",
+    "label": "EU measures in solidarity with Ukraine"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/UEM",
+    "label": "Economic and Monetary Union"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PEM",
+    "label": "Economic and monetary policy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PECO",
+    "label": "Economic policy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COPT",
+    "label": "Economic, financial and technical cooperation with third countries"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COES",
+    "label": "Economic, social and territorial cohesion"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/EFPJ",
+    "label": "Education, vocational training and youth"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/O-V",
+    "label": "Eggs and poultry"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IERE",
+    "label": "Electrical and radio equipment"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/INFQ",
+    "label": "Electronic data processing"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/EMPL",
+    "label": "Employment"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ENER",
+    "label": "Energy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ENRM",
+    "label": "Energy measures"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ENV",
+    "label": "Environment"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IEEE",
+    "label": "Environment, energy efficiency"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FEVT",
+    "label": "Eur Foundation Improvement of Living and Working Conditions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CEEA",
+    "label": "Euratom matters"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/EURO",
+    "label": "Euro"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_5cd67341",
+    "label": "Euro banknotes issuance"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_68aa4a7e",
+    "label": "Euro banknotes production"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_f7fa4b33",
+    "label": "Euro short term rate"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FEAGA",
+    "label": "European Agricultural Guarantee Fund"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FEOG",
+    "label": "European Agricultural Guidance and Guarantee Fund (EAGGF)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/BCE",
+    "label": "European Central Bank (ECB)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CEDH",
+    "label": "European Convention on Human Rights"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FED",
+    "label": "European Development Fund (EDF)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/AELE",
+    "label": "European Free Trade Association (EFTA)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/BEI",
+    "label": "European Investment Bank (EIB)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IME",
+    "label": "European Monetary Institute"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FEDE",
+    "label": "European Regional Development Fund (ERDF)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FSE",
+    "label": "European Social Fund (ESF)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COPE",
+    "label": "European political cooperation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SEBC",
+    "label": "European system of central banks"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_af796aa3",
+    "label": "Eurosystem reserve management services"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_4e12d83d",
+    "label": "Exchange of information and public access to documents"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_18755e4d",
+    "label": "Exchange rate mechanism (ERM II)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IEXC",
+    "label": "Excise"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ACCI",
+    "label": "Excise duties"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/EXCL",
+    "label": "Exclusive agreements"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IEPA",
+    "label": "Explosives and pyrotechnic articles"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DIPL",
+    "label": "External action by the Union"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/EXT",
+    "label": "External relations"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_6f402b92",
+    "label": "External relations matters"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_abd72d0f",
+    "label": "External transactions and positions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IFPH",
+    "label": "Feed \u2013 products and hygiene"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_04b171e5",
+    "label": "Financial accounts"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_3e1e305a",
+    "label": "Financial assistance"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_b1a922fd",
+    "label": "Financial market stability"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FIN",
+    "label": "Financial provisions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FINC",
+    "label": "Financial provisions ECSC"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IFAQ",
+    "label": "Fisheries and aquaculture"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PECH",
+    "label": "Fisheries policy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/L-CH",
+    "label": "Flax and hemp"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ALIM",
+    "label": "Food aid"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IFCM",
+    "label": "Food contact material"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IFGE",
+    "label": "Food \u2013 general"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IFHY",
+    "label": "Food \u2013 hygiene"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IFMS",
+    "label": "Food \u2013 ingredients, traces, residues, marketing standards"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IFOT",
+    "label": "Food \u2013 other"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/D-AL",
+    "label": "Foodstuffs"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_714f9151",
+    "label": "Foreign exchange"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_0e6e516f",
+    "label": "Foreign exchange and Foreign reserves"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_eb901451",
+    "label": "Foreign reserves"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SILV",
+    "label": "Forestry"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_cd594a3b",
+    "label": "Fraud prevention"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/LPRA",
+    "label": "Free circulation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/LCC",
+    "label": "Free movement of capital"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/LCM",
+    "label": "Free movement of goods"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/LCP",
+    "label": "Free movement of persons"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/LCT",
+    "label": "Free movement of workers"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/LES",
+    "label": "Freedom of establishment"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SERV",
+    "label": "Freedom to provide services"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DOM",
+    "label": "French overseas departments"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/F-L",
+    "label": "Fruit and vegetables"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COMB",
+    "label": "Fuels"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DFON",
+    "label": "Fundamental rights"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IGMO",
+    "label": "GMOs"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IGAP",
+    "label": "Gas appliances"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/GATT",
+    "label": "General Agreement on Tariffs and Trade (GATT)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IGCA",
+    "label": "General customs aspects"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_726ab1b3",
+    "label": "General framework"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DROIT",
+    "label": "General principles of Community law"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DGEN",
+    "label": "General provisions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_6365150f",
+    "label": "General statistics"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ITRA",
+    "label": "General trade related aspects"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IGGP",
+    "label": "Goods \u2013 general provisions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HOUI",
+    "label": "Hard coal"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FD",
+    "label": "Hard fibres"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HART",
+    "label": "Harmonisation of customs law: Community transit"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HARD",
+    "label": "Harmonisation of customs law: customs territory"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HARP",
+    "label": "Harmonisation of customs law: inward processing"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HARO",
+    "label": "Harmonisation of customs law: origin of goods"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HARV",
+    "label": "Harmonisation of customs law: value for customs purposes"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HARX",
+    "label": "Harmonisation of customs law: various"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HARE",
+    "label": "Harmonisation of customs law: warehouses, free zones"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HARM",
+    "label": "Harmonisation of laws"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SANI",
+    "label": "Health and safety"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HOUB",
+    "label": "Hops"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DDLH",
+    "label": "Human rights"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HUMA",
+    "label": "Humanitarian aid"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IMMI",
+    "label": "Immigration and asylum policy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/INDR",
+    "label": "Indirect taxation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PIND",
+    "label": "Industrial policy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/INDU",
+    "label": "Industry"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/INFO",
+    "label": "Information and verification"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_964d98cc",
+    "label": "Institutional structure and Governance"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PIM",
+    "label": "Integrated Mediterranean programmes (IMP)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IRDA",
+    "label": "Integration of the German Democratic Republic (GDR)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IPRO",
+    "label": "Intellectual property"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PROP",
+    "label": "Intellectual, industrial and commercial property"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MARI",
+    "label": "Internal market - Principles"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/INTE",
+    "label": "Internal taxation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ACIN",
+    "label": "International agreements"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/INV",
+    "label": "Investments"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FER",
+    "label": "Iron"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ENTC",
+    "label": "Joint undertakings"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COJC",
+    "label": "Judicial cooperation in civil matters"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COJP",
+    "label": "Judicial cooperation in criminal matters"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RECO",
+    "label": "Judicial proceedings"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/J-AI",
+    "label": "Justice and home affairs"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_962003de",
+    "label": "Legal framework of the ESCB"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PREL",
+    "label": "Levies and loans"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ILMA",
+    "label": "Lifting and mechanical handling appliances"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IANO",
+    "label": "Live animals, germinal products and products of animal origin"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PRET",
+    "label": "Loans and subsidies"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/EMPR",
+    "label": "Loans contracted by the ECSC"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CLUG",
+    "label": "Lugano Convention"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IMEQ",
+    "label": "Marine equipment"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MEEQ",
+    "label": "Measures having equivalent effect"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IMIN",
+    "label": "Measuring instruments"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IMED",
+    "label": "Medical devices"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IMEP",
+    "label": "Medicinal products"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MECA",
+    "label": "Medium-sized firms, distributive trades and craft industries"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_d7a89aa3",
+    "label": "Microprudential tasks"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/LAIT",
+    "label": "Milk products"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_3ad55b09",
+    "label": "Minimum reserves"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_8c4a6e26",
+    "label": "Monetary financing prohibition"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_38e22180",
+    "label": "Monetary income"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MONA",
+    "label": "Monetary measures in the field of agriculture"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_c3e5c068",
+    "label": "Monetary policy and Operations"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_12480e7d",
+    "label": "Monetary policy instruments"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_02507fc0",
+    "label": "Monetary, financial institutions and markets statistics"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IMVT",
+    "label": "Motor vehicles, including agricultural and forestry tractors"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/HORS",
+    "label": "Non-Annex II EEC Treaty products"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RESP",
+    "label": "Non-contractual liability"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/NAT",
+    "label": "Non-discrimination on grounds of nationality"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ANCO",
+    "label": "Non-trade agreement"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/NUCL",
+    "label": "Nuclear common market"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IOVC",
+    "label": "Official controls, veterinary checks"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MGRA",
+    "label": "Oils and fats"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MIN",
+    "label": "Ore"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_06daf249",
+    "label": "Organisational principles"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IOTR",
+    "label": "Other"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IOTH",
+    "label": "Others"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PTOM",
+    "label": "Overseas countries and territories"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_491cdcaa",
+    "label": "Oversight"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RPRO",
+    "label": "Own resources"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/BREV",
+    "label": "Patents"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_cd441130",
+    "label": "Payment and settlement systems"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/POIS",
+    "label": "Peas and field beans"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IPBI",
+    "label": "Pesticides, biocides"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PORC",
+    "label": "Pigmeat"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IPHE",
+    "label": "Plant health"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PHYT",
+    "label": "Plant health legislation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IPRM",
+    "label": "Plant reproductive material"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/OBT",
+    "label": "Plant varieties"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/P-F",
+    "label": "Plants and flowers"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/COPO",
+    "label": "Police cooperation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/POLL",
+    "label": "Pollution"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PDET",
+    "label": "Potatoes"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RPRE",
+    "label": "Preferential systems"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IPRV",
+    "label": "Pressure vessels"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PRIX",
+    "label": "Prices"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PRIN",
+    "label": "Principles, objectives and tasks of the Treaties"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PRIV",
+    "label": "Privileges and immunities"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PROC",
+    "label": "Procedural provisions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IPRU",
+    "label": "Procedural rules"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FLT",
+    "label": "Processed fruit and vegetables"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_40b2d24f",
+    "label": "Procurement"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/QUOT",
+    "label": "Production quotas"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MEXT",
+    "label": "Products from third countries"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SOLD",
+    "label": "Products of Annex II EEC Treaty and Regulation No 827/68"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IPFI",
+    "label": "Protection of the Union\u2019s financial interests"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_f6ee40b4",
+    "label": "Protection of the euro"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SAUV",
+    "label": "Protective measures"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/corporate-body/OP_DATPRO",
+    "label": "Provisional data"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/OP_DATPRO",
+    "label": "Provisional data"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/INST",
+    "label": "Provisions governing the Institutions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IMPK",
+    "label": "Provisions implementing Article 95 - ECSC"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IMPL",
+    "label": "Provisions under Article 235 EEC"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SANT",
+    "label": "Public health"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MARC",
+    "label": "Public procurement in the European Union"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RSTR",
+    "label": "Quantitative restrictions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RQME",
+    "label": "Quantitative restrictions and measures of equivalent effect"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CONT",
+    "label": "Quotas - third countries"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CTEM",
+    "label": "Quotas between Member States"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/REACH",
+    "label": "REACH"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/V-LG",
+    "label": "Rabbit meat and farmed game meat"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IRTR",
+    "label": "Rail transport"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IRCR",
+    "label": "Recreational craft"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PREG",
+    "label": "Regional policy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RMN",
+    "label": "Regulation of digital markets"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RSN",
+    "label": "Regulation of digital services"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IRBS",
+    "label": "Regulations on bilateral safeguards"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_23d62986",
+    "label": "Reporting"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RDT",
+    "label": "Research and technological development"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RECH",
+    "label": "Research and training"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RIZ",
+    "label": "Rice"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DDES",
+    "label": "Right of entry and residence"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ETAB",
+    "label": "Right of establishment"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CROM",
+    "label": "Rome Convention of 19 June 1980"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/CAO",
+    "label": "Rubber"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ORIG",
+    "label": "Rules of origin"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RULESPRO",
+    "label": "Rules of procedure"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_29b3ace8",
+    "label": "Rules of procedure and other internal arrangements"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SECU",
+    "label": "Safety at work and elsewhere"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_eef03101",
+    "label": "Sanctions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ISPH",
+    "label": "Sanitary and phytosanitary \u2013 Other"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IDST",
+    "label": "Scientific and technical information and documentation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FERR",
+    "label": "Scrap"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PERE",
+    "label": "Scrap equalisation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_625f1587",
+    "label": "Securities holdings statistics"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SECR",
+    "label": "Security system"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SEME",
+    "label": "Seeds and seedlings"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/OVIN",
+    "label": "Sheepmeat and goatmeat"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PENU",
+    "label": "Shortage"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_8a588fbc",
+    "label": "Significance assessments"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/VSOI",
+    "label": "Silkworms"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/PME",
+    "label": "Small and medium-sized enterprises"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SOPO",
+    "label": "Social Policy"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SOCI",
+    "label": "Social provisions"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SESO",
+    "label": "Social security for migrant workers"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SOLI",
+    "label": "Solidarity clause"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ESPA",
+    "label": "Space"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ACSP",
+    "label": "Special steels"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SPOR",
+    "label": "Sport"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/STAT",
+    "label": "Staff regulations and employment conditions - EC"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ISAR",
+    "label": "State Aid rules in the TFEU"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/AIDE",
+    "label": "State aids"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MNOP",
+    "label": "State monopolies of a commercial character"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_8e12de2a",
+    "label": "Statistics"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ACIE",
+    "label": "Steel"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SIDE",
+    "label": "Steel industry"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SUBV",
+    "label": "Subsidies and aids of the High Authority"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ISHO",
+    "label": "Substances of human origin"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/SUCR",
+    "label": "Sugar"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_ac4906db",
+    "label": "Supervisory fees"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_05d7dbed",
+    "label": "Supervisory powers and tasks"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/APPR",
+    "label": "Supply agency"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_c47bf652",
+    "label": "TARGET2-Securities (T2S)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/FISC",
+    "label": "Taxation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ETEC",
+    "label": "Technical barriers"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TECN",
+    "label": "Technology"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TELE",
+    "label": "Telecommunications"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_594e5232",
+    "label": "Temporary framework"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TXTL",
+    "label": "Textiles"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ITFO",
+    "label": "Textiles, footwear"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TIN",
+    "label": "Tin"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TABA",
+    "label": "Tobacco"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TOUR",
+    "label": "Tourism"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ITDI",
+    "label": "Trade defence instruments"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/MARQ",
+    "label": "Trade marks"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TRDM",
+    "label": "Trade measures"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ITSA",
+    "label": "Trade statistics"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_9e589776",
+    "label": "Trans-European Automated Real-time Gross settlement Express Transfer system (TARGET)"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/RTR",
+    "label": "Trans-European networks"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/c_b21ec68a",
+    "label": "Transparency"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/ITPU",
+    "label": "Transparency of financial relations between Member States and public undertakings"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TRAN",
+    "label": "Transport"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/BT",
+    "label": "Tropical timber"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IVAT",
+    "label": "Value Added Tax"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/TVA",
+    "label": "Value added tax"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/VA",
+    "label": "Value for customs purposes"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/VETE",
+    "label": "Veterinary legislation"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/DECH",
+    "label": "Waste"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/IWAS",
+    "label": "Waste"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/VIN",
+    "label": "Wine"
+  },
+  {
+    "concept_uri": "http://publications.europa.eu/resource/authority/subject-matter/OMC",
+    "label": "World Trade Organization"
+  }
+]

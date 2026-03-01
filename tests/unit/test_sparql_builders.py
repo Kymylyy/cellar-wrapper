@@ -103,16 +103,31 @@ def test_search_by_eurovoc_query_filters_by_concept_values() -> None:
     assert "?concept skos:prefLabel ?conceptLabel ." not in query
 
 
-def test_search_by_subject_matter_query_requires_concept_label_binding() -> None:
+def test_search_by_subject_matter_query_filters_by_concept_values() -> None:
     query = build_search_by_subject_matter_query(
-        ["10.40.00"],
+        ["http://publications.europa.eu/resource/authority/subject-matter/PDON"],
         resource_type=None,
         since=None,
         limit=50,
         offset=0,
     )
-    assert "?concept skos:prefLabel ?conceptLabel ." in query
-    assert "OPTIONAL {\n    ?concept skos:prefLabel ?conceptLabel ." not in query
+    assert (
+        "VALUES ?concept { <http://publications.europa.eu/resource/authority/subject-matter/PDON> }"
+        in query
+    )
+    assert "CONTAINS(LCASE(STR(?conceptLabel))" not in query
+    assert "?concept skos:prefLabel ?conceptLabel ." not in query
+
+
+def test_search_by_subject_matter_query_rejects_empty_concept_uris() -> None:
+    with pytest.raises(ValueError, match="concept_uris cannot be empty"):
+        build_search_by_subject_matter_query(
+            [],
+            resource_type=None,
+            since=None,
+            limit=50,
+            offset=0,
+        )
 
 
 def test_article_annotations_query_requests_article_level_qualifiers() -> None:

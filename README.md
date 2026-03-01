@@ -19,6 +19,7 @@ predictable contracts for legal and compliance data workflows.
 - Enriched metadata for `get_act`, `get_dossier`, and `get_nims`.
 - Country-aware case-law support (`get_national_decisions(..., country="DEU")`).
 - Local packaged EuroVoc index for `find_eurovoc_concept`, `search_by_eurovoc`, and `new_by_eurovoc`.
+- Local packaged subject-matter index for `search_by_subject_matter`.
 
 ## Installation
 
@@ -120,13 +121,21 @@ mypy
 pytest
 ```
 
-## Runtime EuroVoc index refresh
+## Runtime taxonomy index refresh
 
 Runtime EuroVoc resolve uses packaged file `src/cellar_wrapper/data/eurovoc_index.json`.
 Refresh it from `docs/eurovoc_all.json` with:
 
 ```bash
 python3 scripts/build_runtime_eurovoc_index.py
+```
+
+Runtime subject-matter resolve uses packaged file
+`src/cellar_wrapper/data/subject_matter_index.json`.
+Refresh it from `docs/subject_matter_all.json` with:
+
+```bash
+python3 scripts/build_runtime_subject_matter_index.py
 ```
 
 ## Manual contract test reports

@@ -90,7 +90,8 @@ Method payload categories:
 
 `CellarSPARQLError` carries context fields (`query`, `response_excerpt`) for diagnostics.
 `CellarParseError` carries structured `details` (`parser`, `row_index`, `field`, `value_excerpt`).
-For local EuroVoc index failures, details include `source = "local_eurovoc_index"` and phase metadata.
+For local index failures, details include `source = "local_eurovoc_index"` or
+`source = "local_subject_matter_index"` plus phase metadata.
 `CellarNotFoundError` carries structured `details` (for example `entity`, `celex`, `phase`).
 `details` is optional in practice (error object may expose an empty `{}` payload).
 
@@ -125,6 +126,15 @@ For local EuroVoc index failures, details include `source = "local_eurovoc_index
   2. final live SPARQL query by exact concept URIs with `VALUES ?concept`.
 - Local resolve keeps current business semantics: case-insensitive substring match on label (`CONTAINS`-style behavior).
 - If no concept URI is resolved for provided tags, methods return an empty list result without executing the final work query.
+- Local index load/parse failures are fail-fast (`CellarParseError`) and do not fall back to live resolve queries.
+
+## Subject-matter execution model
+- `search_by_subject_matter` resolves `codes` from a packaged local index (`src/cellar_wrapper/data/subject_matter_index.json`).
+- Method runs in two steps:
+  1. resolve provided `codes` against local index,
+  2. final live SPARQL query by exact concept URIs with `VALUES ?concept`.
+- Local resolve keeps current business semantics: case-insensitive substring match over concept URI and label (`CONTAINS`-style behavior).
+- If no concept URI is resolved for provided `codes`, method returns an empty list result without executing the final work query.
 - Local index load/parse failures are fail-fast (`CellarParseError`) and do not fall back to live resolve queries.
 
 ## Dossier execution model

@@ -34,6 +34,7 @@ from cellar_wrapper.parser import (
     parse_relation_items,
 )
 from cellar_wrapper.sparql import build_relation_query
+from cellar_wrapper.subject_matter_index import load_default_subject_matter_index
 
 from .relation_specs import RELATION_CALL_SPECS, RelationCallSpec
 
@@ -213,6 +214,21 @@ class ClientBase:
             unique_tags.append(normalized)
         index = load_default_eurovoc_index()
         return index.resolve_concept_uris(unique_tags)
+
+    def _resolve_subject_matter_concept_uris(self, codes: Sequence[str]) -> list[str]:
+        unique_codes: list[str] = []
+        seen_codes: set[str] = set()
+        for code in codes:
+            normalized = code.strip()
+            if not normalized:
+                continue
+            dedupe_key = normalized.casefold()
+            if dedupe_key in seen_codes:
+                continue
+            seen_codes.add(dedupe_key)
+            unique_codes.append(normalized)
+        index = load_default_subject_matter_index()
+        return index.resolve_concept_uris(unique_codes)
 
     def _run_list_query(
         self,

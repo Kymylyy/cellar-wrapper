@@ -60,7 +60,9 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `search_by_eurovoc` -> 2-step:
   - resolve `tags` przez lokalny indeks EuroVoc (`find_eurovoc_concept`, `CONTAINS`-style, case-insensitive)
   - finalne filtrowanie po `cdm:work_is_about_concept_eurovoc` + `VALUES ?concept { <uri...> }`
-- `search_by_subject_matter` -> `cdm:resource_legal_is_about_subject-matter` + optional label filter
+- `search_by_subject_matter` -> 2-step:
+  - resolve `codes` przez lokalny indeks subject-matter (`CONTAINS`-style, case-insensitive, po URI i labelu)
+  - finalne filtrowanie po `cdm:resource_legal_is_about_subject-matter` + `VALUES ?concept { <uri...> }`
 - `search_by_title` -> `cdm:expression_title` + language filter
 - `search_communications` ->
   - `cdm:work_has_resource-type` = `COMMUNIC`

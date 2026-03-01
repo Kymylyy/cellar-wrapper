@@ -64,7 +64,7 @@ ORDER BY DESC(?date)
 
 
 def build_search_by_subject_matter_query(
-    codes: Sequence[str],
+    concept_uris: Sequence[str],
     *,
     resource_type: str | None,
     since: date | datetime | str | None,
@@ -72,14 +72,13 @@ def build_search_by_subject_matter_query(
     offset: int,
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
-    """Build search by subject-matter code query."""
-    code_filters: list[str] = []
-    for code in codes:
-        lit = quote_literal(code)
-        code_filters.append(
-            f"CONTAINS(LCASE(STR(?concept)), LCASE({lit})) || CONTAINS(LCASE(STR(?conceptLabel)), LCASE({lit}))"
-        )
-    filter_clause = " || ".join(code_filters) if code_filters else "true"
+    """Build search by subject-matter concept URI query."""
+    concept_values: list[str] = []
+    for concept_uri in concept_uris:
+        concept_values.append(f"<{safe_iri(concept_uri, field='subject_matter_concept_uri')}>")
+    if not concept_values:
+        raise ValueError("concept_uris cannot be empty")
+    values_clause = " ".join(concept_values)
     lang_iri = language_uri(lang)
 
     type_clause = ""
@@ -90,9 +89,7 @@ def build_search_by_subject_matter_query(
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   ?work {PREDICATES["subject_matter"]} ?concept .
-  ?concept skos:prefLabel ?conceptLabel .
-  FILTER(LANG(?conceptLabel) = 'en' || LANG(?conceptLabel) = '')
-  FILTER({filter_clause})
+  VALUES ?concept {{ {values_clause} }}
   OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}

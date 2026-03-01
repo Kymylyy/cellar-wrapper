@@ -1,4 +1,13 @@
-# CELLAR Wrapper — Blueprint
+# CELLAR Wrapper — Blueprint (DEPRECATED)
+
+> [!WARNING]
+> Ten dokument jest historycznym blueprintem i nie jest juz utrzymywanym zrodlem prawdy.
+> Od czasu jego powstania API i implementacja ulegly zmianom.
+>
+> Aktualne zrodla:
+> - `docs/API_CONTRACT.md`
+> - `docs/METHOD_MAPPING.md`
+> - `docs/research/` (archiwum notatek badawczych)
 
 ## Co jest w CELLAR, a czego nie ma
 

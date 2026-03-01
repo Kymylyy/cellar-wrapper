@@ -122,8 +122,9 @@ pytest
 ## Documentation map
 - API contract: `docs/API_CONTRACT.md`
 - Method mapping: `docs/METHOD_MAPPING.md`
-- Wrapper blueprint: `docs/WRAPPER_BLUEPRINT.md`
-- CELLAR research notes: `docs/CELLAR_API_RESEARCH.md`
+- Wrapper blueprint (deprecated, historical): `docs/WRAPPER_BLUEPRINT.md`
+- Research notes archive: `docs/research/`
+- EuroVoc performance notes: `docs/EUROVOC.md`
 
 ## Notes
 - Default language: `eng`.

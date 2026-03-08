@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-import re
 from collections.abc import Callable, Sequence
-from datetime import UTC, date, datetime
+from datetime import date, datetime
 from types import TracebackType
 from typing import TypeVar, cast
 
@@ -13,7 +12,7 @@ from cellar_wrapper.constants import (
     DEFAULT_RESOURCE_BASE_URL,
     DEFAULT_RETRIES,
     DEFAULT_SPARQL_ENDPOINT,
-    MAX_LIMIT,
+    DEFAULT_USER_AGENT,
 )
 from cellar_wrapper.errors import CellarValidationError
 from cellar_wrapper.eurovoc_index import load_default_eurovoc_index
@@ -27,21 +26,22 @@ from cellar_wrapper.models import (
     QueryMeta,
     RelationItem,
 )
-from cellar_wrapper.parser import (
-    parse_bindings,
-    parse_case_law_items,
-    parse_nim_items,
-    parse_relation_items,
-)
-from cellar_wrapper.sparql import build_relation_query
+from cellar_wrapper.parser import parse_bindings
 from cellar_wrapper.subject_matter_index import load_default_subject_matter_index
 
-from .relation_specs import RELATION_CALL_SPECS, RelationCallSpec
-
-CELEX_RE = re.compile(r"^[0-9A-Z()_\-]{5,40}$")
-LANG_RE = re.compile(r"^[a-zA-Z]{3}$")
-RESOURCE_TYPE_RE = re.compile(r"^[A-Z_]+$")
-COUNTRY_RE = re.compile(r"^[A-Z]{3}$")
+from .relation_execution import call_nim_result, call_relation_result, fetch_relation_rows
+from .relation_specs import RelationCallSpec
+from .result_builders import build_list_result, build_query_meta
+from .validation import (
+    coerce_since,
+    dedupe_non_empty_casefold,
+    normalize_celex,
+    normalize_country,
+    normalize_lang,
+    normalize_non_empty_values,
+    normalize_resource_type,
+    validate_pagination,
+)
 
 T = TypeVar("T")
 
@@ -57,7 +57,7 @@ class ClientBase:
         timeout: TimeoutConfig | None = None,
         retries: int = DEFAULT_RETRIES,
         max_download_bytes: int = DEFAULT_MAX_DOWNLOAD_BYTES,
-        user_agent: str = "cellar-wrapper/0.1.0",
+        user_agent: str = DEFAULT_USER_AGENT,
         transport: HttpTransport | None = None,
     ) -> None:
         if retries < 1:
@@ -93,65 +93,23 @@ class ClientBase:
         self.close()
 
     def _normalize_celex(self, celex: str) -> str:
-        normalized = celex.strip().upper()
-        if not CELEX_RE.fullmatch(normalized):
-            raise CellarValidationError(f"Invalid CELEX identifier: {celex!r}")
-        return normalized
+        return normalize_celex(celex)
 
     def _normalize_lang(self, lang: str) -> str:
-        normalized = lang.strip().lower()
-        if not LANG_RE.fullmatch(normalized):
-            raise CellarValidationError(f"Invalid language code: {lang!r}")
-        return normalized
+        return normalize_lang(lang)
 
     def _normalize_resource_type(self, resource_type: str | None) -> str | None:
-        if resource_type is None:
-            return None
-        normalized = resource_type.strip().upper()
-        if not RESOURCE_TYPE_RE.fullmatch(normalized):
-            raise CellarValidationError(f"Invalid resource_type: {resource_type!r}")
-        return normalized
+        return normalize_resource_type(resource_type)
 
     def _normalize_country(self, country: str | None) -> str | None:
-        if country is None:
-            return None
-        normalized = country.strip().upper()
-        if not COUNTRY_RE.fullmatch(normalized):
-            raise CellarValidationError(f"Invalid country code (expected ISO-3): {country!r}")
-        return normalized
+        return normalize_country(country)
 
     def _coerce_since(self, since: date | datetime | str | None) -> str | None:
-        if since is None:
-            return None
-        if isinstance(since, datetime):
-            return since.isoformat()
-        if isinstance(since, date):
-            return since.isoformat()
-
-        candidate = since.strip()
-        candidate_for_parse = candidate.replace("Z", "+00:00")
-        try:
-            datetime.fromisoformat(candidate_for_parse)
-            return candidate
-        except ValueError:
-            pass
-
-        try:
-            date.fromisoformat(candidate)
-            return candidate
-        except ValueError as exc:
-            raise CellarValidationError(
-                f"Invalid since value (expected ISO date/datetime): {since!r}"
-            ) from exc
+        return coerce_since(since)
 
     @staticmethod
     def _validate_pagination(limit: int, offset: int) -> None:
-        if limit <= 0:
-            raise CellarValidationError("limit must be > 0")
-        if limit > MAX_LIMIT:
-            raise CellarValidationError(f"limit cannot exceed {MAX_LIMIT}")
-        if offset < 0:
-            raise CellarValidationError("offset cannot be negative")
+        validate_pagination(limit, offset)
 
     def _meta(
         self,
@@ -161,10 +119,9 @@ class ClientBase:
         offset: int | None,
         endpoint: str | None = None,
     ) -> QueryMeta:
-        return QueryMeta(
-            query_name=query_name,
+        return build_query_meta(
+            query_name,
             endpoint=endpoint or self._transport.sparql_endpoint,
-            executed_at=datetime.now(UTC),
             limit=limit,
             offset=offset,
         )
@@ -178,10 +135,12 @@ class ClientBase:
         offset: int | None,
         endpoint: str | None = None,
     ) -> ListResult[T]:
-        return ListResult[T](
+        return build_list_result(
+            query_name=query_name,
             items=items,
-            returned_count=len(items),
-            meta=self._meta(query_name, limit=limit, offset=offset, endpoint=endpoint),
+            endpoint=endpoint or self._transport.sparql_endpoint,
+            limit=limit,
+            offset=offset,
         )
 
     def _find_local_eurovoc_concepts(
@@ -195,38 +154,15 @@ class ClientBase:
         return index.find_by_label(label, limit=limit, offset=offset)
 
     def _normalize_non_empty_tags(self, tags: Sequence[str], *, field_name: str = "tags") -> list[str]:
-        normalized_tags = [tag.strip() for tag in tags if tag.strip()]
-        if not normalized_tags:
-            raise CellarValidationError(f"{field_name} cannot be empty")
-        return normalized_tags
+        return normalize_non_empty_values(tags, field_name=field_name)
 
     def _resolve_eurovoc_concept_uris(self, tags: Sequence[str]) -> list[str]:
-        unique_tags: list[str] = []
-        seen_tags: set[str] = set()
-        for tag in tags:
-            normalized = tag.strip()
-            if not normalized:
-                continue
-            dedupe_key = normalized.casefold()
-            if dedupe_key in seen_tags:
-                continue
-            seen_tags.add(dedupe_key)
-            unique_tags.append(normalized)
+        unique_tags = dedupe_non_empty_casefold(tags)
         index = load_default_eurovoc_index()
         return index.resolve_concept_uris(unique_tags)
 
     def _resolve_subject_matter_concept_uris(self, codes: Sequence[str]) -> list[str]:
-        unique_codes: list[str] = []
-        seen_codes: set[str] = set()
-        for code in codes:
-            normalized = code.strip()
-            if not normalized:
-                continue
-            dedupe_key = normalized.casefold()
-            if dedupe_key in seen_codes:
-                continue
-            seen_codes.add(dedupe_key)
-            unique_codes.append(normalized)
+        unique_codes = dedupe_non_empty_casefold(codes)
         index = load_default_subject_matter_index()
         return index.resolve_concept_uris(unique_codes)
 
@@ -266,7 +202,7 @@ class ClientBase:
         offset: int,
         lang: str,
     ) -> ListResult[RelationItem] | ListResult[CaseLawItem]:
-        spec, rows = self._fetch_relation_rows(
+        return call_relation_result(
             method_name=method_name,
             celex=celex,
             since=since,
@@ -275,24 +211,13 @@ class ClientBase:
             limit=limit,
             offset=offset,
             lang=lang,
-            include_implemented_by_country=False,
-        )
-
-        if spec.case_law:
-            case_items = parse_case_law_items(rows)
-            return self._list_result(
-                query_name=method_name,
-                items=case_items,
-                limit=limit,
-                offset=offset,
-            )
-
-        relation_items = parse_relation_items(rows)
-        return self._list_result(
-            query_name=method_name,
-            items=relation_items,
-            limit=limit,
-            offset=offset,
+            validate_pagination=self._validate_pagination,
+            normalize_lang=self._normalize_lang,
+            normalize_resource_type=self._normalize_resource_type,
+            coerce_since=self._coerce_since,
+            resolve_work_uri=self._resolve_work_uri,
+            query_sparql=self._transport.query_sparql,
+            list_result_builder=self._list_result,
         )
 
     def _fetch_relation_rows(
@@ -308,30 +233,23 @@ class ClientBase:
         lang: str,
         include_implemented_by_country: bool,
     ) -> tuple[RelationCallSpec, list[dict[str, dict[str, str]]]]:
-        spec = RELATION_CALL_SPECS.get(method_name)
-        if spec is None:
-            raise CellarValidationError(f"Unsupported relation method: {method_name}")
-        self._validate_pagination(limit, offset)
-        normalized_lang = self._normalize_lang(lang)
-        normalized_type = self._normalize_resource_type(resource_type) or spec.default_resource_type
-        since_value = self._coerce_since(since)
-        work_uri = self._resolve_work_uri(celex)
-
-        query = build_relation_query(
-            work_uri,
-            predicates=spec.predicates,
-            direction=spec.direction,
-            since=since_value,
-            resource_type=normalized_type,
+        return fetch_relation_rows(
+            method_name=method_name,
+            celex=celex,
+            since=since,
+            include_undated=include_undated,
+            resource_type=resource_type,
             limit=limit,
             offset=offset,
-            lang=normalized_lang,
-            include_undated=include_undated,
-            include_origin_country=spec.case_law,
+            lang=lang,
             include_implemented_by_country=include_implemented_by_country,
+            validate_pagination=self._validate_pagination,
+            normalize_lang=self._normalize_lang,
+            normalize_resource_type=self._normalize_resource_type,
+            coerce_since=self._coerce_since,
+            resolve_work_uri=self._resolve_work_uri,
+            query_sparql=self._transport.query_sparql,
         )
-        rows = parse_bindings(self._transport.query_sparql(query))
-        return spec, rows
 
     def _call_relation_items(
         self,
@@ -393,7 +311,7 @@ class ClientBase:
         offset: int,
         lang: str,
     ) -> ListResult[NIMItem]:
-        _, rows = self._fetch_relation_rows(
+        return call_nim_result(
             method_name=method_name,
             celex=celex,
             since=since,
@@ -402,12 +320,11 @@ class ClientBase:
             limit=limit,
             offset=offset,
             lang=lang,
-            include_implemented_by_country=True,
-        )
-        nim_items = parse_nim_items(rows)
-        return self._list_result(
-            query_name=method_name,
-            items=nim_items,
-            limit=limit,
-            offset=offset,
+            validate_pagination=self._validate_pagination,
+            normalize_lang=self._normalize_lang,
+            normalize_resource_type=self._normalize_resource_type,
+            coerce_since=self._coerce_since,
+            resolve_work_uri=self._resolve_work_uri,
+            query_sparql=self._transport.query_sparql,
+            list_result_builder=self._list_result,
         )

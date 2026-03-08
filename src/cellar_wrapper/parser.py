@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Any
 
+from cellar_wrapper.date_utils import parse_iso_date_or_datetime
 from cellar_wrapper.errors import CellarParseError
 from cellar_wrapper.models import (
     ActDetail,
@@ -132,30 +133,15 @@ def parse_date_value(raw: str | None, *, field_name: str) -> date | datetime | N
     if not candidate:
         return None
 
-    candidate_for_datetime = candidate.replace("Z", "+00:00")
-    if "T" in candidate_for_datetime.upper():
-        try:
-            return datetime.fromisoformat(candidate_for_datetime)
-        except ValueError as exc:
-            raise _parse_error(
-                f"Invalid datetime for {field_name}: {raw!r}",
-                parser="parse_date_value",
-                field=field_name,
-                value=raw,
-            ) from exc
-
     try:
-        return date.fromisoformat(candidate)
-    except ValueError:
-        try:
-            return datetime.fromisoformat(candidate_for_datetime)
-        except ValueError as exc:
-            raise _parse_error(
-                f"Invalid date for {field_name}: {raw!r}",
-                parser="parse_date_value",
-                field=field_name,
-                value=raw,
-            ) from exc
+        return parse_iso_date_or_datetime(candidate)
+    except ValueError as exc:
+        raise _parse_error(
+            f"Invalid date/datetime for {field_name}: {raw!r}",
+            parser="parse_date_value",
+            field=field_name,
+            value=raw,
+        ) from exc
 
 
 def parse_bool_value(

@@ -7,21 +7,18 @@ import json
 from typing import Any, NoReturn
 
 from cellar_wrapper.cli_policy import build_method_kwargs, configure_command_parser
+from cellar_wrapper.cli_runtime import client_kwargs_from_namespace, positive_int
 from cellar_wrapper.cli_specs import COMMANDS, CommandSpec
 from cellar_wrapper.client import CellarClient
+from cellar_wrapper.error_serialization import cellar_error_details
 from cellar_wrapper.errors import (
     CellarError,
-    CellarHTTPError,
     CellarInternalError,
-    CellarNotFoundError,
-    CellarParseError,
-    CellarRateLimitError,
-    CellarSPARQLError,
     CellarValidationError,
 )
-from cellar_wrapper.http import TimeoutConfig
 from cellar_wrapper.models import ErrorPayload
 from cellar_wrapper.serialization import to_jsonable
+from cellar_wrapper.version import __version__
 
 
 class JsonArgumentParser(argparse.ArgumentParser):
@@ -39,28 +36,8 @@ def _emit_success(data: Any) -> int:
 
 def _emit_error(exc: Exception) -> int:
     details: dict[str, Any] = {}
-    if isinstance(exc, CellarHTTPError):
-        details = {
-            "status_code": exc.status_code,
-            "url": exc.url,
-            "body_excerpt": exc.body_excerpt,
-            "details": exc.details,
-        }
-        if isinstance(exc, CellarRateLimitError):
-            details["retry_after"] = exc.retry_after
-            details["retry_after_seconds"] = exc.retry_after_seconds
-    elif isinstance(exc, CellarSPARQLError):
-        details = {
-            "query": exc.query,
-            "response_excerpt": exc.response_excerpt,
-            "details": exc.details,
-        }
-    elif isinstance(exc, CellarNotFoundError):
-        details = {"details": exc.details}
-    elif isinstance(exc, CellarParseError):
-        details = {"details": exc.details}
-    elif isinstance(exc, CellarInternalError):
-        details = exc.details
+    if isinstance(exc, CellarError):
+        details = cellar_error_details(exc)
 
     error = ErrorPayload(type=type(exc).__name__, message=str(exc), details=details)
     payload = {"ok": False, "error": error.model_dump(mode="json")}
@@ -68,21 +45,11 @@ def _emit_error(exc: Exception) -> int:
     return 1
 
 
-def _positive_int(raw: str) -> int:
-    try:
-        value = int(raw)
-    except ValueError as exc:
-        raise argparse.ArgumentTypeError("must be an integer") from exc
-    if value < 1:
-        raise argparse.ArgumentTypeError("must be >= 1")
-    return value
-
-
 def _add_global_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--base-url-sparql", default=None, help="Override SPARQL endpoint URL.")
     parser.add_argument("--base-url-resource", default=None, help="Override resource base URL.")
     parser.add_argument("--user-agent", default=None, help="Override HTTP User-Agent header.")
-    parser.add_argument("--retries", type=_positive_int, default=None, help="Total retry attempts.")
+    parser.add_argument("--retries", type=positive_int, default=None, help="Total retry attempts.")
     parser.add_argument("--timeout-connect", type=float, default=None, help="Connection timeout (seconds).")
     parser.add_argument("--timeout-read", type=float, default=None, help="Read timeout (seconds).")
     parser.add_argument("--timeout-write", type=float, default=None, help="Write timeout (seconds).")
@@ -91,6 +58,7 @@ def _add_global_args(parser: argparse.ArgumentParser) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = JsonArgumentParser(prog="cellar")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     _add_global_args(parser)
 
     group_subparsers = parser.add_subparsers(dest="group", required=True)
@@ -111,24 +79,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _build_client(args: argparse.Namespace) -> CellarClient:
-    defaults = TimeoutConfig()
-    timeout = TimeoutConfig(
-        connect=args.timeout_connect if args.timeout_connect is not None else defaults.connect,
-        read=args.timeout_read if args.timeout_read is not None else defaults.read,
-        write=args.timeout_write if args.timeout_write is not None else defaults.write,
-        pool=args.timeout_pool if args.timeout_pool is not None else defaults.pool,
-    )
-
-    kwargs: dict[str, Any] = {"timeout": timeout}
-    if args.base_url_sparql is not None:
-        kwargs["base_url_sparql"] = args.base_url_sparql
-    if args.base_url_resource is not None:
-        kwargs["base_url_resource"] = args.base_url_resource
-    if args.user_agent is not None:
-        kwargs["user_agent"] = args.user_agent
-    if args.retries is not None:
-        kwargs["retries"] = args.retries
-    return CellarClient(**kwargs)
+    return CellarClient(**client_kwargs_from_namespace(args))
 
 
 def run(argv: list[str] | None = None) -> int:

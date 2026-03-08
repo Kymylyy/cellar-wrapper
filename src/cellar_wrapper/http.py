@@ -20,6 +20,7 @@ from cellar_wrapper.constants import (
     DEFAULT_READ_TIMEOUT,
     DEFAULT_RETRIES,
     DEFAULT_SPARQL_ENDPOINT,
+    DEFAULT_USER_AGENT,
     DEFAULT_WRITE_TIMEOUT,
     MAX_BACKOFF_SECONDS,
     RETRY_STATUS_CODES,
@@ -77,7 +78,7 @@ class HttpTransport:
         sparql_endpoint: str = DEFAULT_SPARQL_ENDPOINT,
         retries: int = DEFAULT_RETRIES,
         max_download_bytes: int = DEFAULT_MAX_DOWNLOAD_BYTES,
-        user_agent: str = "cellar-wrapper/0.1.0",
+        user_agent: str = DEFAULT_USER_AGENT,
         timeout: TimeoutConfig | None = None,
     ) -> None:
         if retries < 1:

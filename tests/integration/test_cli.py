@@ -7,6 +7,7 @@ import pytest
 from cellar_wrapper import cli
 from cellar_wrapper.errors import CellarNotFoundError, CellarValidationError
 from cellar_wrapper.models import ActRef
+from cellar_wrapper.version import __version__
 
 
 class StubClient:
@@ -109,6 +110,12 @@ def test_cli_timeout_validation_returns_json(capsys: pytest.CaptureFixture[str])
     payload = json.loads(capsys.readouterr().out)
     assert payload["ok"] is False
     assert payload["error"]["type"] == "CellarValidationError"
+
+
+def test_cli_version_flag(capsys: pytest.CaptureFixture[str]) -> None:
+    exit_code = cli.run(["--version"])
+    assert exit_code == 0
+    assert capsys.readouterr().out.strip() == f"cellar {__version__}"
 
 
 def test_cli_rejects_since_for_get_deadlines(capsys: pytest.CaptureFixture[str]) -> None:

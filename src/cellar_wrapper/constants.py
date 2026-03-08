@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+from cellar_wrapper.version import __version__
+
 DEFAULT_SPARQL_ENDPOINT = "https://publications.europa.eu/webapi/rdf/sparql"
 DEFAULT_RESOURCE_BASE_URL = "https://publications.europa.eu/resource"
 DEFAULT_LANGUAGE = "eng"
+DEFAULT_USER_AGENT = f"cellar-wrapper/{__version__}"
 
 DEFAULT_LIMIT = 200
 MAX_LIMIT = 1000

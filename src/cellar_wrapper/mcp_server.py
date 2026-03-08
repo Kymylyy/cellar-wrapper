@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import argparse
 import importlib
-import json
 import os
 from collections.abc import Callable, Mapping
 from inspect import Parameter, Signature
@@ -16,18 +15,15 @@ from cellar_wrapper.cli_policy import build_method_kwargs
 from cellar_wrapper.cli_specs import COMMANDS, CommandSpec
 from cellar_wrapper.client import CellarClient
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET, MAX_LIMIT
+from cellar_wrapper.error_serialization import format_cellar_error
 from cellar_wrapper.errors import (
     CellarError,
-    CellarHTTPError,
     CellarInternalError,
-    CellarNotFoundError,
-    CellarParseError,
-    CellarRateLimitError,
-    CellarSPARQLError,
     CellarValidationError,
 )
 from cellar_wrapper.http import TimeoutConfig, validate_http_url
 from cellar_wrapper.serialization import to_jsonable
+from cellar_wrapper.version import __version__
 
 CELLAR_MCP_BASE_URL_SPARQL = "CELLAR_MCP_BASE_URL_SPARQL"
 CELLAR_MCP_BASE_URL_RESOURCE = "CELLAR_MCP_BASE_URL_RESOURCE"
@@ -170,73 +166,6 @@ def _client_kwargs_from_env(env: Mapping[str, str] | None = None) -> dict[str, A
     return kwargs
 
 
-def _safe_repr(value: Any) -> str:
-    try:
-        return repr(value)
-    except Exception:  # pragma: no cover - extreme defensive fallback
-        return f"<unrepresentable {type(value).__name__}>"
-
-
-def _json_default(value: Any) -> Any:
-    converted = to_jsonable(value)
-    if converted is value:
-        return _safe_repr(value)
-    return converted
-
-
-def _safe_json_dumps(value: Any) -> str:
-    try:
-        return json.dumps(
-            to_jsonable(value),
-            ensure_ascii=False,
-            sort_keys=True,
-            default=_json_default,
-        )
-    except Exception:  # pragma: no cover - defensive guard
-        return json.dumps(
-            {"unserializable_details": _safe_repr(value)},
-            ensure_ascii=False,
-            sort_keys=True,
-        )
-
-
-def _cellar_error_details(exc: CellarError) -> dict[str, Any]:
-    details: dict[str, Any] = {}
-    if isinstance(exc, CellarHTTPError):
-        details = {
-            "status_code": exc.status_code,
-            "url": exc.url,
-            "body_excerpt": exc.body_excerpt,
-            "details": exc.details,
-        }
-        if isinstance(exc, CellarRateLimitError):
-            details["retry_after"] = exc.retry_after
-            details["retry_after_seconds"] = exc.retry_after_seconds
-    elif isinstance(exc, CellarSPARQLError):
-        details = {
-            "query": exc.query,
-            "response_excerpt": exc.response_excerpt,
-            "details": exc.details,
-        }
-    elif isinstance(exc, CellarNotFoundError):
-        details = {"details": exc.details}
-    elif isinstance(exc, CellarParseError):
-        details = {"details": exc.details}
-    elif isinstance(exc, CellarInternalError):
-        details = exc.details
-    return details
-
-
-def _format_cellar_error(exc: CellarError) -> str:
-    details = _cellar_error_details(exc)
-    if not details:
-        return f"{type(exc).__name__}: {exc}"
-    return (
-        f"{type(exc).__name__}: {exc} | details="
-        f"{_safe_json_dumps(details)}"
-    )
-
-
 _NO_DEFAULT = object()
 
 
@@ -373,13 +302,13 @@ def _tool_for_spec(spec: CommandSpec, client_factory: Callable[[], CellarClient]
                 method = getattr(client, spec.method)
                 return to_jsonable(method(**method_kwargs))
         except CellarError as exc:
-            raise _tool_error(_format_cellar_error(exc)) from exc
+            raise _tool_error(format_cellar_error(exc)) from exc
         except Exception as exc:  # pragma: no cover - guarded via integration test
             internal_error = CellarInternalError(
                 "Unexpected internal error",
                 details={"original_type": type(exc).__name__},
             )
-            raise _tool_error(_format_cellar_error(internal_error)) from exc
+            raise _tool_error(format_cellar_error(internal_error)) from exc
 
     tool.__name__ = f"tool_{spec.method}"
     tool.__qualname__ = tool.__name__
@@ -417,7 +346,16 @@ def build_mcp_server(
     return server
 
 
-def main() -> None:
+def build_main_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="cellar-mcp")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+    return parser
+
+
+def main(argv: list[str] | None = None) -> None:
+    parser = build_main_parser()
+    parser.parse_args([] if argv is None else argv)
+
     try:
         server = build_mcp_server()
     except CellarValidationError as exc:

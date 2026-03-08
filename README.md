@@ -2,24 +2,17 @@
 
 [![CI](https://github.com/Kymylyy/cellar-wrapper/actions/workflows/ci.yml/badge.svg)](https://github.com/Kymylyy/cellar-wrapper/actions/workflows/ci.yml)
 
-Typed, sync-first Python wrapper for EU Publications Office CELLAR, focused on
-predictable contracts for legal and compliance data workflows.
+Typed, sync-first Python wrapper for EU Publications Office CELLAR, focused on predictable contracts for legal and compliance data workflows.
 
-## Repository overview
-- `src/cellar_wrapper`: core package (`CellarClient`, typed models, SPARQL builders, CLI, MCP server entrypoint).
-- `tests`: unit and integration tests.
-- `docs`: API contract, blueprint, and research notes.
+This project is community-maintained and unofficial. It is not affiliated with, endorsed by, or operated by the European Union or the Publications Office of the European Union.
 
 ## Features
-- `CellarClient` with full method surface from wrapper blueprint.
-- Fail-fast error model with domain exceptions.
-- JSON-first CLI (`cellar`) with command groups mirroring API areas.
-- Optional MCP server (`cellar-mcp`) with tools generated 1:1 from `CommandSpec`.
-- Stateless monitoring methods (`new_*`) with explicit `since`.
-- Enriched metadata for `get_act`, `get_dossier`, and `get_nims`.
-- Country-aware case-law support (`get_national_decisions(..., country="DEU")`).
-- Local packaged EuroVoc index for `find_eurovoc_concept`, `search_by_eurovoc`, and `new_by_eurovoc`.
-- Local packaged subject-matter index for `search_by_subject_matter`.
+
+- Typed `CellarClient` covering lookup, search, lifecycle, relations, case-law, monitoring, and download methods.
+- JSON-first CLI (`cellar`) with command groups that mirror API areas.
+- Optional MCP server runtime (install `mcp` extra, run via module entrypoint).
+- Fail-fast domain errors and stable JSON envelopes for CLI failures.
+- Packaged runtime indexes for EuroVoc and subject-matter resolution.
 
 ## Installation
 
@@ -27,16 +20,11 @@ predictable contracts for legal and compliance data workflows.
 # library + CLI
 pip install cellar-wrapper
 
-# library + CLI + MCP server
+# library + CLI + MCP runtime support
 pip install "cellar-wrapper[mcp]"
-
-# local development
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .[dev]
 ```
 
-## Quick start (Python)
+## Quick Start (Python)
 
 ```python
 from cellar_wrapper import CellarClient
@@ -44,22 +32,15 @@ from cellar_wrapper import CellarClient
 with CellarClient() as client:
     act = client.get_act("32022R2554")
     print(act.celex, act.title)
-
-    amendments = client.get_amendments("32022R2554", limit=50)
-    print(amendments.returned_count)
-
-    new_citations = client.new_citations("32022R2554", since="2025-01-01")
-    print(new_citations.returned_count)
 ```
 
-## Quick start (CLI)
+## Quick Start (CLI)
 
 ```bash
+cellar --version
 cellar lookup resolve-celex --celex 32022R2554
 cellar relations get-amendments --celex 32022R2554 --limit 50
 cellar monitoring new-citations --celex 32022R2554 --since 2025-01-01
-cellar download get-text --celex 32022R2554 --lang eng --format pdf
-cellar --user-agent "my-team-cellar-bot/1.0" lookup resolve-celex --celex 32022R2554
 ```
 
 CLI success envelope:
@@ -74,23 +55,28 @@ CLI error envelope:
 {"ok": false, "error": {"type": "CellarValidationError", "message": "...", "details": {...}}}
 ```
 
-`error.details` is always present in CLI output and can be an empty object (`{}`).
+## Quick Start (MCP)
 
-## Quick start (MCP)
+Install with extra:
 
 ```bash
-# 1) register MCP server in Claude Code (one-time)
-claude mcp add cellar -- cellar-mcp
-
-# 2) optional runtime overrides (set before starting the MCP process)
-export CELLAR_MCP_USER_AGENT="my-team-cellar-mcp/1.0"
-export CELLAR_MCP_RETRIES=5
-
-# 3) optional manual run for local debugging (stdio, foreground process)
-cellar-mcp
+pip install "cellar-wrapper[mcp]"
 ```
 
-Environment variables accepted by `cellar-mcp`:
+Run server (stdio):
+
+```bash
+python -m cellar_wrapper.mcp_server
+```
+
+Version check:
+
+```bash
+python -m cellar_wrapper.mcp_server --version
+```
+
+MCP runtime environment variables:
+
 - `CELLAR_MCP_BASE_URL_SPARQL`
 - `CELLAR_MCP_BASE_URL_RESOURCE`
 - `CELLAR_MCP_USER_AGENT`
@@ -100,89 +86,45 @@ Environment variables accepted by `cellar-mcp`:
 - `CELLAR_MCP_TIMEOUT_WRITE`
 - `CELLAR_MCP_TIMEOUT_POOL`
 
-MCP env validation (startup fail-fast):
-- if set, values cannot be empty/whitespace-only.
-- `CELLAR_MCP_BASE_URL_SPARQL` / `CELLAR_MCP_BASE_URL_RESOURCE`: valid `http|https` URL.
-- `CELLAR_MCP_RETRIES`: integer `>= 1`.
-- `CELLAR_MCP_TIMEOUT_*`: float `> 0`.
-- invalid config stops process before serving tools (`Invalid MCP configuration: ...`).
+## Development
 
-MCP tool payload contract:
-- success returns raw method payload (for example `ListResult`, `ActDetail`, `DocumentPayload`) without CLI envelope (`ok/data`).
-- domain errors are returned as MCP `ToolError` message:
-  - `<CellarErrorType>: <message>`
-  - optional suffix ` | details=<json>` appears only when details are non-empty.
-
-## Development checks
+Required PR checks:
 
 ```bash
 ruff check
 mypy
-pytest
+pytest -m "not live"
+python -m build --sdist --wheel
 ```
 
-## Runtime taxonomy index refresh
+Optional checks:
 
-Runtime EuroVoc resolve uses packaged file `src/cellar_wrapper/data/eurovoc_index.json`.
-Refresh it from `docs/eurovoc_all.json` with:
+- Live endpoint smoke test: `pytest -m live` with `CELLAR_LIVE=1`
+- Manual contract report generation: see `docs/manual_test/README.md`
 
-```bash
-python3 scripts/build_runtime_eurovoc_index.py
-```
+## Runtime Data
 
-Runtime subject-matter resolve uses packaged file
-`src/cellar_wrapper/data/subject_matter_index.json`.
-Refresh it from `docs/subject_matter_all.json` with:
+Runtime resolve methods use packaged files:
 
-```bash
-python3 scripts/build_runtime_subject_matter_index.py
-```
+- `src/cellar_wrapper/data/eurovoc_index.json`
+- `src/cellar_wrapper/data/subject_matter_index.json`
 
-## Manual contract test reports
+Data sources, attribution, and artifact policy:
 
-Run manual checks for all public methods and generate JSON + HTML report:
+- https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/DATA_PROVENANCE.md
+- https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/DATA_ARTIFACTS.md
 
-```bash
-PYTHONPATH=src python3 scripts/manual_test_contracts.py --workers 8 --runs 2
-```
+## Documentation
 
-Default output location:
-- `docs/manual_test/<YYYYMMDD_HHMMSS>/contract_methods_manual_test_report.json`
-- `docs/manual_test/<YYYYMMDD_HHMMSS>/contract_methods_manual_test_report.html`
+- Docs index: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/README.md
+- API contract: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/API_CONTRACT.md
+- Method mapping: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/METHOD_MAPPING.md
+- Plain-language command guide: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/COMMANDS_SIMPLE.md
 
-Report behavior:
-- kwargs profiles are loaded from `docs/manual_test/kwargs_profiles.json`.
-- profile list currently contains `7` profiles (`profile_a` ... `profile_g`).
-- attempts cycle through profiles in order (`attempt 1 -> profile_a`, `attempt 2 -> profile_b`, ...).
-- HTML shows kwargs and output inline (no expandable sections).
+## Project Policies
 
-Render HTML for an existing report JSON:
-
-```bash
-PYTHONPATH=src python3 scripts/manual_test_contracts.py --from-json docs/manual_test/<RUN_ID>/contract_methods_manual_test_report.json
-```
-
-## Documentation map
-- Docs index (start here): [docs/README.md](docs/README.md)
-- API contract: [docs/API_CONTRACT.md](docs/API_CONTRACT.md)
-- Method mapping: [docs/METHOD_MAPPING.md](docs/METHOD_MAPPING.md)
-- Data artifacts inventory: [docs/DATA_ARTIFACTS.md](docs/DATA_ARTIFACTS.md)
-- Wrapper blueprint (deprecated, historical): [docs/WRAPPER_BLUEPRINT.md](docs/WRAPPER_BLUEPRINT.md)
-- Research notes archive: [docs/research/README.md](docs/research/README.md)
-- EuroVoc performance notes: [docs/EUROVOC.md](docs/EUROVOC.md)
-
-## Notes
-- Default language: `eng`.
-- `since` semantics:
-  - non-monitoring methods (`search_*`, `get_*` with optional `since`): keep undated rows.
-  - monitoring methods (`new_*`): strict `BOUND(date) && date > since`.
-- Additional monitoring methods: `new_repeals`, `new_proposals_to_amend`, `new_preliminary_questions`.
-- SPARQL transport is `POST`-first with automatic `GET` fallback for unsupported endpoints.
-- GET fallback is skipped when encoded URL would exceed a safe length guard.
-- HTTP retries respect `Retry-After` both on intermediate and final `429` responses.
-- `get_summary` enforces `Accept: application/xhtml+xml;type=xhtml5`.
-- Search methods validate non-empty list inputs (`tags`, `codes`).
-- Downloads are streamed with a default max payload of `25MB` (configurable via `max_download_bytes`).
-- Use one `CellarClient` instance per thread when doing concurrent work; do not share a single instance
-  across threads because it wraps one shared `httpx.Client`.
-- Out of scope: ESA soft-law sources (EBA/ESMA/EIOPA websites/APIs).
+- License: https://github.com/Kymylyy/cellar-wrapper/blob/main/LICENSE
+- Contributing: https://github.com/Kymylyy/cellar-wrapper/blob/main/CONTRIBUTING.md
+- Security: https://github.com/Kymylyy/cellar-wrapper/blob/main/SECURITY.md
+- Support: https://github.com/Kymylyy/cellar-wrapper/blob/main/SUPPORT.md
+- Code of Conduct: https://github.com/Kymylyy/cellar-wrapper/blob/main/CODE_OF_CONDUCT.md

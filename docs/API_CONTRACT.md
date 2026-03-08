@@ -174,7 +174,7 @@ For local index failures, details include `source = "local_eurovoc_index"` or
 - Use one `CellarClient` instance per thread.
 
 ## MCP contract
-- Entrypoint: `cellar-mcp` (`cellar_wrapper.mcp_server:main`).
+- Entrypoint: `python -m cellar_wrapper.mcp_server` (install extra: `pip install "cellar-wrapper[mcp]"`).
 - Transport: stdio only.
 - Tool surface: generated from `CommandSpec` and `COMMANDS`; currently `45` tools.
 - Tool names match CLI command slugs exactly (for example `resolve-celex`, `get-amendments`, `new-citations`).
@@ -195,7 +195,7 @@ For local index failures, details include `source = "local_eurovoc_index"` or
     - `<CellarErrorType>: <message>`
     - optional ` | details=<json>` suffix only when details are non-empty.
   - unexpected runtime exceptions are mapped to `CellarInternalError` with `details.original_type`.
-- Runtime configuration for `cellar-mcp` uses environment variables:
+- Runtime configuration for MCP server uses environment variables:
   - `CELLAR_MCP_BASE_URL_SPARQL`
   - `CELLAR_MCP_BASE_URL_RESOURCE`
   - `CELLAR_MCP_USER_AGENT`

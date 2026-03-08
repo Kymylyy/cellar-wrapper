@@ -25,6 +25,7 @@ from cellar_wrapper.mcp_server import (
     build_mcp_server,
     main,
 )
+from cellar_wrapper.version import __version__
 
 
 def _list_tools(server: Any) -> list[Any]:
@@ -413,3 +414,10 @@ def test_main_exits_with_install_hint_when_mcp_dependency_missing(
     with pytest.raises(SystemExit) as exc_info:
         main()
     assert "cellar-wrapper[mcp]" in str(exc_info.value)
+
+
+def test_main_version_flag(capsys: pytest.CaptureFixture[str]) -> None:
+    with pytest.raises(SystemExit) as exc_info:
+        main(["--version"])
+    assert exc_info.value.code == 0
+    assert capsys.readouterr().out.strip() == f"cellar-mcp {__version__}"

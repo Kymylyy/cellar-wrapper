@@ -6,3 +6,12 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .claude/
+.DS_Store
+.venv/
+venv/
+dist/
+build/
+htmlcov/
+docs/manual_test/*/
+!docs/manual_test/README.md
+!docs/manual_test/kwargs_profiles.json

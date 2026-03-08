@@ -23,3 +23,5 @@ jobs:
         run: mypy
       - name: Test
         run: pytest -m "not live"
+      - name: Build
+        run: python -m build --sdist --wheel

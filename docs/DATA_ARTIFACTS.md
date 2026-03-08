@@ -9,6 +9,7 @@ They are not consumed directly by runtime code.
 Runtime resolve uses packaged data files:
 `src/cellar_wrapper/data/eurovoc_index.json` and
 `src/cellar_wrapper/data/subject_matter_index.json`.
+Source attribution and reuse notes are documented in `DATA_PROVENANCE.md`.
 
 ## Inventory
 

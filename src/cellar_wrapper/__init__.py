@@ -12,9 +12,11 @@ from cellar_wrapper.errors import (
     CellarTimeoutError,
     CellarValidationError,
 )
+from cellar_wrapper.version import __version__
 
 __all__ = [
     "CellarClient",
+    "__version__",
     "CellarError",
     "CellarValidationError",
     "CellarHTTPError",

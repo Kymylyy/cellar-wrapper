@@ -392,9 +392,9 @@ PSR and PSD3 are **two separate dossiers**, but they are treated as **one packag
 
 3. **PSR+PSD3 package** — separate procedures (0210/COD and 0209/COD), but shared: impact assessment, EESC opinion, ECB opinion, Council mandates adopted on the same day.
 
-4. **Predecessor dossier from 2022** — Commission planning dossier z September 2022 confirms that PSR grew out of the PSD2 review.
+4. **Predecessor dossier from 2022** — Commission planning dossier from September 2022 confirms that PSR grew out of the PSD2 review.
 
-5. **EuroVoc confirms the regulation character** — none `approximation of laws` (present in PSD2), which semantically reflects the fact that a regulation is directly applicable (it does not harmonise national law).
+5. **EuroVoc confirms the regulation character** — no `approximation of laws` (present in PSD2), which semantically reflects the fact that a regulation is directly applicable (it does not harmonise national law).
 
 6. **PSR expands the EBA scope** — amending Regulation 1093/2010 (EBA) expands EBA supervisory competences in payment services.
 

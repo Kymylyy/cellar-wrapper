@@ -494,16 +494,16 @@ Plus: UK (4), Greece (3), Spain (3), Italy (3), Belgium (2), Portugal (2), Irela
 |---|---|---|
 | `work_title` (in the national language) | 100% | Title of the national law |
 | `measure_national_implementing_date_notification` | 100% | Notification date to the Commission |
-| `measure_national_implementing_type_act` | 100% | Act type krajowego |
+| `measure_national_implementing_type_act` | 100% | National act type |
 | `measure_national_implementing_name_official_journal` | 99.6% | Official journal name |
-| `measure_national_implementing_reference_member-state` | 64% | Countryowa signature |
+| `measure_national_implementing_reference_member-state` | 64% | Country-specific reference |
 | `resource_legal_date_entry-into-force` | 46% | Entry-into-force date |
 | `measure_national_implementing_national_website_link` | **10%** | Link to the text |
 | `resource_legal_eli` | 2.3% | ELI identifier |
 
 **Key finding**: The property is `measure_national_implementing_implemented_by_country` (NOT `adopted_by_country`).
 
-## Polish NIMs (7 sztuk)
+## Polish NIMs (7 items)
 
 | CELEX | Title | Type | Dz.U. |
 |---|---|---|---|
@@ -545,7 +545,7 @@ Plus: UK (4), Greece (3), Spain (3), Italy (3), Belgium (2), Portugal (2), Irela
 
 ## Field comparison by act type
 
-| Type | Wszystkie fields | Unikalne fields | Shared z innymi |
+| Type | All fields | Unique fields | Shared with others |
 |---|---|---|---|
 | Regulation (REG) | 121 | 16 | 31 |
 | Directive (DIR) | 108 | 3 | 31 |
@@ -588,7 +588,7 @@ _:annotation  <qualifier>          <value>
 
 | Relation | Count | Description |
 |---|---|---|
-| `measure_national_implementing_implements` | 258 | Transposition krajowa |
+| `measure_national_implementing_implements` | 258 | National transposition |
 | `work_cites_work` | 233 | Citations |
 | `communication_case_new_submits_preliminary_question` | 30 | Preliminary questions |
 | `resource_legal_amends` | 13 | Zmiany legislacyjne |

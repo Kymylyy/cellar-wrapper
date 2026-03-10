@@ -1,63 +1,63 @@
-# Orzecznictwo w CELLAR — TSUE vs sądy krajowe
+# Case Law in CELLAR — CJEU vs National Courts
 
-## Typy orzecznicze w CELLAR
+## Case-law types in CELLAR
 
-| Typ | Ilość | Opis |
+| Type | Count | Description |
 |---|---|---|
-| **INFO_JUDICIAL** | 69,718 | Informacje sądowe (metadane proceduralne) |
-| **DEC_NC** | 35,773 | **Wyroki sądów krajowych** w kontekście prawa UE |
-| **DEC_ENTSCHEID** | 33,751 | Decyzje (duplikat JUDG w innym formacie?) |
-| **JUDG** | 33,739 | **Wyroki TSUE** |
-| **SUM_JUR** | 24,443 | Streszczenia orzeczeń |
-| **CASE_LAW** | 15,252 | Raporty z orzecznictwa |
-| **OPIN_AG** | 14,360 | **Opinie Rzeczników Generalnych** |
-| **ORDER** | 8,260 | Postanowienia TSUE |
+| **INFO_JUDICIAL** | 69,718 | Judicial information (procedural metadata) |
+| **DEC_NC** | 35,773 | **National court judgments** in the EU-law context |
+| **DEC_ENTSCHEID** | 33,751 | Decisions (duplicate of JUDG in a different format?) |
+| **JUDG** | 33,739 | **CJEU judgments** |
+| **SUM_JUR** | 24,443 | Case-law summaries |
+| **CASE_LAW** | 15,252 | Case-law reports |
+| **OPIN_AG** | 14,360 | **Advocate General opinions** |
+| **ORDER** | 8,260 | CJEU orders |
 
 ---
 
-## TSUE (JUDG) — model danych
+## CJEU (JUDG) — data model
 
-Zbadany na przykładzie **C-287/19 DenizBank** (wyrok interpretujący PSD2).
+Studied using **C-287/19 DenizBank** as the example (a judgment interpreting PSD2).
 
-### Pola specyficzne dla wyroków TSUE
+### Fields Specific to CJEU Judgments
 
-| Pole CDM | Opis | Przykład |
+| CDM field | Description | Example |
 |---|---|---|
-| `case-law_ecli` | Identyfikator ECLI | `ECLI:EU:C:2020:897` |
-| `case-law_has_procjur` | Typ procedury | `REFER_PREL` (pytanie prejudycjalne) |
-| `case-law_delivered_by_court-formation` | Skład sądu | `CHAMB_01_C` (Izba I) |
-| `case-law_delivered_by_judge` | Sędzia sprawozdawca | (cellar URI) |
-| `case-law_delivered_by_advocate-general` | Rzecznik Generalny | Campos Sánchez-Bordona |
-| `case-law_interpretes_resource_legal` | **Jakie akty interpretuje** | PSD2 + Klausel-RL |
-| `case-law_declares_valid_resource_legal` | Jakie akty uznaje za ważne | — |
-| `case-law_originates_in_country` | Kraj pytającego sądu | AUT (Austria) |
-| `case-law_uses_procedure_language` | Język postępowania | DEU (niemiecki) |
-| `case-law_commented_by_agent` | Kto składał uwagi | COM, PRT, CZE |
-| `case-law_published_in_erecueil` | Czy w ECR | 1 (tak) |
-| `case-law_has_conclusions_opinion_advocate-general` | Link do opinii AG | (cellar URI) |
-| `case-law_is_about_concept_new_case-law` | Klasyfikacja tematyczna | `4.11.12.03` |
+| `case-law_ecli` | ECLI identifier | `ECLI:EU:C:2020:897` |
+| `case-law_has_procjur` | Procedure type | `REFER_PREL` (preliminary question) |
+| `case-law_delivered_by_court-formation` | Court formation | `CHAMB_01_C` (Chamber I) |
+| `case-law_delivered_by_judge` | Judge-rapporteur | (cellar URI) |
+| `case-law_delivered_by_advocate-general` | Advocate General | Campos Sánchez-Bordona |
+| `case-law_interpretes_resource_legal` | **Which acts it interprets** | PSD2 + Unfair Terms Directive |
+| `case-law_declares_valid_resource_legal` | Which acts it considers valid | — |
+| `case-law_originates_in_country` | Country of the referring court | AUT (Austria) |
+| `case-law_uses_procedure_language` | Language of proceedings | DEU (German) |
+| `case-law_commented_by_agent` | Who submitted observations | COM, PRT, CZE |
+| `case-law_published_in_erecueil` | Whether in ECR | 1 (yes) |
+| `case-law_has_conclusions_opinion_advocate-general` | Link to AG opinion | (cellar URI) |
+| `case-law_is_about_concept_new_case-law` | Topical classification | `4.11.12.03` |
 
-### Pola unikalne — niedostępne na innych typach
+### Unique Fields Not Available on Other Types
 
-| Pole | Wartość dla monitoringu |
+| Field | Value for monitoring |
 |---|---|
-| **`case-law_national-judgement`** | Wyroki krajowe będące follow-up (z ECLI!) |
-| **`case-law_article_journal_related`** | Artykuły naukowe omawiające wyrok |
+| **`case-law_national-judgement`** | National follow-up judgments (with ECLI) |
+| **`case-law_article_journal_related`** | Academic articles discussing the judgment |
 
-### Przykład `case-law_article_journal_related` (C-287/19 DenizBank)
+### Example `case-law_article_journal_related` (C-287/19 DenizBank)
 
-6 artykułów naukowych zarejestrowanych w CELLAR:
+6 scholarly articles registered in CELLAR:
 
 1. Bassani: "Protection des consommateurs - Services de paiement" (Europe 2021)
-2. Rodi: "Keine Haftungserleichterung für Bank beim kontaktlosen Zahlen" (EWR 2020)
+2. Rodi: "Keine Haftungserleichterung für Bank beim konyestlosen Zahlen" (EWR 2020)
 3. Steennot: "Gebruik van NFC-technologie zonder geheime code" (RDCB 2021)
 4. Prankl: "Zustimmungsfiktionsklauseln in Zahlungsdienste-Rahmenverträgen" (Ecolex 2021)
-5. Hoffmann/Rastegar: "Kontaktlose Zahlungen im Privatrecht" (WM 2021)
+5. Hoffmann/Rastegar: "Konyestlose Zahlungen im Privatrecht" (WM 2021)
 6. Fornasier: "Die Anwendung der Klauselrichtlinie" (EuZW 2021)
 
-**Odkrycie:** CELLAR przechowuje **referencje do artykułów naukowych** omawiających wyroki TSUE. To ogromna wartość dla monitoringu — daje kontekst akademicki.
+**Finding:** CELLAR stores **references to academic articles** discussing CJEU judgments. This is highly valuable for monitoring because it adds academic context.
 
-### Przykład `case-law_national-judgement` (C-287/19)
+### Example `case-law_national-judgement` (C-287/19)
 
 ```
 *A9* Oberster Gerichtshof, Beschluss vom 25/01/2019 (8 Ob 24/18i)
@@ -65,16 +65,16 @@ Zbadany na przykładzie **C-287/19 DenizBank** (wyrok interpretujący PSD2).
      (ECLI:AT:OGH0002:2021:0080OB00105.20D.0325.000)
 ```
 
-`*A9*` = sąd pytający, `*P1*` = wyrok follow-up po odpowiedzi TSUE.
+`*A9*` = referring court, `*P1*` = follow-up judgment after the CJEU answer.
 
-### Jak monitorować nowe wyroki TSUE dot. danego aktu
+### How to Monitor New CJEU Judgments for a Given Act
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
 
-# Nowe wyroki interpretujące PSD2
+# New judgments interpreting PSD2
 SELECT ?celex ?ecli ?date ?country WHERE {
-  ?work cdm:case-law_interpretes_resource_legal <CELLAR_URI_AKTU> .
+  ?work cdm:case-law_interpretes_resource_legal <CELLAR_URI_ACT> .
   ?work cdm:resource_legal_id_celex ?celex .
   ?work cdm:case-law_ecli ?ecli .
   OPTIONAL { ?work cdm:work_date_document ?date }
@@ -84,9 +84,9 @@ ORDER BY DESC(?date)
 ```
 
 ```sparql
-# Nowe pytania prejudycjalne dot. PSD2
+# New preliminary questions on PSD2
 SELECT ?celex ?date ?country WHERE {
-  ?work cdm:communication_case_new_submits_preliminary_question_resource_legal <CELLAR_URI_AKTU> .
+  ?work cdm:communication_case_new_submits_preliminary_question_resource_legal <CELLAR_URI_ACT> .
   ?work cdm:resource_legal_id_celex ?celex .
   OPTIONAL { ?work cdm:work_date_document ?date }
   OPTIONAL { ?work cdm:case-law_originates_in_country ?country }
@@ -96,154 +96,154 @@ ORDER BY DESC(?date)
 
 ---
 
-## DEC_NC (sądy krajowe) — model danych
+## DEC_NC (national courts) — data model
 
-35,773 wyroków sądów krajowych w kontekście prawa UE.
+35,773 national court judgments in the context of EU law.
 
-### Dystrybucja geograficzna (top 15)
+### Geographic distribution (top 15)
 
-| Kraj | Ilość | Sądy przykładowe |
+| Country | Count | Example courts |
 |---|---|---|
-| **DEU** (Niemcy) | 7,815 | BGH, OLG Stuttgart, OLG München, LG Ulm |
-| **FRA** (Francja) | 4,580 | Cour de cassation, Cour d'appel |
-| **ITA** (Włochy) | 3,642 | — |
-| **NLD** (Holandia) | 3,359 | — |
-| **BEL** (Belgia) | 2,874 | — |
-| **ESP** (Hiszpania) | 1,979 | — |
+| **DEU** (Germany) | 7,815 | BGH, OLG Stuttgart, OLG München, LG Ulm |
+| **FRA** (France) | 4,580 | Cour de cassation, Cour d'appel |
+| **ITA** (Italy) | 3,642 | — |
+| **NLD** (Netherlands) | 3,359 | — |
+| **BEL** (Belgium) | 2,874 | — |
+| **ESP** (Spain) | 1,979 | — |
 | **GBR** (UK) | 1,841 | (pre-Brexit) |
 | **AUT** (Austria) | 1,574 | OGH |
-| **GRC** (Grecja) | 1,062 | — |
-| **LUX** (Luksemburg) | 637 | Cour d'appel Luxembourg |
-| **PRT** (Portugalia) | 630 | — |
-| **DNK** (Dania) | 434 | — |
-| **IRL** (Irlandia) | 402 | — |
-| **SWE** (Szwecja) | 392 | — |
-| **CZE** (Czechy) | 327 | — |
-| **POL** (Polska) | **286** | **Sąd Najwyższy** |
+| **GRC** (Greece) | 1,062 | — |
+| **LUX** (Luxembourg) | 637 | Cour d'appel Luxembourg |
+| **PRT** (Portugal) | 630 | — |
+| **DNK** (Denmark) | 434 | — |
+| **IRL** (Ireland) | 402 | — |
+| **SWE** (Sweden) | 392 | — |
+| **CZE** (Czechia) | 327 | — |
+| **POL** (Poland) | **286** | **Supreme Court** |
 
-### Pola specyficzne DEC_NC
+### DEC_NC-Specific Fields
 
-| Pole CDM | Pokrycie | Opis |
+| CDM field | Coverage | Description |
 |---|---|---|
-| `case-law_originates_in_country` | 96% | Kraj sądu |
-| `work_title` | 96% | Identyfikator (np. "OLG Stuttgart; 2021-01-15; 5 U 11/20") |
-| `case-law_national_keywords` | 51,278 | Słowa kluczowe (XML, wielojęzyczne) |
-| `case-law_article_journal_related` | 33,075 | Artykuły naukowe omawiające wyrok |
-| `resource_legal_uses_originally_language` | 86% | Język orzeczenia |
-| `case-law_is_about_concept_case-law` | 29,107 | Klasyfikacja tematyczna |
-| `case-law_national_decision_internal_identifier` | 81% | Krajowy numer sprawy |
-| `case-law_national_act_reference_national` | 23,136 | Referencje do prawa krajowego |
-| **`case-law_national_act_reference_european`** | **19,781** | **Referencje do prawa UE (z artykułem!)** |
-| `case-law_national_reference_publication` | 19,154 | Gdzie opublikowany |
-| `case-law_ecli` | var. | ECLI krajowego orzeczenia |
-| `case-law_national_follow-up` | 8,744 | Follow-up do wyroku TSUE |
-| `case-law_national_judgement_reference` | 12,270 | Referencja do wyroku TSUE |
-| `case-law_national_parties` | var. | Strony (zazwyczaj anonimizowane) |
+| `case-law_originates_in_country` | 96% | Country of the court |
+| `work_title` | 96% | Identifier (e.g. "OLG Stuttgart; 2021-01-15; 5 U 11/20") |
+| `case-law_national_keywords` | 51,278 | Keywords (XML, multilingual) |
+| `case-law_article_journal_related` | 33,075 | Academic articles discussing the judgment |
+| `resource_legal_uses_originally_language` | 86% | Language of the judgment |
+| `case-law_is_about_concept_case-law` | 29,107 | Topical classification |
+| `case-law_national_decision_internal_identifier` | 81% | National case number |
+| `case-law_national_act_reference_national` | 23,136 | References to national law |
+| **`case-law_national_act_reference_european`** | **19,781** | **References to EU law (with article granularity)** |
+| `case-law_national_reference_publication` | 19,154 | Where published |
+| `case-law_ecli` | var. | ECLI of the national judgment |
+| `case-law_national_follow-up` | 8,744 | Follow-up to a CJEU judgment |
+| `case-law_national_judgement_reference` | 12,270 | Reference to the CJEU judgment |
+| `case-law_national_parties` | var. | Parties (usually anonymized) |
 
 ### Format `case-law_national_act_reference_european`
 
-Referencje do prawa UE z **precyzją na artykuł**:
+References to EU law with **article-level precision**:
 
 ```
-32015L2366-A04PT21     → PSD2, Art. 4 pkt 21
+32015L2366-A04PT21     → PSD2, Art. 4 point 21
 32007L0064-A65P2       → PSD1, Art. 65(2)
 32012R0650-A21         → Succession Reg, Art. 21
 32016R0679-A17         → GDPR, Art. 17
 12016E267-P2           → TFUE, Art. 267(2)
 ```
 
-Format: `{CELEX}-A{artykuł}P{paragraf}PT{punkt}L{ustęp}`
+Format: `{CELEX}-A{article}P{paragraph}PT{point}L{subparagraph}`
 
-### Przykład pełnego rekordu DEC_NC
+### Example Full DEC_NC Record
 
 **82021DE0115(51)** — OLG Stuttgart, 15.01.2021, 5 U 11/20
 
-| Pole | Wartość |
+| Field | Value |
 |---|---|
 | ECLI | `ECLI:DE:OLGSTUT:2021:0115.5U11.20.00` |
-| Kraj | Niemcy |
-| Sąd | OLG Stuttgart (cellar URI) |
-| Język | niemiecki |
-| Temat | COJC (sądownictwo cywilne) |
-| Prawo krajowe | BGB §675c(1)(2), §675f(2), §823; GlüStV §4(1) |
-| **Prawo UE** | **PSD2 Art. 4 pkt 21** + 22 innych referencji (wyroki TSUE, rozporządzenia) |
-| Sąd I instancji | LG Ulm, 16.12.2019, 4 O 202/18 |
+| Country | Germany |
+| Court | OLG Stuttgart (cellar URI) |
+| Language | German |
+| Topic | COJC (civil justice) |
+| National law | BGB §675c(1)(2), §675f(2), §823; GlüStV §4(1) |
+| **EU law** | **PSD2 Art. 4 point 21** + 22 other references (CJEU judgments, regulations) |
+| Court of first instance | LG Ulm, 16.12.2019, 4 O 202/18 |
 
-### Przykład polskiego DEC_NC
+### Example Polish DEC_NC
 
-**82025PL0509(51)** — Sąd Najwyższy, 09.05.2025, II CSKP 468/23
+**82025PL0509(51)** — Supreme Court, 09.05.2025, II CSKP 468/23
 
-| Pole | Wartość |
+| Field | Value |
 |---|---|
-| Kraj | Polska |
-| Sąd | Sąd Najwyższy (cellar URI) |
-| Język | polski |
-| Prawo krajowe | Konstytucja RP art. 89-91, 241; KPC art. 13§2, 108§2, 243¹, 328§2, 385, 387§2¹, 391§1, 398³§1 pkt 2, 398¹³§2, 398¹⁵§1 |
-| Prawo UE | Reg. 650/2012 (succession) — 11 artykułów, TFUE art. 288(1) |
-| Strony | J. R. (anonimizowane) |
+| Country | Poland |
+| Court | Supreme Court (cellar URI) |
+| Language | Polish |
+| National law | Konstytucja RP art. 89-91, 241; KPC art. 13§2, 108§2, 243¹, 328§2, 385, 387§2¹, 391§1, 398³§1 pkt 2, 398¹³§2, 398¹⁵§1 |
+| EU law | Reg. 650/2012 (succession) — 11 articles, TFUE art. 288(1) |
+| Parties | J. R. (anonymized) |
 
 ---
 
-## Porównanie JUDG vs DEC_NC
+## Comparison JUDG vs DEC_NC
 
-| Aspekt | JUDG (TSUE) | DEC_NC (sądy krajowe) |
+| Aspect | JUDG (CJEU) | DEC_NC (national courts) |
 |---|---|---|
-| **Ilość** | 33,739 | 35,773 |
-| **Link do aktu UE** | `case-law_interpretes_resource_legal` (CELLAR URI) | `case-law_national_act_reference_european` (CELEX+artykuł string) |
-| **Siła linkowania** | **Silne** — bezpośredni link URI | **Słabe** — string match, 56% pokrycie |
-| **Artykuły naukowe** | Tak (6 dla DenizBank) | Tak (33k ogółem) |
-| **ECLI** | Zawsze | Często |
-| **Klasyfikacja** | `case-law_is_about_concept_new_case-law` | `case-law_is_about_concept_case-law` |
-| **Procedura** | `case-law_has_procjur` (REFER_PREL, itp.) | Brak |
+| **Count** | 33,739 | 35,773 |
+| **Link to EU act** | `case-law_interpretes_resource_legal` (CELLAR URI) | `case-law_national_act_reference_european` (CELEX+article string) |
+| **Link strength** | **Strong** — direct URI link | **Weak** — string match, 56% coverage |
+| **Scholarly articles** | Yes (6 for DenizBank) | Yes (33k overall) |
+| **ECLI** | Always | Often |
+| **Classification** | `case-law_is_about_concept_new_case-law` | `case-law_is_about_concept_case-law` |
+| **Procedure** | `case-law_has_procjur` (REFER_PREL, etc.) | None |
 | **Follow-up** | `case-law_national-judgement` | `case-law_national_follow-up` (8,744) |
-| **Kraj** | `case-law_originates_in_country` (kraj pytający) | `case-law_originates_in_country` (kraj sądu) |
-| **Prawo krajowe** | Brak | `case-law_national_act_reference_national` (23k) |
-| **Monitorowalność** | **Wysoka** | **Średnia** (wymaga string match na CELEX) |
+| **Country** | `case-law_originates_in_country` (referring country) | `case-law_originates_in_country` (country of the court) |
+| **National law** | None | `case-law_national_act_reference_national` (23k) |
+| **Monitorability** | **High** | **Medium** (requires string matching on CELEX) |
 
 ---
 
-## Wyniki wyszukiwania: PSD2 w orzecznictwie
+## Search Results: PSD2 in Case Law
 
-### TSUE — 5 wyroków + 10 pytań prejudycjalnych
+### CJEU — 5 judgments + 10 preliminary questions
 
-(Szczegóły w CELLAR_API_RESEARCH.md)
+(Details in CELLAR_API_RESEARCH.md)
 
-### DEC_NC referujące PSD1/PSD2 — 3 wyroki
+### DEC_NC referring to PSD1/PSD2 — 3 judgments
 
-| Data | Kraj | CELEX | Sąd | Referencja |
+| Date | Country | CELEX | Court | Reference |
 |---|---|---|---|---|
 | 2019-12-16 | DEU | `82019DE1216(51)` | LG Ulm, 4 O 202/18 | PSD1 Art. 65(2) |
-| 2021-01-15 | DEU | `82021DE0115(51)` | OLG Stuttgart, 5 U 11/20 | **PSD2 Art. 4 pkt 21** |
+| 2021-01-15 | DEU | `82021DE0115(51)` | OLG Stuttgart, 5 U 11/20 | **PSD2 Art. 4 point 21** |
 | 2023-03-07 | LUX | `82023LU0307(51)` | Cour d'appel, 39/23 | PSD1 Art. 59 |
 
-**Uwaga:** Niska liczba (3) wynika z faktu, że `case-law_national_act_reference_european` jest uzupełnione tylko dla 56% DEC_NC. Wiele wyroków krajowych dot. PSD2 prawdopodobnie istnieje, ale nie ma tagowanej referencji do aktu UE.
+**Note:** The low count (3) follows from the fact that `case-law_national_act_reference_european` is populated for only 56% of DEC_NC records. Many national judgments concerning PSD2 likely exist, but without a tagged reference to the EU act.
 
-### Porównanie z GDPR
+### Comparison with GDPR
 
-GDPR (`32016R0679`) — 5 DEC_NC z bezpośrednią referencją. Podobny rząd wielkości — problem jest w pokryciu danych, nie w braku orzeczeń.
+GDPR (`32016R0679`): 5 DEC_NC with a direct reference. A similar order of magnitude; the problem is data coverage, not lack of judgments.
 
 ---
 
-## Opinie Rzeczników Generalnych (OPIN_AG)
+## Advocate General opinions (OPIN_AG)
 
-14,360 w CELLAR. Powiązane z wyrokami TSUE przez:
-- `case-law_has_conclusions_opinion_advocate-general` (na JUDG → link do OPIN_AG)
-- Wspólny numer sprawy w CELEX (np. `62019CC0287` to opinia AG w C-287/19)
+14,360 in CELLAR. They are linked to CJEU judgments through:
+- `case-law_has_conclusions_opinion_advocate-general` (on JUDG -> link to OPIN_AG)
+- Shared case number in CELEX (e.g. `62019CC0287` to AG opinion in C-287/19)
 
-### Wartość dla monitoringu
+### Value for monitoring
 
-AG opinion publikowana jest **kilka miesięcy przed wyrokiem**. TSUE zgadza się z AG w ~80% spraw. Dlatego:
-1. Nowa OPIN_AG cytująca Twój akt = **sygnał nadchodzącego wyroku**
-2. Treść opinii AG daje wskazówki co TSUE prawdopodobnie orzeknie
+AG opinion is published **several months before the judgment**. The CJEU agrees with the AG in ~80% of cases. Therefore:
+1. A new OPIN_AG citing your act = **signal of an upcoming judgment**
+2. The AG opinion provides clues as to what the CJEU is likely to rule
 
-### Jak monitorować nowe opinie AG dot. danego aktu
+### How to monitor new AG opinions on a given act
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
 
-# Opinie AG w sprawach dot. PSD2
+# AG opinions in cases concerning PSD2
 SELECT ?agOpinion ?celex ?date WHERE {
-  ?judgment cdm:case-law_interpretes_resource_legal <CELLAR_URI_AKTU> .
+  ?judgment cdm:case-law_interpretes_resource_legal <CELLAR_URI_ACT> .
   ?judgment cdm:case-law_has_conclusions_opinion_advocate-general ?agOpinion .
   OPTIONAL { ?agOpinion cdm:resource_legal_id_celex ?celex }
   OPTIONAL { ?agOpinion cdm:work_date_document ?date }
@@ -253,62 +253,62 @@ ORDER BY DESC(?date)
 
 ---
 
-## Strategia monitoringu orzecznictwa
+## Case-law monitoring strategy
 
-### Warstwa 1: TSUE (najwyższa pewność)
+### Layer 1: CJEU (highest certainty)
 
 ```
-Pytanie prejudycjalne (CN) → Opinia AG (CC) → Wyrok (CJ)
+Preliminary question (CN) → AG opinion (CC) → Judgment (CJ)
        ↓                        ↓                  ↓
-  Najwcześniejszy          Predyktor           Wiążący
-  sygnał (2-3 lata)       (~80% accuracy)     wynik
+  Earliest          Predictor           Binding
+  signal (2-3 years)      (~80% accuracy)     outcome
 ```
 
 **Query:** `case-law_interpretes_resource_legal` + `communication_case_new_submits_preliminary_question_resource_legal`
 
-### Warstwa 2: Sądy krajowe (niższa pewność, szerszy zasięg)
+### Layer 2: National courts (lower certainty, broader reach)
 
 ```
-DEC_NC z case-law_national_act_reference_european CONTAINS '{CELEX}'
+DEC_NC with case-law_national_act_reference_european CONTAINS '{CELEX}'
 ```
 
-**Ograniczenia:**
-- Tylko 56% DEC_NC ma pole `european_act_reference`
-- Wymaga string match (nie URI link)
-- Opóźnienie w dodawaniu nowych wyroków
-- Dominacja Niemiec (22% wszystkich DEC_NC)
+**Limitations:**
+- Only 56% of DEC_NC records have the `european_act_reference` field
+- Requires string matching (not a URI link)
+- Delay in adding new judgments
+- Germany dominates the dataset (22% of all DEC_NC)
 
-### Warstwa 3: Artykuły naukowe (kontekst)
+### Layer 3: Academic articles (context)
 
-Pole `case-law_article_journal_related` na JUDG i DEC_NC daje:
-- Tytuł artykułu
-- Autor
-- Czasopismo + rok
-- Język
+Field `case-law_article_journal_related` on JUDG and DEC_NC provides:
+- Article title
+- Author
+- Journal + year
+- Language
 
-Monitoring artykułów naukowych o wyrokach = dodatkowy kontekst interpretacyjny.
+Monitoring academic articles about judgments provides additional interpretive context.
 
 ---
 
-## Wzorce SPARQL do monitoringu
+## SPARQL monitoring patterns
 
-### Kompleksowy monitoring orzecznictwa dla danego aktu
+### Comprehensive monitoring of case law for a given act
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
 
-# Wszystkie typy case-law dotyczące danego aktu
+# All case-law types concerning a given act
 SELECT ?celex ?type ?date ?source WHERE {
   {
-    # TSUE wyroki interpretujące
+    # CJEU judgments interpreting
     ?work cdm:case-law_interpretes_resource_legal <CELLAR_URI> .
-    BIND('TSUE_interpret' AS ?source)
+    BIND('CJEU_interpret' AS ?source)
   } UNION {
-    # TSUE potwierdza ważność
+    # CJEU confirms validity
     ?work cdm:case-law_declares_valid_resource_legal <CELLAR_URI> .
-    BIND('TSUE_valid' AS ?source)
+    BIND('CJEU_valid' AS ?source)
   } UNION {
-    # Pytania prejudycjalne
+    # Preliminary questions
     ?work cdm:communication_case_new_submits_preliminary_question_resource_legal <CELLAR_URI> .
     BIND('preliminary_Q' AS ?source)
   }
@@ -319,7 +319,7 @@ SELECT ?celex ?type ?date ?source WHERE {
 ORDER BY DESC(?date)
 ```
 
-### Monitoring wyroków krajowych (DEC_NC)
+### Monitoring national judgments (DEC_NC)
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -336,7 +336,7 @@ SELECT ?celex ?country ?date ?title WHERE {
 ORDER BY DESC(?date)
 ```
 
-### Nowe artykuły naukowe o wyrokach dot. danego aktu
+### New academic articles on judgments concerning a given act
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -350,18 +350,18 @@ SELECT ?celex ?article WHERE {
 
 ---
 
-## Kluczowe odkrycia
+## Key findings
 
-1. **TSUE ma silne linkowanie** — `case-law_interpretes_resource_legal` daje bezpośredni URI link do interpretowanego aktu. DEC_NC mają słabsze linkowanie (string w `european_act_reference`).
+1. **The CJEU has strong linking**: `case-law_interpretes_resource_legal` provides a direct URI link to the interpreted act. DEC_NC has weaker linking (a string in `european_act_reference`).
 
-2. **DEC_NC są niedostatecznie otagowane** — tylko 56% ma referencje do prawa UE. Faktyczna liczba wyroków krajowych dot. PSD2 jest prawdopodobnie dużo wyższa niż 3.
+2. **DEC_NC are under-tagged** — only 56% have references to EU law. The actual number of national judgments on PSD2 is likely much higher than 3.
 
-3. **Artykuły naukowe w CELLAR** — nieoczekiwane odkrycie. 33k referencji do artykułów na DEC_NC + osobne na JUDG. Daje kontekst akademicki.
+3. **Academic articles in CELLAR**: an unexpected finding. There are 33k article references on DEC_NC plus separate ones on JUDG. This adds academic context.
 
-4. **AG opinii jako predyktor** — publikowane miesiące przed wyrokiem, 80% trafność. Najlepszy early warning na wynik TSUE.
+4. **AG opinions as a predictor** — published months before the judgment, with roughly 80% hit rate. The best early warning for the CJEU outcome.
 
-5. **Trójwarstwowa strategia monitoringu**: pytania prejudycjalne (najwcześniejszy sygnał) → opinie AG (predyktor) → wyroki TSUE (wiążące) + wyroki krajowe (stosowanie w praktyce).
+5. **Three-layer monitoring strategy**: preliminary questions (earliest signal) → AG opinions (predictor) → CJEU judgments (binding) + national judgments (practical application).
 
-6. **DEC_NC z referencją do artykułu** — format `{CELEX}-A{art}P{par}PT{pkt}` pozwala na monitoring z granularnością artykuł-po-artykule.
+6. **DEC_NC with an article reference**: the `{CELEX}-A{art}P{par}PT{pt}` format allows article-by-article monitoring.
 
-7. **Polska: 286 DEC_NC** w CELLAR, głównie z Sądu Najwyższego. Najnowszy z maja 2025.
+7. **Poland: 286 DEC_NC** in CELLAR, mostly from the Supreme Court. The latest is from May 2025.

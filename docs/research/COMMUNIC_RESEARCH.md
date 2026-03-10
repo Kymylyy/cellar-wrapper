@@ -1,128 +1,128 @@
-# COMMUNIC — Komunikaty Komisji Europejskiej w CELLAR
+# COMMUNIC — European Commission communications in CELLAR
 
-## Czym jest COMMUNIC
+## What COMMUNIC is
 
-Komunikat (Communication) Komisji Europejskiej to **dokument strategiczny** — nie wiążący prawnie, ale wyznaczający kierunek polityki i legislacji. W CELLAR jest ich **19 911**.
+A Commission communication is a **strategic document**: not legally binding, but setting the direction of policy and legislation. There are **19,911** of them in CELLAR.
 
-Z perspektywy monitoringu regulacyjnego komunikaty są **najwcześniejszym sygnałem** nadchodzącej legislacji — zazwyczaj 2-3 lata przed formalną propozycją.
+From a regulatory monitoring perspective, communications are the **earliest signal** of upcoming legislation, typically 2-3 years before a formal proposal.
 
 ---
 
-## Właściwości COMMUNIC w CDM
+## COMMUNIC properties in CDM
 
-| Pole | Opis | Przykład |
+| Field | Description | Example |
 |---|---|---|
 | `resource_legal_type` | `DC` | Document Commission |
 | `work_has_resource-type` | `COMMUNIC` | — |
-| `resource_legal_id_sector` | `5` | Akty przygotowawcze |
+| `resource_legal_id_sector` | `5` | Acts preparatory |
 | `work_created_by_agent` | COM + DG | COM + FISMA |
-| `resource_legal_service_responsible` | DG odpowiedzialne | FISMA |
-| `resource_legal_date_dispatch` | Data wysłania | 2020-09-24 |
-| `work_cites_work` | Cytowane akty | 8-14 aktów |
-| `work_is_about_concept_eurovoc` | Deskryptory EuroVoc | 8-10 |
-| `resource_legal_eea` | EEA relevance | 0 lub 1 |
+| `resource_legal_service_responsible` | Responsible DG | FISMA |
+| `resource_legal_date_dispatch` | Dispatch date | 2020-09-24 |
+| `work_cites_work` | Cited acts | 8-14 acts |
+| `work_is_about_concept_eurovoc` | EuroVoc descriptors | 8-10 |
+| `resource_legal_eea` | EEA relevance | 0 or 1 |
 
-**Kluczowa różnica vs legislacja:** Brak `resource_legal_date_entry-into-force`, `in-force`, `addresses_institution`, `based_on_resource_legal`. Komunikat nie "wchodzi w życie" — jest sygnałem politycznym.
+**Key difference vs legislation:** No `resource_legal_date_entry-into-force`, `in-force`, `addresses_institution`, `based_on_resource_legal`. Communication does not "enter into force" — is a policy signal.
 
-**Manifestacje:** docx, pdf, xhtml — jak propozycje.
+**Manifestations:** docx, pdf, xhtml, just like proposals.
 
 ---
 
-## Case Study: Pakiet Digital Finance (24 września 2020)
+## Case Study: Digital Finance package (24 September 2020)
 
-Tego samego dnia Komisja opublikowała **3 komunikaty + 4 propozycje legislacyjne**:
+On the same day the Commission published **3 communications + 4 legislative proposals**:
 
-### 3 komunikaty-strategie
+### 3 strategy communications
 
-| CELEX | Tytuł | DG | Cytowany przez |
+| CELEX | Title | DG | Cited by |
 |---|---|---|---|
-| **52020DC0591** | **Digital Finance Strategy for the EU** | FISMA | **41 aktów** |
-| **52020DC0592** | **Retail Payments Strategy for the EU** | FISMA | **21 aktów** |
-| **52020DC0590** | **Capital Markets Union for people and businesses** | FISMA | **73+ aktów** |
+| **52020DC0591** | **Digital Finance Strategy for the EU** | FISMA | **41 acts** |
+| **52020DC0592** | **Retail Payments Strategy for the EU** | FISMA | **21 acts** |
+| **52020DC0590** | **Capital Markets Union for people and businesses** | FISMA | **73+ acts** |
 
-### 4 propozycje legislacyjne (tego samego dnia!)
+### 4 legislative proposals (the same day!)
 
-| CELEX | Propozycja | Status 2026 |
+| CELEX | Proposal | Status 2026 |
 |---|---|---|
-| `52020PC0593` | **MiCA** (Markets in Crypto-Assets) | Przyjęty: `32023R1114` |
-| `52020PC0594` | **DLT Pilot Regime** | Przyjęty: `32022R0858` |
-| `52020PC0595` | **DORA** (Digital Operational Resilience) | Przyjęty: `32022R2554` |
-| `52020PC0596` | Companion directive (DORA) | Przyjęta: `32022L2556` |
+| `52020PC0593` | **MiCA** (Markets in Crypto-Assets) | Adopted: `32023R1114` |
+| `52020PC0594` | **DLT Pilot Regime** | Adopted: `32022R0858` |
+| `52020PC0595` | **DORA** (Digital Operational Resilience) | Adopted: `32022R2554` |
+| `52020PC0596` | Companion directive (DORA) | Adopted: `32022L2556` |
 
 ---
 
-## Kaskada regulacyjna: Digital Finance Strategy → Legislacja
+## Regulatory cascade: Digital Finance Strategy -> legislation
 
-### Komunikat → Propozycje → Przyjęte akty
+### Communication -> Proposals -> Adopted acts
 
 ```
 52020DC0591 (Digital Finance Strategy, 2020-09-24)
 │
-├── TEGO SAMEGO DNIA (2020-09-24):
-│   ├── 52020PC0593 → 32023R1114  MiCA (przyjęty 2023)
-│   ├── 52020PC0594 → 32022R0858  DLT Pilot (przyjęty 2022)
-│   ├── 52020PC0595 → 32022R2554  DORA (przyjęty 2022)
+├── THE SAME DAY (2020-09-24):
+│   ├── 52020PC0593 → 32023R1114  MiCA (adopted 2023)
+│   ├── 52020PC0594 → 32022R0858  DLT Pilot (adopted 2022)
+│   ├── 52020PC0595 → 32022R2554  DORA (adopted 2022)
 │   └── 52020PC0596 → 32022L2556  DORA companion directive
 │
-├── FALA 2021 (CMU + reform):
+├── 2021 WAVE (CMU + reform):
 │   ├── 52021PC0189  Corporate Sustainability Reporting (→ 32022L2464 CSRD)
 │   ├── 52021PC0420  AML Regulation
 │   ├── 52021PC0723  ESAP (→ 32023R2859)
 │   ├── 52021PC0721  AIFMD/UCITS review
 │   └── 52021DC0720  CMU update communication
 │
-├── FALA 2023 (payments + data):
-│   ├── 52023PC0366  PSD3 (dyrektywa) — pending
-│   ├── 52023PC0367  PSR (rozporządzenie) — pending
+├── 2023 WAVE (payments + data):
+│   ├── 52023PC0366  PSD3 (directive) — pending
+│   ├── 52023PC0367  PSR (regulation) — pending
 │   ├── 52023PC0368  Digital Euro services — pending
 │   ├── 52023PC0369  Digital Euro establishment — pending
 │   └── 52023PC0360  FIDA (Financial Data Access) — pending
 │
-└── FALA 2025:
+└── 2025 WAVE:
     ├── 52025PC0942  AIFMD/UCITS/Solvency II amendments
     └── 52025PC0943  CCP/ESMA amendments
 ```
 
-### Czas od strategii do legislacji
+### Time from strategy to legislation
 
-| Propozycja | Miesiące od komunikatu | Status |
+| Proposal | Months since communication | Status |
 |---|---|---|
-| MiCA | 0 (tego samego dnia) | **Przyjęty** 2023 |
-| DLT Pilot | 0 | **Przyjęty** 2022 |
-| DORA | 0 | **Przyjęty** 2022 |
-| ESAP | 14 mies. | **Przyjęty** 2023 |
-| PSD3/PSR | 33 mies. | **W trilogu** |
-| Digital Euro | 33 mies. | **Pending** |
-| FIDA | 33 mies. | **Pending** |
+| MiCA | 0 (the same day) | **Adopted** 2023 |
+| DLT Pilot | 0 | **Adopted** 2022 |
+| DORA | 0 | **Adopted** 2022 |
+| ESAP | 14 months | **Adopted** 2023 |
+| PSD3/PSR | 33 months | **In trilogue** |
+| Digital Euro | 33 months | **Pending** |
+| FIDA | 33 months | **Pending** |
 
 ---
 
-## Kaskada: Retail Payments Strategy → Legislacja
+## Cascade: Retail Payments Strategy -> legislation
 
 ```
 52020DC0592 (Retail Payments Strategy, 2020-09-24)
 │
-├── 2020: Decyzja o Payment Systems Market Expert Group
-├── 2021: Komunikat o europejskim systemie finansowym
-├── 2022: Propozycja Instant Payments (52022PC0546 → 32024R0886)
-├── 2023-06-28: PAKIET PŁATNICZY
+├── 2020: Decision on the Payment Systems Market Expert Group
+├── 2021: Communication on the European financial system
+├── 2022: Instant Payments proposal (52022PC0546 → 32024R0886)
+├── 2023-06-28: PAYMENTS PACKAGE
 │   ├── 52023PC0366  PSD3 — pending
 │   ├── 52023PC0367  PSR — pending
 │   ├── 52023PC0369  Digital Euro (services) — pending
-│   └── 52023DC0365  Raport z przeglądu PSD2
-├── 2024: EP stanowiska (52024AP0297, 52024AP0298)
-└── Case law: Opinia AG Campos Sánchez-Bordona (62022CC0661)
+│   └── 52023DC0365  Review report PSD2
+├── 2024: EP positions (52024AP0297, 52024AP0298)
+└── Case law: AG opinion Campos Sánchez-Bordona (62022CC0661)
 ```
 
 ---
 
-## Kaskada: Capital Markets Union → Legislacja
+## Cascade: Capital Markets Union -> legislation
 
 ```
 52020DC0590 (CMU, 2020-09-24)
 │
-├── 73+ cytujących aktów — NAJWIĘKSZY zasięg
-├── Spawned legislację w obszarach:
+├── 73+ citing acts: the broadest reach
+├── Spawned legislation in the areas of:
 │   ├── Corporate sustainability (CSRD, CSDDD)
 │   ├── Listing Act (2024R1623)
 │   ├── ESAP (2023R2859)
@@ -131,24 +131,24 @@ Tego samego dnia Komisja opublikowała **3 komunikaty + 4 propozycje legislacyjn
 │   ├── Retail Investment Strategy
 │   ├── Clearing/settlement reform
 │   └── AML package
-└── Ostatni cytujący: 52025DC0940 (grudzień 2025)
+└── Latest citing act: 52025DC0940 (December 2025)
 ```
 
 ---
 
 ## Case Study: FIDA (Financial Data Access)
 
-| Pole | Wartość |
+| Field | Value |
 |---|---|
 | **CELEX** | `52023PC0360` |
-| **Typ** | PROP_REG |
-| **Data** | 2023-06-28 |
+| **Type** | PROP_REG |
+| **Date** | 2023-06-28 |
 | **DG** | FISMA |
-| **Pełny tytuł** | Proposal for a REGULATION on a framework for Financial Data Access and amending Regulations (EU) No 1093/2010, (EU) No 1094/2010, (EU) No 1095/2010 and (EU) 2023/2854 |
+| **Full title** | Proposal for a REGULATION on a framework for Financial Data Access and amending Regulations (EU) No 1093/2010, (EU) No 1094/2010, (EU) No 1095/2010 and (EU) 2023/2854 |
 
-### EuroVoc FIDA (10 deskryptorów)
+### EuroVoc FIDA (10 descriptors)
 
-| Koncept | Label |
+| Concept | Label |
 |---|---|
 | `eurovoc:453` | access to information |
 | `eurovoc:5334` | disclosure of information |
@@ -161,63 +161,63 @@ Tego samego dnia Komisja opublikowała **3 komunikaty + 4 propozycje legislacyjn
 | `eurovoc:4366` | information service |
 | `eurovoc:c_eaccd9f4` | **data sharing** |
 
-### FIDA cytuje 53 akty
+### FIDA cites 53 acts
 
-Kluczowe: Digital Finance Strategy (52020DC0591), PSD2, GDPR, eIDAS, MiFID II, Solvency II, AIFMD, IDD, CRD IV, CRR, DORA, MiCA, Data Act.
+Key items: Digital Finance Strategy (52020DC0591), PSD2, GDPR, eIDAS, MiFID II, Solvency II, AIFMD, IDD, CRD IV, CRR, DORA, MiCA, Data Act.
 
-### Powiązane dokumenty (`work_related_to_work`)
+### Related documents (`work_related_to_work`)
 
-| CELEX | Akt |
+| CELEX | Act |
 |---|---|
-| `52023PC0278` | Propozycja zmiany Reg. PRIIPs (KID modernization) |
-| `52023PC0279` | Propozycja zmiany dyrektyw UCITS, Solvency II, AIFMD, MiFID II, IDD (Retail Investment Strategy) |
+| `52023PC0278` | Proposal amending the PRIIPs Regulation (KID modernization) |
+| `52023PC0279` | Proposal amending UCITS, Solvency II, AIFMD, MiFID II, and IDD directives (Retail Investment Strategy) |
 
-**Odkrycie:** FIDA jest częścią **szerszego pakietu z 28 czerwca 2023**, który oprócz PSR/PSD3 obejmuje też Retail Investment Strategy.
+**Finding:** FIDA is part of the **broader package of 28 June 2023**, which besides PSR/PSD3 also includes the Retail Investment Strategy.
 
 ---
 
-## EuroVoc — porównanie trzech komunikatów
+## EuroVoc — comparison of three communications
 
 | EuroVoc | Digital Finance | Retail Payments | CMU |
 |---|---|---|---|
-| innovation | TAK | - | - |
-| new technology | TAK | - | - |
-| digital technology | TAK | - | - |
-| digital economy | TAK | - | - |
-| digital single market | TAK | - | - |
-| EU strategy | TAK | TAK | - |
-| financial services | TAK | - | - |
-| electronic money | TAK | TAK | - |
-| electronic banking | TAK | TAK | - |
-| payment system | TAK | TAK | - |
-| intra-EU payment | - | TAK | - |
-| international payment | - | TAK | - |
-| retail trade | - | TAK | - |
-| consumer protection | - | TAK | - |
-| paper money | - | TAK | - |
-| single market | - | - | TAK |
-| financial market | - | - | TAK |
-| capital market | - | - | TAK |
-| securities | - | - | TAK |
-| stock exchange | - | - | TAK |
-| sustainable finance | - | - | TAK |
-| financial supervision | - | - | TAK |
-| small and medium enterprises | - | - | TAK |
+| innovation | YES | - | - |
+| new technology | YES | - | - |
+| digital technology | YES | - | - |
+| digital economy | YES | - | - |
+| digital single market | YES | - | - |
+| EU strategy | YES | YES | - |
+| financial services | YES | - | - |
+| electronic money | YES | YES | - |
+| electronic banking | YES | YES | - |
+| payment system | YES | YES | - |
+| intra-EU payment | - | YES | - |
+| international payment | - | YES | - |
+| retail trade | - | YES | - |
+| consumer protection | - | YES | - |
+| paper money | - | YES | - |
+| single market | - | - | YES |
+| financial market | - | - | YES |
+| capital market | - | - | YES |
+| securities | - | - | YES |
+| stock exchange | - | - | YES |
+| sustainable finance | - | - | YES |
+| financial supervision | - | - | YES |
+| small and medium enterprises | - | - | YES |
 
-**Wniosek:** Trzy komunikaty mają **prawie zerowy overlap EuroVoc** — każdy pokrywa inny segment rynku finansowego. Razem tworzą kompletną mapę tematyczną reform.
+**Conclusion:** The three communications have **almost zero EuroVoc overlap**: each covers a different segment of the financial market. Together they form a complete thematic map of the reforms.
 
 ---
 
-## Wartość COMMUNIC dla monitoringu regulacyjnego
+## Value of COMMUNIC for regulatory monitoring
 
-### 1. Najwcześniejszy sygnał (Early Warning)
+### 1. Earliest signal (Early Warning)
 
-Komunikat pojawia się **2-3 lata** przed propozycją legislacyjną. Digital Finance Strategy (wrzesień 2020) zapowiedziała MiCA, DORA, PSR i FIDA — wszystkie złożone 2022-2023.
+A communication appears **2-3 years** before the legislative proposal. The Digital Finance Strategy (September 2020) foreshadowed MiCA, DORA, PSR, and FIDA, all tabled in 2022-2023.
 
-### 2. Śledzenie łańcucha cytowań (Citation Chain)
+### 2. Tracking the citation chain (Citation Chain)
 
 ```sparql
-# Znajdź wszystkie propozycje spawned przez komunikat
+# Find all proposals spawned by a communication
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
 SELECT ?celex ?type ?date ?title WHERE {
   ?work cdm:work_cites_work <COMMUNICATION_CELLAR_URI> .
@@ -236,23 +236,23 @@ SELECT ?celex ?type ?date ?title WHERE {
 } ORDER BY ?date
 ```
 
-### 3. Mapowanie EuroVoc na nadchodzącą legislację
+### 3. Mapping EuroVoc to upcoming legislation
 
-Komunikat + EuroVoc pozwala zidentyfikować **jakie tematy** będą regulowane, zanim pojawią się konkretne propozycje.
+A communication plus EuroVoc makes it possible to identify **which topics** will be regulated before concrete proposals appear.
 
-### 4. Identyfikacja pakietów legislacyjnych
+### 4. Identification of legislative packages
 
-Jeden komunikat → wiele propozycji. DFS → MiCA + DORA + DLT Pilot (tego samego dnia) + PSR + PSD3 + FIDA + Digital Euro (3 lata później).
+One communication -> many proposals. DFS -> MiCA + DORA + DLT Pilot (the same day) + PSR + PSD3 + FIDA + Digital Euro (3 years later).
 
-### 5. DG odpowiedzialne jako sygnał
+### 5. Responsible DG as a signal
 
-`resource_legal_service_responsible: FISMA` na komunikacie = legislacja dot. sektora finansowego.
+`resource_legal_service_responsible: FISMA` on the communication = legislation concerning the financial sector.
 
 ---
 
-## Wzorce do monitorowania
+## Monitoring patterns
 
-### Nowe komunikaty w zakresie finansowym
+### New communications in the financial domain
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -270,7 +270,7 @@ SELECT ?celex ?date ?title WHERE {
 } ORDER BY DESC(?date)
 ```
 
-### Ile propozycji spawnował dany komunikat
+### How many proposals a given communication spawned
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -288,16 +288,16 @@ SELECT ?commCelex (COUNT(DISTINCT ?prop) as ?proposals) WHERE {
 
 ---
 
-## Porównanie typu COMMUNIC vs inne zbadane typy
+## Comparison typu COMMUNIC vs inne zbadane typy
 
-| Aspekt | COMMUNIC | DIR | REG | PROP_REG |
+| Aspect | COMMUNIC | DIR | REG | PROP_REG |
 |---|---|---|---|---|
-| Wiążący prawnie | **Nie** | Tak | Tak | Nie (jeszcze) |
-| EuroVoc | Tak | Tak | Tak | Tak |
-| Cytowany przez legislację | **Tak (kluczowe!)** | Tak | Tak | Rzadko |
-| Dossier | Nie | Tak | Tak | Tak |
-| Case law | Nie | Tak | Tak | Nie |
-| NIMs | Nie | Tak | Nie | Nie |
-| RTS/ITS | Nie | Tak | Tak | Nie |
-| In-force status | Nie (N/A) | Tak | Tak | Nie |
-| Predykcja legislacji | **Tak (2-3 lata)** | N/A | N/A | Tak (1-2 lata) |
+| Binding prawnie | **No** | Yes | Yes | No (jeszcze) |
+| EuroVoc | Yes | Yes | Yes | Yes |
+| Cited by legislation | **Yes (key!)** | Yes | Yes | Rarely |
+| Dossier | No | Yes | Yes | Yes |
+| Case law | No | Yes | Yes | No |
+| NIMs | No | Yes | No | No |
+| RTS/ITS | No | Yes | Yes | No |
+| In-force status | No (N/A) | Yes | Yes | No |
+| Predykcja legislacji | **Yes (2-3 lata)** | N/A | N/A | Yes (1-2 lata) |

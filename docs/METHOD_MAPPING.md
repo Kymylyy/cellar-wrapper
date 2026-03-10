@@ -58,16 +58,16 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 
 ## SEARCH
 - `search_by_eurovoc` -> 2-step:
-  - resolve `tags` przez lokalny indeks EuroVoc (`find_eurovoc_concept`, `CONTAINS`-style, case-insensitive)
-  - finalne filtrowanie po `cdm:work_is_about_concept_eurovoc` + `VALUES ?concept { <uri...> }`
+  - resolve `tags` through the local EuroVoc index (`find_eurovoc_concept`, `CONTAINS`-style, case-insensitive)
+  - final filtering via `cdm:work_is_about_concept_eurovoc` + `VALUES ?concept { <uri...> }`
 - `search_by_subject_matter` -> 2-step:
-  - resolve `codes` przez lokalny indeks subject-matter (`CONTAINS`-style, case-insensitive, po URI i labelu)
-  - finalne filtrowanie po `cdm:resource_legal_is_about_subject-matter` + `VALUES ?concept { <uri...> }`
+  - resolve `codes` through the local subject-matter index (`CONTAINS`-style, case-insensitive, by URI and label)
+  - final filtering via `cdm:resource_legal_is_about_subject-matter` + `VALUES ?concept { <uri...> }`
 - `search_by_title` -> `cdm:expression_title` + language filter
 - `search_communications` ->
   - `cdm:work_has_resource-type` = `COMMUNIC`
   - `cdm:resource_legal_service_responsible`
-- `find_eurovoc_concept` -> lokalny indeks (`src/cellar_wrapper/data/eurovoc_index.json`)
+- `find_eurovoc_concept` -> local index (`src/cellar_wrapper/data/eurovoc_index.json`)
 
 ## MONITORING
 - `new_citations` -> `get_citations` + `date > since`
@@ -80,7 +80,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `new_corrigenda` -> `get_corrigenda` + `date > since`
 - `new_consolidated` -> `get_consolidated_versions` + `date > since`
 - `new_nims` -> `get_nims` + `date > since`
-- `new_by_eurovoc` -> lokalny resolve EuroVoc + finalny query po `VALUES ?concept` + strict `date > since`
+- `new_by_eurovoc` -> local EuroVoc resolution + final query via `VALUES ?concept` + strict `date > since`
 
 ## DOWNLOAD
 - `get_text` -> REST `resource/celex/{CELEX}` with negotiated MIME and language

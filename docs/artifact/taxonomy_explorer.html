@@ -74,27 +74,27 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 
 <!-- SUBJECT MATTER TAB -->
 <div class="tab-content active" id="tab-sm">
-<h1>Subject Matter — Klasyfikacja tematyczna aktów UE</h1>
-<p class="subtitle">385 kodów subject-matter używanych w CELLAR. Przypisywane do wszystkich typów aktów, w tym orzeczeń TSUE (które nie mają EuroVoc).</p>
+<h1>Subject Matter: thematic classification of EU acts</h1>
+<p class="subtitle">385 subject-matter codes used in CELLAR. Assigned to all act types, including CJEU decisions (which do not have EuroVoc).</p>
 
 <div class="stats">
-  <div class="stat"><div class="stat-num">385</div><div class="stat-label">kodów</div></div>
-  <div class="stat"><div class="stat-num">~600k+</div><div class="stat-label">przypisań</div></div>
-  <div class="stat"><div class="stat-num">19</div><div class="stat-label">grup tematycznych</div></div>
+  <div class="stat"><div class="stat-num">385</div><div class="stat-label">codes</div></div>
+  <div class="stat"><div class="stat-num">~600k+</div><div class="stat-label">assignments</div></div>
+  <div class="stat"><div class="stat-num">19</div><div class="stat-label">topic groups</div></div>
 </div>
 
-<input type="text" class="search-box" id="smSearch" placeholder="Szukaj subject-matter... (np. banking, financial, payment)">
+<input type="text" class="search-box" id="smSearch" placeholder="Search subject matter... (e.g. banking, financial, payment)">
 <div class="match-info" id="smMatchInfo"></div>
 <div class="controls">
-  <button class="btn" onclick="smExpandAll()">Rozwiń wszystkie</button>
-  <button class="btn" onclick="smCollapseAll()">Zwiń wszystkie</button>
+  <button class="btn" onclick="smExpandAll()">Expand all</button>
+  <button class="btn" onclick="smCollapseAll()">Collapse all</button>
 </div>
 
 <div id="smGroups">
-<div class="sm-theme" data-theme="rynek wewnętrzny i regulacja">
+<div class="sm-theme" data-theme="internal market and regulation">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Rynek wewnętrzny i regulacja</span></span>
-    <span class="sm-theme-count">6 kodów · 64,088 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Internal market and regulation</span></span>
+    <span class="sm-theme-count">6 codes · 64,088 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="approximation of laws rapl">
   <div class="sm-bar" style="width:65.7%"></div>
@@ -128,10 +128,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="finanse, bankowość, rynki kapitałowe">
+<div class="sm-theme" data-theme="finance, banking, capital markets">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Finanse, bankowość, rynki kapitałowe</span></span>
-    <span class="sm-theme-count">32 kodów · 25,325 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Finance, banking, capital markets</span></span>
+    <span class="sm-theme-count">32 codes · 25,325 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="financial provisions fin">
   <div class="sm-bar" style="width:30.1%"></div>
@@ -295,10 +295,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="konkurencja i pomoc publiczna">
+<div class="sm-theme" data-theme="competition and state aid">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Konkurencja i pomoc publiczna</span></span>
-    <span class="sm-theme-count">3 kodów · 60,128 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Competition and state aid</span></span>
+    <span class="sm-theme-count">3 codes · 60,128 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="competition conc">
   <div class="sm-bar" style="width:85.9%"></div>
@@ -317,10 +317,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="budżet i fundusze ue">
+<div class="sm-theme" data-theme="eu budget and funds">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Budżet i fundusze UE</span></span>
-    <span class="sm-theme-count">9 kodów · 19,332 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">EU budget and funds</span></span>
+    <span class="sm-theme-count">9 codes · 19,332 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="budget budg">
   <div class="sm-bar" style="width:29.8%"></div>
@@ -369,10 +369,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="handel i cła">
+<div class="sm-theme" data-theme="trade and customs">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Handel i cła</span></span>
-    <span class="sm-theme-count">11 kodów · 46,567 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Trade and customs</span></span>
+    <span class="sm-theme-count">11 codes · 46,567 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="commercial policy pcom">
   <div class="sm-bar" style="width:72.2%"></div>
@@ -431,10 +431,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="polityka zagraniczna i bezpieczeństwo">
+<div class="sm-theme" data-theme="foreign policy and security">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Polityka zagraniczna i bezpieczeństwo</span></span>
-    <span class="sm-theme-count">7 kodów · 63,109 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Foreign policy and security</span></span>
+    <span class="sm-theme-count">7 codes · 63,109 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="external relations ext">
   <div class="sm-bar" style="width:100.0%"></div>
@@ -473,10 +473,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="prawa podstawowe i obywatelstwo">
+<div class="sm-theme" data-theme="fundamental rights and citizenship">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Prawa podstawowe i obywatelstwo</span></span>
-    <span class="sm-theme-count">6 kodów · 10,078 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Fundamental rights and citizenship</span></span>
+    <span class="sm-theme-count">6 codes · 10,078 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="brussels convention of 27 september 1968 cecc">
   <div class="sm-bar" style="width:14.7%"></div>
@@ -510,10 +510,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="rolnictwo i żywność">
+<div class="sm-theme" data-theme="agriculture and food">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Rolnictwo i żywność</span></span>
-    <span class="sm-theme-count">15 kodów · 88,172 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Agriculture and food</span></span>
+    <span class="sm-theme-count">15 codes · 88,172 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="agriculture and fisheries agri">
   <div class="sm-bar" style="width:80.8%"></div>
@@ -595,7 +595,7 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 <div class="sm-theme" data-theme="transport">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
     <span><span class="arrow">▶</span><span class="sm-theme-name">Transport</span></span>
-    <span class="sm-theme-count">1 kodów · 16,474 aktów</span>
+    <span class="sm-theme-count">1 codes · 16,474 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="transport tran">
   <div class="sm-bar" style="width:46.9%"></div>
@@ -604,10 +604,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="środowisko i klimat">
+<div class="sm-theme" data-theme="environment and climate">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Środowisko i klimat</span></span>
-    <span class="sm-theme-count">1 kodów · 19,188 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Environment and climate</span></span>
+    <span class="sm-theme-count">1 codes · 19,188 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="environment env">
   <div class="sm-bar" style="width:54.6%"></div>
@@ -616,10 +616,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="energia">
+<div class="sm-theme" data-theme="energy">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Energia</span></span>
-    <span class="sm-theme-count">2 kodów · 6,667 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Energy</span></span>
+    <span class="sm-theme-count">2 codes · 6,667 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="energy ener">
   <div class="sm-bar" style="width:18.9%"></div>
@@ -633,10 +633,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="ochrona konsumentów">
+<div class="sm-theme" data-theme="consumer protection">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Ochrona konsumentów</span></span>
-    <span class="sm-theme-count">1 kodów · 15,531 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Consumer protection</span></span>
+    <span class="sm-theme-count">1 codes · 15,531 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="consumer protection prot">
   <div class="sm-bar" style="width:44.2%"></div>
@@ -645,10 +645,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="zatrudnienie i sprawy społeczne">
+<div class="sm-theme" data-theme="employment and social affairs">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Zatrudnienie i sprawy społeczne</span></span>
-    <span class="sm-theme-count">4 kodów · 22,679 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Employment and social affairs</span></span>
+    <span class="sm-theme-count">4 codes · 22,679 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="social provisions soci">
   <div class="sm-bar" style="width:26.1%"></div>
@@ -675,7 +675,7 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 <div class="sm-theme" data-theme="zdrowie publiczne">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
     <span><span class="arrow">▶</span><span class="sm-theme-name">Zdrowie publiczne</span></span>
-    <span class="sm-theme-count">1 kodów · 8,999 aktów</span>
+    <span class="sm-theme-count">1 codes · 8,999 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="public health sant">
   <div class="sm-bar" style="width:25.6%"></div>
@@ -684,10 +684,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="własność intelektualna">
+<div class="sm-theme" data-theme="intellectual property">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Własność intelektualna</span></span>
-    <span class="sm-theme-count">2 kodów · 8,495 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Intellectual property</span></span>
+    <span class="sm-theme-count">2 codes · 8,495 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="intellectual, industrial and commercial property prop">
   <div class="sm-bar" style="width:23.8%"></div>
@@ -701,10 +701,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="podatkowe">
+<div class="sm-theme" data-theme="taxation">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Podatkowe</span></span>
-    <span class="sm-theme-count">2 kodów · 9,885 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Taxation</span></span>
+    <span class="sm-theme-count">2 codes · 9,885 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="taxation fisc">
   <div class="sm-bar" style="width:27.5%"></div>
@@ -718,10 +718,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="instytucje ue">
+<div class="sm-theme" data-theme="eu institutions">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Instytucje UE</span></span>
-    <span class="sm-theme-count">5 kodów · 35,302 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">EU institutions</span></span>
+    <span class="sm-theme-count">5 codes · 35,302 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="provisions governing the institutions inst">
   <div class="sm-bar" style="width:41.0%"></div>
@@ -750,10 +750,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="przemysł i technologia">
+<div class="sm-theme" data-theme="industry and technology">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Przemysł i technologia</span></span>
-    <span class="sm-theme-count">2 kodów · 21 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Industry and technology</span></span>
+    <span class="sm-theme-count">2 codes · 21 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="steel acie">
   <div class="sm-bar" style="width:0.1%"></div>
@@ -767,10 +767,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="edukacja i kultura">
+<div class="sm-theme" data-theme="education and culture">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Edukacja i kultura</span></span>
-    <span class="sm-theme-count">1 kodów · 1,710 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Education and culture</span></span>
+    <span class="sm-theme-count">1 codes · 1,710 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="culture cult">
   <div class="sm-bar" style="width:4.9%"></div>
@@ -779,10 +779,10 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 </div>
 </div>
 </div>
-<div class="sm-theme" data-theme="inne">
+<div class="sm-theme" data-theme="other">
   <div class="sm-theme-header" onclick="this.parentElement.classList.toggle('open')">
-    <span><span class="arrow">▶</span><span class="sm-theme-name">Inne / Nieprzypisane</span></span>
-    <span class="sm-theme-count">274 kodów · 229,394 aktów</span>
+    <span><span class="arrow">▶</span><span class="sm-theme-name">Other / Unassigned</span></span>
+    <span class="sm-theme-count">274 codes · 229,394 acts</span>
   </div>
   <div class="sm-items"><div class="sm-item" data-label="common customs tariff tdc">
   <div class="sm-bar" style="width:17.5%"></div>
@@ -2161,20 +2161,20 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
 
 <!-- EUROVOC TAB -->
 <div class="tab-content" id="tab-ev">
-<h1>EuroVoc — Tezaurus tematyczny UE</h1>
-<p class="subtitle">7 523 konceptów EuroVoc pogrupowanych w 1 533 kategorii tematycznych. Przypisywane do aktów prawnych, propozycji i komunikatów (NIE do orzeczeń TSUE).</p>
+<h1>EuroVoc - EU Subject Thesaurus</h1>
+<p class="subtitle">7,523 EuroVoc concepts grouped into 1,533 thematic categories. Assigned to legal acts, proposals, and communications (not to CJEU case law).</p>
 
 <div class="stats">
-  <div class="stat"><div class="stat-num">7 523</div><div class="stat-label">konceptów</div></div>
-  <div class="stat"><div class="stat-num">1 533</div><div class="stat-label">grup</div></div>
-  <div class="stat"><div class="stat-num">7 253</div><div class="stat-label">przypisanych do aktów</div></div>
+  <div class="stat"><div class="stat-num">7 523</div><div class="stat-label">concepts</div></div>
+  <div class="stat"><div class="stat-num">1 533</div><div class="stat-label">groups</div></div>
+  <div class="stat"><div class="stat-num">7 253</div><div class="stat-label">assigned to acts</div></div>
 </div>
 
-<input type="text" class="search-box" id="evSearch" placeholder="Szukaj konceptu EuroVoc... (np. payment, crypto, data protection)">
+<input type="text" class="search-box" id="evSearch" placeholder="Search EuroVoc concept... (e.g. payment, crypto, data protection)">
 <div class="match-info" id="evMatchInfo"></div>
 <div class="controls">
-  <button class="btn" onclick="evExpandAll()">Rozwiń wszystkie</button>
-  <button class="btn" onclick="evCollapseAll()">Zwiń wszystkie</button>
+  <button class="btn" onclick="evExpandAll()">Expand all</button>
+  <button class="btn" onclick="evCollapseAll()">Collapse all</button>
 </div>
 
 <div id="evGroups">
@@ -19861,7 +19861,7 @@ h2 { font-size: 1.2em; margin: 25px 0 10px; color: #c9d1d9; border-bottom: 1px s
   <div class="group-concepts"><span class="concept" data-label="animal taxonomy">animal taxonomy<span class="eid">442765</span></span>
 </div>
 </div>
-<h2>Koncepty top-level (bez grupy)</h2>
+<h2>Top-level concepts (ungrouped)</h2>
 <div id="evUngrouped">
 <span class="concept" data-label="04 politics">04 POLITICS<span class="eid">100142</span></span>
 <span class="concept" data-label="08 international relations">08 INTERNATIONAL RELATIONS<span class="eid">100143</span></span>
@@ -20468,7 +20468,7 @@ document.getElementById('smSearch').addEventListener('input', function() {
     t.classList.toggle('hidden', found === 0);
     if (found > 0) { t.classList.add('open'); total += found; }
   });
-  document.getElementById('smMatchInfo').textContent = q ? total + ' wyników' : '';
+  document.getElementById('smMatchInfo').textContent = q ? total + ' results' : '';
 });
 
 function smExpandAll() { document.querySelectorAll('.sm-theme:not(.hidden)').forEach(t => t.classList.add('open')); }
@@ -20507,7 +20507,7 @@ document.getElementById('evSearch').addEventListener('input', function() {
     });
     if (q) total += uFound;
   }
-  document.getElementById('evMatchInfo').textContent = q ? total + ' wyników w ' + visGroups + ' grupach' : '';
+  document.getElementById('evMatchInfo').textContent = q ? total + ' results in ' + visGroups + ' groups' : '';
 });
 
 function evExpandAll() { document.querySelectorAll('#evGroups .group:not(.hidden)').forEach(g => g.classList.add('open')); }

@@ -26,6 +26,12 @@ cellar lookup get-act --celex 32022R2554 --lang eng
 - `--country`: ISO-3 country filter (used by `get-national-decisions`).
 - `--format`: File format for `get-text` (`pdf`, `xhtml`, `xml`, `rdf`, `docx`).
 
+## Direction cheat sheet (for relation commands)
+
+- `incoming`: other acts point to or affect the given act.
+- `outgoing`: the given act points to or affects other acts.
+- `both`: command can return both `incoming` and `outgoing` rows.
+
 ## LOOKUP
 
 - `resolve-celex` (`resolve_celex`): Finds canonical CELEX/work reference for the given CELEX value.
@@ -45,26 +51,30 @@ cellar lookup get-act --celex 32022R2554 --lang eng
 
 ## RELATIONS
 
-- `get-amendments` (`get_amendments`): Shows acts that amend the given act.
+These commands return relation rows with `direction`.
+
+- `get-amendments` (`get_amendments`): Shows amendment relations in both directions. Direction: `both`.
   Example: `cellar relations get-amendments --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-repeals` (`get_repeals`): Shows acts that repeal (explicitly or implicitly) the given act.
+- `get-repeals` (`get_repeals`): Shows explicit and implicit repeal relations. Direction: `both`.
   Example: `cellar relations get-repeals --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-citations` (`get_citations`): Shows works that cite the given act.
+- `get-citations` (`get_citations`): Shows citation relations. Direction: `both`.
   Example: `cellar relations get-citations --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-delegated-acts` (`get_delegated_acts`): Shows delegated acts based on the given act.
+- `get-delegated-acts` (`get_delegated_acts`): Shows delegated acts based on the given act. Direction: `incoming`.
   Example: `cellar relations get-delegated-acts --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-completing-acts` (`get_completing_acts`): Shows acts that complete the given act.
+- `get-completing-acts` (`get_completing_acts`): Shows acts that complete the given act. Direction: `incoming`.
   Example: `cellar relations get-completing-acts --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-proposals-to-amend` (`get_proposals_to_amend`): Shows proposals to amend the given act.
+- `get-proposals-to-amend` (`get_proposals_to_amend`): Shows proposals to amend the given act. Direction: `incoming`.
   Example: `cellar relations get-proposals-to-amend --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-adopted-act` (`get_adopted_act`): Shows adopted acts linked to the given act.
+- `get-adopted-act` (`get_adopted_act`): Shows adopted acts linked to the given act. Direction: `incoming`.
   Example: `cellar relations get-adopted-act --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-related-works` (`get_related_works`): Shows generic related-work links.
+- `get-related-works` (`get_related_works`): Shows generic related-work links. Direction: `both`.
   Example: `cellar relations get-related-works --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-other-relations` (`get_other_relations`): Shows other legal relations (for example suspend, defer, obsolete, influence).
+- `get-other-relations` (`get_other_relations`): Shows other legal relations (for example suspend, defer, obsolete, influence). Direction: `both`.
   Example: `cellar relations get-other-relations --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
 
 ## LIFECYCLE
+
+Most relation-style lifecycle commands are `incoming` (items linked to the given act).
 
 - `get-consolidated-versions` (`get_consolidated_versions`): Lists consolidated versions related to the act.
   Example: `cellar lifecycle get-consolidated-versions --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
@@ -80,6 +90,8 @@ cellar lookup get-act --celex 32022R2554 --lang eng
   Example: `cellar lifecycle get-deadlines --celex 32022R2554 --limit 50`
 
 ## CASE LAW
+
+Case-law relation commands (`get-cjeu-judgments`, `get-ag-opinions`, `get-preliminary-questions`) are `incoming`.
 
 - `get-cjeu-judgments` (`get_cjeu_judgments`): Lists CJEU judgments that interpret the act.
   Example: `cellar case-law get-cjeu-judgments --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
@@ -108,6 +120,7 @@ cellar lookup get-act --celex 32022R2554 --lang eng
 ## MONITORING
 
 Monitoring commands always require `--since` and return only newer items.
+Relation-based `new-*` commands are `incoming` only.
 
 - `new-citations` (`new_citations`): New citations since the given date/time.
   Example: `cellar monitoring new-citations --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
@@ -143,6 +156,8 @@ Monitoring commands always require `--since` and return only newer items.
 
 - Most commands return lists; use `--limit` and `--offset` for paging.
 - `get-act` and `resolve-celex` return one main record.
+- Relation commands include a `direction` field (`incoming` / `outgoing`).
+- `both` means one command can return rows in both directions.
 - CLI wraps successful data as `{"ok": true, "data": ...}`.
 - CLI wraps errors as `{"ok": false, "error": {...}}`.
 - Full formal behavior still lives in [API_CONTRACT.md](API_CONTRACT.md).

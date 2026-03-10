@@ -1,41 +1,41 @@
-# CELLAR API — Raport z badania
+# CELLAR API — Research Report
 
-## Czym jest CELLAR
+## What CELLAR is
 
-CELLAR to centralne repozytorium treści i metadanych **Urzędu Publikacji Unii Europejskiej**. Przechowuje prawo UE, orzecznictwo, Dzienniki Urzędowe i inne publikacje. Dane są otwarte i dostępne publicznie — **bez rejestracji i autentykacji**.
+CELLAR is the central content and metadata repository of the **Publications Office of the European Union**. It stores EU law, case law, Official Journals, and other publications. The data is open and publicly available — **with no registration or authentication**.
 
-## Sposoby dostępu
+## Access methods
 
 ### REST API (HTTP GET)
 
-Pobieranie dokumentów po identyfikatorze:
+Download documents by identifier:
 
 ```
 https://publications.europa.eu/resource/celex/{CELEX_NUMBER}
 https://publications.europa.eu/resource/cellar/{UUID}
 ```
 
-Content negotiation przez nagłówki HTTP:
+Content negotiation via HTTP headers:
 - `Accept`: `application/pdf`, `application/xhtml+xml`, `application/xml`, `application/rdf+xml`, `application/zip;mtype=...`
-- `Accept-Language`: kod ISO 639-3 (`pol`, `eng`, `fra`, ...)
+- `Accept-Language`: ISO 639-3 code (`pol`, `eng`, `fra`, ...)
 
-Przykłady:
+Examples:
 
 ```bash
-# PDF po polsku
+# PDF in Polish
 curl -L -H "Accept: application/pdf" -H "Accept-Language: pol" \
   "https://publications.europa.eu/resource/celex/32015L2366" -o psd2_pl.pdf
 
-# XHTML po angielsku
+# XHTML in English
 curl -L -H "Accept: application/xhtml+xml" -H "Accept-Language: eng" \
   "https://publications.europa.eu/resource/celex/32015L2366" -o psd2_en.xhtml
 
-# Metadane RDF
+# RDF metadata
 curl -L -H "Accept: application/rdf+xml" \
   "https://publications.europa.eu/resource/celex/32015L2366" -o psd2_metadata.rdf
 ```
 
-Dostępne formaty: PDF, HTML, XHTML, Formex (XML dla Dzienników Urzędowych), RDF/XML.
+Available formats: PDF, HTML, XHTML, Formex (XML for Official Journals), RDF/XML.
 
 ### SPARQL Endpoint
 
@@ -43,7 +43,7 @@ Dostępne formaty: PDF, HTML, XHTML, Formex (XML dla Dzienników Urzędowych), R
 https://publications.europa.eu/webapi/rdf/sparql
 ```
 
-Kluczowe prefiksy:
+Key prefixes:
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -55,182 +55,182 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
 ### RSS/Atom Feeds
 
-Powiadomienia o nowych/zmienionych publikacjach.
+Notifications about new or changed publications.
 
 ### Bulk Download
 
-- **Data dump**: `datadump.publications.europa.eu` (wymaga EU Login)
-- **data.europa.eu**: Dzienniki Urzędowe w CSV z linkami do XML Formex
+- **Data dump**: `datadump.publications.europa.eu` (requires EU Login)
+- **data.europa.eu**: Official Journals in CSV with links to Formex XML
 
-## Model danych (CDM + FRBR)
+## Data model (CDM + FRBR)
 
-Struktura danych oparta na **FRBR** (Functional Requirements for Bibliographic Records) + **RDF Schema/OWL**.
+Data structure based on **FRBR** (Functional Requirements for Bibliographic Records) + **RDF Schema/OWL**.
 
-Hierarchia: **Work → Expression → Manifestation → Item**
+Hierarchy: **Work → Expression → Manifestation → Item**
 
-### Work (akt prawny jako koncept)
+### Work (legal act as a concept)
 
-Pojedynczy rekord z metadanymi, relacjami prawnymi, datami i statusem.
+A single record with metadata, legal relations, dates, and status.
 
-### Expression (wersja językowa)
+### Expression (language version)
 
-Dla każdego Work istnieje do 23 Expressions (oficjalne języki UE). Każda zawiera:
-- `expression_title` — pełny tytuł w danym języku
-- `expression_title_short` — np. "Payment Services Directive, psd 2, psd II"
-- `expression_uses_language` — kod języka
+Each Work has up to 23 Expressions (official EU languages). Each contains:
+- `expression_title` — full title in a given language
+- `expression_title_short` — e.g. "Payment Services Directive, psd 2, psd II"
+- `expression_uses_language` — language code
 
-### Manifestation (format pliku)
+### Manifestation (file format)
 
-Dla każdej Expression typowo 3 manifestacje:
+Each Expression typically has 3 manifestations:
 
-| Typ | Format | Opis |
+| Type | Format | Description |
 |---|---|---|
-| `pdfa1a` | PDF/A-1a | Archiwalny PDF |
-| `fmx4` | Formex 4 XML | Strukturalny XML (treść + załączniki) |
-| `xhtml` | XHTML | HTML do wyświetlania w przeglądarce |
+| `pdfa1a` | PDF/A-1a | Archival PDF |
+| `fmx4` | Formex 4 XML | Structured XML (content + annexes) |
+| `xhtml` | XHTML | HTML for browser display |
 
-Plus metadane OJ: numer strony, tom, podsekcja, trwałość.
+Plus OJ metadata: page number, volume, subsection, permanence.
 
-### Item (fizyczny plik)
+### Item (physical file)
 
-Konkretne pliki do pobrania z MIME type i pełnym URI.
+Concrete downloadable files with MIME type and full URI.
 
-Dokumentacja CDM: https://op.europa.eu/en/web/eu-vocabularies/cdm
+CDM documentation: https://op.europa.eu/en/web/eu-vocabularies/cdm
 
-## Pola dostępne na poziomie Work
+## Fields available at Work level
 
-Zbadane na przykładzie PSD2 (CELEX: `32015L2366`).
+Studied on the example of PSD2 (CELEX: `32015L2366`).
 
-### Identyfikacja
+### Identification
 
-| Pole CDM | Opis | Przykład PSD2 |
+| CDM field | Description | Example PSD2 |
 |---|---|---|
-| `resource_legal_id_celex` | Numer CELEX | `32015L2366` |
+| `resource_legal_id_celex` | CELEX number | `32015L2366` |
 | `resource_legal_eli` | European Legislation Identifier | `http://data.europa.eu/eli/dir/2015/2366/oj` |
-| `work_id_document` | Identyfikatory (CELEX, OJ, IMMC) | `celex:32015L2366`, `oj:JOL_2015_337_R_0002` |
-| `work_has_resource-type` | Typ dokumentu | `DIR` (dyrektywa) |
-| `resource_legal_type` | Typ aktu (literal) | `L` |
-| `resource_legal_number_natural` | Numer aktu | `2366` |
-| `resource_legal_year` | Rok | `2015` |
-| `resource_legal_id_sector` | Sektor CELEX | `3` (legislacja przyjęta) |
-| `work_version` | Wersja | `final` |
+| `work_id_document` | Identifiers (CELEX, OJ, IMMC) | `celex:32015L2366`, `oj:JOL_2015_337_R_0002` |
+| `work_has_resource-type` | Document type | `DIR` (directive) |
+| `resource_legal_type` | Act type (literal) | `L` |
+| `resource_legal_number_natural` | Act number | `2366` |
+| `resource_legal_year` | Year | `2015` |
+| `resource_legal_id_sector` | Sector CELEX | `3` (adopted legislation) |
+| `work_version` | Version | `final` |
 
-### Daty
+### Dates
 
-| Pole CDM | Opis | Przykład PSD2 |
+| CDM field | Description | Example PSD2 |
 |---|---|---|
-| `work_date_document` | Data dokumentu | 2015-11-25 |
-| `resource_legal_date_entry-into-force` | Wejście w życie | 2016-01-12 |
-| `directive_date_transposition` | Termin transpozycji | 2018-01-13 |
+| `work_date_document` | Document date | 2015-11-25 |
+| `resource_legal_date_entry-into-force` | Entry into force | 2016-01-12 |
+| `directive_date_transposition` | Transposition deadline | 2018-01-13 |
 | `resource_legal_date_deadline` | Deadline | 2021-01-13 |
-| `resource_legal_date_end-of-validity` | Koniec ważności | 2026-06-18 |
-| `work_date_creation_legacy` | Data publikacji OJ | 2015-12-23 |
+| `resource_legal_date_end-of-validity` | End of validity | 2026-06-18 |
+| `work_date_creation_legacy` | OJ publication date | 2015-12-23 |
 
 ### Status
 
-| Pole CDM | Opis | Przykład PSD2 |
+| CDM field | Description | Example PSD2 |
 |---|---|---|
-| `resource_legal_in-force` | Czy obowiązuje | `true` (1) |
-| `resource_legal_eea` | Relevance dla EOG | `true` (1) |
-| `resource_legal_codified_version` | Czy wersja skodyfikowana | `false` (0) |
+| `resource_legal_in-force` | In force | `true` (1) |
+| `resource_legal_eea` | EEA relevance | `true` (1) |
+| `resource_legal_codified_version` | Whether codified version | `false` (0) |
 
-### Instytucje
+### Institutions
 
-| Pole CDM | Opis | Przykład PSD2 |
+| CDM field | Description | Example PSD2 |
 |---|---|---|
-| `work_created_by_agent` | Autorzy | EP (Parlament) + CONSIL (Rada) |
-| `resource_legal_responsibility_of_agent` | DG odpowiedzialne | DG JUST + DG FISMA |
-| `resource_legal_addresses_institution` | Adresaci | EUMS (Państwa Członkowskie) |
-| `resource_legal_signatory_name2` | Podpisujący | M. Schulz, N. Schmit |
+| `work_created_by_agent` | Authors | EP (Parliament) + CONSIL (Council) |
+| `resource_legal_responsibility_of_agent` | Responsible DGs | DG JUST + DG FISMA |
+| `resource_legal_addresses_institution` | Addressees | EUMS (Member States) |
+| `resource_legal_signatory_name2` | Signatories | M. Schulz, N. Schmit |
 
-### Tematyka
+### Subject matter
 
-| Pole CDM | Opis | Przykład PSD2 |
+| CDM field | Description | Example PSD2 |
 |---|---|---|
-| `resource_legal_is_about_subject-matter` | Materia (authority codes) | Free movement of capital, Freedom of establishment, Internal market |
-| `resource_legal_is_about_concept_directory-code` | Katalog | Free movement of capital, Banks |
-| `work_is_about_concept_eurovoc` | Deskryptory EuroVoc | approximation of laws, single market, financial institution, service, financial services, payment, intra-EU payment, electronic money, financial legislation, electronic banking |
+| `resource_legal_is_about_subject-matter` | Subject matter (authority codes) | Free movement of capital, Freedom of establishment, Internal market |
+| `resource_legal_is_about_concept_directory-code` | Directory | Free movement of capital, Banks |
+| `work_is_about_concept_eurovoc` | EuroVoc descriptors | approximation of laws, single market, financial institution, service, financial services, payment, intra-EU payment, electronic money, financial legislation, electronic banking |
 
-## Relacje prawne (graf)
+## Legal relations (graph)
 
-### Relacje wychodzące z aktu (Work → inne)
+### Outgoing relations from the act (Work → other)
 
-| Pole CDM | Kierunek | Przykład PSD2 |
+| CDM field | Direction | Example PSD2 |
 |---|---|---|
-| `resource_legal_amends_resource_legal` | Co TEN akt zmienia | 32002L0065, 32009L0110, 32013L0036, 32010R1093 |
-| `resource_legal_repeals_resource_legal` | Co TEN akt uchyla | 32007L0064 (PSD1) |
-| `resource_legal_implicitly_repeals_resource_legal` | Co niejawnie uchyla | 32009L0111 |
-| `resource_legal_based_on_concept_treaty` | Podstawa traktatowa | Art. 114 TFUE |
-| `resource_legal_based_on_resource_legal` | Podstawa prawna | 12012E114 |
-| `resource_legal_adopts_resource_legal` | Co przyjmuje (propozycję) | 52013PC0547 |
-| `work_cites_work` | Co cytuje | 31 aktów |
+| `resource_legal_amends_resource_legal` | What THIS act amends | 32002L0065, 32009L0110, 32013L0036, 32010R1093 |
+| `resource_legal_repeals_resource_legal` | What THIS act repeals | 32007L0064 (PSD1) |
+| `resource_legal_implicitly_repeals_resource_legal` | What it implicitly repeals | 32009L0111 |
+| `resource_legal_based_on_concept_treaty` | Treaty basis | Art. 114 TFUE |
+| `resource_legal_based_on_resource_legal` | Legal basis | 12012E114 |
+| `resource_legal_adopts_resource_legal` | What it adopts (proposal) | 52013PC0547 |
+| `work_cites_work` | What it cites | 31 acts |
 
-### Relacje przychodzące (inne → Work)
+### Incoming relations (other → Work)
 
-Zbadane dla PSD2 — ilość obiektów wskazujących na PSD2:
+Studied for PSD2 — count of objects pointing to PSD2:
 
-| Pole CDM | Ile | Opis |
+| CDM field | Count | Description |
 |---|---|---|
-| `work_cites_work` | 283 | Akty cytujące PSD2 |
-| `measure_national_implementing_implements_resource_legal` | 258 | Krajowe ustawy implementujące PSD2 |
-| `act_consolidated_consolidates_resource_legal` | 22 | Teksty skonsolidowane |
-| `resource_legal_based_on_resource_legal` | 14 | Akty delegowane/wykonawcze oparte na PSD2 |
-| `act_consolidated_based_on_resource_legal` | 12 | Konsolidacje oparte na PSD2 |
-| `communication_case_new_submits_preliminary_question_resource_legal` | 10 | Pytania prejudycjalne do TSUE |
-| `resource_legal_corrects_resource_legal` | 7 | Sprostowania (corrigenda) |
-| `resource_legal_completes_resource_legal` | 5 | Akty uzupełniające PSD2 |
-| `case-law_interpretes_resource_legal` | 5 | Orzecznictwo TSUE interpretujące PSD2 |
-| `resource_legal_proposes_to_amend_resource_legal` | 2 | Propozycje zmian |
-| `resource_legal_amends_resource_legal` | 2 | Akty zmieniające PSD2 (DORA 32022L2556, IPR 32024R0886) |
-| `resource_legal_implicitly_repeals_resource_legal` | 1 | PSD3 (32023L2673) niejawnie uchyla PSD2 |
-| `dossier_contains_work` | 1 | Dossier procedury legislacyjnej |
-| `summary_summarizes_work` / `summary_legislation_eu_summarizes_resource_legal` | 1 | Streszczenie EUR-Lex |
-| `case-law_declares_valid_resource_legal` | 1 | Orzeczenie potwierdzające ważność |
-| `dossier_produces_resource_legal` | 1 | Dossier → akt końcowy |
-| `work_related_to_work` | 1 | Powiązany akt |
-| `work_is_logical_successor_of_work` | 1 | Następca logiczny (tekst skonsolidowany) |
-| `event_legal_contains_work` | 1 | Wydarzenie prawne |
-| `owl:annotatedTarget` | 570 | Granularne adnotacje (artykuł-do-artykułu) |
+| `work_cites_work` | 283 | Acts citing PSD2 |
+| `measure_national_implementing_implements_resource_legal` | 258 | National laws implementing PSD2 |
+| `act_consolidated_consolidates_resource_legal` | 22 | Consolidated texts |
+| `resource_legal_based_on_resource_legal` | 14 | Acts delegated/implementing based on PSD2 |
+| `act_consolidated_based_on_resource_legal` | 12 | Consolidations based on PSD2 |
+| `communication_case_new_submits_preliminary_question_resource_legal` | 10 | Preliminary questions to the CJEU |
+| `resource_legal_corrects_resource_legal` | 7 | Corrigenda (corrigenda) |
+| `resource_legal_completes_resource_legal` | 5 | Completing acts PSD2 |
+| `case-law_interpretes_resource_legal` | 5 | CJEU case law interpreting PSD2 |
+| `resource_legal_proposes_to_amend_resource_legal` | 2 | Proposals to amend |
+| `resource_legal_amends_resource_legal` | 2 | Acts amending PSD2 (DORA 32022L2556, IPR 32024R0886) |
+| `resource_legal_implicitly_repeals_resource_legal` | 1 | PSD3 (32023L2673) implicitly repeals PSD2 |
+| `dossier_contains_work` | 1 | Legislative procedure dossier |
+| `summary_summarizes_work` / `summary_legislation_eu_summarizes_resource_legal` | 1 | Summary EUR-Lex |
+| `case-law_declares_valid_resource_legal` | 1 | Judgment confirming validity |
+| `dossier_produces_resource_legal` | 1 | Dossier -> final act |
+| `work_related_to_work` | 1 | Related act |
+| `work_is_logical_successor_of_work` | 1 | Logical successor (consolidated text) |
+| `event_legal_contains_work` | 1 | Legal event |
+| `owl:annotatedTarget` | 570 | Granular annotations (article-do-articleu) |
 
-## Szczegóły wybranych relacji
+## Details of selected relations
 
-### proposes_to_amend — Propozycje zmian PSD2
+### proposes_to_amend — PSD2 amendment proposals
 
-| CELEX | Data | Typ | Tytuł |
+| CELEX | Date | Type | Title |
 |---|---|---|---|
-| `52020PC0596` | 2020-09-24 | PROP_DIR | Propozycja DORA — zmieniająca m.in. PSD2, CRD IV, MiFID II |
-| `52023PC0366` | 2023-06-28 | PROP_DIR | **Propozycja PSD3** — "on payment services and electronic money services... repealing Directives 2015/2366/EU and 2009/110/EC" |
+| `52020PC0596` | 2020-09-24 | PROP_DIR | DORA proposal, amending among others PSD2, CRD IV, and MiFID II |
+| `52023PC0366` | 2023-06-28 | PROP_DIR | **Proposal PSD3** — "on payment services and electronic money services... repealing Directives 2015/2366/EU and 2009/110/EC" |
 
-### summary_summarizes — Streszczenie legislacyjne
+### summary_summarizes — Legislative summary
 
-Oficjalne streszczenie EUR-Lex (Summaries of EU Legislation):
-- ID: `2404020302_1`, wersja 7.0.1
-- Zwalidowane przez DG FISMA
-- Drafted in English, ostatnia aktualizacja: 2024-11-09
+Official EUR-Lex summary (Summaries of EU Legislation):
+- ID: `2404020302_1`, version 7.0.1
+- Validated by DG FISMA
+- Drafted in English, last update: 2024-11-09
 - URI: `http://publications.europa.eu/resource/legissum/2404020302_1`
-- Typ: `LEGIS_SUM`
+- Type: `LEGIS_SUM`
 
-### dossier_contains — Procedura legislacyjna 2013/0264/COD
+### dossier_contains — Legislative procedure 2013/0264/COD
 
-Pełne dossier procedury OLP (zwykła procedura legislacyjna):
+Full dossier for the OLP (ordinary legislative procedure):
 
-| Data | Typ | CELEX | Rola |
+| Date | Type | CELEX | Rola |
 |---|---|---|---|
-| 2013-07-24 | `PROP_DIR` | `52013PC0547` | Propozycja Komisji |
-| 2013-07-24 | `SWD` | `52013SC0282` | Staff Working Document (ocena skutków) |
-| 2013-12-05 | `NOTICE` | `52014XX0208(05)` | Zawiadomienie |
-| 2013-12-11 | `OPIN` | `52013AE5238` | Opinia EKES |
-| 2014-02-05 | `OPIN` | `52014AB0009` | Opinia EBC |
-| 2014-04-03 | `RES_LEGIS` | `52014AP0280` | Stanowisko PE (1. czytanie) |
-| 2015-10-08 | `RES_LEGIS` | `52015AP0346` | Stanowisko PE (2. czytanie) |
-| 2015-10-30 | `ITEM_IA_NOTE` | — | Nota do Rady (punkt A) ×2 |
-| 2015-11-10 | `ACT_LEGIS` | — | Akt legislacyjny |
-| 2015-11-17 | `VOTING_RES` | — | Wynik głosowania w Radzie |
-| 2015-11-25 | **`DIR`** | **`32015L2366`** | **PSD2 — przyjęta dyrektywa** |
-| 2015-11-25 | `ACT_LEGIS` | — | Akt legislacyjny (sygnatura) |
-| 2015-12-11 | `ACT_LEGIS` | — | Akt legislacyjny (publikacja) |
+| 2013-07-24 | `PROP_DIR` | `52013PC0547` | Commission proposal |
+| 2013-07-24 | `SWD` | `52013SC0282` | Staff Working Document (impact assessment) |
+| 2013-12-05 | `NOTICE` | `52014XX0208(05)` | Notice |
+| 2013-12-11 | `OPIN` | `52013AE5238` | EESC opinion |
+| 2014-02-05 | `OPIN` | `52014AB0009` | ECB opinion |
+| 2014-04-03 | `RES_LEGIS` | `52014AP0280` | EP position (1. czytanie) |
+| 2015-10-08 | `RES_LEGIS` | `52015AP0346` | EP position (2. czytanie) |
+| 2015-10-30 | `ITEM_IA_NOTE` | — | Nota do Rady (point A) ×2 |
+| 2015-11-10 | `ACT_LEGIS` | — | Legislative act |
+| 2015-11-17 | `VOTING_RES` | — | Council voting result |
+| 2015-11-25 | **`DIR`** | **`32015L2366`** | **PSD2 — adopted directive** |
+| 2015-11-25 | `ACT_LEGIS` | — | Legislative act (signature) |
+| 2015-12-11 | `ACT_LEGIS` | — | Legislative act (publication) |
 
-Metadane dossier:
+Dossier metadata:
 - `dossier_identifier`: `procedure:2013_264`
 - `procedure_code_interinstitutional_reference_procedure`: `2013/0264/COD`
 - `dossier_adopted-proposal`: 1
@@ -240,31 +240,31 @@ Metadane dossier:
 - `dossier_produces_resource_legal`: `32015L2366`
 - `procedure_code_interinstitutional_has_type`: OLP
 
-### is_logical_successor — Następca logiczny
+### is_logical_successor — Logical successor
 
-| CELEX | Typ | Data |
+| CELEX | Type | Date |
 |---|---|---|
 | `02015L2366-20240408` | `CONS_TEXT` | 2024-04-08 |
 
-Tekst skonsolidowany PSD2 na dzień 8 kwietnia 2024 (po zmianach DORA i IPR).
+Consolidated text PSD2 as of 8 April 2024 (after DORA and IPR changes).
 
-### annotatedTarget — Adnotacje granularne (570 sztuk)
+### annotatedTarget — Granular annotations (570 items)
 
-Relacje na poziomie artykułów. OWL Axiom Annotations łączą np. konkretny artykuł ustawy krajowej z konkretnym artykułem PSD2. Większość to `measure_national_implementing_implements_resource_legal` — krajowe ustawy wskazujące który artykuł PSD2 implementują.
+Relations at article level. OWL Axiom Annotations link, for example, a specific article of a national law to a specific article of PSD2. Most are `measure_national_implementing_implements_resource_legal`: national laws indicating which PSD2 article they implement.
 
-## Warianty CELEX dla jednego aktu
+## CELEX Variants for a Single Act
 
-| Prefiks | Znaczenie | Przykłady PSD2 |
+| Prefix | Meaning | PSD2 examples |
 |---|---|---|
-| `3` | Legislacja przyjęta | `32015L2366` |
-| `3...R(xx)` | Sprostowania | `32015L2366R(01)` do `R(07)` — 7 sprostowań |
-| `0` | Teksty skonsolidowane | `02015L2366-20151223`, `02015L2366-20240408`, `02015L2366-20250117` |
-| `7` | Krajowe środki implementujące | `72015L2366POL_258600`, `72015L2366DEU_253864`, ... — ~230+ |
-| `5` | Dokumenty przygotowawcze | `52013PC0547` (propozycja), `52023PC0366` (propozycja PSD3) |
+| `3` | Adopted legislation | `32015L2366` |
+| `3...R(xx)` | Corrigenda | `32015L2366R(01)` to `R(07)`: 7 corrigenda |
+| `0` | Consolidated texts | `02015L2366-20151223`, `02015L2366-20240408`, `02015L2366-20250117` |
+| `7` | National implementing measures | `72015L2366POL_258600`, `72015L2366DEU_253864`, ... — ~230+ |
+| `5` | Dokumenty preparatory | `52013PC0547` (proposal), `52023PC0366` (proposal PSD3) |
 
-## Przykładowe zapytania SPARQL
+## Example SPARQL queries
 
-### Znajdź akt po CELEX i pobierz jego URI
+### Find an act by CELEX and fetch its URI
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -274,7 +274,7 @@ SELECT ?work WHERE {
 }
 ```
 
-### Znajdź akty zmieniające dany akt
+### Find acts amending a given act
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -287,7 +287,7 @@ SELECT DISTINCT ?amendingWork ?celex ?date WHERE {
 ORDER BY ?date
 ```
 
-### Znajdź akty uchylające (jawnie i niejawnie)
+### Find acts repealing a given act (explicitly and implicitly)
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -305,7 +305,7 @@ SELECT DISTINCT ?work ?celex ?date ?relType WHERE {
 }
 ```
 
-### Znajdź propozycje zmian
+### Find proposals to amend
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -317,7 +317,7 @@ SELECT ?work ?celex ?date WHERE {
 }
 ```
 
-### Pobierz dossier (pełną procedurę legislacyjną)
+### Fetch dossier (full legislative procedure)
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -332,7 +332,7 @@ SELECT ?dossier ?work ?celex ?date ?type WHERE {
 ORDER BY ?date
 ```
 
-### Pobierz wersje językowe (Expressions)
+### Fetch language versions (Expressions)
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -345,7 +345,7 @@ SELECT ?expression ?lang ?title WHERE {
 ORDER BY ?lang
 ```
 
-### Pobierz wszystkie relacje przychodzące (kto wskazuje na dany akt)
+### Fetch all incoming relations (who points to a given act)
 
 ```sparql
 PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -359,285 +359,285 @@ ORDER BY DESC(?count)
 
 ---
 
-# DEEP DIVE: Orzecznictwo TSUE dotyczące PSD2
+# DEEP DIVE: CJEU Case Law on PSD2
 
-## Wyroki interpretujące PSD2
+## Judgments Interpreting PSD2
 
-5 wyroków TSUE formalnie interpretujących PSD2:
+5 CJEU judgments formally interpreting PSD2:
 
-| CELEX | ECLI | Data | Sprawa | Izba |
+| CELEX | ECLI | Date | Case | Chamber |
 |---|---|---|---|---|
-| `62016CJ0643` | ECLI:EU:C:2018:67 | 2018-02-07 | **American Express v HM Treasury** — systemy kart trzystronnych, co-branding, ważność art. 35 PSD2 | Izba I |
-| `62018CJ0778` | ECLI:EU:C:2020:831 | 2020-10-15 | **Association française des usagers de banques v Ministre** — wypowiedzenie umów ramowych (art. 55), wiązanie z umowami kredytowymi | Izba V |
-| `62019CJ0287` | ECLI:EU:C:2020:897 | 2020-11-11 | **DenizBank v Verein für Konsumenteninformation** — pojęcie "instrumentu płatniczego" (art. 4(14)), NFC, dorozumiana zgoda | Izba I |
-| `62020CJ0484` | ECLI:EU:C:2021:975 | 2021-12-02 | **Vodafone Kabel Deutschland v Verbraucherzentralen** — opłaty za transakcje (art. 62(4)), pełna harmonizacja (art. 107(1)) | Izba IX |
-| `62022CJ0661` | ECLI:EU:C:2024:148 | 2024-02-22 | **'ABC Projektai' v Lietuvos bankas** — definicja usługi płatniczej (art. 4(3) i (5)), przechowywanie środków klienta | Izba V |
+| `62016CJ0643` | ECLI:EU:C:2018:67 | 2018-02-07 | **American Express v HM Treasury** — three-party card schemes, co-branding, validity of Art. 35 PSD2 | Chamber I |
+| `62018CJ0778` | ECLI:EU:C:2020:831 | 2020-10-15 | **Association française des usagers de banques v Ministre** — termination of framework contracts (Art. 55), linkage with credit agreements | Izba V |
+| `62019CJ0287` | ECLI:EU:C:2020:897 | 2020-11-11 | **DenizBank v Verein für Konsumenteninformation** — the concept of a "payment instrument" (Art. 4(14)), NFC, implied consent | Izba I |
+| `62020CJ0484` | ECLI:EU:C:2021:975 | 2021-12-02 | **Vodafone Kabel Deutschland v Verbraucherzentralen** — transaction fees (Art. 62(4)), full harmonisation (Art. 107(1)) | Izba IX |
+| `62022CJ0661` | ECLI:EU:C:2024:148 | 2024-02-22 | **'ABC Projektai' v Lietuvos bankas** — definition of a payment service (Art. 4(3) and (5)), holding client funds | Izba V |
 
-## Pytania prejudycjalne (10 spraw)
+## Preliminary questions (10 spraw)
 
-| CELEX | Data | Status | Sprawa |
+| CELEX | Date | Status | Case |
 |---|---|---|---|
-| `62016CN0643` | 2016-12-12 | Rozstrzygnięta | American Express (UK) |
-| `62018CN0778` | 2018-12-11 | Rozstrzygnięta | Usagers de banques (Francja) |
-| `62019CN0287` | 2019-04-05 | Rozstrzygnięta | DenizBank (Austria) |
-| `62020CN0484` | 2020-10-01 | Rozstrzygnięta | Vodafone (Niemcy) |
-| `62021CN0448` | 2021-07-21 | **Usunięta** | Portugalia — Banco BPI |
-| `62022CN0661` | 2022-10-20 | Rozstrzygnięta | Bruc Bond (Litwa) |
-| **`62025CN0051`** | 2025-01-28 | **Oczekująca** | Betaal Garant v De Nederlandsche Bank (Holandia) |
-| **`62025CN0070`** | 2025-02-03 | **Oczekująca** | N.O. v PKO BP S.A. (Polska!) |
-| **`62025CN0274`** | 2025-04-10 | **Oczekująca** | Alternative Payments v Lietuvos bankas (Litwa) |
-| **`62025CN0339`** | 2025-05-17 | **Oczekująca** | Iulicris Recycling v Ibanfirst (Belgia) |
+| `62016CN0643` | 2016-12-12 | Resolved | American Express (UK) |
+| `62018CN0778` | 2018-12-11 | Resolved | Usagers de banques (France) |
+| `62019CN0287` | 2019-04-05 | Resolved | DenizBank (Austria) |
+| `62020CN0484` | 2020-10-01 | Resolved | Vodafone (Germany) |
+| `62021CN0448` | 2021-07-21 | **Removed** | Portugal — Banco BPI |
+| `62022CN0661` | 2022-10-20 | Resolved | Bruc Bond (Lithuania) |
+| **`62025CN0051`** | 2025-01-28 | **Pending** | Betaal Garant v De Nederlandsche Bank (Netherlands) |
+| **`62025CN0070`** | 2025-02-03 | **Pending** | N.O. v PKO BP S.A. (Poland!) |
+| **`62025CN0274`** | 2025-04-10 | **Pending** | Alternative Payments v Lietuvos bankas (Lithuania) |
+| **`62025CN0339`** | 2025-05-17 | **Pending** | Iulicris Recycling v Ibanfirst (Belgium) |
 
-## Orzeczenie o ważności
+## Validity judgment
 
-C-643/16 (American Express) — TSUE potwierdził ważność art. 35(1) i (2)(b) PSD2.
+C-643/16 (American Express) — The CJEU confirmed the validity of art. 35(1) i (2)(b) PSD2.
 
-## Opinie Rzeczników Generalnych
+## Advocate General opinions
 
-| CELEX | Data | Rzecznik | Sprawa |
+| CELEX | Date | Rzecznik | Case |
 |---|---|---|---|
 | `62018CC0778` | 2020-02-27 | Saugmandsgaard Øe | C-778/18 |
 | `62019CC0287` | 2020-04-30 | Campos Sánchez-Bordona | C-287/19 (DenizBank) |
 | `62022CC0661` | 2023-10-05 | Campos Sánchez-Bordona | C-661/22 (ABC Projektai) |
 
-## Pola dostępne na orzeczeniach (zbadane na C-287/19)
+## Fields available on judgments (studied on C-287/19)
 
-Pola specyficzne dla case-law (`cdm:case-law_*`):
-- `case-law_ecli` — identyfikator ECLI
-- `case-law_has_procjur` — typ procedury (REFER_PREL = pytanie prejudycjalne)
-- `case-law_delivered_by_court-formation` — skład sądu (izba)
-- `case-law_delivered_by_judge` — sędzia sprawozdawca
-- `case-law_delivered_by_advocate-general` — rzecznik generalny
-- `case-law_interpretes_resource_legal` — jakie akty interpretuje
-- `case-law_declares_valid_resource_legal` — jakie akty uznaje za ważne
-- `case-law_originates_in_country` — kraj pytającego sądu
-- `case-law_uses_procedure_language` — język postępowania
-- `case-law_national-judgement` — wyrok sądu krajowego (follow-up)
-- `case-law_commented_by_agent` — kto składał uwagi (Komisja, rządy)
-- `case-law_article_journal_related` — artykuły naukowe omawiające wyrok
-- `case-law_published_in_erecueil` — czy opublikowany w ECR
+Case-law-specific fields (`cdm:case-law_*`):
+- `case-law_ecli` — ECLI identifier
+- `case-law_has_procjur` — procedure type (REFER_PREL = preliminary question)
+- `case-law_delivered_by_court-formation` — court formation (chamber)
+- `case-law_delivered_by_judge` — judge-rapporteur
+- `case-law_delivered_by_advocate-general` — Advocate General
+- `case-law_interpretes_resource_legal` — which acts it interprets
+- `case-law_declares_valid_resource_legal` — which acts it finds valid
+- `case-law_originates_in_country` — country of the referring court
+- `case-law_uses_procedure_language` — language of proceedings
+- `case-law_national-judgement` — national court judgment (follow-up)
+- `case-law_commented_by_agent` — who submitted observations (Commission, governments)
+- `case-law_article_journal_related` — scholarly articles discussing the judgment
+- `case-law_published_in_erecueil` — whether published in ECR
 
 ---
 
-# DEEP DIVE: Akty delegowane i wykonawcze oparte na PSD2
+# DEEP DIVE: Delegated and implementing acts based on PSD2
 
-## Rozporządzenia delegowane (RTS)
+## Delegated regulations (RTS)
 
-| CELEX | Data | Tytuł | In-force |
+| CELEX | Date | Title | In-force |
 |---|---|---|---|
-| `32017R2055` | 2017-06-23 | RTS — współpraca i wymiana informacji między organami nadzoru (art. 28(5)) | Tak |
-| `32018R0389` | 2017-11-27 | **RTS SCA/CSC** — silne uwierzytelnianie klienta i bezpieczna komunikacja (art. 98(4)) | Tak |
-| `32019R0411` | 2018-11-29 | RTS — elektroniczny rejestr centralny (art. 15(4)) | Tak |
-| `32020R1423` | 2019-03-14 | RTS — centralne punkty kontaktowe (art. 29(7)) | Tak |
-| `32021R1722` | 2021-07-18 | RTS — współpraca transgraniczna w nadzorze (art. 29(7)) | Tak |
-| `32022R2360` | 2022-08-03 | Zmiana RTS SCA — zwolnienie 90-dniowe dla dostępu do konta | Tak |
-| `32023R1650` | 2023-08-15 | Korekta szwedzkiej wersji RTS SCA | Tak |
-| `32025R0212` | 2024-09-13 | Korekta RTS 2017/2055 | Tak |
+| `32017R2055` | 2017-06-23 | RTS — cooperation and exchange of information between supervisory authorities (art. 28(5)) | Yes |
+| `32018R0389` | 2017-11-27 | **RTS SCA/CSC** — strong customer authentication and secure communication (art. 98(4)) | Yes |
+| `32019R0411` | 2018-11-29 | RTS — electronic central register (art. 15(4)) | Yes |
+| `32020R1423` | 2019-03-14 | RTS — centralne pointy konyestowe (art. 29(7)) | Yes |
+| `32021R1722` | 2021-07-18 | RTS — cross-border supervisory cooperation (art. 29(7)) | Yes |
+| `32022R2360` | 2022-08-03 | Amendment to the RTS on SCA: 90-day exemption for account access | Yes |
+| `32023R1650` | 2023-08-15 | Correction of the Swedish version of the SCA RTS | Yes |
+| `32025R0212` | 2024-09-13 | Correction to RTS 2017/2055 | Yes |
 
-## Rozporządzenie wykonawcze (ITS)
+## Implementing regulation (ITS)
 
-| CELEX | Data | Tytuł | In-force |
+| CELEX | Date | Title | In-force |
 |---|---|---|---|
-| `32019R0410` | 2018-11-29 | ITS — szczegóły i struktura informacji notyfikowanych do EBA (art. 15(5)) | Tak |
+| `32019R0410` | 2018-11-29 | ITS on the details and structure of information notified to the EBA (art. 15(5)) | Yes |
 
-## Raport Komisji
+## Commission report
 
-| CELEX | Data | Tytuł |
+| CELEX | Date | Title |
 |---|---|---|
-| `52023DC0365` | 2023-06-28 | Raport z przeglądu Dyrektywy 2015/2366 (podstawa do PSD3) |
+| `52023DC0365` | 2023-06-28 | Review report on Directive 2015/2366 (basis for PSD3) |
 
-## Teksty skonsolidowane PSD2
+## Consolidated texts PSD2
 
-| CELEX | Data | Opis |
+| CELEX | Date | Description |
 |---|---|---|
-| `02015L2366-20151223` | 2015-12-23 | Wersja oryginalna |
-| `02015L2366-20240408` | 2024-04-08 | Po zmianach DORA i IPR |
-| `02015L2366-20250117` | 2025-01-17 | **Najnowsza** wersja skonsolidowana |
+| `02015L2366-20151223` | 2015-12-23 | Version oryginalna |
+| `02015L2366-20240408` | 2024-04-08 | After DORA and IPR amendments |
+| `02015L2366-20250117` | 2025-01-17 | **Latest** consolidated version |
 
-## Teksty skonsolidowane aktów zmienionych przez PSD2
+## Consolidated texts of acts amended by PSD2
 
-| CELEX | Data | Akt |
+| CELEX | Date | Act |
 |---|---|---|
-| `02010R1093-20160112` | 2016-01-12 | Rozporządzenie o EBA |
+| `02010R1093-20160112` | 2016-01-12 | EBA Regulation |
 | `02013L0036-20180113` | 2018-01-13 | CRD IV |
 | `02013L0036-20220101` | 2022-01-01 | CRD IV (nowsza) |
-| `02009L0110-20180113` | 2018-01-13 | Dyrektywa o pieniądzu elektronicznym (EMD2) |
-| `02002L0065-20180113` | 2018-01-13 | Dyrektywa o marketingu usług finansowych na odległość |
+| `02009L0110-20180113` | 2018-01-13 | Directive on electronic money (EMD2) |
+| `02002L0065-20180113` | 2018-01-13 | Directive on distance marketing of financial services |
 
 ---
 
-# DEEP DIVE: Krajowe środki implementujące PSD2
+# DEEP DIVE: National implementing measures PSD2
 
-## Statystyki wdrożenia wg kraju
+## Implementation statistics by country
 
-258 krajowych środków implementujących w 28 państwach:
+258 national implementing measures across 28 countries:
 
-| Kraj | Ile | Linki do stron | | Kraj | Ile | Linki |
+| Country | Count | Links to pages | | Country | Count | Links |
 |---|---|---|---|---|---|---|
-| Czechy | 73 | 0 | | Holandia | 8 | 0 |
-| Litwa | 21 | 0 | | Cypr | 7 | 0 |
-| Węgry | 21 | 0 | | Polska | 7 | 0 |
-| Słowacja | 14 | 0 | | Słowenia | 6 | 5 |
-| Francja | 13 | 0 | | Malta | 6 | 0 |
-| Estonia | 11 | **11** | | Chorwacja | 5 | 0 |
-| Łotwa | 11 | **9** | | Rumunia | 4 | 0 |
+| Czechia | 73 | 0 | | Netherlands | 8 | 0 |
+| Lithuania | 21 | 0 | | Cyprus | 7 | 0 |
+| Hungary | 21 | 0 | | Poland | 7 | 0 |
+| Slovakia | 14 | 0 | | Slovenia | 6 | 5 |
+| France | 13 | 0 | | Malta | 6 | 0 |
+| Estonia | 11 | **11** | | Croatia | 5 | 0 |
+| Latvia | 11 | **9** | | Romania | 4 | 0 |
 | Finlandia | 10 | 0 | | Dania | 4 | 0 |
-| Szwecja | 9 | 0 | | Bułgaria | 4 | 1 |
+| Sweden | 9 | 0 | | Bulgaria | 4 | 1 |
 
-Plus: UK (4), Grecja (3), Hiszpania (3), Włochy (3), Belgia (2), Portugalia (2), Irlandia (2), Niemcy (2), Austria (2), Luksemburg (1).
+Plus: UK (4), Greece (3), Spain (3), Italy (3), Belgium (2), Portugal (2), Ireland (2), Germany (2), Austria (2), Luxembourg (1).
 
-**Uwaga**: Czechy (73) mają zawyżoną liczbę — ustawa omnibus Zákon č. 183/2017 Sb. deklaruje transpozycję 224 dyrektyw jednocześnie.
+**Note**: Czechia (73) has an inflated count — the omnibus law Zákon č. 183/2017 Sb. declares the transposition of 224 directives at once.
 
-## Dostępne pola na NIM-ach
+## Available fields on NIMs
 
-| Pole CDM | Pokrycie | Opis |
+| CDM field | Coverage | Description |
 |---|---|---|
-| `work_title` (w języku krajowym) | 100% | Tytuł ustawy krajowej |
-| `measure_national_implementing_date_notification` | 100% | Data notyfikacji Komisji |
-| `measure_national_implementing_type_act` | 100% | Typ aktu krajowego |
-| `measure_national_implementing_name_official_journal` | 99.6% | Nazwa dziennika urzędowego |
-| `measure_national_implementing_reference_member-state` | 64% | Krajowa sygnatura |
-| `resource_legal_date_entry-into-force` | 46% | Data wejścia w życie |
-| `measure_national_implementing_national_website_link` | **10%** | Link do tekstu |
-| `resource_legal_eli` | 2.3% | Identyfikator ELI |
+| `work_title` (in the national language) | 100% | Title of the national law |
+| `measure_national_implementing_date_notification` | 100% | Notification date to the Commission |
+| `measure_national_implementing_type_act` | 100% | Act type krajowego |
+| `measure_national_implementing_name_official_journal` | 99.6% | Official journal name |
+| `measure_national_implementing_reference_member-state` | 64% | Countryowa signature |
+| `resource_legal_date_entry-into-force` | 46% | Entry-into-force date |
+| `measure_national_implementing_national_website_link` | **10%** | Link to the text |
+| `resource_legal_eli` | 2.3% | ELI identifier |
 
-**Kluczowe odkrycie**: Property to `measure_national_implementing_implemented_by_country` (NIE `adopted_by_country`).
+**Key finding**: The property is `measure_national_implementing_implemented_by_country` (NOT `adopted_by_country`).
 
-## Polskie NIM-y (7 sztuk)
+## Polish NIMs (7 sztuk)
 
-| CELEX | Tytuł | Typ | Dz.U. |
+| CELEX | Title | Type | Dz.U. |
 |---|---|---|---|
-| `72015L2366POL_258600` | Ustawa z 22.03.2018 o zmianie ustawy o usługach płatniczych | Nowelizacja | DzU 2018/864 |
-| `72015L2366POL_259382` | Ustawa z 10.05.2018 o zmianie ustawy o usługach płatniczych | Nowelizacja | DzU 2018/1075 |
-| `72015L2366POL_259466` | Rozporządzenie MF z 06.06.2018 ws. metody obliczania kwoty | Rozporządzenie | DzU 2018/1110 |
-| `72015L2366POL_259467` | Ustawa z 19.08.2011 o usługach płatniczych (t.j.) | Ustawa | DzU 2017/2003 |
-| `72015L2366POL_259472` | Ustawa z 10.05.2018 o ochronie danych osobowych | Ustawa | DzU 2018/1000 |
-| `72015L2366POL_202101589` | Ustawa z 21.01.2021 o zmianie ustawy o obrocie instrumentami | Nowelizacja | DzU 2021/355 |
-| `72015L2366POL_202401176` | Ustawa z 16.08.2023 o zmianie niektórych ustaw (rynek finansowy) | Nowelizacja | DzU 2023/1723 |
+| `72015L2366POL_258600` | Act of 22.03.2018 amending the Payment Services Act | Amendment | DzU 2018/864 |
+| `72015L2366POL_259382` | Act of 10.05.2018 amending the Payment Services Act | Amendment | DzU 2018/1075 |
+| `72015L2366POL_259466` | Ministry of Finance regulation of 06.06.2018 on the method of calculating the amount | Regulation | DzU 2018/1110 |
+| `72015L2366POL_259467` | Act of 19.08.2011 on payment services (consolidated text) | Act | DzU 2017/2003 |
+| `72015L2366POL_259472` | Act of 10.05.2018 on personal data protection | Act | DzU 2018/1000 |
+| `72015L2366POL_202101589` | Act of 21.01.2021 amending the Act on trading in instruments | Amendment | DzU 2021/355 |
+| `72015L2366POL_202401176` | Act of 16.08.2023 amending certain laws (financial market) | Amendment | DzU 2023/1723 |
 
 ---
 
-# DEEP DIVE: Porównanie typów aktów w CELLAR
+# DEEP DIVE: Comparison of act types in CELLAR
 
-## Skala danych w CELLAR
+## Data scale in CELLAR
 
-| Typ | Ilość | Opis |
+| Type | Count | Description |
 |---|---|---|
-| `PROCUREMENT_NOTICE` | 1,911,563 | Ogłoszenia przetargowe |
-| `MEAS_NATION_IMPL` | 196,630 | Krajowe środki implementujące |
-| `REG` | 144,952 | Rozporządzenia |
-| `CONS_TEXT` | 73,357 | Teksty skonsolidowane |
-| `JUDG` | 33,739 | Wyroki TSUE |
-| `DEC` | 23,917 | Decyzje |
-| `REG_IMPL` | 14,643 | Rozporządzenia wykonawcze |
-| `PROP_REG` | 13,825 | Propozycje rozporządzeń |
-| `DIR` | 7,733 | Dyrektywy |
-| `PROP_DIR` | 3,197 | Propozycje dyrektyw |
+| `PROCUREMENT_NOTICE` | 1,911,563 | Procurement notices |
+| `MEAS_NATION_IMPL` | 196,630 | National implementing measures |
+| `REG` | 144,952 | Regulations |
+| `CONS_TEXT` | 73,357 | Consolidated texts |
+| `JUDG` | 33,739 | CJEU judgments |
+| `DEC` | 23,917 | Decisions |
+| `REG_IMPL` | 14,643 | Implementing regulations |
+| `PROP_REG` | 13,825 | Regulation proposals |
+| `DIR` | 7,733 | Directives |
+| `PROP_DIR` | 3,197 | Directive proposals |
 
-## Hierarchia typów RDF
+## RDF type hierarchy
 
-| Typ aktu | Klasy RDF |
+| Act type | RDF classes |
 |---|---|
-| Rozporządzenie | `cdm:regulation` > `cdm:legislation_secondary` > `cdm:resource_legal` > `cdm:work` |
-| Dyrektywa | `cdm:directive` > `cdm:legislation_secondary` > `cdm:resource_legal` > `cdm:work` |
-| Wyrok | `cdm:judgement` + `cdm:case-law` + `cdm:document_cjeu` > `cdm:resource_legal` > `cdm:work` |
-| Propozycja | `cdm:act_preparatory` > `cdm:work` (NIE dziedziczy z `legislation_secondary`!) |
+| Regulation | `cdm:regulation` > `cdm:legislation_secondary` > `cdm:resource_legal` > `cdm:work` |
+| Directive | `cdm:directive` > `cdm:legislation_secondary` > `cdm:resource_legal` > `cdm:work` |
+| Judgment | `cdm:judgement` + `cdm:case-law` + `cdm:document_cjeu` > `cdm:resource_legal` > `cdm:work` |
+| Proposal | `cdm:act_preparatory` > `cdm:work` (does NOT inherit from `legislation_secondary`!) |
 
-## Porównanie pól wg typu aktu
+## Field comparison by act type
 
-| Typ | Wszystkie pola | Unikalne pola | Wspólne z innymi |
+| Type | Wszystkie fields | Unikalne fields | Shared z innymi |
 |---|---|---|---|
-| Rozporządzenie (REG) | 121 | 16 | 31 |
-| Dyrektywa (DIR) | 108 | 3 | 31 |
-| Wyrok (JUDG) | 72 | 38 | 31 |
-| Propozycja (PROP_DIR) | 74 | 12 | 31 |
+| Regulation (REG) | 121 | 16 | 31 |
+| Directive (DIR) | 108 | 3 | 31 |
+| Judgment (JUDG) | 72 | 38 | 31 |
+| Proposal (PROP_DIR) | 74 | 12 | 31 |
 
-### Pola unikalne dla dyrektyw (nie ma ich na rozporządzeniach)
+### Fields unique to directives (not present on regulations)
 
-- **`directive_date_transposition`** — termin transpozycji (kluczowa różnica!)
+- **`directive_date_transposition`** — transposition deadline (key difference!)
 - `resource_legal_addresses_institution` → EUMS
 
-### Pola unikalne dla rozporządzeń (nie ma ich na dyrektywach)
+### Fields unique to regulations (not present on directives)
 
-`suspends`, `defers_application_of`, `reestablishes`, `incorporates`, `partially_suspends`, `renders_obsolete` — rozporządzenia mają bogatszy słownik relacji operacyjnych (bo są bezpośrednio stosowalne).
+`suspends`, `defers_application_of`, `reestablishes`, `incorporates`, `partially_suspends`, `renders_obsolete` — regulations have a richer operational relation vocabulary because they are directly applicable.
 
-### Pola unikalne dla wyroków (38 pól `case-law_*`)
+### Fields unique to judgments (38 `case-law_*` fields)
 
-Zupełnie osobny model: `ecli`, `delivered_by_judge`, `delivered_by_advocate-general`, `court-formation`, `interpretes_resource_legal`, `declares_valid/void`, `originates_in_country`, `procedure_language`, `national-judgement`, `article_journal_related`.
+A completely separate model: `ecli`, `delivered_by_judge`, `delivered_by_advocate-general`, `court-formation`, `interpretes_resource_legal`, `declares_valid/void`, `originates_in_country`, `procedure_language`, `national-judgement`, `article_journal_related`.
 
-### Pola unikalne dla propozycji
+### Fields Unique to Proposals
 
 `proposes_to_amend_resource_legal`, `act_preparatory_initiates_dossier`, `date_dispatch`, `service_responsible`, `work_part_of_dossier`.
 
 ---
 
-# DEEP DIVE: Adnotacje OWL i EuroVoc
+# DEEP DIVE: OWL annotations and EuroVoc
 
-## Struktura adnotacji OWL
+## Structure of OWL annotations
 
-CELLAR używa **OWL Annotation Axioms** (reifikacja) do kwalifikowania relacji. Zamiast prostego trójkowego `A → relacja → B`, tworzy:
+CELLAR uses **OWL Annotation Axioms** (reification) to qualify relations. Instead of a simple triple `A -> relation -> B`, it creates:
 
 ```
-_:annotation  owl:annotatedSource   <akt_źródłowy>
-_:annotation  owl:annotatedProperty <cdm:relacja>
+_:annotation  owl:annotatedSource   <source_act>
+_:annotation  owl:annotatedProperty <cdm:relation>
 _:annotation  owl:annotatedTarget   <PSD2>
-_:annotation  <kwalifikator>        <wartość>
+_:annotation  <qualifier>          <value>
 ```
 
-## Typy adnotacji (570 sztuk dla PSD2)
+## Annotation Types (570 items for PSD2)
 
-| Relacja | Ile | Opis |
+| Relation | Count | Description |
 |---|---|---|
-| `measure_national_implementing_implements` | 258 | Transpozycja krajowa |
-| `work_cites_work` | 233 | Cytowania |
-| `communication_case_new_submits_preliminary_question` | 30 | Pytania prejudycjalne |
+| `measure_national_implementing_implements` | 258 | Transposition krajowa |
+| `work_cites_work` | 233 | Citations |
+| `communication_case_new_submits_preliminary_question` | 30 | Preliminary questions |
 | `resource_legal_amends` | 13 | Zmiany legislacyjne |
-| `case-law_interpretes` | 10 | Interpretacje TSUE |
-| `resource_legal_based_on` | 9 | Akty delegowane/wykonawcze |
-| `resource_legal_corrects` | 7 | Sprostowania |
-| `resource_legal_completes` | 5 | Akty uzupełniające |
-| `resource_legal_proposes_to_amend` | 2 | Propozycje zmian |
-| `case-law_declares_valid` | 1 | Potwierdzenie ważności |
-| `resource_legal_implicitly_repeals` | 1 | Niejawne uchylenie |
-| `work_related_to_work` | 1 | Powiązanie ogólne |
+| `case-law_interpretes` | 10 | CJEU interpretations |
+| `resource_legal_based_on` | 9 | Acts delegated/implementing |
+| `resource_legal_corrects` | 7 | Corrigenda |
+| `resource_legal_completes` | 5 | Completing acts |
+| `resource_legal_proposes_to_amend` | 2 | Proposals to amend |
+| `case-law_declares_valid` | 1 | Confirmation of validity |
+| `resource_legal_implicitly_repeals` | 1 | Nojawne repeal |
+| `work_related_to_work` | 1 | General related-work link |
 
-## Kwalifikatory (granularność artykuł-po-artykule)
+## Qualifiers (article-by-article granularity)
 
-| Kwalifikator | Opis | Przykład |
+| Qualifier | Description | Example |
 |---|---|---|
-| `annotation:article` | Numer artykułu PSD2 | `"98"`, `"15"` |
-| `annotation:paragraph` | Paragraf | `"4"`, `"5"` |
-| `annotation:subparagraph` | Ustęp | `"2"`, `"3"` |
-| `annotation:comment_on_legal_basis` | Zakodowana lokalizacja | `"A98P4L2"` |
-| `annotation:fragment_cited_target` | Fragment docelowy | `"A24P1"` |
-| `annotation:fragment_citing_source` | Fragment źródłowy | `"N 53"` |
-| `annotation:start_of_validity` | Początek obowiązywania zmiany | `"2023-01-16"` |
-| `annotation:transposition_deadline_transmitted` | Termin transpozycji | `"2018-01-13"` |
-| `annotation:transposition_notification` | Data notyfikacji | `"2019-04-08"` |
+| `annotation:article` | PSD2 article number | `"98"`, `"15"` |
+| `annotation:paragraph` | Paragraph | `"4"`, `"5"` |
+| `annotation:subparagraph` | Subparagraph | `"2"`, `"3"` |
+| `annotation:comment_on_legal_basis` | Encoded location | `"A98P4L2"` |
+| `annotation:fragment_cited_target` | Target fragment | `"A24P1"` |
+| `annotation:fragment_citing_source` | Source fragment | `"N 53"` |
+| `annotation:start_of_validity` | Start of amendment validity | `"2023-01-16"` |
+| `annotation:transposition_deadline_transmitted` | Transposition deadline | `"2018-01-13"` |
+| `annotation:transposition_notification` | Notification date | `"2019-04-08"` |
 
-### Artykuły PSD2 kwestionowane przez sądy krajowe
+### PSD2 articles challenged by national courts
 
-Art. 4(3), 4(5), 4(14), 35(1), 35(2)(b), 52(6)(a), 54(1), 55, 61(1), 62(4), 63(1)(b), 71, 72, 73, 73(1), 74, Załącznik I(3)(c).
+Art. 4(3), 4(5), 4(14), 35(1), 35(2)(b), 52(6)(a), 54(1), 55, 61(1), 62(4), 63(1)(b), 71, 72, 73, 73(1), 74, Annex I(3)(c).
 
-### Artykuły PSD2 będące podstawą aktów delegowanych
+### PSD2 articles serving as the basis for delegated acts
 
-| Akt delegowany | Artykuł PSD2 | Kod |
+| Delegated act | Article PSD2 | Kod |
 |---|---|---|
-| RTS SCA (32018R0389) | Art. 98(4) ust. 2 | `A98P4L2` |
-| RTS rejestr (32019R0411) | Art. 15(4) ust. 3 | `A15P4L3` |
-| ITS (32019R0410) | Art. 15(5) ust. 3 | `A15P5L3` |
-| RTS współpraca (32017R2055) | Art. 28(5) | `A28P5` |
-| RTS punkty kontaktowe (32020R1423) | Art. 29(7) | `A29P7` |
-| RTS nadzór transgraniczny (32021R1722) | Art. 29(7) | `A29P7` |
+| RTS SCA (32018R0389) | Art. 98(4) subparagraph 2 | `A98P4L2` |
+| Register RTS (32019R0411) | Art. 15(4) subparagraph 3 | `A15P4L3` |
+| ITS (32019R0410) | Art. 15(5) subparagraph 3 | `A15P5L3` |
+| RTS on cooperation (32017R2055) | Art. 28(5) | `A28P5` |
+| RTS pointy konyestowe (32020R1423) | Art. 29(7) | `A29P7` |
+| RTS on cross-border supervision (32021R1722) | Art. 29(7) | `A29P7` |
 
-### Artykuły PSD2 zmienione przez DORA i IPR
+### PSD2 articles amended by DORA and IPR
 
-- **DORA** (32022L2556, od 2023-01-16): Art. 3(j), 5(1), 19(6), 95(1), 96(7), 98(5)
-- **IPR** (32024R0886, od 2024-04-08): Art. 35(2), 35(3), 35a
+- **DORA** (32022L2556, from 2023-01-16): Art. 3(j), 5(1), 19(6), 95(1), 96(7), 98(5)
+- **IPR** (32024R0886, from 2024-04-08): Art. 35(2), 35(3), 35a
 
-## Hierarchia EuroVoc
+## Hierarchy EuroVoc
 
-PSD2 ma 10 deskryptorów EuroVoc:
+PSD2 has 10 EuroVoc descriptors:
 
 ```
 EU law
@@ -668,46 +668,46 @@ financial institution (1452)  [top-level]
 financial services (8469)     [top-level]
 ```
 
-## Legislacja tematycznie podobna (wg EuroVoc overlap)
+## Thematically similar legislation (by EuroVoc overlap)
 
-| Overlap | CELEX | Akt |
+| Overlap | CELEX | Act |
 |---|---|---|
-| 8/10 | `52023PC0367` | **Propozycja PSD3** |
-| 7/10 | `32019R0518` | Rozporządzenie o płatnościach transgranicznych |
-| 7/10 | `52024AB0013` | Opinia EBC o PSD3/PSR |
-| 7/10 | `52023AE3611` | Opinia EKES o PSD3 |
-| 7/10 | `22024D0126` | Decyzja EOG dot. włączenia PSD2 do Aneksu IX |
+| 8/10 | `52023PC0367` | **Proposal PSD3** |
+| 7/10 | `32019R0518` | Regulation on cross-border payments |
+| 7/10 | `52024AB0013` | ECB opinion o PSD3/PSR |
+| 7/10 | `52023AE3611` | EESC opinion o PSD3 |
+| 7/10 | `22024D0126` | EEA Decision on including PSD2 in Annex IX |
 
 ---
 
-## Istniejące narzędzia klienckie
+## Existing client tools
 
-- **R**: pakiet [`eurlex`](https://michalovadek.github.io/eurlex/) — `elx_make_query()`, `elx_run_query()`, `elx_fetch_data()`. Pokrywa płaskie listy aktów i podstawowe metadane, ale **nie** obsługuje nawigacji po grafie relacji (amends, repeals, based_on itp.).
+- **R**: the [`eurlex`](https://michalovadek.github.io/eurlex/) package with `elx_make_query()`, `elx_run_query()`, and `elx_fetch_data()`. It covers flat lists of acts and basic metadata, but **does not** support navigation through the relation graph (amends, repeals, based_on, etc.).
 - **SPARQL editor**: https://op.europa.eu/en/advanced-sparql-query-editor
 
 ---
 
-# Streszczenie legislacyjne (Summary) PSD2
+# Legislative summary (Summary) PSD2
 
-## Metadane streszczenia
+## Summary Metadata
 
-| Pole | Wartość |
+| Field | Value |
 |---|---|
 | **Legissum ID** | `2404020302_1` |
 | **CELLAR URI** | `http://publications.europa.eu/resource/cellar/cfa37481-8548-4f70-8d8e-713ac6dfb151` |
-| **Typ** | `LEGIS_SUM` (Summary of EU Legislation) |
-| **Wersja** | 7.0.1 |
+| **Type** | `LEGIS_SUM` (Summary of EU Legislation) |
+| **Version** | 7.0.1 |
 | **Drafted in** | English |
-| **Zwalidowane przez** | DG FISMA |
-| **Utworzone** | 2016-06-28 |
-| **Ostatnia aktualizacja** | 2024-11-09 |
-| **Obsolete** | Nie |
-| **Klasyfikacja** | `090406`, `14090302` |
-| **Autor** | PUBL (Urząd Publikacji) |
+| **Validated by** | DG FISMA |
+| **Created** | 2016-06-28 |
+| **Last updated** | 2024-11-09 |
+| **Obsolete** | No |
+| **Classification** | `090406`, `14090302` |
+| **Author** | PUBL (Publications Office) |
 
-## Wersje językowe streszczenia (24 języki)
+## Summary language versions (24 languages)
 
-| Język | Tytuł |
+| Language | Title |
 |---|---|
 | BUL | Ревизирани правила за платежни услуги в ЕС |
 | CES | Přepracovaná pravidla pro platební služby v EU |
@@ -734,37 +734,37 @@ financial services (8469)     [top-level]
 | SPA | Normas revisadas sobre servicios de pago en la Unión Europea |
 | SWE | Reviderade regler för betaltjänster i EU |
 
-## Pobieranie treści streszczenia
+## Downloading summary content
 
-Streszczenia mają manifestacje `fmx4` (XML) i `xhtml5` (HTML). Pobranie wymaga **dokładnego MIME type** `application/xhtml+xml;type=xhtml5`:
+Summaries have `fmx4` (XML) and `xhtml5` (HTML) manifestations. Downloading them requires the **exact MIME type** `application/xhtml+xml;type=xhtml5`:
 
 ```bash
-# Pobierz streszczenie PSD2 w HTML (angielski)
+# Fetch the PSD2 summary in HTML (English)
 curl -L -H "Accept: application/xhtml+xml;type=xhtml5" \
   "http://publications.europa.eu/resource/cellar/cfa37481-8548-4f70-8d8e-713ac6dfb151.0006.04/DOC_1" \
   -o psd2_summary_en.html
 ```
 
-**Uwaga**: Standardowe `Accept: application/xhtml+xml` zwraca błąd 406. Trzeba użyć `application/xhtml+xml;type=xhtml5`.
+**Note**: Standard `Accept: application/xhtml+xml` returns a 406 error. You must use `application/xhtml+xml;type=xhtml5`.
 
-Treść (~11 000 znaków) zawiera sekcje: SUMMARY OF, WHAT IS THE AIM, KEY POINTS, FROM WHEN DOES THE DIRECTIVE APPLY, BACKGROUND, KEY TERMS, MAIN DOCUMENT, RELATED DOCUMENTS.
+The content (~11,000 characters) includes sections: SUMMARY OF, WHAT IS THE AIM, KEY POINTS, FROM WHEN DOES THE DIRECTIVE APPLY, BACKGROUND, KEY TERMS, MAIN DOCUMENT, RELATED DOCUMENTS.
 
 ---
 
-# Wydarzenie prawne (event_legal) PSD2
+# Legal event (event_legal) PSD2
 
-| Pole | Wartość |
+| Field | Value |
 |---|---|
-| **Typ** | `PUB_OJ` (Publikacja w Dzienniku Urzędowym) |
-| **Data** | 2015-12-23 |
-| **Dossier** | `http://publications.europa.eu/resource/cellar/900c24d5-f5ca-11e2-a22e-01aa75ed71a1` (procedura 2013/0264/COD) |
+| **Type** | `PUB_OJ` (Official Journal publication) |
+| **Date** | 2015-12-23 |
+| **Dossier** | `http://publications.europa.eu/resource/cellar/900c24d5-f5ca-11e2-a22e-01aa75ed71a1` (procedure 2013/0264/COD) |
 | **Identyfikator** | `procedure-event/2013_264.2015-12-23_PUB_OJ` |
-| **Utworzone w systemie** | 2020-08-21 |
+| **Created w systemie** | 2020-08-21 |
 | **Ostatnia modyfikacja** | 2025-03-17 |
 
 ---
 
-## Źródła
+## Sources
 
 - https://op.europa.eu/en/web/cellar/cellar-data
 - https://publications.europa.eu/webapi/rdf/sparql

@@ -41,26 +41,26 @@ h1 { font-size: 1.8em; margin-bottom: 5px; color: #58a6ff; }
 </head>
 <body>
 
-<h1>EuroVoc — Tezaurus tematyczny UE</h1>
-<p class="subtitle">Kompletna mapa 7 523 konceptów EuroVoc dostępnych w CELLAR, pogrupowanych tematycznie</p>
+<h1>EuroVoc — EU Thematic Thesaurus</h1>
+<p class="subtitle">Complete map of 7,523 EuroVoc concepts available in CELLAR, grouped by theme</p>
 
 <div class="stats">
-  <div class="stat"><div class="stat-num">7 523</div><div class="stat-label">konceptów</div></div>
-  <div class="stat"><div class="stat-num">1 533</div><div class="stat-label">grup tematycznych</div></div>
-  <div class="stat"><div class="stat-num">7 253</div><div class="stat-label">przypisanych do aktów</div></div>
-  <div class="stat"><div class="stat-num">571</div><div class="stat-label">bez grupy (top-level)</div></div>
+  <div class="stat"><div class="stat-num">7 523</div><div class="stat-label">concepts</div></div>
+  <div class="stat"><div class="stat-num">1 533</div><div class="stat-label">thematic groups</div></div>
+  <div class="stat"><div class="stat-num">7 253</div><div class="stat-label">assigned to acts</div></div>
+  <div class="stat"><div class="stat-num">571</div><div class="stat-label">ungrouped (top-level)</div></div>
 </div>
 
-<input type="text" class="search-box" id="searchBox" placeholder="Szukaj konceptu lub grupy... (np. payment, crypto, data protection)" autofocus>
+<input type="text" class="search-box" id="searchBox" placeholder="Search concept or group... (e.g. payment, crypto, data protection)" autofocus>
 <div class="match-count" id="matchCount"></div>
 
 <div class="controls">
-  <button class="btn" onclick="expandAll()">Rozwiń wszystkie</button>
-  <button class="btn" onclick="collapseAll()">Zwiń wszystkie</button>
-  <button class="btn" onclick="showOnlyFinance()">Finanse</button>
-  <button class="btn" onclick="showOnlyLaw()">Prawo</button>
-  <button class="btn" onclick="showOnlyTech()">Technologia</button>
-  <button class="btn" onclick="resetFilter()">Pokaż wszystko</button>
+  <button class="btn" onclick="expandAll()">Expand all</button>
+  <button class="btn" onclick="collapseAll()">Collapse all</button>
+  <button class="btn" onclick="showOnlyFinance()">Finance</button>
+  <button class="btn" onclick="showOnlyLaw()">Law</button>
+  <button class="btn" onclick="showOnlyTech()">Technology</button>
+  <button class="btn" onclick="resetFilter()">Show all</button>
 </div>
 
 <div id="groups">
@@ -17747,7 +17747,7 @@ h1 { font-size: 1.8em; margin-bottom: 5px; color: #58a6ff; }
   <div class="group-concepts"><span class="concept" data-label="animal taxonomy">animal taxonomy<span class="eid">442765</span></span>
 </div>
 </div>
-<div class="ungrouped"><h2 style="color:#58a6ff;margin-bottom:10px;">Koncepty top-level (bez grupy nadrzędnej)</h2>
+<div class="ungrouped"><h2 style="color:#58a6ff;margin-bottom:10px;">Top-level concepts (no parent group)</h2>
 <span class="concept" data-label="04 politics">04 POLITICS<span class="eid">100142</span></span>
 <span class="concept" data-label="08 international relations">08 INTERNATIONAL RELATIONS<span class="eid">100143</span></span>
 <span class="concept" data-label="10 european union">10 EUROPEAN UNION<span class="eid">100144</span></span>
@@ -18322,7 +18322,7 @@ h1 { font-size: 1.8em; margin-bottom: 5px; color: #58a6ff; }
 </div>
 </div>
 
-<div id="noResults">Brak wyników dla tego wyszukiwania</div>
+<div id="noResults">No results for this search</div>
 
 <script>
 function toggleGroup(el) {
@@ -18418,7 +18418,7 @@ searchBox.addEventListener('input', function() {
     }
   }
   
-  matchCount.textContent = totalMatches > 0 ? totalMatches + ' wyników w ' + visibleGroups + ' grupach' : '';
+  matchCount.textContent = totalMatches > 0 ? totalMatches + ' results in ' + visibleGroups + ' groups' : '';
   noResults.style.display = (visibleGroups === 0 && totalMatches === 0) ? 'block' : 'none';
 });
 
@@ -18458,7 +18458,7 @@ function filterByKeywords(keywords) {
   });
   
   if (ungrouped) ungrouped.classList.add('hidden');
-  matchCount.textContent = visibleGroups + ' grup';
+  matchCount.textContent = visibleGroups + ' groups';
 }
 
 function showOnlyFinance() {

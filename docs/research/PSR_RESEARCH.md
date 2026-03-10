@@ -285,7 +285,7 @@ The repeal of PSD2 sits on the companion PSD3 directive (52023PC0366).
 | 2024-04-23 | _(none)_ | ADOPT_TEXT | Adopted text |
 | 2024-04-23 | _(none)_ | PLENARY_MINUTES_EP | Plenary minutes |
 | 2024-04-30 | 52024AB0013 | OPIN | ECB opinion |
-| 2024-07-02 | _(none)_ | NOTE_INFO | Nota informacyjna Rady |
+| 2024-07-02 | _(none)_ | NOTE_INFO | Council information note |
 | **2025-06-13** | _(none)_ | NOTE | **Council negotiating mandate (PSR)** |
 | **2025-06-13** | _(none)_ | NOTE | **Council negotiating mandate (PSD3)** |
 | **2025-06-13** | _(none)_ | ITEM_I_NOTE | Item I: PSD+PSR package |
@@ -337,8 +337,8 @@ PSR and PSD3 are **two separate dossiers**, but they are treated as **one packag
 | `resource_legal_influences` | 52024AB0013 (ECB opinion) | `type_of_link_target = EA` |
 | `work_related_to_work` | 52023SC0231 (SWD) | `type_of_link_target = RD` |
 | `work_related_to_work` | 52023SC0232 (SWD) | `type_of_link_target = RD` |
-| `contains_eesc_opinion_on` | 52023AE3611 (EKES) | `type_of_link_target = EA` |
-| `contains_ep_opinion_on` | 52024AP0298 (PE) | `type_of_link_target = EA`, `role2 = MD` |
+| `contains_eesc_opinion_on` | 52023AE3611 (EESC) | `type_of_link_target = EA` |
+| `contains_ep_opinion_on` | 52024AP0298 (EP) | `type_of_link_target = EA`, `role2 = MD` |
 
 **The qualifier `role2 = MD`** on the EP position means "Main Document" — marking it as the EP's main decision document in the procedure.
 

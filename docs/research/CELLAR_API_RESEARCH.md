@@ -260,7 +260,7 @@ Relations at article level. OWL Axiom Annotations link, for example, a specific 
 | `3...R(xx)` | Corrigenda | `32015L2366R(01)` to `R(07)`: 7 corrigenda |
 | `0` | Consolidated texts | `02015L2366-20151223`, `02015L2366-20240408`, `02015L2366-20250117` |
 | `7` | National implementing measures | `72015L2366POL_258600`, `72015L2366DEU_253864`, ... — ~230+ |
-| `5` | Dokumenty preparatory | `52013PC0547` (proposal), `52023PC0366` (proposal PSD3) |
+| `5` | Preparatory documents | `52013PC0547` (proposal), `52023PC0366` (proposal PSD3) |
 
 ## Example SPARQL queries
 
@@ -368,12 +368,12 @@ ORDER BY DESC(?count)
 | CELEX | ECLI | Date | Case | Chamber |
 |---|---|---|---|---|
 | `62016CJ0643` | ECLI:EU:C:2018:67 | 2018-02-07 | **American Express v HM Treasury** — three-party card schemes, co-branding, validity of Art. 35 PSD2 | Chamber I |
-| `62018CJ0778` | ECLI:EU:C:2020:831 | 2020-10-15 | **Association française des usagers de banques v Ministre** — termination of framework contracts (Art. 55), linkage with credit agreements | Izba V |
-| `62019CJ0287` | ECLI:EU:C:2020:897 | 2020-11-11 | **DenizBank v Verein für Konsumenteninformation** — the concept of a "payment instrument" (Art. 4(14)), NFC, implied consent | Izba I |
-| `62020CJ0484` | ECLI:EU:C:2021:975 | 2021-12-02 | **Vodafone Kabel Deutschland v Verbraucherzentralen** — transaction fees (Art. 62(4)), full harmonisation (Art. 107(1)) | Izba IX |
-| `62022CJ0661` | ECLI:EU:C:2024:148 | 2024-02-22 | **'ABC Projektai' v Lietuvos bankas** — definition of a payment service (Art. 4(3) and (5)), holding client funds | Izba V |
+| `62018CJ0778` | ECLI:EU:C:2020:831 | 2020-10-15 | **Association française des usagers de banques v Ministre** — termination of framework contracts (Art. 55), linkage with credit agreements | Chamber V |
+| `62019CJ0287` | ECLI:EU:C:2020:897 | 2020-11-11 | **DenizBank v Verein für Konsumenteninformation** — the concept of a "payment instrument" (Art. 4(14)), NFC, implied consent | Chamber I |
+| `62020CJ0484` | ECLI:EU:C:2021:975 | 2021-12-02 | **Vodafone Kabel Deutschland v Verbraucherzentralen** — transaction fees (Art. 62(4)), full harmonisation (Art. 107(1)) | Chamber IX |
+| `62022CJ0661` | ECLI:EU:C:2024:148 | 2024-02-22 | **'ABC Projektai' v Lietuvos bankas** — definition of a payment service (Art. 4(3) and (5)), holding client funds | Chamber V |
 
-## Preliminary questions (10 spraw)
+## Preliminary questions (10 cases)
 
 | CELEX | Date | Status | Case |
 |---|---|---|---|

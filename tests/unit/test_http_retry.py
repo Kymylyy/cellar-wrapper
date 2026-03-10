@@ -138,6 +138,7 @@ def test_query_sparql_uses_post_on_success(monkeypatch: pytest.MonkeyPatch) -> N
 
     def fake_request(*args: object, **kwargs: object) -> httpx.Response:
         method = kwargs["method"]
+        assert isinstance(method, str)
         methods.append(method)
         return _response(200, json_body={"results": {"bindings": []}}, method=method)
 
@@ -155,6 +156,7 @@ def test_query_sparql_falls_back_to_get_when_post_not_supported(monkeypatch: pyt
 
     def fake_request(*args: object, **kwargs: object) -> httpx.Response:
         method = kwargs["method"]
+        assert isinstance(method, str)
         methods.append(method)
         if method == "POST":
             return _response(405, method=method)
@@ -174,6 +176,7 @@ def test_query_sparql_blocks_get_fallback_when_url_too_long(monkeypatch: pytest.
 
     def fake_request(*args: object, **kwargs: object) -> httpx.Response:
         method = kwargs["method"]
+        assert isinstance(method, str)
         methods.append(method)
         if method == "POST":
             return _response(405, method=method)

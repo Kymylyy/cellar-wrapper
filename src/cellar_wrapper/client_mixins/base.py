@@ -29,6 +29,7 @@ from cellar_wrapper.models import (
 from cellar_wrapper.parser import parse_bindings
 from cellar_wrapper.subject_matter_index import load_default_subject_matter_index
 
+from .protocols import TransportProtocol
 from .relation_execution import call_nim_result, call_relation_result, fetch_relation_rows
 from .relation_specs import RelationCallSpec
 from .result_builders import build_list_result, build_query_meta
@@ -49,6 +50,9 @@ T = TypeVar("T")
 class ClientBase:
     """Shared core implementation for the public client."""
 
+    _transport: TransportProtocol
+    _base_url_resource: str
+
     def __init__(
         self,
         *,
@@ -58,7 +62,7 @@ class ClientBase:
         retries: int = DEFAULT_RETRIES,
         max_download_bytes: int = DEFAULT_MAX_DOWNLOAD_BYTES,
         user_agent: str = DEFAULT_USER_AGENT,
-        transport: HttpTransport | None = None,
+        transport: TransportProtocol | None = None,
     ) -> None:
         if retries < 1:
             raise CellarValidationError("retries must be >= 1")
@@ -67,13 +71,16 @@ class ClientBase:
         normalized_sparql_endpoint = validate_http_url(base_url_sparql, field="base_url_sparql")
         normalized_resource_base = validate_http_url(base_url_resource, field="base_url_resource")
         self._base_url_resource = normalized_resource_base.rstrip("/")
-        self._transport = transport or HttpTransport(
-            sparql_endpoint=normalized_sparql_endpoint,
-            retries=retries,
-            max_download_bytes=max_download_bytes,
-            user_agent=user_agent,
-            timeout=timeout,
-        )
+        if transport is None:
+            self._transport = HttpTransport(
+                sparql_endpoint=normalized_sparql_endpoint,
+                retries=retries,
+                max_download_bytes=max_download_bytes,
+                user_agent=user_agent,
+                timeout=timeout,
+            )
+        else:
+            self._transport = transport
 
     def close(self) -> None:
         """Close underlying HTTP resources."""

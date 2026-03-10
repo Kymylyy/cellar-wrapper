@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-DEFAULT_INPUT = Path("docs/eurovoc_all.json")
+DEFAULT_INPUT = Path("docs/artifact/eurovoc_all.json")
 DEFAULT_OUTPUT = Path("src/cellar_wrapper/data/eurovoc_index.json")
 
 

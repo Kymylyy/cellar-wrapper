@@ -22,11 +22,11 @@ python -m build --sdist --wheel
 ## Optional Checks
 
 - `pytest -m live` with `CELLAR_LIVE=1` for live endpoint validation.
-- Manual contract report generation documented in `docs/manual_test/README.md`.
 
 ## Scope and Contracts
 
 - `docs/API_CONTRACT.md` is the behavior source-of-truth.
+- `docs/COMMAND_CONTRACTS.md` is the command-to-return-contract reference.
 - Changes to behavior or CLI output must update docs in the same PR.
 - Keep changes surgical; avoid unrelated refactors.
 

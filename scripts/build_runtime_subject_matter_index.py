@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-DEFAULT_INPUT = Path("docs/subject_matter_all.json")
+DEFAULT_INPUT = Path("docs/artifact/subject_matter_all.json")
 DEFAULT_OUTPUT = Path("src/cellar_wrapper/data/subject_matter_index.json")
 
 

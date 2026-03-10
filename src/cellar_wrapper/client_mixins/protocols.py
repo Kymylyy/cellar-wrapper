@@ -14,9 +14,12 @@ T = TypeVar("T")
 class TransportProtocol(Protocol):
     """Minimal transport contract required by mixins."""
 
-    sparql_endpoint: str
+    @property
+    def sparql_endpoint(self) -> str: ...
 
     def query_sparql(self, query: str) -> dict[str, Any]: ...
+
+    def close(self) -> None: ...
 
     def download(
         self,

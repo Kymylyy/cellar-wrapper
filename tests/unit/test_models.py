@@ -10,13 +10,20 @@ from cellar_wrapper.models import ActDetail, ActRef, CaseLawItem, DossierItem, N
 
 def test_models_reject_unknown_fields() -> None:
     with pytest.raises(ValidationError):
-        ActRef(uri="http://publications.europa.eu/resource/cellar/work", titlee="typo")
+        ActRef.model_validate(
+            {
+                "uri": "http://publications.europa.eu/resource/cellar/work",
+                "titlee": "typo",
+            }
+        )
 
 
 def test_models_parse_date_fields_to_typed_values() -> None:
-    model = ActRef(
-        uri="http://publications.europa.eu/resource/cellar/work",
-        date="2025-01-01",
+    model = ActRef.model_validate(
+        {
+            "uri": "http://publications.europa.eu/resource/cellar/work",
+            "date": "2025-01-01",
+        }
     )
     assert isinstance(model.date, (date, datetime))
 

@@ -1,6 +1,6 @@
 # Data Artifacts
 
-This document explains large non-code files stored in `docs/`.
+This document explains large non-code files stored in `docs/artifact/`.
 
 ## Purpose
 
@@ -15,15 +15,15 @@ Source attribution and reuse notes are documented in `DATA_PROVENANCE.md`.
 
 | File | Role |
 | --- | --- |
-| `eurovoc_all.json` | Snapshot of EuroVoc concept data used during taxonomy analysis. |
-| `eurovoc_with_groups.json` | Enriched EuroVoc snapshot with group/microthesaurus metadata. |
-| `eurovoc_microthesauri.json` | Compact mapping of EuroVoc microthesauri. |
-| `eurovoc_concepts.csv` | Tabular export of EuroVoc concepts. |
-| `subject_matter_all.json` | Snapshot of subject-matter authority data. |
-| `subject_matter_counts.json` | Aggregate counts for subject-matter exploration. |
-| `subject_matter.csv` | Tabular export of subject-matter terms. |
-| `eurovoc_explorer.html` | Local static explorer UI for EuroVoc dataset inspection. |
-| `taxonomy_explorer.html` | Local static explorer UI for taxonomy/subject-matter inspection. |
+| `artifact/eurovoc_all.json` | Snapshot of EuroVoc concept data used during taxonomy analysis. |
+| `artifact/eurovoc_with_groups.json` | Enriched EuroVoc snapshot with group/microthesaurus metadata. |
+| `artifact/eurovoc_microthesauri.json` | Compact mapping of EuroVoc microthesauri. |
+| `artifact/eurovoc_concepts.csv` | Tabular export of EuroVoc concepts. |
+| `artifact/subject_matter_all.json` | Snapshot of subject-matter authority data. |
+| `artifact/subject_matter_counts.json` | Aggregate counts for subject-matter exploration. |
+| `artifact/subject_matter.csv` | Tabular export of subject-matter terms. |
+| `artifact/eurovoc_explorer.html` | Local static explorer UI for EuroVoc dataset inspection. |
+| `artifact/taxonomy_explorer.html` | Local static explorer UI for taxonomy/subject-matter inspection. |
 
 ## Maintenance policy
 

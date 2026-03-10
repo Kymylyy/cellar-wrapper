@@ -100,7 +100,6 @@ python -m build --sdist --wheel
 Optional checks:
 
 - Live endpoint smoke test: `pytest -m live` with `CELLAR_LIVE=1`
-- Manual contract report generation: see `docs/manual_test/README.md`
 
 ## Runtime Data
 
@@ -118,6 +117,7 @@ Data sources, attribution, and artifact policy:
 
 - Docs index: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/README.md
 - API contract: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/API_CONTRACT.md
+- Command contracts: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/COMMAND_CONTRACTS.md
 - Method mapping: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/METHOD_MAPPING.md
 - Plain-language command guide: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/COMMANDS_SIMPLE.md
 

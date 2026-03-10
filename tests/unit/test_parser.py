@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 import pytest
 
 from cellar_wrapper.errors import CellarParseError
@@ -153,7 +155,8 @@ def test_parse_nim_items_maps_country() -> None:
 
 
 def test_parse_act_detail_rejects_invalid_row_shape() -> None:
+    bad_rows: list[Any] = [{"work": "not-a-binding-slot"}]
     with pytest.raises(CellarParseError, match="binding slot is not an object") as exc_info:
-        parse_act_detail([{"work": "not-a-binding-slot"}])  # type: ignore[list-item]
+        parse_act_detail(bad_rows)
 
     assert exc_info.value.details["parser"] == "parse_act_detail"

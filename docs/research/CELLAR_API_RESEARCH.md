@@ -591,14 +591,14 @@ _:annotation  <qualifier>          <value>
 | `measure_national_implementing_implements` | 258 | National transposition |
 | `work_cites_work` | 233 | Citations |
 | `communication_case_new_submits_preliminary_question` | 30 | Preliminary questions |
-| `resource_legal_amends` | 13 | Zmiany legislacyjne |
+| `resource_legal_amends` | 13 | Legislative amendments |
 | `case-law_interpretes` | 10 | CJEU interpretations |
 | `resource_legal_based_on` | 9 | Acts delegated/implementing |
 | `resource_legal_corrects` | 7 | Corrigenda |
 | `resource_legal_completes` | 5 | Completing acts |
 | `resource_legal_proposes_to_amend` | 2 | Proposals to amend |
 | `case-law_declares_valid` | 1 | Confirmation of validity |
-| `resource_legal_implicitly_repeals` | 1 | Nojawne repeal |
+| `resource_legal_implicitly_repeals` | 1 | Implicit repeal |
 | `work_related_to_work` | 1 | General related-work link |
 
 ## Qualifiers (article-by-article granularity)
@@ -621,13 +621,13 @@ Art. 4(3), 4(5), 4(14), 35(1), 35(2)(b), 52(6)(a), 54(1), 55, 61(1), 62(4), 63(1
 
 ### PSD2 articles serving as the basis for delegated acts
 
-| Delegated act | Article PSD2 | Kod |
+| Delegated act | Article PSD2 | Code |
 |---|---|---|
 | RTS SCA (32018R0389) | Art. 98(4) subparagraph 2 | `A98P4L2` |
 | Register RTS (32019R0411) | Art. 15(4) subparagraph 3 | `A15P4L3` |
 | ITS (32019R0410) | Art. 15(5) subparagraph 3 | `A15P5L3` |
 | RTS on cooperation (32017R2055) | Art. 28(5) | `A28P5` |
-| RTS pointy konyestowe (32020R1423) | Art. 29(7) | `A29P7` |
+| RTS central contact points (32020R1423) | Art. 29(7) | `A29P7` |
 | RTS on cross-border supervision (32021R1722) | Art. 29(7) | `A29P7` |
 
 ### PSD2 articles amended by DORA and IPR
@@ -635,7 +635,7 @@ Art. 4(3), 4(5), 4(14), 35(1), 35(2)(b), 52(6)(a), 54(1), 55, 61(1), 62(4), 63(1
 - **DORA** (32022L2556, from 2023-01-16): Art. 3(j), 5(1), 19(6), 95(1), 96(7), 98(5)
 - **IPR** (32024R0886, from 2024-04-08): Art. 35(2), 35(3), 35a
 
-## Hierarchy EuroVoc
+## EuroVoc Hierarchy
 
 PSD2 has 10 EuroVoc descriptors:
 

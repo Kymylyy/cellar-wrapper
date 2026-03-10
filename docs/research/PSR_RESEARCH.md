@@ -246,7 +246,7 @@ The repeal of PSD2 sits on the companion PSD3 directive (52023PC0366).
 | Status: withdrawn | **false** |
 | Initiator | PSR (52023PC0367) |
 | EP rapporteur | **Marek Belka** (ECON committee) |
-| Previous dossier | Planning workflow z 2022-09-05 ("Payment services – revision of EU rules") |
+| Previous dossier | Planning workflow from 2022-09-05 ("Payment services – revision of EU rules") |
 | Last modified | **2025-11-25** |
 
 ### Procedural Timeline
@@ -257,14 +257,14 @@ The repeal of PSD2 sits on the companion PSD3 directive (52023PC0366).
 | **2023-06-28** | The Commission adopts PSR proposal COM(2023)367 + PSD3 COM(2023)366 |
 | 2023-07-05 | Transmission to the Council (cover notes) |
 | 2023-11-13 | Draft ECON committee report in the EP (rapporteur: Belka) |
-| 2023-11-16 | EDPS opinion o PSR+PSD3 |
-| 2023-12-14 | EESC opinion o pakiecie FIDA+PSD3+PSR |
-| 2024-02-22 | ECON committee report PE adopted |
-| **2024-04-23** | **EP — first reading: P9_TA(2024)0298** (PSR) i P9_TA(2024)0297 (PSD3) |
+| 2023-11-16 | EDPS opinion on PSR+PSD3 |
+| 2023-12-14 | EESC opinion on the FIDA+PSD3+PSR package |
+| 2024-02-22 | ECON committee report adopted by EP |
+| **2024-04-23** | **EP — first reading: P9_TA(2024)0298** (PSR) and P9_TA(2024)0297 (PSD3) |
 | 2024-04-30 | ECB opinion CON/2024/13 |
-| 2024-07-02 | Nota Rady o outcomeach I czytania PE |
+| 2024-07-02 | Council note on EP first reading outcomes |
 | **2025-06-13** | **The Council adopts the negotiating mandate (general approach) for PSR and PSD3** |
-| 2025-09-17 | EP position opublikowane w Dz.U. C/2025/3725 |
+| 2025-09-17 | EP position published in OJ C/2025/3725 |
 | **2025-11 →** | **Trilogue ongoing** |
 | **2026-02** (now) | Status: **pending, not adopted, not withdrawn** |
 
@@ -281,8 +281,8 @@ The repeal of PSD2 sits on the companion PSD3 directive (52023PC0366).
 | 2023-11-16 | 52023XX01019 | SUM | EDPS opinion |
 | 2023-12-14 | 52023AE3611 | OPIN | EESC opinion |
 | 2024-02-22 | _(none)_ | REPORT_EP | ECON committee report |
-| **2024-04-23** | **52024AP0298** | **RES_LEGIS** | **EP position (I czytanie)** |
-| 2024-04-23 | _(none)_ | ADOPT_TEXT | Tekst adopted |
+| **2024-04-23** | **52024AP0298** | **RES_LEGIS** | **EP position (first reading)** |
+| 2024-04-23 | _(none)_ | ADOPT_TEXT | Adopted text |
 | 2024-04-23 | _(none)_ | PLENARY_MINUTES_EP | Plenary minutes |
 | 2024-04-30 | 52024AB0013 | OPIN | ECB opinion |
 | 2024-07-02 | _(none)_ | NOTE_INFO | Nota informacyjna Rady |

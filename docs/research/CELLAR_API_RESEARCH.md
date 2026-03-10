@@ -190,7 +190,7 @@ Studied for PSD2 — count of objects pointing to PSD2:
 | `work_related_to_work` | 1 | Related act |
 | `work_is_logical_successor_of_work` | 1 | Logical successor (consolidated text) |
 | `event_legal_contains_work` | 1 | Legal event |
-| `owl:annotatedTarget` | 570 | Granular annotations (article-do-articleu) |
+| `owl:annotatedTarget` | 570 | Granular annotations (article-to-article) |
 
 ## Details of selected relations
 
@@ -214,16 +214,16 @@ Official EUR-Lex summary (Summaries of EU Legislation):
 
 Full dossier for the OLP (ordinary legislative procedure):
 
-| Date | Type | CELEX | Rola |
+| Date | Type | CELEX | Role |
 |---|---|---|---|
 | 2013-07-24 | `PROP_DIR` | `52013PC0547` | Commission proposal |
 | 2013-07-24 | `SWD` | `52013SC0282` | Staff Working Document (impact assessment) |
 | 2013-12-05 | `NOTICE` | `52014XX0208(05)` | Notice |
 | 2013-12-11 | `OPIN` | `52013AE5238` | EESC opinion |
 | 2014-02-05 | `OPIN` | `52014AB0009` | ECB opinion |
-| 2014-04-03 | `RES_LEGIS` | `52014AP0280` | EP position (1. czytanie) |
-| 2015-10-08 | `RES_LEGIS` | `52015AP0346` | EP position (2. czytanie) |
-| 2015-10-30 | `ITEM_IA_NOTE` | — | Nota do Rady (point A) ×2 |
+| 2014-04-03 | `RES_LEGIS` | `52014AP0280` | EP position (1st reading) |
+| 2015-10-08 | `RES_LEGIS` | `52015AP0346` | EP position (2nd reading) |
+| 2015-10-30 | `ITEM_IA_NOTE` | — | Note to the Council (point A) x2 |
 | 2015-11-10 | `ACT_LEGIS` | — | Legislative act |
 | 2015-11-17 | `VOTING_RES` | — | Council voting result |
 | 2015-11-25 | **`DIR`** | **`32015L2366`** | **PSD2 — adopted directive** |

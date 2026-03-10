@@ -42,6 +42,8 @@ class ClientOpsProtocol(Protocol):
 
     def _normalize_resource_type(self, resource_type: str | None) -> str | None: ...
 
+    def _normalize_direction(self, direction: str | None) -> str | None: ...
+
     def _normalize_country(self, country: str | None) -> str | None: ...
 
     def _coerce_since(self, since: date | datetime | str | None) -> str | None: ...
@@ -96,6 +98,7 @@ class ClientOpsProtocol(Protocol):
         limit: int,
         offset: int,
         lang: str,
+        direction: str | None,
     ) -> ListResult[RelationItem]: ...
 
     def _call_case_law_items(

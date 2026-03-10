@@ -8,6 +8,8 @@ from typing import Any
 from cellar_wrapper.cli_specs import CommandSpec
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
 
+DIRECTION_CHOICES = ("incoming", "outgoing", "both")
+
 _LIST_ARG_HELP: dict[str, str] = {
     "tags": "One or more EuroVoc tags.",
     "codes": "One or more subject-matter codes.",
@@ -50,6 +52,13 @@ def _add_simple_optional_arguments(command_parser: argparse.ArgumentParser, spec
         if default is not None:
             kwargs["default"] = default
         command_parser.add_argument(option_name, **kwargs)
+    if spec.has_direction:
+        command_parser.add_argument(
+            "--direction",
+            choices=DIRECTION_CHOICES,
+            default="both",
+            help="Relation direction to include.",
+        )
 
 
 def _add_pagination_arguments(command_parser: argparse.ArgumentParser) -> None:
@@ -114,6 +123,8 @@ def build_method_kwargs(spec: CommandSpec, args: argparse.Namespace) -> dict[str
         kwargs["country"] = getattr(args, "country", None)
     if spec.has_lang:
         kwargs["lang"] = args.lang
+    if spec.has_direction:
+        kwargs["direction"] = args.direction
     if spec.has_limit_offset:
         kwargs["limit"] = args.limit
         kwargs["offset"] = args.offset

@@ -31,6 +31,7 @@ def _call_lifecycle_relation(
         limit=limit,
         offset=offset,
         lang=lang,
+        direction=None,
     )
 
 

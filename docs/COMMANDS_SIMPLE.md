@@ -52,13 +52,14 @@ cellar lookup get-act --celex 32022R2554 --lang eng
 ## RELATIONS
 
 These commands return relation rows with `direction`.
+Commands that support `--direction` accept `incoming`, `outgoing`, or `both` (default: `both`).
 
-- `get-amendments` (`get_amendments`): Shows amendment relations in both directions. Direction: `both`.
-  Example: `cellar relations get-amendments --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-repeals` (`get_repeals`): Shows explicit and implicit repeal relations. Direction: `both`.
-  Example: `cellar relations get-repeals --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-citations` (`get_citations`): Shows citation relations. Direction: `both`.
-  Example: `cellar relations get-citations --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
+- `get-amendments` (`get_amendments`): Shows amendment relations. Direction: configurable with `--direction`; default `both`.
+  Example: `cellar relations get-amendments --celex 32022R2554 --direction incoming --since 2024-01-01 --lang eng --limit 50`
+- `get-repeals` (`get_repeals`): Shows explicit and implicit repeal relations. Direction: configurable with `--direction`; default `both`.
+  Example: `cellar relations get-repeals --celex 32022R2554 --direction outgoing --since 2024-01-01 --lang eng --limit 50`
+- `get-citations` (`get_citations`): Shows citation relations. Direction: configurable with `--direction`; default `both`.
+  Example: `cellar relations get-citations --celex 32022R2554 --direction both --since 2024-01-01 --lang eng --limit 50`
 - `get-delegated-acts` (`get_delegated_acts`): Shows delegated acts based on the given act. Direction: `incoming`.
   Example: `cellar relations get-delegated-acts --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
 - `get-completing-acts` (`get_completing_acts`): Shows acts that complete the given act. Direction: `incoming`.
@@ -67,10 +68,10 @@ These commands return relation rows with `direction`.
   Example: `cellar relations get-proposals-to-amend --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
 - `get-adopted-act` (`get_adopted_act`): Shows adopted acts linked to the given act. Direction: `incoming`.
   Example: `cellar relations get-adopted-act --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-related-works` (`get_related_works`): Shows generic related-work links. Direction: `both`.
-  Example: `cellar relations get-related-works --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-other-relations` (`get_other_relations`): Shows other legal relations (for example suspend, defer, obsolete, influence). Direction: `both`.
-  Example: `cellar relations get-other-relations --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
+- `get-related-works` (`get_related_works`): Shows generic related-work links. Direction: configurable with `--direction`; default `both`.
+  Example: `cellar relations get-related-works --celex 32022R2554 --direction incoming --since 2024-01-01 --lang eng --limit 50`
+- `get-other-relations` (`get_other_relations`): Shows other legal relations (for example suspend, defer, obsolete, influence). Direction: configurable with `--direction`; default `both`.
+  Example: `cellar relations get-other-relations --celex 32022R2554 --direction outgoing --since 2024-01-01 --lang eng --limit 50`
 
 ## LIFECYCLE
 

@@ -44,6 +44,7 @@ SinceArg = Annotated[str, Field(min_length=1)]
 ResourceTypeArg = Annotated[str, Field(pattern=RESOURCE_TYPE_PATTERN)]
 CountryArg = Annotated[str, Field(pattern=COUNTRY_PATTERN)]
 LangArg = Annotated[str, Field(pattern=LANG_PATTERN)]
+DirectionArg = Literal["incoming", "outgoing", "both"]
 LimitArg = Annotated[int, Field(ge=1, le=MAX_LIMIT)]
 OffsetArg = Annotated[int, Field(ge=0)]
 NonEmptyStrArg = Annotated[str, Field(min_length=1)]
@@ -194,6 +195,7 @@ def _add_optional_signature_parameters(parameters: list[Parameter], spec: Comman
         (spec.has_resource_type, "resource_type", ResourceTypeArg | None, None),
         (spec.has_country, "country", CountryArg | None, None),
         (spec.has_lang, "lang", LangArg, DEFAULT_LANGUAGE),
+        (spec.has_direction, "direction", DirectionArg, "both"),
         (spec.has_limit_offset, "limit", LimitArg, DEFAULT_LIMIT),
         (spec.has_limit_offset, "offset", OffsetArg, DEFAULT_OFFSET),
         (spec.has_format, "format", FormatArg, "pdf"),

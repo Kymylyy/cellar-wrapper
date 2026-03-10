@@ -14,6 +14,7 @@ CELEX_RE = re.compile(r"^[0-9A-Z()_\-]{5,40}$")
 LANG_RE = re.compile(r"^[a-zA-Z]{3}$")
 RESOURCE_TYPE_RE = re.compile(r"^[A-Z_]+$")
 COUNTRY_RE = re.compile(r"^[A-Z]{3}$")
+DIRECTION_VALUES = {"incoming", "outgoing", "both"}
 
 
 def normalize_celex(celex: str) -> str:
@@ -45,6 +46,15 @@ def normalize_country(country: str | None) -> str | None:
     normalized = country.strip().upper()
     if not COUNTRY_RE.fullmatch(normalized):
         raise CellarValidationError(f"Invalid country code (expected ISO-3): {country!r}")
+    return normalized
+
+
+def normalize_direction(direction: str | None) -> str | None:
+    if direction is None:
+        return None
+    normalized = direction.strip().lower()
+    if normalized not in DIRECTION_VALUES:
+        raise CellarValidationError(f"Invalid direction: {direction!r}")
     return normalized
 
 

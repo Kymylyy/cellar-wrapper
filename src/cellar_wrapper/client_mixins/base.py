@@ -38,6 +38,7 @@ from .validation import (
     dedupe_non_empty_casefold,
     normalize_celex,
     normalize_country,
+    normalize_direction,
     normalize_lang,
     normalize_non_empty_values,
     normalize_resource_type,
@@ -107,6 +108,9 @@ class ClientBase:
 
     def _normalize_resource_type(self, resource_type: str | None) -> str | None:
         return normalize_resource_type(resource_type)
+
+    def _normalize_direction(self, direction: str | None) -> str | None:
+        return normalize_direction(direction)
 
     def _normalize_country(self, country: str | None) -> str | None:
         return normalize_country(country)
@@ -208,6 +212,7 @@ class ClientBase:
         limit: int,
         offset: int,
         lang: str,
+        direction: str | None,
     ) -> ListResult[RelationItem] | ListResult[CaseLawItem]:
         return call_relation_result(
             method_name=method_name,
@@ -218,9 +223,11 @@ class ClientBase:
             limit=limit,
             offset=offset,
             lang=lang,
+            direction=direction,
             validate_pagination=self._validate_pagination,
             normalize_lang=self._normalize_lang,
             normalize_resource_type=self._normalize_resource_type,
+            normalize_direction=self._normalize_direction,
             coerce_since=self._coerce_since,
             resolve_work_uri=self._resolve_work_uri,
             query_sparql=self._transport.query_sparql,
@@ -238,6 +245,7 @@ class ClientBase:
         limit: int,
         offset: int,
         lang: str,
+        direction: str | None,
         include_implemented_by_country: bool,
     ) -> tuple[RelationCallSpec, list[dict[str, dict[str, str]]]]:
         return fetch_relation_rows(
@@ -249,10 +257,12 @@ class ClientBase:
             limit=limit,
             offset=offset,
             lang=lang,
+            direction=direction,
             include_implemented_by_country=include_implemented_by_country,
             validate_pagination=self._validate_pagination,
             normalize_lang=self._normalize_lang,
             normalize_resource_type=self._normalize_resource_type,
+            normalize_direction=self._normalize_direction,
             coerce_since=self._coerce_since,
             resolve_work_uri=self._resolve_work_uri,
             query_sparql=self._transport.query_sparql,
@@ -269,6 +279,7 @@ class ClientBase:
         limit: int,
         offset: int,
         lang: str,
+        direction: str | None = None,
     ) -> ListResult[RelationItem]:
         result = self._call_relation(
             method_name=method_name,
@@ -279,6 +290,7 @@ class ClientBase:
             limit=limit,
             offset=offset,
             lang=lang,
+            direction=direction,
         )
         return cast(ListResult[RelationItem], result)
 
@@ -303,6 +315,7 @@ class ClientBase:
             limit=limit,
             offset=offset,
             lang=lang,
+            direction=None,
         )
         return cast(ListResult[CaseLawItem], result)
 
@@ -327,9 +340,11 @@ class ClientBase:
             limit=limit,
             offset=offset,
             lang=lang,
+            direction=None,
             validate_pagination=self._validate_pagination,
             normalize_lang=self._normalize_lang,
             normalize_resource_type=self._normalize_resource_type,
+            normalize_direction=self._normalize_direction,
             coerce_since=self._coerce_since,
             resolve_work_uri=self._resolve_work_uri,
             query_sparql=self._transport.query_sparql,

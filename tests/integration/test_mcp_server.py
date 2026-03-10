@@ -96,6 +96,8 @@ def _expected_schema_contract(
         add_default("country", None)
     if spec.has_lang:
         add_default("lang", DEFAULT_LANGUAGE)
+    if spec.has_direction:
+        add_default("direction", "both")
     if spec.has_limit_offset:
         add_default("limit", DEFAULT_LIMIT)
         add_default("offset", DEFAULT_OFFSET)
@@ -205,10 +207,46 @@ def test_mcp_tool_dispatch_maps_kwargs_correctly(monkeypatch: pytest.MonkeyPatch
         "celex": "32022R2554",
         "resource_type": None,
         "lang": "eng",
+        "direction": "both",
         "limit": 200,
         "offset": 0,
     }
     assert structured_payload["kwargs"]["celex"] == "32022R2554"
+
+
+def test_mcp_tool_dispatch_maps_direction_override(monkeypatch: pytest.MonkeyPatch) -> None:
+    _require_mcp_sdk()
+    calls: list[dict[str, Any]] = []
+
+    class RecordingClient:
+        def __init__(self, **kwargs: Any) -> None:
+            self.kwargs = kwargs
+
+        def __enter__(self) -> RecordingClient:
+            return self
+
+        def __exit__(
+            self,
+            exc_type: type[BaseException] | None,
+            exc: BaseException | None,
+            tb: TracebackType | None,
+        ) -> None:
+            return None
+
+        def get_amendments(self, **kwargs: Any) -> dict[str, Any]:
+            calls.append(kwargs)
+            return {"kwargs": kwargs}
+
+    monkeypatch.setattr("cellar_wrapper.mcp_server.CellarClient", RecordingClient)
+
+    server = build_mcp_server()
+    structured_payload = _tool_call_payload(
+        _call_tool(server, "get-amendments", {"celex": "32022R2554", "direction": "outgoing"})
+    )
+
+    assert calls
+    assert calls[0]["direction"] == "outgoing"
+    assert structured_payload["kwargs"]["direction"] == "outgoing"
 
 
 def test_mcp_domain_errors_raise_tool_error(monkeypatch: pytest.MonkeyPatch) -> None:

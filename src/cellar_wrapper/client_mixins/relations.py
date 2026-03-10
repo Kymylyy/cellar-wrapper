@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from datetime import date, datetime
-from typing import cast
+from typing import Literal, cast
 
 from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
@@ -21,6 +21,7 @@ def _call_relation(
     limit: int,
     offset: int,
     lang: str,
+    direction: Literal["incoming", "outgoing", "both"] | None = None,
 ) -> ListResult[RelationItem]:
     return self._call_relation_items(
         method_name=method_name,
@@ -31,6 +32,7 @@ def _call_relation(
         limit=limit,
         offset=offset,
         lang=lang,
+        direction=direction,
     )
 
 
@@ -46,6 +48,7 @@ class RelationsMixin:
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
+        direction: Literal["incoming", "outgoing", "both"] = "both",
     ) -> ListResult[RelationItem]:
         return _call_relation(
             self,
@@ -56,6 +59,7 @@ class RelationsMixin:
             limit=limit,
             offset=offset,
             lang=lang,
+            direction=direction,
         )
 
     def get_repeals(
@@ -67,6 +71,7 @@ class RelationsMixin:
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
+        direction: Literal["incoming", "outgoing", "both"] = "both",
     ) -> ListResult[RelationItem]:
         return _call_relation(
             self,
@@ -77,6 +82,7 @@ class RelationsMixin:
             limit=limit,
             offset=offset,
             lang=lang,
+            direction=direction,
         )
 
     def get_citations(
@@ -88,6 +94,7 @@ class RelationsMixin:
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
+        direction: Literal["incoming", "outgoing", "both"] = "both",
     ) -> ListResult[RelationItem]:
         return _call_relation(
             self,
@@ -98,6 +105,7 @@ class RelationsMixin:
             limit=limit,
             offset=offset,
             lang=lang,
+            direction=direction,
         )
 
     def get_delegated_acts(
@@ -193,6 +201,7 @@ class RelationsMixin:
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
+        direction: Literal["incoming", "outgoing", "both"] = "both",
     ) -> ListResult[RelationItem]:
         return _call_relation(
             self,
@@ -203,6 +212,7 @@ class RelationsMixin:
             limit=limit,
             offset=offset,
             lang=lang,
+            direction=direction,
         )
 
     def get_other_relations(
@@ -214,6 +224,7 @@ class RelationsMixin:
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
+        direction: Literal["incoming", "outgoing", "both"] = "both",
     ) -> ListResult[RelationItem]:
         return _call_relation(
             self,
@@ -224,6 +235,7 @@ class RelationsMixin:
             limit=limit,
             offset=offset,
             lang=lang,
+            direction=direction,
         )
 
     @property

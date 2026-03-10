@@ -66,6 +66,34 @@ def test_relation_query_monitoring_filter_is_strict() -> None:
     assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
 
 
+def test_relation_query_incoming_excludes_outgoing_branch() -> None:
+    query = build_relation_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        predicates=[PredicateSpec("cdm:resource_legal_amends_resource_legal", "amends")],
+        direction="incoming",
+        since=None,
+        resource_type=None,
+        limit=10,
+        offset=0,
+    )
+    assert "BIND('incoming' AS ?direction)" in query
+    assert "BIND('outgoing' AS ?direction)" not in query
+
+
+def test_relation_query_outgoing_excludes_incoming_branch() -> None:
+    query = build_relation_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        predicates=[PredicateSpec("cdm:resource_legal_amends_resource_legal", "amends")],
+        direction="outgoing",
+        since=None,
+        resource_type=None,
+        limit=10,
+        offset=0,
+    )
+    assert "BIND('outgoing' AS ?direction)" in query
+    assert "BIND('incoming' AS ?direction)" not in query
+
+
 def test_quote_literal_escapes_control_chars() -> None:
     literal = quote_literal("line1\nline2\r\t'quoted'\\path")
     assert literal == r"'line1\nline2\r\t\'quoted\'\\path'"

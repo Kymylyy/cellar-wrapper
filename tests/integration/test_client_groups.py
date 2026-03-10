@@ -61,6 +61,29 @@ def test_relations_group_get_amendments() -> None:
     assert result.items[0].relation_type == "amends"
 
 
+def test_relations_group_get_amendments_direction_override() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return _resolver_payload()
+        assert "BIND('outgoing' AS ?direction)" in query
+        assert "BIND('incoming' AS ?direction)" not in query
+        return sparql_payload(
+            [
+                sparql_row(
+                    other="http://publications.europa.eu/resource/cellar/other",
+                    celex="32011L0061",
+                    direction="outgoing",
+                    relationType="amends",
+                )
+            ]
+        )
+
+    client = CellarClient(transport=FakeTransport(query_handler=query_handler))
+    result = client.get_amendments("32022R2554", direction="outgoing")
+    assert result.returned_count == 1
+    assert result.items[0].direction == "outgoing"
+
+
 def test_lifecycle_group_get_dossier() -> None:
     def query_handler(query: str) -> dict[str, object]:
         if "FILTER(UCASE(STR(?celex))" in query:

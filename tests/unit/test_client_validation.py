@@ -25,6 +25,12 @@ def test_invalid_language_raises_validation_error() -> None:
         client.get_text("32022R2554", lang="english")
 
 
+def test_invalid_direction_raises_validation_error() -> None:
+    client = CellarClient(transport=FakeTransport())
+    with pytest.raises(CellarValidationError, match="Invalid direction"):
+        client.get_amendments("32022R2554", direction="sideways")
+
+
 def test_limit_above_max_raises_validation_error() -> None:
     client = CellarClient(transport=FakeTransport())
     with pytest.raises(CellarValidationError):

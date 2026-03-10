@@ -14,6 +14,7 @@ class StubClient:
     def __init__(self) -> None:
         self.search_by_title_calls: list[dict[str, object]] = []
         self.get_consolidated_versions_calls: list[dict[str, object]] = []
+        self.get_amendments_calls: list[dict[str, object]] = []
         self.get_national_decisions_calls: list[dict[str, object]] = []
         self.monitoring_calls: dict[str, list[dict[str, object]]] = {
             "new_repeals": [],
@@ -29,6 +30,10 @@ class StubClient:
 
     def search_by_title(self, **kwargs: object) -> dict[str, object]:
         self.search_by_title_calls.append(kwargs)
+        return {"items": [], "kwargs": kwargs}
+
+    def get_amendments(self, **kwargs: object) -> dict[str, object]:
+        self.get_amendments_calls.append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
     def get_consolidated_versions(self, **kwargs: object) -> dict[str, object]:
@@ -236,6 +241,28 @@ def test_cli_case_law_accepts_country_filter(
     assert stub.get_national_decisions_calls[0]["country"] == "DEU"
 
 
+def test_cli_relations_accepts_direction_filter(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    stub = StubClient()
+    monkeypatch.setattr(cli, "_build_client", lambda args: stub)
+    exit_code = cli.run(
+        [
+            "relations",
+            "get-amendments",
+            "--celex",
+            "32022R2554",
+            "--direction",
+            "outgoing",
+        ]
+    )
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is True
+    assert stub.get_amendments_calls[0]["direction"] == "outgoing"
+
+
 @pytest.mark.parametrize(
     "argv",
     [
@@ -400,6 +427,15 @@ def test_cli_help_mentions_key_flags(capsys: pytest.CaptureFixture[str]) -> None
     assert "--resource-type" in help_text
     assert "--since" in help_text
     assert "--limit" in help_text
+
+
+def test_cli_help_mentions_direction_for_symmetric_relations(capsys: pytest.CaptureFixture[str]) -> None:
+    parser = cli.build_parser()
+    with pytest.raises(SystemExit) as exc_info:
+        parser.parse_args(["relations", "get-amendments", "--help"])
+    assert exc_info.value.code == 0
+    help_text = capsys.readouterr().out
+    assert "--direction" in help_text
 
 
 def test_cli_root_help_mentions_user_agent(capsys: pytest.CaptureFixture[str]) -> None:

@@ -39,6 +39,7 @@ def _call_monitor_relation(
         limit=limit,
         offset=offset,
         lang=lang,
+        direction=None,
     )
 
 

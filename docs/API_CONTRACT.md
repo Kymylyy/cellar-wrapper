@@ -31,6 +31,7 @@ HttpTransport(
   - date input -> `YYYY-MM-DDT00:00:00Z`
   - datetime input -> canonical ISO datetime (UTC-normalized)
 - `lang: str` -> ISO 639-3 (`[a-zA-Z]{3}`), normalized to lowercase.
+- `direction: "incoming" | "outgoing" | "both"` -> optional relation-direction filter for symmetric relation commands; default `both`.
 - `country: str` -> ISO 3166-1 alpha-3 (`[A-Z]{3}`), normalized to uppercase (for `get_national_decisions`).
 - `format: "pdf" | "xhtml" | "xml" | "rdf" | "docx"` for `get_text`.
 - `limit: int` default `200`, max `1000`.

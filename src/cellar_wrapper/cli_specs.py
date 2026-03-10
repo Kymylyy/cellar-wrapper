@@ -16,6 +16,7 @@ class CommandSpec:
     has_resource_type: bool = False
     has_country: bool = False
     has_lang: bool = False
+    has_direction: bool = False
     has_limit_offset: bool = False
     has_format: bool = False
     list_arg_name: str | None = None
@@ -30,15 +31,15 @@ COMMANDS: list[CommandSpec] = [
     CommandSpec("lookup", "get-legal-basis", "get_legal_basis", requires_celex=True, has_limit_offset=True),
     CommandSpec("lookup", "get-directory-codes", "get_directory_codes", requires_celex=True, has_limit_offset=True),
     CommandSpec("lookup", "get-expressions", "get_expressions", requires_celex=True, has_limit_offset=True),
-    CommandSpec("relations", "get-amendments", "get_amendments", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
-    CommandSpec("relations", "get-repeals", "get_repeals", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
-    CommandSpec("relations", "get-citations", "get_citations", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
+    CommandSpec("relations", "get-amendments", "get_amendments", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_direction=True, has_limit_offset=True),
+    CommandSpec("relations", "get-repeals", "get_repeals", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_direction=True, has_limit_offset=True),
+    CommandSpec("relations", "get-citations", "get_citations", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_direction=True, has_limit_offset=True),
     CommandSpec("relations", "get-delegated-acts", "get_delegated_acts", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
     CommandSpec("relations", "get-completing-acts", "get_completing_acts", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
     CommandSpec("relations", "get-proposals-to-amend", "get_proposals_to_amend", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
     CommandSpec("relations", "get-adopted-act", "get_adopted_act", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
-    CommandSpec("relations", "get-related-works", "get_related_works", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
-    CommandSpec("relations", "get-other-relations", "get_other_relations", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
+    CommandSpec("relations", "get-related-works", "get_related_works", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_direction=True, has_limit_offset=True),
+    CommandSpec("relations", "get-other-relations", "get_other_relations", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_direction=True, has_limit_offset=True),
     CommandSpec("lifecycle", "get-consolidated-versions", "get_consolidated_versions", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
     CommandSpec("lifecycle", "get-corrigenda", "get_corrigenda", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),
     CommandSpec("lifecycle", "get-nims", "get_nims", requires_celex=True, has_since=True, has_resource_type=True, has_lang=True, has_limit_offset=True),

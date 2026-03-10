@@ -674,8 +674,8 @@ financial services (8469)     [top-level]
 |---|---|---|
 | 8/10 | `52023PC0367` | **Proposal PSD3** |
 | 7/10 | `32019R0518` | Regulation on cross-border payments |
-| 7/10 | `52024AB0013` | ECB opinion o PSD3/PSR |
-| 7/10 | `52023AE3611` | EESC opinion o PSD3 |
+| 7/10 | `52024AB0013` | ECB opinion on PSD3/PSR |
+| 7/10 | `52023AE3611` | EESC opinion on PSD3 |
 | 7/10 | `22024D0126` | EEA Decision on including PSD2 in Annex IX |
 
 ---
@@ -758,9 +758,9 @@ The content (~11,000 characters) includes sections: SUMMARY OF, WHAT IS THE AIM,
 | **Type** | `PUB_OJ` (Official Journal publication) |
 | **Date** | 2015-12-23 |
 | **Dossier** | `http://publications.europa.eu/resource/cellar/900c24d5-f5ca-11e2-a22e-01aa75ed71a1` (procedure 2013/0264/COD) |
-| **Identyfikator** | `procedure-event/2013_264.2015-12-23_PUB_OJ` |
-| **Created w systemie** | 2020-08-21 |
-| **Ostatnia modyfikacja** | 2025-03-17 |
+| **Identifier** | `procedure-event/2013_264.2015-12-23_PUB_OJ` |
+| **Created in system** | 2020-08-21 |
+| **Last modified** | 2025-03-17 |
 
 ---
 

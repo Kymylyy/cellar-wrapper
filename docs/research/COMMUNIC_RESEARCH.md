@@ -288,11 +288,11 @@ SELECT ?commCelex (COUNT(DISTINCT ?prop) as ?proposals) WHERE {
 
 ---
 
-## Comparison typu COMMUNIC vs inne zbadane typy
+## Comparison of COMMUNIC vs other studied types
 
 | Aspect | COMMUNIC | DIR | REG | PROP_REG |
 |---|---|---|---|---|
-| Binding prawnie | **No** | Yes | Yes | No (jeszcze) |
+| Legally binding | **No** | Yes | Yes | No (not yet) |
 | EuroVoc | Yes | Yes | Yes | Yes |
 | Cited by legislation | **Yes (key!)** | Yes | Yes | Rarely |
 | Dossier | No | Yes | Yes | Yes |
@@ -300,4 +300,4 @@ SELECT ?commCelex (COUNT(DISTINCT ?prop) as ?proposals) WHERE {
 | NIMs | No | Yes | No | No |
 | RTS/ITS | No | Yes | Yes | No |
 | In-force status | No (N/A) | Yes | Yes | No |
-| Predykcja legislacji | **Yes (2-3 lata)** | N/A | N/A | Yes (1-2 lata) |
+| Legislation prediction | **Yes (2-3 years)** | N/A | N/A | Yes (1-2 years) |

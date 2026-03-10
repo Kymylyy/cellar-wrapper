@@ -311,7 +311,7 @@ The content (~11,250 characters) includes sections: SUMMARY OF, WHAT IS THE AIM,
 | Last updated | 2026-01-26 | 2024-11-09 |
 | Validated by | DG FISMA | DG FISMA |
 | Content size | ~11,250 characters | ~11,100 characters |
-| Languagei | 24 | 24 |
+| Languages | 24 | 24 |
 | Manifestations | fmx4, xhtml5 | fmx4, xhtml5 |
 
 **Key finding**: Summaries are not available through standard REST with `Accept: application/xhtml+xml`. You must:

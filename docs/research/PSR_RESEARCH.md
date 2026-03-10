@@ -348,12 +348,12 @@ PSR and PSD3 are **two separate dossiers**, but they are treated as **one packag
 
 | Overlap | CELEX | Act |
 |---|---|---|
-| **9/9** | 52024AB0013 | ECB opinion o PSR |
-| **9/9** | 52024AP0298 | EP position o PSR |
+| **9/9** | 52024AB0013 | ECB opinion on PSR |
+| **9/9** | 52024AP0298 | EP position on PSR |
 | 8/9 | 52023XX01019 | EDPS opinion |
 | 8/9 | 52023AE3611 | EESC opinion |
 | **7/9** | **32015L2366** | **PSD2** |
-| 7/9 | 52024AP0297 | EP position o PSD3 |
+| 7/9 | 52024AP0297 | EP position on PSD3 |
 | 7/9 | 52023PC0366 | PSD3 proposal |
 | 7/9 | 32019R0518 | Cross-border payments regulation |
 | 7/9 | 52023SC0231, 52023SC0232 | SWD (impact assessments) |
@@ -375,7 +375,7 @@ PSR and PSD3 are **two separate dossiers**, but they are treated as **one packag
 | NIM (transposition) | 0 (proposal) | 258 | 0 (regulation) |
 | CJEU case law | 0 | 5 judgments + 10 questions | 0 |
 | Acts delegated / implementing | 0 (proposal) | 9 (RTS+ITS) | 12 (RTS+ITS) |
-| Adnotacje OWL | 12 | 570+ | 74 |
+| OWL annotations | 12 | 570+ | 74 |
 | EuroVoc descriptors | 9 | 10 | 9 |
 | EuroVoc overlap with PSD2 | 7/9 | — | 1/9 (`financial services`) |
 | Companion | PSD3 (52023PC0366) | None | Dir 2022/2556 |
@@ -386,11 +386,11 @@ PSR and PSD3 are **two separate dossiers**, but they are treated as **one packag
 
 ## Key findings
 
-1. **PSR is in trilogueue** — the EP adopted its position 23.04.2024, the Council adopted its negotiating mandate 13.06.2025, the procedure is active (ostatnia aktualizacja dossier: 25.11.2025).
+1. **PSR is in trilogue** — the EP adopted its position 23.04.2024, the Council adopted its negotiating mandate 13.06.2025, the procedure is active (last dossier update: 25.11.2025).
 
 2. **Dual dossier structure** — PSR is in 2 dossiers: internal Commission (adoption workflow) and an interinstitutional one (2023/0210/COD). This is the standard pattern.
 
-3. **PSR+PSD3 package** — separate procedures (0210/COD i 0209/COD), ale shared: impact assessment, EESC opinion, ECB opinion, Council mandates adopted on the same day.
+3. **PSR+PSD3 package** — separate procedures (0210/COD and 0209/COD), but shared: impact assessment, EESC opinion, ECB opinion, Council mandates adopted on the same day.
 
 4. **Predecessor dossier from 2022** — Commission planning dossier z September 2022 confirms that PSR grew out of the PSD2 review.
 

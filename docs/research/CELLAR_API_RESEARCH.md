@@ -390,11 +390,11 @@ ORDER BY DESC(?count)
 
 ## Validity judgment
 
-C-643/16 (American Express) — The CJEU confirmed the validity of art. 35(1) i (2)(b) PSD2.
+C-643/16 (American Express) — The CJEU confirmed the validity of art. 35(1) and (2)(b) PSD2.
 
 ## Advocate General opinions
 
-| CELEX | Date | Rzecznik | Case |
+| CELEX | Date | Advocate General | Case |
 |---|---|---|---|
 | `62018CC0778` | 2020-02-27 | Saugmandsgaard Øe | C-778/18 |
 | `62019CC0287` | 2020-04-30 | Campos Sánchez-Bordona | C-287/19 (DenizBank) |
@@ -428,7 +428,7 @@ Case-law-specific fields (`cdm:case-law_*`):
 | `32017R2055` | 2017-06-23 | RTS — cooperation and exchange of information between supervisory authorities (art. 28(5)) | Yes |
 | `32018R0389` | 2017-11-27 | **RTS SCA/CSC** — strong customer authentication and secure communication (art. 98(4)) | Yes |
 | `32019R0411` | 2018-11-29 | RTS — electronic central register (art. 15(4)) | Yes |
-| `32020R1423` | 2019-03-14 | RTS — centralne pointy konyestowe (art. 29(7)) | Yes |
+| `32020R1423` | 2019-03-14 | RTS — central contact points (art. 29(7)) | Yes |
 | `32021R1722` | 2021-07-18 | RTS — cross-border supervisory cooperation (art. 29(7)) | Yes |
 | `32022R2360` | 2022-08-03 | Amendment to the RTS on SCA: 90-day exemption for account access | Yes |
 | `32023R1650` | 2023-08-15 | Correction of the Swedish version of the SCA RTS | Yes |
@@ -450,7 +450,7 @@ Case-law-specific fields (`cdm:case-law_*`):
 
 | CELEX | Date | Description |
 |---|---|---|
-| `02015L2366-20151223` | 2015-12-23 | Version oryginalna |
+| `02015L2366-20151223` | 2015-12-23 | Original version |
 | `02015L2366-20240408` | 2024-04-08 | After DORA and IPR amendments |
 | `02015L2366-20250117` | 2025-01-17 | **Latest** consolidated version |
 
@@ -460,7 +460,7 @@ Case-law-specific fields (`cdm:case-law_*`):
 |---|---|---|
 | `02010R1093-20160112` | 2016-01-12 | EBA Regulation |
 | `02013L0036-20180113` | 2018-01-13 | CRD IV |
-| `02013L0036-20220101` | 2022-01-01 | CRD IV (nowsza) |
+| `02013L0036-20220101` | 2022-01-01 | CRD IV (newer) |
 | `02009L0110-20180113` | 2018-01-13 | Directive on electronic money (EMD2) |
 | `02002L0065-20180113` | 2018-01-13 | Directive on distance marketing of financial services |
 
@@ -481,7 +481,7 @@ Case-law-specific fields (`cdm:case-law_*`):
 | France | 13 | 0 | | Malta | 6 | 0 |
 | Estonia | 11 | **11** | | Croatia | 5 | 0 |
 | Latvia | 11 | **9** | | Romania | 4 | 0 |
-| Finlandia | 10 | 0 | | Dania | 4 | 0 |
+| Finland | 10 | 0 | | Denmark | 4 | 0 |
 | Sweden | 9 | 0 | | Bulgaria | 4 | 1 |
 
 Plus: UK (4), Greece (3), Spain (3), Italy (3), Belgium (2), Portugal (2), Ireland (2), Germany (2), Austria (2), Luxembourg (1).

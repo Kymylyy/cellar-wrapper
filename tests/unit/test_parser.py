@@ -55,7 +55,7 @@ def test_parse_case_law_items_maps_case_fields() -> None:
             other="https://publications.europa.eu/resource/cellar/case",
             celex="62019CJ0287",
             ecli="ECLI:EU:C:2020:897",
-            courtFormation="Izba I",
+            courtFormation="First Chamber",
             originCountry="http://publications.europa.eu/resource/authority/country/AUT",
         )
     ]

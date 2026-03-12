@@ -304,6 +304,58 @@ def test_mcp_generic_relation_output_omits_annotation_fields(monkeypatch: pytest
     assert "annotation_uri" not in item
 
 
+def test_mcp_get_proposals_to_change_emits_change_semantics(monkeypatch: pytest.MonkeyPatch) -> None:
+    _require_mcp_sdk()
+
+    class RecordingClient:
+        def __init__(self, **kwargs: Any) -> None:
+            self.kwargs = kwargs
+
+        def __enter__(self) -> RecordingClient:
+            return self
+
+        def __exit__(
+            self,
+            exc_type: type[BaseException] | None,
+            exc: BaseException | None,
+            tb: TracebackType | None,
+        ) -> None:
+            return None
+
+        def get_proposals_to_change(self, **kwargs: Any) -> ListResult[RelationItem]:
+            return ListResult(
+                items=[
+                    RelationItem(
+                        uri="http://publications.europa.eu/resource/cellar/proposal",
+                        celex="52025PC1023",
+                        direction="incoming",
+                        relation_type="proposes_to_change",
+                        predicate="cdm:resource_legal_proposes_to_amend_resource_legal",
+                    )
+                ],
+                returned_count=1,
+                meta=QueryMeta(
+                    query_name="get_proposals_to_change",
+                    endpoint="https://example.test/sparql",
+                    executed_at="2026-03-12T00:00:00Z",
+                    limit=200,
+                    offset=0,
+                ),
+            )
+
+    monkeypatch.setattr("cellar_wrapper.mcp_server.CellarClient", RecordingClient)
+
+    server = build_mcp_server()
+    structured_payload = _tool_call_payload(
+        _call_tool(server, "get-proposals-to-change", {"celex": "32024R1689"})
+    )
+
+    item = structured_payload["items"][0]
+    assert item["relation_type"] == "proposes_to_change"
+    assert item["predicate"] == "cdm:resource_legal_proposes_to_amend_resource_legal"
+    assert structured_payload["meta"]["query_name"] == "get_proposals_to_change"
+
+
 def test_mcp_article_annotation_output_keeps_annotation_fields(monkeypatch: pytest.MonkeyPatch) -> None:
     _require_mcp_sdk()
 

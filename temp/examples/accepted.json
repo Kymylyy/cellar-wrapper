@@ -1212,7 +1212,7 @@
         "meta": {
           "query_name": "get_proposals_to_change",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-12T19:52:52.378603Z",
+          "executed_at": "2026-03-12T20:55:13.122738Z",
           "limit": 20,
           "offset": 0
         }
@@ -1258,7 +1258,7 @@
         "meta": {
           "query_name": "get_proposals_to_change",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-12T19:54:20.158097Z",
+          "executed_at": "2026-03-12T20:55:15.810083Z",
           "limit": 20,
           "offset": 0
         }
@@ -1266,10 +1266,10 @@
     }
   },
   {
-    "label": "White Paper on urban wastewater treatment and water reuse",
+    "label": "Urban Wastewater",
     "celex": "31991L0271",
     "command": "relations get-proposals-to-change",
-    "purpose": "Checks proposal acts that may recast the existing urban wastewater framework.",
+    "purpose": "Checks proposal acts that may recast or otherwise change the Urban Wastewater framework.",
     "args": {
       "celex": "31991L0271",
       "lang": "eng",
@@ -1314,7 +1314,7 @@
         "meta": {
           "query_name": "get_proposals_to_change",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-12T20:50:47.007438Z",
+          "executed_at": "2026-03-12T20:55:18.539189Z",
           "limit": 20,
           "offset": 0
         }

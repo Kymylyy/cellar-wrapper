@@ -58,6 +58,6 @@ Robocze notatki z testowania komend i kontraktow API.
 
 ### `relations get-proposals-to-change`
 
-- Acts: `AI Act`, `PSD2`, `White Paper on urban wastewater treatment and water reuse`
+- Acts: `AI Act`, `PSD2`, `Urban Wastewater`
 - Observation: Wrapper command and contract type now expose this as "proposals to change", because CELLAR’s `cdm:resource_legal_proposes_to_amend_resource_legal` includes amendment, repeal, and recast intent.
-- Follow-up: Treat results as legislative-change intents, not strictly "amendment-only" intentions.
+- Follow-up: Treat results as legislative-change intents, not strictly "amendment-only" intentions, and keep the raw `predicate` unchanged in payloads.

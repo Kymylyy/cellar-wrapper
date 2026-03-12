@@ -568,11 +568,13 @@ def test_cli_relations_uses_get_proposals_to_change_method(
 
 def test_cli_rejects_legacy_proposal_change_command_names() -> None:
     parser = cli.build_parser()
-    with pytest.raises(CellarValidationError):
+    with pytest.raises(CellarValidationError) as relations_exc:
         parser.parse_args(["relations", "get-proposals-to-amend", "--celex", "32024R1689"])
+    assert "get-proposals-to-change" in str(relations_exc.value)
 
-    with pytest.raises(CellarValidationError):
+    with pytest.raises(CellarValidationError) as monitoring_exc:
         parser.parse_args(["monitoring", "new-proposals-to-amend", "--celex", "32024R1689", "--since", "2025-01-01"])
+    assert "new-proposals-to-change" in str(monitoring_exc.value)
 
 
 def test_cli_monitoring_still_requires_since_when_to_is_present(capsys: pytest.CaptureFixture[str]) -> None:

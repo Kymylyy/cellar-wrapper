@@ -1098,6 +1098,82 @@
     }
   },
   {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "relations get-completing-acts",
+    "purpose": "Checks completing acts for PSD2.",
+    "args": {
+      "celex": "32015L2366",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/54798aa4-1ff6-11ec-bd8e-01aa75ed71a1",
+            "celex": "32021R1722",
+            "title": "Commission Delegated Regulation (EU) 2021/1722 of 18 June 2021 supplementing Directive (EU) 2015/2366 of the European Parliament and of the Council with regard to regulatory technical standards specifying the framework for cooperation and the exchange of information between competent authorities of the home and the host Member States in the context of supervision of payment institutions and electronic money institutions exercising cross-border provision of payment services (Text with EEA relevance)",
+            "date": "2021-07-18T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_completes_resource_legal",
+            "relation_type": "completes"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/d860706a-09ed-11eb-bc07-01aa75ed71a1",
+            "celex": "32020R1423",
+            "title": "Commission Delegated Regulation (EU) 2020/1423 of 14 March 2019 on supplementing Directive (EU) 2015/2366 of the European Parliament and of the Council with regard to regulatory technical standards on the criteria for appointing central contact points within the field of payment services and on the functions of those central contact points (Text with EEA relevance)",
+            "date": "2019-03-14T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_completes_resource_legal",
+            "relation_type": "completes"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/39481d7d-46f5-11e9-a8ed-01aa75ed71a1",
+            "celex": "32019R0411",
+            "title": "Commission Delegated Regulation (EU) 2019/411 of 29 November 2018 supplementing Directive (EU) 2015/2366 of the European Parliament and of the Council with regard to regulatory technical standards setting technical requirements on development, operation and maintenance of the electronic central register within the field of payment services and on access to the information contained therein (Text with EEA relevance.)",
+            "date": "2018-11-29T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_completes_resource_legal",
+            "relation_type": "completes"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/28c2f705-268d-11e8-ac73-01aa75ed71a1",
+            "celex": "32018R0389",
+            "title": "Commission Delegated Regulation (EU) 2018/389 of 27 November 2017 supplementing Directive (EU) 2015/2366 of the European Parliament and of the Council with regard to regulatory technical standards for strong customer authentication and common and secure open standards of communication (Text with EEA relevance. )",
+            "date": "2017-11-27T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_completes_resource_legal",
+            "relation_type": "completes"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/2d2c54f9-c848-11e7-9b01-01aa75ed71a1",
+            "celex": "32017R2055",
+            "title": "Commission Delegated Regulation (EU) 2017/2055 of 23 June 2017 supplementing Directive (EU) 2015/2366 of the European Parliament and of the Council with regard to regulatory technical standards for the cooperation and exchange of information between competent authorities relating to the exercise of the right of establishment and the freedom to provide services of payment institutions (Text with EEA relevance. )",
+            "date": "2017-06-23T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_completes_resource_legal",
+            "relation_type": "completes"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "get_completing_acts",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-12T20:41:57.246926Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
     "label": "AI Act",
     "celex": "32024R1689",
     "command": "relations get-proposals-to-amend",

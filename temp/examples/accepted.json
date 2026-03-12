@@ -1249,5 +1249,107 @@
         }
       }
     }
+  },
+  {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "relations get-related-works",
+    "purpose": "Checks generic related documents linked to PSD2.",
+    "args": {
+      "celex": "32015L2366",
+      "lang": "eng",
+      "limit": 20
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/395c6072-c61a-11f0-8da2-01aa75ed71a1",
+            "celex": "52025DC0848",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS 2030 Consumer Agenda and action plan for consumers in the single market 'A new impulse for consumer protection, competitiveness and sustainable growth'",
+            "date": "2025-11-19T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC",
+            "direction": "incoming",
+            "predicate": "cdm:work_related_to_work",
+            "relation_type": "related"
+          }
+        ],
+        "returned_count": 1,
+        "meta": {
+          "query_name": "get_related_works",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-12T20:12:45.702704Z",
+          "limit": 20,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "FiDAR",
+    "celex": "52023PC0360",
+    "command": "relations get-related-works",
+    "purpose": "Checks related works around the FiDAR proposal, including impact-assessment documents and package-related proposals.",
+    "args": {
+      "celex": "52023PC0360",
+      "lang": "eng",
+      "limit": 20
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/7c714fa7-168b-11ee-806b-01aa75ed71a1",
+            "celex": "52023SC0230",
+            "title": "COMMISSION STAFF WORKING DOCUMENT EXECUTIVE SUMMARY OF THE IMPACT ASSESSMENT REPORT Accompanying the document Proposal for a Regulation of the European Parliament and of the Council on a framework for Financial Data Access and amending Regulations (EU) No 1093/2010, (EU) No 1094/2010, (EU) No 1095/2010 and (EU) 2022/2554",
+            "date": "2023-06-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/IMPACT_ASSESS_SUM",
+            "direction": "incoming",
+            "predicate": "cdm:work_related_to_work",
+            "relation_type": "related"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/97f38c29-168b-11ee-806b-01aa75ed71a1",
+            "celex": "52023SC0224",
+            "title": "COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the document Proposal for a Regulation of the European Parliament and of the Council on a framework for Financial Data Access and amending Regulations (EU) No 1093/2010, (EU) No 1094/2010, (EU) No 1095/2010 and (EU) 2022/2554",
+            "date": "2023-06-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/IMPACT_ASSESS",
+            "direction": "incoming",
+            "predicate": "cdm:work_related_to_work",
+            "relation_type": "related"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/7447bc80-fae0-11ed-a05c-01aa75ed71a1",
+            "celex": "52023PC0278",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulation (EU) No 1286/2014 as regards the modernisation of the key information document",
+            "date": "2023-05-24T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG",
+            "direction": "outgoing",
+            "predicate": "cdm:work_related_to_work",
+            "relation_type": "related"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/79b29b91-fae0-11ed-a05c-01aa75ed71a1",
+            "celex": "52023PC0279",
+            "title": "Proposal for a DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives (EU) 2009/65/EC, 2009/138/EC, 2011/61/EU, 2014/65/EU and (EU) 2016/97 as regards the Union retail investor protection rules",
+            "date": "2023-05-24T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_DIR",
+            "direction": "outgoing",
+            "predicate": "cdm:work_related_to_work",
+            "relation_type": "related"
+          }
+        ],
+        "returned_count": 4,
+        "meta": {
+          "query_name": "get_related_works",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-12T20:13:23.789746Z",
+          "limit": 20,
+          "offset": 0
+        }
+      }
+    }
   }
 ]

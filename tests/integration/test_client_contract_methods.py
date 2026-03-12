@@ -239,7 +239,7 @@ def test_get_proposals_to_change_contract_emits_change_semantics() -> None:
     )
     client = CellarClient(transport=transport)
 
-    result = client.get_proposals_to_change("32024R1689")
+    result = client.get_proposals_to_change("32022R2554")
 
     assert result.meta.query_name == "get_proposals_to_change"
     assert result.items
@@ -253,7 +253,7 @@ def test_new_proposals_to_change_contract_keeps_change_semantics() -> None:
     )
     client = CellarClient(transport=transport)
 
-    result = client.new_proposals_to_change("32024R1689", "2025-01-01")
+    result = client.new_proposals_to_change("32022R2554", "2025-01-01")
 
     assert result.meta.query_name == "new_proposals_to_change"
     assert result.items

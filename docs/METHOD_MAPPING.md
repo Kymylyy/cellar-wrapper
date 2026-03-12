@@ -20,6 +20,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `get_completing_acts` -> `cdm:resource_legal_completes_resource_legal` (incoming)
   - practical meaning: the narrower subset of acts that CELLAR marks as completing/supplementing the given act; this can overlap heavily with delegated acts
 - `get_proposals_to_change` -> `cdm:resource_legal_proposes_to_amend_resource_legal` (incoming)
+  - practical meaning: proposal acts that may amend, repeal, recast, or otherwise legislatively change the target act; wrapper relation type is `proposes_to_change`
 - `get_adopted_act` -> `cdm:resource_legal_adopts_resource_legal` (incoming)
 - `get_related_works` -> `cdm:work_related_to_work`
 - `get_other_relations` ->

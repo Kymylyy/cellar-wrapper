@@ -1096,5 +1096,158 @@
         }
       }
     }
+  },
+  {
+    "label": "AI Act",
+    "celex": "32024R1689",
+    "command": "relations get-proposals-to-amend",
+    "purpose": "Checks proposal acts that would amend the AI Act.",
+    "args": {
+      "celex": "32024R1689",
+      "lang": "eng",
+      "limit": 20
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/aeac54e6-dbdd-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC1023",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2017/745 and (EU) 2017/746 as regards simplifying and reducing the burden of the rules on medical devices and in vitro diagnostic medical devices, and amending Regulation (EU) 2022/123 as regards the support of the European Medicines Agency for the expert panels on medical devices and Regulation (EU) 2024/1689 as regards the list of Union harmonisation legislation referred to in its Annex I",
+            "date": "2025-12-16T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
+            "relation_type": "proposes_to_amend"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/c8c51d1a-c572-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0836",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2024/1689 and (EU) 2018/1139 as regards the simplification of the implementation of harmonised rules on artificial intelligence (Digital Omnibus on AI)",
+            "date": "2025-11-19T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
+            "relation_type": "proposes_to_amend"
+          }
+        ],
+        "returned_count": 2,
+        "meta": {
+          "query_name": "get_proposals_to_amend",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-12T19:52:52.378603Z",
+          "limit": 20,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "relations get-proposals-to-amend",
+    "purpose": "Checks proposal acts that would amend or repeal PSD2.",
+    "args": {
+      "celex": "32015L2366",
+      "lang": "eng",
+      "limit": 20
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/e09b163c-1687-11ee-806b-01aa75ed71a1",
+            "celex": "52023PC0366",
+            "title": "Proposal for a DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on payment services and electronic money services in the Internal Market amending Directive 98/26/EC and repealing Directives 2015/2366/EU and 2009/110/EC",
+            "date": "2023-06-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_DIR",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
+            "relation_type": "proposes_to_amend"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/4866bb3a-fe42-11ea-b44f-01aa75ed71a1",
+            "celex": "52020PC0596",
+            "title": "Proposal for a DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2006/43/EC, 2009/65/EC, 2009/138/EU, 2011/61/EU, EU/2013/36, 2014/65/EU, (EU) 2015/2366 and EU/2016/2341",
+            "date": "2020-09-24T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_DIR",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
+            "relation_type": "proposes_to_amend"
+          }
+        ],
+        "returned_count": 2,
+        "meta": {
+          "query_name": "get_proposals_to_amend",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-12T19:54:20.158097Z",
+          "limit": 20,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "MiCA proposal",
+    "celex": "52020PC0593",
+    "command": "relations get-adopted-act",
+    "purpose": "Checks which adopted act resulted from the MiCA proposal.",
+    "args": {
+      "celex": "52020PC0593",
+      "lang": "eng",
+      "limit": 10
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/01d55833-0660-11ee-b12e-01aa75ed71a1",
+            "celex": "32023R1114",
+            "title": "Regulation (EU) 2023/1114 of the European Parliament and of the Council of 31 May 2023 on markets in crypto-assets, and amending Regulations (EU) No 1093/2010 and (EU) No 1095/2010 and Directives 2013/36/EU and (EU) 2019/1937 (Text with EEA relevance)",
+            "date": "2023-05-31T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_adopts_resource_legal",
+            "relation_type": "adopts"
+          }
+        ],
+        "returned_count": 1,
+        "meta": {
+          "query_name": "get_adopted_act",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-12T20:08:00.704054Z",
+          "limit": 10,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "FiDAR",
+    "celex": "52023PC0360",
+    "command": "relations get-adopted-act",
+    "purpose": "Checks whether the FiDAR proposal already has an adopted act.",
+    "args": {
+      "celex": "52023PC0360",
+      "lang": "eng",
+      "limit": 10
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [],
+        "returned_count": 0,
+        "meta": {
+          "query_name": "get_adopted_act",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-12T20:08:00.527574Z",
+          "limit": 10,
+          "offset": 0
+        }
+      }
+    }
   }
 ]

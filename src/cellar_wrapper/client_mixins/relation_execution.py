@@ -28,6 +28,7 @@ def fetch_relation_rows(
     method_name: str,
     celex: str,
     since: date | datetime | str | None,
+    to: date | datetime | str | None,
     include_undated: bool,
     resource_type: str | None,
     limit: int,
@@ -39,7 +40,10 @@ def fetch_relation_rows(
     normalize_lang: Callable[[str], str],
     normalize_resource_type: Callable[[str | None], str | None],
     normalize_direction: Callable[[str | None], str | None],
-    coerce_since: Callable[[date | datetime | str | None], str | None],
+    normalize_date_bounds: Callable[
+        [date | datetime | str | None, date | datetime | str | None],
+        tuple[str | None, str | None],
+    ],
     resolve_work_uri: Callable[[str], str],
     query_sparql: QueryFn,
 ) -> tuple[RelationCallSpec, list[BindingRow]]:
@@ -51,7 +55,7 @@ def fetch_relation_rows(
     normalized_lang = normalize_lang(lang)
     normalized_type = normalize_resource_type(resource_type) or spec.default_resource_type
     normalized_direction = normalize_direction(direction) or spec.direction
-    since_value = coerce_since(since)
+    since_value, to_value = normalize_date_bounds(since, to)
     work_uri = resolve_work_uri(celex)
 
     query = build_relation_query(
@@ -59,6 +63,7 @@ def fetch_relation_rows(
         predicates=spec.predicates,
         direction=normalized_direction,
         since=since_value,
+        to=to_value,
         resource_type=normalized_type,
         limit=limit,
         offset=offset,
@@ -76,6 +81,7 @@ def call_relation_result(
     method_name: str,
     celex: str,
     since: date | datetime | str | None,
+    to: date | datetime | str | None,
     include_undated: bool,
     resource_type: str | None,
     limit: int,
@@ -86,7 +92,10 @@ def call_relation_result(
     normalize_lang: Callable[[str], str],
     normalize_resource_type: Callable[[str | None], str | None],
     normalize_direction: Callable[[str | None], str | None],
-    coerce_since: Callable[[date | datetime | str | None], str | None],
+    normalize_date_bounds: Callable[
+        [date | datetime | str | None, date | datetime | str | None],
+        tuple[str | None, str | None],
+    ],
     resolve_work_uri: Callable[[str], str],
     query_sparql: QueryFn,
     list_result_builder: ListResultBuilder,
@@ -95,6 +104,7 @@ def call_relation_result(
         method_name=method_name,
         celex=celex,
         since=since,
+        to=to,
         include_undated=include_undated,
         resource_type=resource_type,
         limit=limit,
@@ -106,7 +116,7 @@ def call_relation_result(
         normalize_lang=normalize_lang,
         normalize_resource_type=normalize_resource_type,
         normalize_direction=normalize_direction,
-        coerce_since=coerce_since,
+        normalize_date_bounds=normalize_date_bounds,
         resolve_work_uri=resolve_work_uri,
         query_sparql=query_sparql,
     )
@@ -140,6 +150,7 @@ def call_nim_result(
     method_name: str,
     celex: str,
     since: date | datetime | str | None,
+    to: date | datetime | str | None,
     include_undated: bool,
     resource_type: str | None,
     limit: int,
@@ -150,7 +161,10 @@ def call_nim_result(
     normalize_lang: Callable[[str], str],
     normalize_resource_type: Callable[[str | None], str | None],
     normalize_direction: Callable[[str | None], str | None],
-    coerce_since: Callable[[date | datetime | str | None], str | None],
+    normalize_date_bounds: Callable[
+        [date | datetime | str | None, date | datetime | str | None],
+        tuple[str | None, str | None],
+    ],
     resolve_work_uri: Callable[[str], str],
     query_sparql: QueryFn,
     list_result_builder: ListResultBuilder,
@@ -159,6 +173,7 @@ def call_nim_result(
         method_name=method_name,
         celex=celex,
         since=since,
+        to=to,
         include_undated=include_undated,
         resource_type=resource_type,
         limit=limit,
@@ -170,7 +185,7 @@ def call_nim_result(
         normalize_lang=normalize_lang,
         normalize_resource_type=normalize_resource_type,
         normalize_direction=normalize_direction,
-        coerce_since=coerce_since,
+        normalize_date_bounds=normalize_date_bounds,
         resolve_work_uri=resolve_work_uri,
         query_sparql=query_sparql,
     )

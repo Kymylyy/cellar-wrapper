@@ -8,12 +8,12 @@ from datetime import date, datetime
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, PREDICATES
 
 from .common import (
+    date_bounds_filter,
     language_uri,
     limit_offset,
     quote_literal,
     resource_type_uri,
     safe_iri,
-    since_filter,
     with_prefixes,
 )
 
@@ -25,6 +25,7 @@ def build_search_by_eurovoc_query(
     since: date | datetime | str | None,
     limit: int,
     offset: int,
+    to: date | datetime | str | None = None,
     lang: str = DEFAULT_LANGUAGE,
     include_undated: bool = True,
 ) -> str:
@@ -55,7 +56,7 @@ SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
   {type_clause}
-  {since_filter("date", since, include_undated=include_undated)}
+  {date_bounds_filter("date", since=since, to=to, include_undated=include_undated)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -70,6 +71,7 @@ def build_search_by_subject_matter_query(
     since: date | datetime | str | None,
     limit: int,
     offset: int,
+    to: date | datetime | str | None = None,
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build search by subject-matter concept URI query."""
@@ -99,7 +101,7 @@ SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
   {type_clause}
-  {since_filter("date", since, include_undated=True)}
+  {date_bounds_filter("date", since=since, to=to, include_undated=True)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -114,6 +116,7 @@ def build_search_by_title_query(
     since: date | datetime | str | None,
     limit: int,
     offset: int,
+    to: date | datetime | str | None = None,
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build search by title keyword query."""
@@ -133,7 +136,7 @@ SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
   {type_clause}
-  {since_filter("date", since, include_undated=True)}
+  {date_bounds_filter("date", since=since, to=to, include_undated=True)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -147,6 +150,7 @@ def build_search_communications_query(
     since: date | datetime | str | None,
     limit: int,
     offset: int,
+    to: date | datetime | str | None = None,
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build search query for Commission communications by responsible service."""
@@ -165,7 +169,7 @@ SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
     ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
-  {since_filter("date", since, include_undated=True)}
+  {date_bounds_filter("date", since=since, to=to, include_undated=True)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}

@@ -5,7 +5,15 @@ from datetime import date, datetime
 import pytest
 from pydantic import ValidationError
 
-from cellar_wrapper.models import ActDetail, ActRef, CaseLawItem, DossierItem, NIMItem
+from cellar_wrapper.models import (
+    ActDetail,
+    ActRef,
+    ArticleAnnotationItem,
+    CaseLawItem,
+    DossierItem,
+    NIMItem,
+    RelationItem,
+)
 
 
 def test_models_reject_unknown_fields() -> None:
@@ -58,3 +66,25 @@ def test_extended_models_accept_new_metadata_fields() -> None:
         implemented_by_country="http://publications.europa.eu/resource/authority/country/POL",
     )
     assert nim_item.implemented_by_country is not None
+
+
+def test_relation_item_rejects_annotation_fields() -> None:
+    with pytest.raises(ValidationError):
+        RelationItem.model_validate(
+            {
+                "uri": "http://publications.europa.eu/resource/cellar/work",
+                "annotation_uri": "http://publications.europa.eu/resource/cellar/annotation",
+            }
+        )
+
+
+def test_article_annotation_item_accepts_annotation_fields() -> None:
+    item = ArticleAnnotationItem.model_validate(
+        {
+            "uri": "http://publications.europa.eu/resource/cellar/work",
+            "annotation_uri": "http://publications.europa.eu/resource/cellar/annotation",
+            "annotation_article": "5",
+        }
+    )
+    assert item.annotation_uri is not None
+    assert item.annotation_article == "5"

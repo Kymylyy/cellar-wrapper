@@ -65,6 +65,11 @@ class RelationItem(ActRef):
     direction: str | None = None
     predicate: str | None = None
     relation_type: str | None = None
+
+
+class ArticleAnnotationItem(RelationItem):
+    """Article-annotation relation record."""
+
     annotation_uri: str | None = None
     annotation_article: str | None = None
     annotation_paragraph: str | None = None

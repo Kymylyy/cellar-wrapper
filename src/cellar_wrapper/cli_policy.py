@@ -44,6 +44,15 @@ def _add_since_argument(command_parser: argparse.ArgumentParser, spec: CommandSp
         command_parser.add_argument("--since", help="Optional lower date/time bound.")
 
 
+def _supports_date_bounds(spec: CommandSpec) -> bool:
+    return spec.requires_since or spec.has_since
+
+
+def _add_to_argument(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
+    if _supports_date_bounds(spec):
+        command_parser.add_argument("--to", help="Optional upper date/time bound.")
+
+
 def _add_simple_optional_arguments(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
     for field_name, option_name, help_text, default in _SIMPLE_OPTIONAL_ARG_SPECS:
         if not getattr(spec, field_name):
@@ -99,6 +108,7 @@ def configure_command_parser(command_parser: argparse.ArgumentParser, spec: Comm
     if spec.requires_celex:
         command_parser.add_argument("--celex", required=True, help="CELEX identifier.")
     _add_since_argument(command_parser, spec)
+    _add_to_argument(command_parser, spec)
     _add_simple_optional_arguments(command_parser, spec)
     if spec.has_limit_offset:
         _add_pagination_arguments(command_parser)
@@ -116,6 +126,9 @@ def build_method_kwargs(spec: CommandSpec, args: argparse.Namespace) -> dict[str
     since = getattr(args, "since", None)
     if since is not None:
         kwargs["since"] = since
+    to = getattr(args, "to", None)
+    if to is not None:
+        kwargs["to"] = to
 
     if spec.has_resource_type:
         kwargs["resource_type"] = getattr(args, "resource_type", None)

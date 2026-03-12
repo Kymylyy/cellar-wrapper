@@ -41,6 +41,7 @@ COUNTRY_PATTERN = r"^[A-Z]{3}$"
 
 CelexArg = Annotated[str, Field(pattern=CELEX_PATTERN)]
 SinceArg = Annotated[str, Field(min_length=1)]
+ToArg = Annotated[str, Field(min_length=1)]
 ResourceTypeArg = Annotated[str, Field(pattern=RESOURCE_TYPE_PATTERN)]
 CountryArg = Annotated[str, Field(pattern=COUNTRY_PATTERN)]
 LangArg = Annotated[str, Field(pattern=LANG_PATTERN)]
@@ -224,6 +225,13 @@ def _signature_for_spec(spec: CommandSpec) -> Signature:
             parameters,
             name="since",
             annotation=SinceArg | None,
+            default=None,
+        )
+    if spec.requires_since or spec.has_since:
+        _append_signature_parameter(
+            parameters,
+            name="to",
+            annotation=ToArg | None,
             default=None,
         )
 

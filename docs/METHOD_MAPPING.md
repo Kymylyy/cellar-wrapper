@@ -16,7 +16,9 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `get_repeals` -> `cdm:resource_legal_repeals_resource_legal`, `cdm:resource_legal_implicitly_repeals_resource_legal`
 - `get_citations` -> `cdm:work_cites_work`
 - `get_delegated_acts` -> `cdm:resource_legal_based_on_resource_legal` (incoming)
+  - practical meaning: acts/documents based on the given act; often delegated acts, but not guaranteed to be limited to delegated regulations/directives
 - `get_completing_acts` -> `cdm:resource_legal_completes_resource_legal` (incoming)
+  - practical meaning: the narrower subset of acts that CELLAR marks as completing/supplementing the given act; this can overlap heavily with delegated acts
 - `get_proposals_to_amend` -> `cdm:resource_legal_proposes_to_amend_resource_legal` (incoming)
 - `get_adopted_act` -> `cdm:resource_legal_adopts_resource_legal` (incoming)
 - `get_related_works` -> `cdm:work_related_to_work`
@@ -54,7 +56,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
   - `cdm:work_has_resource-type` = `DEC_NC`
   - `cdm:case-law_national_act_reference_european` (`CONTAINS` CELEX)
   - optional country filter via `cdm:case-law_originates_in_country`
-- `get_article_annotations` -> `owl:annotatedTarget`, `owl:annotatedSource`, `owl:annotatedProperty` + qualifier extraction (`article`, `paragraph`, `subparagraph`, `point`, `comment_on_legal_basis`)
+- `get_article_annotations` -> `owl:annotatedTarget`, `owl:annotatedSource`, `owl:annotatedProperty` + qualifier extraction (`article`, `paragraph`, `subparagraph`, `point`, `comment_on_legal_basis`) into `ArticleAnnotationItem`
 
 ## SEARCH
 - `search_by_eurovoc` -> 2-step:
@@ -70,17 +72,17 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `find_eurovoc_concept` -> local index (`src/cellar_wrapper/data/eurovoc_index.json`)
 
 ## MONITORING
-- `new_citations` -> `get_citations` + `date > since`
-- `new_amendments` -> `get_amendments` + `date > since`
-- `new_repeals` -> `get_repeals` + `date > since`
-- `new_proposals_to_amend` -> `get_proposals_to_amend` + `date > since`
-- `new_delegated_acts` -> `get_delegated_acts` + `date > since`
-- `new_case_law` -> `get_cjeu_judgments` + `date > since`
-- `new_preliminary_questions` -> `get_preliminary_questions` + `date > since`
-- `new_corrigenda` -> `get_corrigenda` + `date > since`
-- `new_consolidated` -> `get_consolidated_versions` + `date > since`
-- `new_nims` -> `get_nims` + `date > since`
-- `new_by_eurovoc` -> local EuroVoc resolution + final query via `VALUES ?concept` + strict `date > since`
+- `new_citations` -> `get_citations` + `date > since` (+ optional `date < to`)
+- `new_amendments` -> `get_amendments` + `date > since` (+ optional `date < to`)
+- `new_repeals` -> `get_repeals` + `date > since` (+ optional `date < to`)
+- `new_proposals_to_amend` -> `get_proposals_to_amend` + `date > since` (+ optional `date < to`)
+- `new_delegated_acts` -> `get_delegated_acts` + `date > since` (+ optional `date < to`)
+- `new_case_law` -> `get_cjeu_judgments` + `date > since` (+ optional `date < to`)
+- `new_preliminary_questions` -> `get_preliminary_questions` + `date > since` (+ optional `date < to`)
+- `new_corrigenda` -> `get_corrigenda` + `date > since` (+ optional `date < to`)
+- `new_consolidated` -> `get_consolidated_versions` + `date > since` (+ optional `date < to`)
+- `new_nims` -> `get_nims` + `date > since` (+ optional `date < to`)
+- `new_by_eurovoc` -> local EuroVoc resolution + final query via `VALUES ?concept` + strict `date > since` (+ optional `date < to`)
 
 ## DOWNLOAD
 - `get_text` -> REST `resource/celex/{CELEX}` with negotiated MIME and language

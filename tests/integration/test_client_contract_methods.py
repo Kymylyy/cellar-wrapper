@@ -8,8 +8,9 @@ import pytest
 from cellar_wrapper.cli_specs import COMMANDS
 from cellar_wrapper.client import CellarClient
 from cellar_wrapper.contract_specs import RETURN_CONTRACTS
+from cellar_wrapper.errors import CellarValidationError
 from cellar_wrapper.eurovoc_index import LOCAL_EUROVOC_ENDPOINT
-from cellar_wrapper.models import ListResult
+from cellar_wrapper.models import ArticleAnnotationItem, ListResult, RelationItem
 from tests.helpers import FakeTransport, sparql_payload, sparql_row
 
 
@@ -228,6 +229,41 @@ def test_non_monitoring_search_since_includes_undated_filter() -> None:
     )
 
 
+def test_non_monitoring_search_to_includes_upper_bound_filter() -> None:
+    transport = FakeTransport(query_handler=_query_handler, download_handler=_download_handler)
+    client = CellarClient(transport=transport)
+
+    _ = client.search_by_title("payment", to="2025-02-01")
+
+    assert any(
+        "FILTER(!BOUND(?date) || ?date < '2025-02-01T00:00:00Z'^^xsd:dateTime)" in query
+        for query in transport.queries
+    )
+
+
+def test_get_article_annotations_returns_article_annotation_items() -> None:
+    transport = FakeTransport(query_handler=_query_handler, download_handler=_download_handler)
+    client = CellarClient(transport=transport)
+
+    result = client.get_article_annotations("32022R2554")
+
+    assert result.items
+    assert isinstance(result.items[0], ArticleAnnotationItem)
+    assert result.items[0].annotation_uri == "http://publications.europa.eu/resource/cellar/annotation"
+    assert result.items[0].annotation_article == "5"
+
+
+def test_generic_relations_still_return_relation_items_without_annotation_fields() -> None:
+    transport = FakeTransport(query_handler=_query_handler, download_handler=_download_handler)
+    client = CellarClient(transport=transport)
+
+    result = client.get_amendments("32022R2554")
+
+    assert result.items
+    assert isinstance(result.items[0], RelationItem)
+    assert not hasattr(result.items[0], "annotation_uri")
+
+
 def test_monitoring_since_is_strictly_date_bound() -> None:
     transport = FakeTransport(query_handler=_query_handler, download_handler=_download_handler)
     client = CellarClient(transport=transport)
@@ -238,6 +274,31 @@ def test_monitoring_since_is_strictly_date_bound() -> None:
         "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
         for query in transport.queries
     )
+
+
+def test_monitoring_combined_date_bounds_are_strict() -> None:
+    transport = FakeTransport(query_handler=_query_handler, download_handler=_download_handler)
+    client = CellarClient(transport=transport)
+
+    _ = client.new_case_law("32022R2554", since="2025-01-01", to="2025-02-01")
+
+    assert any(
+        "FILTER(BOUND(?date) && (?date > '2025-01-01T00:00:00Z'^^xsd:dateTime && ?date < '2025-02-01T00:00:00Z'^^xsd:dateTime))"
+        in query
+        for query in transport.queries
+    )
+
+
+def test_inverted_date_range_raises_validation_error() -> None:
+    client = CellarClient(
+        transport=FakeTransport(
+            query_handler=_query_handler,
+            download_handler=_download_handler,
+        )
+    )
+
+    with pytest.raises(CellarValidationError, match="since cannot be later than to"):
+        client.search_by_title("payment", since="2025-02-01", to="2025-01-01")
 
 
 def test_find_eurovoc_concept_uses_local_index_meta_endpoint() -> None:

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import Sequence
-from datetime import date, datetime
+from datetime import UTC, date, datetime, time
 
 from cellar_wrapper.constants import MAX_LIMIT
 from cellar_wrapper.date_utils import parse_iso_date_or_datetime
@@ -58,22 +58,63 @@ def normalize_direction(direction: str | None) -> str | None:
     return normalized
 
 
-def coerce_since(since: date | datetime | str | None) -> str | None:
-    if since is None:
-        return None
-    if isinstance(since, datetime):
-        return since.isoformat()
-    if isinstance(since, date):
-        return since.isoformat()
+def _normalize_date_bound(value: date | datetime | str, *, field_name: str) -> datetime:
+    if isinstance(value, datetime):
+        normalized = value
+    elif isinstance(value, date):
+        normalized = datetime.combine(value, time.min, tzinfo=UTC)
+    else:
+        candidate = value.strip()
+        if not candidate:
+            raise CellarValidationError(f"{field_name} cannot be empty")
+        try:
+            parsed = parse_iso_date_or_datetime(candidate)
+        except ValueError as exc:
+            raise CellarValidationError(
+                f"Invalid {field_name} value (expected ISO date/datetime): {value!r}"
+            ) from exc
+        if isinstance(parsed, datetime):
+            normalized = parsed
+        else:
+            normalized = datetime.combine(parsed, time.min, tzinfo=UTC)
 
-    candidate = since.strip()
-    try:
-        parse_iso_date_or_datetime(candidate)
-        return candidate
-    except ValueError as exc:
-        raise CellarValidationError(
-            f"Invalid since value (expected ISO date/datetime): {since!r}"
-        ) from exc
+    if normalized.tzinfo is None:
+        normalized = normalized.replace(tzinfo=UTC)
+    return normalized.astimezone(UTC).replace(microsecond=0)
+
+
+def coerce_date_bound(value: date | datetime | str | None, *, field_name: str) -> str | None:
+    if value is None:
+        return None
+    if isinstance(value, datetime):
+        return value.isoformat()
+    if isinstance(value, date):
+        return value.isoformat()
+
+    candidate = value.strip()
+    _ = _normalize_date_bound(candidate, field_name=field_name)
+    return candidate
+
+
+def coerce_since(since: date | datetime | str | None) -> str | None:
+    return coerce_date_bound(since, field_name="since")
+
+
+def coerce_to(to: date | datetime | str | None) -> str | None:
+    return coerce_date_bound(to, field_name="to")
+
+
+def validate_date_range(
+    since: date | datetime | str | None,
+    to: date | datetime | str | None,
+) -> None:
+    if since is None or to is None:
+        return
+    if _normalize_date_bound(since, field_name="since") > _normalize_date_bound(
+        to,
+        field_name="to",
+    ):
+        raise CellarValidationError("since cannot be later than to")
 
 
 def validate_pagination(limit: int, offset: int) -> None:

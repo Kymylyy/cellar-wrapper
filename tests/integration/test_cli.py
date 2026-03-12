@@ -5,9 +5,11 @@ import json
 import pytest
 
 from cellar_wrapper import cli
+from cellar_wrapper.client import CellarClient
 from cellar_wrapper.errors import CellarNotFoundError, CellarValidationError
-from cellar_wrapper.models import ActRef
+from cellar_wrapper.models import ActRef, ArticleAnnotationItem, ListResult, QueryMeta, RelationItem
 from cellar_wrapper.version import __version__
+from tests.helpers import FakeTransport, sparql_payload
 
 
 class StubClient:
@@ -140,6 +142,23 @@ def test_cli_rejects_since_for_get_deadlines(capsys: pytest.CaptureFixture[str])
     assert payload["error"]["type"] == "CellarValidationError"
 
 
+def test_cli_rejects_to_for_get_deadlines(capsys: pytest.CaptureFixture[str]) -> None:
+    exit_code = cli.run(
+        [
+            "lifecycle",
+            "get-deadlines",
+            "--celex",
+            "32022R2554",
+            "--to",
+            "2025-01-01",
+        ]
+    )
+    assert exit_code == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is False
+    assert payload["error"]["type"] == "CellarValidationError"
+
+
 def test_cli_rejects_since_for_get_article_annotations(capsys: pytest.CaptureFixture[str]) -> None:
     exit_code = cli.run(
         [
@@ -157,7 +176,24 @@ def test_cli_rejects_since_for_get_article_annotations(capsys: pytest.CaptureFix
     assert payload["error"]["type"] == "CellarValidationError"
 
 
-def test_cli_allows_since_for_search_by_title(
+def test_cli_rejects_to_for_get_article_annotations(capsys: pytest.CaptureFixture[str]) -> None:
+    exit_code = cli.run(
+        [
+            "case-law",
+            "get-article-annotations",
+            "--celex",
+            "32022R2554",
+            "--to",
+            "2025-01-01",
+        ]
+    )
+    assert exit_code == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is False
+    assert payload["error"]["type"] == "CellarValidationError"
+
+
+def test_cli_allows_date_bounds_for_search_by_title(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
@@ -171,12 +207,15 @@ def test_cli_allows_since_for_search_by_title(
             "payment",
             "--since",
             "2025-01-01",
+            "--to",
+            "2025-02-01",
         ]
     )
     assert exit_code == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["ok"] is True
     assert stub.search_by_title_calls[0]["since"] == "2025-01-01"
+    assert stub.search_by_title_calls[0]["to"] == "2025-02-01"
 
 
 def test_cli_catch_all_exception_returns_json(
@@ -261,6 +300,80 @@ def test_cli_relations_accepts_direction_filter(
     payload = json.loads(capsys.readouterr().out)
     assert payload["ok"] is True
     assert stub.get_amendments_calls[0]["direction"] == "outgoing"
+
+
+def test_cli_generic_relation_output_omits_annotation_fields(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    class RelationClient(StubClient):
+        def get_amendments(self, **kwargs: object) -> ListResult[RelationItem]:
+            return ListResult(
+                items=[
+                    RelationItem(
+                        uri="http://publications.europa.eu/resource/cellar/related",
+                        celex="32024R0001",
+                        direction="incoming",
+                        relation_type="amends",
+                        predicate="cdm:resource_legal_amends_resource_legal",
+                    )
+                ],
+                returned_count=1,
+                meta=QueryMeta(
+                    query_name="get_amendments",
+                    endpoint="https://example.test/sparql",
+                    executed_at="2026-03-12T00:00:00Z",
+                    limit=200,
+                    offset=0,
+                ),
+            )
+
+    monkeypatch.setattr(cli, "_build_client", lambda args: RelationClient())
+
+    exit_code = cli.run(["relations", "get-amendments", "--celex", "32022R2554"])
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    item = payload["data"]["items"][0]
+    assert "annotation_uri" not in item
+
+
+def test_cli_article_annotation_output_keeps_annotation_fields(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    class AnnotationClient(StubClient):
+        def get_article_annotations(self, **kwargs: object) -> ListResult[ArticleAnnotationItem]:
+            return ListResult(
+                items=[
+                    ArticleAnnotationItem(
+                        uri="http://publications.europa.eu/resource/cellar/annotated",
+                        direction="incoming",
+                        relation_type="article_annotation",
+                        predicate="cdm:resource_legal_amends_resource_legal",
+                        annotation_uri="http://publications.europa.eu/resource/cellar/annotation",
+                        annotation_article="5",
+                    )
+                ],
+                returned_count=1,
+                meta=QueryMeta(
+                    query_name="get_article_annotations",
+                    endpoint="https://example.test/sparql",
+                    executed_at="2026-03-12T00:00:00Z",
+                    limit=200,
+                    offset=0,
+                ),
+            )
+
+    monkeypatch.setattr(cli, "_build_client", lambda args: AnnotationClient())
+
+    exit_code = cli.run(["case-law", "get-article-annotations", "--celex", "32022R2554"])
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    item = payload["data"]["items"][0]
+    assert item["annotation_uri"] == "http://publications.europa.eu/resource/cellar/annotation"
+    assert item["annotation_article"] == "5"
 
 
 @pytest.mark.parametrize(
@@ -364,12 +477,61 @@ def test_cli_supports_new_monitoring_commands(
             "32022R2554",
             "--since",
             "2025-01-01",
+            "--to",
+            "2025-02-01",
         ]
     )
     assert exit_code == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["ok"] is True
     assert stub.monitoring_calls[method_name]
+    assert stub.monitoring_calls[method_name][0]["to"] == "2025-02-01"
+
+
+def test_cli_monitoring_still_requires_since_when_to_is_present(capsys: pytest.CaptureFixture[str]) -> None:
+    exit_code = cli.run(
+        [
+            "monitoring",
+            "new-citations",
+            "--celex",
+            "32022R2554",
+            "--to",
+            "2025-02-01",
+        ]
+    )
+    assert exit_code == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is False
+    assert payload["error"]["type"] == "CellarValidationError"
+
+
+def test_cli_invalid_date_range_returns_validation_error(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    monkeypatch.setattr(
+        cli,
+        "_build_client",
+        lambda args: CellarClient(transport=FakeTransport(query_handler=lambda _query: sparql_payload([]))),
+    )
+
+    exit_code = cli.run(
+        [
+            "search",
+            "search-by-title",
+            "--keyword",
+            "payment",
+            "--since",
+            "2025-02-01",
+            "--to",
+            "2025-01-01",
+        ]
+    )
+
+    assert exit_code == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is False
+    assert payload["error"]["type"] == "CellarValidationError"
 
 
 def test_cli_build_client_passes_user_agent(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -426,6 +588,7 @@ def test_cli_help_mentions_key_flags(capsys: pytest.CaptureFixture[str]) -> None
     help_text = capsys.readouterr().out
     assert "--resource-type" in help_text
     assert "--since" in help_text
+    assert "--to" in help_text
     assert "--limit" in help_text
 
 

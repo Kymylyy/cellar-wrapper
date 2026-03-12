@@ -9,13 +9,13 @@ from cellar_wrapper.constants import DEFAULT_LANGUAGE, PREDICATES
 
 from .common import (
     PredicateSpec,
+    date_bounds_filter,
     language_uri,
     limit_offset,
     quote_literal,
     resource_type_clause,
     resource_type_uri,
     safe_iri,
-    since_filter,
     with_prefixes,
 )
 
@@ -29,6 +29,7 @@ def build_relation_query(
     resource_type: str | None,
     limit: int,
     offset: int,
+    to: date | datetime | str | None = None,
     lang: str = DEFAULT_LANGUAGE,
     include_undated: bool = True,
     include_origin_country: bool = False,
@@ -99,7 +100,7 @@ SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predi
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
   {resource_type_clause(resource_type)}
-  {since_filter("date", since, include_undated=include_undated)}
+  {date_bounds_filter("date", since=since, to=to, include_undated=include_undated)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -184,6 +185,7 @@ def build_ag_opinions_query(
     since: date | datetime | str | None,
     limit: int,
     offset: int,
+    to: date | datetime | str | None = None,
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build advocate-general opinions query."""
@@ -205,7 +207,7 @@ SELECT DISTINCT ?opinion ?celex ?title ?date ?type ?direction ?relationType ?pre
     ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
-  {since_filter("date", since, include_undated=True)}
+  {date_bounds_filter("date", since=since, to=to, include_undated=True)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}
@@ -220,6 +222,7 @@ def build_national_decisions_query(
     country: str | None = None,
     limit: int,
     offset: int,
+    to: date | datetime | str | None = None,
     lang: str = DEFAULT_LANGUAGE,
 ) -> str:
     """Build national court decisions query by CELEX reference string."""
@@ -248,7 +251,7 @@ SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predi
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
   {country_filter}
-  {since_filter("date", since, include_undated=True)}
+  {date_bounds_filter("date", since=since, to=to, include_undated=True)}
 }}
 ORDER BY DESC(?date)
 {limit_offset(limit, offset)}

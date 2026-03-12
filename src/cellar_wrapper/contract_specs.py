@@ -8,6 +8,7 @@ from typing import Any
 from cellar_wrapper.models import (
     ActDetail,
     ActRef,
+    ArticleAnnotationItem,
     CaseLawItem,
     DocumentPayload,
     DossierItem,
@@ -32,7 +33,6 @@ RELATION_METHODS = frozenset(
         "get_adopted_act",
         "get_ag_opinions",
         "get_amendments",
-        "get_article_annotations",
         "get_citations",
         "get_completing_acts",
         "get_consolidated_versions",
@@ -54,6 +54,7 @@ RELATION_METHODS = frozenset(
         "new_repeals",
     }
 )
+ARTICLE_ANNOTATION_METHODS = frozenset({"get_article_annotations"})
 CASE_METHODS = frozenset(
     {
         "get_cjeu_judgments",
@@ -88,6 +89,12 @@ def _build_contracts() -> dict[str, ReturnContract]:
     }
     for method_name in RELATION_METHODS:
         contracts[method_name] = ReturnContract(ListResult, item_type=RelationItem, query_name=method_name)
+    for method_name in ARTICLE_ANNOTATION_METHODS:
+        contracts[method_name] = ReturnContract(
+            ListResult,
+            item_type=ArticleAnnotationItem,
+            query_name=method_name,
+        )
     for method_name in CASE_METHODS:
         contracts[method_name] = ReturnContract(ListResult, item_type=CaseLawItem, query_name=method_name)
     for method_name in DOSSIER_METHODS:

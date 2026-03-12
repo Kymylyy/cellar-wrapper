@@ -224,6 +224,22 @@ def test_search_group_search_by_eurovoc_resolves_tags_before_search(
     assert "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[0]
 
 
+def test_search_group_search_by_eurovoc_supports_upper_bound_only(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    transport = FakeTransport(query_handler=lambda _query: sparql_payload([]))
+    client = CellarClient(transport=transport)
+    monkeypatch.setattr(
+        client,
+        "_resolve_eurovoc_concept_uris",
+        lambda tags: ["http://eurovoc.europa.eu/2220"] if tags else [],
+    )
+
+    _ = client.search_by_eurovoc(["payment"], to="2025-02-01")
+
+    assert "FILTER(!BOUND(?date) || ?date < '2025-02-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[0]
+
+
 def test_search_group_search_by_eurovoc_returns_empty_when_no_concept_resolved(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -275,6 +291,19 @@ def test_non_monitoring_since_filter_keeps_undated_rows() -> None:
     assert result.returned_count == 0
     assert any(
         "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+        for query in transport.queries
+    )
+
+
+def test_non_monitoring_combined_date_bounds_keep_undated_rows() -> None:
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
+    client = CellarClient(transport=transport)
+
+    _ = client.get_amendments("32022R2554", since="2025-01-01", to="2025-02-01")
+
+    assert any(
+        "FILTER(!BOUND(?date) || (?date > '2025-01-01T00:00:00Z'^^xsd:dateTime && ?date < '2025-02-01T00:00:00Z'^^xsd:dateTime))"
+        in query
         for query in transport.queries
     )
 

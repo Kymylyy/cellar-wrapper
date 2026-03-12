@@ -90,6 +90,8 @@ def _expected_schema_contract(
         add_required("since")
     elif spec.has_since:
         add_default("since", None)
+    if spec.requires_since or spec.has_since:
+        add_default("to", None)
 
     if spec.has_resource_type:
         add_default("resource_type", None)
@@ -201,11 +203,14 @@ def test_mcp_tool_dispatch_maps_kwargs_correctly(monkeypatch: pytest.MonkeyPatch
     monkeypatch.setattr("cellar_wrapper.mcp_server.CellarClient", RecordingClient)
 
     server = build_mcp_server()
-    structured_payload = _tool_call_payload(_call_tool(server, "get-amendments", {"celex": "32022R2554"}))
+    structured_payload = _tool_call_payload(
+        _call_tool(server, "get-amendments", {"celex": "32022R2554", "to": "2025-02-01"})
+    )
 
     assert calls
     assert calls[0] == {
         "celex": "32022R2554",
+        "to": "2025-02-01",
         "resource_type": None,
         "lang": "eng",
         "direction": "both",
@@ -213,6 +218,7 @@ def test_mcp_tool_dispatch_maps_kwargs_correctly(monkeypatch: pytest.MonkeyPatch
         "offset": 0,
     }
     assert structured_payload["kwargs"]["celex"] == "32022R2554"
+    assert structured_payload["kwargs"]["to"] == "2025-02-01"
 
 
 def test_mcp_tool_dispatch_maps_direction_override(monkeypatch: pytest.MonkeyPatch) -> None:

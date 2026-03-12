@@ -30,6 +30,7 @@ HttpTransport(
 - `since: date | datetime | str` -> ISO-8601 parseable, normalized to `xsd:dateTime` in SPARQL:
   - date input -> `YYYY-MM-DDT00:00:00Z`
   - datetime input -> canonical ISO datetime (UTC-normalized)
+- `to: date | datetime | str` -> same normalization rules as `since`; used as a strict upper bound in SPARQL.
 - `lang: str` -> ISO 639-3 (`[a-zA-Z]{3}`), normalized to lowercase.
 - `direction: "incoming" | "outgoing" | "both"` -> optional relation-direction filter for symmetric relation commands; default `both`.
 - `country: str` -> ISO 3166-1 alpha-3 (`[A-Z]{3}`), normalized to uppercase (for `get_national_decisions`).
@@ -61,6 +62,11 @@ HttpTransport(
 - `direction`
 - `predicate`
 - `relation_type`
+
+For relation semantics, note in particular:
+- `get_delegated_acts` is backed by `cdm:resource_legal_based_on_resource_legal` and is broader in practice than the command name suggests.
+- `get_completing_acts` is backed by `cdm:resource_legal_completes_resource_legal` and is the narrower "supplements/completes this act" relation.
+- For some acts, the two result sets can overlap substantially.
 
 `ArticleAnnotationItem` extends `RelationItem` and is returned by `get_article_annotations`. It may include:
 - `annotation_uri`
@@ -167,20 +173,27 @@ For local index failures, details include `source = "local_eurovoc_index"` or
 - Generic `application/octet-stream` is accepted as fallback.
 - Downloads are streamed and aborted when payload exceeds `max_download_bytes` (default `25MB`).
 
-## CLI `--since`
-- `--since` is available only for commands whose API methods support it.
-- Commands like `get-deadlines` and `get-article-annotations` do not accept `--since`.
+## CLI date bounds
+- `--since` is available only for commands whose API methods support date filtering.
+- `--to` is available on the same commands as `--since`.
+- Monitoring commands keep required `--since`; `--to` is optional.
+- Commands like `get-deadlines` and `get-article-annotations` accept neither `--since` nor `--to`.
 
 ## Contract migration note
 - `get_article_annotations` is the only public command that returns `ArticleAnnotationItem`.
 - Generic relation commands (`get_amendments`, `get_repeals`, `get_citations`, lifecycle relation methods, and relation-style monitoring methods) now return plain `RelationItem` rows without `annotation_*`.
 - This is an intentional contract cleanup: `annotation_*` is specific to OWL article-annotation rows, not to ordinary relation rows.
 
-## `since` filtering semantics
-- Non-monitoring methods with optional `since` (`search_*`, `get_*`) use:
-  - `FILTER(!BOUND(?date) || ?date > since_datetime)`
-- Monitoring methods (`new_*`) use strict date-bound:
-  - `FILTER(BOUND(?date) && ?date > since_datetime)`
+## Date filtering semantics
+- `since` is a strict lower bound: `?date > since_datetime`.
+- `to` is a strict upper bound: `?date < to_datetime`.
+- If both are supplied, the effective comparison is `?date > since_datetime && ?date < to_datetime`.
+- Date-only inputs for both bounds normalize to `YYYY-MM-DDT00:00:00Z`.
+- Inverted ranges (`since > to` after normalization) raise `CellarValidationError`.
+- Non-monitoring methods with optional bounds (`search_*`, `get_*`) use:
+  - `FILTER(!BOUND(?date) || comparison)`
+- Monitoring methods (`new_*`) use strict dated-only bounds:
+  - `FILTER(BOUND(?date) && comparison)`
 
 ## Thread safety
 - `CellarClient` is not safe for shared multi-thread use because one instance wraps one `httpx.Client`.
@@ -195,6 +208,7 @@ For local index failures, details include `source = "local_eurovoc_index"` or
   - `requires_celex` -> required `celex`
   - `requires_since` -> required `since`
   - `has_since` -> optional `since`
+  - commands with date filtering -> optional `to`
   - `has_resource_type` -> optional `resource_type`
   - `has_country` -> optional `country`
   - `has_lang` -> optional `lang` default `eng`

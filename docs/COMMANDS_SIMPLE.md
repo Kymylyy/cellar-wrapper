@@ -19,7 +19,8 @@ cellar lookup get-act --celex 32022R2554 --lang eng
 ## Most common options
 
 - `--celex`: Act ID in EU format (for example `32022R2554`).
-- `--since`: Return only newer items (date or date-time).
+- `--since`: Optional lower date/time bound for supported commands. Monitoring commands require it.
+- `--to`: Optional upper date/time bound for the same commands that support `--since`.
 - `--lang`: Language code (default is `eng`).
 - `--limit` / `--offset`: Pagination for list results.
 - `--resource-type`: Filter by CELLAR resource type token.
@@ -60,9 +61,9 @@ Commands that support `--direction` accept `incoming`, `outgoing`, or `both` (de
   Example: `cellar relations get-repeals --celex 32022R2554 --direction outgoing --since 2024-01-01 --lang eng --limit 50`
 - `get-citations` (`get_citations`): Shows citation relations. Direction: configurable with `--direction`; default `both`.
   Example: `cellar relations get-citations --celex 32022R2554 --direction both --since 2024-01-01 --lang eng --limit 50`
-- `get-delegated-acts` (`get_delegated_acts`): Shows delegated acts based on the given act. Direction: `incoming`.
+- `get-delegated-acts` (`get_delegated_acts`): Shows acts/documents linked by the `based_on` relation from the perspective of the base act. In practice this often means delegated acts, but the payload can also include other "based on" instruments or documents. Direction: `incoming`.
   Example: `cellar relations get-delegated-acts --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
-- `get-completing-acts` (`get_completing_acts`): Shows acts that complete the given act. Direction: `incoming`.
+- `get-completing-acts` (`get_completing_acts`): Shows acts linked by the narrower `completes` relation, i.e. acts that CELLAR marks as supplementing/completing the provisions of the given act. In practice these may overlap heavily with delegated acts for some base acts. Direction: `incoming`.
   Example: `cellar relations get-completing-acts --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
 - `get-proposals-to-amend` (`get_proposals_to_amend`): Shows proposals to amend the given act. Direction: `incoming`.
   Example: `cellar relations get-proposals-to-amend --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
@@ -120,7 +121,7 @@ Case-law relation commands (`get-cjeu-judgments`, `get-ag-opinions`, `get-prelim
 
 ## MONITORING
 
-Monitoring commands always require `--since` and return only newer items.
+Monitoring commands always require `--since`; `--to` is optional when you want an upper date/time bound.
 Relation-based `new-*` commands are `incoming` only.
 
 - `new-citations` (`new_citations`): New citations since the given date/time.

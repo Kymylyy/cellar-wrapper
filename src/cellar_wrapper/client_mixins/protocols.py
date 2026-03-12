@@ -48,6 +48,14 @@ class ClientOpsProtocol(Protocol):
 
     def _coerce_since(self, since: date | datetime | str | None) -> str | None: ...
 
+    def _coerce_to(self, to: date | datetime | str | None) -> str | None: ...
+
+    def _normalize_date_bounds(
+        self,
+        since: date | datetime | str | None,
+        to: date | datetime | str | None,
+    ) -> tuple[str | None, str | None]: ...
+
     @staticmethod
     def _validate_pagination(limit: int, offset: int) -> None: ...
 
@@ -93,6 +101,7 @@ class ClientOpsProtocol(Protocol):
         method_name: str,
         celex: str,
         since: date | datetime | str | None,
+        to: date | datetime | str | None,
         include_undated: bool,
         resource_type: str | None,
         limit: int,
@@ -107,6 +116,7 @@ class ClientOpsProtocol(Protocol):
         method_name: str,
         celex: str,
         since: date | datetime | str | None,
+        to: date | datetime | str | None,
         include_undated: bool,
         resource_type: str | None,
         limit: int,
@@ -120,6 +130,7 @@ class ClientOpsProtocol(Protocol):
         method_name: str,
         celex: str,
         since: date | datetime | str | None,
+        to: date | datetime | str | None,
         include_undated: bool,
         resource_type: str | None,
         limit: int,
@@ -133,6 +144,7 @@ class ClientOpsProtocol(Protocol):
         method_name: str,
         celex: str,
         since: date | datetime | str,
+        to: date | datetime | str | None,
         resource_type: str | None,
         limit: int,
         offset: int,
@@ -145,6 +157,7 @@ class ClientOpsProtocol(Protocol):
         method_name: str,
         celex: str,
         since: date | datetime | str,
+        to: date | datetime | str | None,
         resource_type: str | None,
         limit: int,
         offset: int,
@@ -157,6 +170,7 @@ class ClientOpsProtocol(Protocol):
         method_name: str,
         celex: str,
         since: date | datetime | str,
+        to: date | datetime | str | None,
         resource_type: str | None,
         limit: int,
         offset: int,
@@ -169,6 +183,7 @@ class ClientOpsProtocol(Protocol):
         *,
         resource_type: str | None = None,
         since: date | datetime | str | None = None,
+        to: date | datetime | str | None = None,
         limit: int,
         offset: int,
         lang: str,

@@ -28,6 +28,7 @@ class SearchMixin:
         *,
         resource_type: str | None = None,
         since: date | datetime | str | None = None,
+        to: date | datetime | str | None = None,
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
@@ -42,10 +43,12 @@ class SearchMixin:
                 limit=limit,
                 offset=offset,
             )
+        since_value, to_value = self._normalize_date_bounds(since, to)
         query = build_search_by_eurovoc_query(
             concept_uris,
             resource_type=self._normalize_resource_type(resource_type),
-            since=self._coerce_since(since),
+            since=since_value,
+            to=to_value,
             limit=limit,
             offset=offset,
             lang=self._normalize_lang(lang),
@@ -65,6 +68,7 @@ class SearchMixin:
         *,
         resource_type: str | None = None,
         since: date | datetime | str | None = None,
+        to: date | datetime | str | None = None,
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
@@ -79,10 +83,12 @@ class SearchMixin:
                 limit=limit,
                 offset=offset,
             )
+        since_value, to_value = self._normalize_date_bounds(since, to)
         query = build_search_by_subject_matter_query(
             concept_uris,
             resource_type=self._normalize_resource_type(resource_type),
-            since=self._coerce_since(since),
+            since=since_value,
+            to=to_value,
             limit=limit,
             offset=offset,
             lang=self._normalize_lang(lang),
@@ -101,6 +107,7 @@ class SearchMixin:
         *,
         resource_type: str | None = None,
         since: date | datetime | str | None = None,
+        to: date | datetime | str | None = None,
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
@@ -108,10 +115,12 @@ class SearchMixin:
         self._validate_pagination(limit, offset)
         if not keyword.strip():
             raise CellarValidationError("keyword cannot be empty")
+        since_value, to_value = self._normalize_date_bounds(since, to)
         query = build_search_by_title_query(
             keyword,
             resource_type=self._normalize_resource_type(resource_type),
-            since=self._coerce_since(since),
+            since=since_value,
+            to=to_value,
             limit=limit,
             offset=offset,
             lang=self._normalize_lang(lang),
@@ -129,6 +138,7 @@ class SearchMixin:
         dg: str,
         *,
         since: date | datetime | str | None = None,
+        to: date | datetime | str | None = None,
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
@@ -136,9 +146,11 @@ class SearchMixin:
         if not dg.strip():
             raise CellarValidationError("dg cannot be empty")
         self._validate_pagination(limit, offset)
+        since_value, to_value = self._normalize_date_bounds(since, to)
         query = build_search_communications_query(
             dg,
-            since=self._coerce_since(since),
+            since=since_value,
+            to=to_value,
             limit=limit,
             offset=offset,
             lang=self._normalize_lang(lang),

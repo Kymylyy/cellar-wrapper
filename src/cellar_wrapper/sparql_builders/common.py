@@ -15,6 +15,7 @@ from cellar_wrapper.constants import (
     RESOURCE_TYPE_URI_TEMPLATE,
     SPARQL_PREFIXES,
 )
+from cellar_wrapper.date_utils import parse_iso_date_or_datetime
 
 LANGUAGE_TOKEN_RE = re.compile(r"^[A-Za-z]{3}$")
 RESOURCE_TYPE_TOKEN_RE = re.compile(r"^[A-Z_]+$")
@@ -95,25 +96,63 @@ def _normalize_datetime_lexical(dt: datetime) -> str:
     return dt_utc.isoformat().replace("+00:00", "Z")
 
 
-def _normalize_since_datetime_literal(value: date | datetime | str) -> str:
-    """Normalize date-like input to ISO xsd:dateTime lexical form."""
+def _normalize_date_bound_datetime(value: date | datetime | str, *, field_name: str) -> datetime:
+    """Normalize date-like input to a UTC datetime for filtering."""
     if isinstance(value, datetime):
-        return _normalize_datetime_lexical(value)
-    if isinstance(value, date):
-        return _normalize_datetime_lexical(datetime.combine(value, time.min, tzinfo=UTC))
-
-    candidate = value.strip()
-    if not candidate:
-        raise ValueError("since cannot be empty")
-    try:
-        parsed_datetime = datetime.fromisoformat(candidate.replace("Z", "+00:00"))
-        return _normalize_datetime_lexical(parsed_datetime)
-    except ValueError:
+        normalized = value
+    elif isinstance(value, date):
+        normalized = datetime.combine(value, time.min, tzinfo=UTC)
+    else:
+        candidate = value.strip()
+        if not candidate:
+            raise ValueError(f"{field_name} cannot be empty")
         try:
-            parsed_date = date.fromisoformat(candidate)
-            return _normalize_datetime_lexical(datetime.combine(parsed_date, time.min, tzinfo=UTC))
+            parsed = parse_iso_date_or_datetime(candidate)
         except ValueError as exc:
-            raise ValueError(f"Invalid since value (expected ISO date/datetime): {value!r}") from exc
+            raise ValueError(f"Invalid {field_name} value (expected ISO date/datetime): {value!r}") from exc
+        if isinstance(parsed, datetime):
+            normalized = parsed
+        else:
+            normalized = datetime.combine(parsed, time.min, tzinfo=UTC)
+
+    if normalized.tzinfo is None:
+        normalized = normalized.replace(tzinfo=UTC)
+    return normalized.astimezone(UTC).replace(microsecond=0)
+
+
+def date_bounds_filter(
+    var_name: str,
+    *,
+    since: date | datetime | str | None = None,
+    to: date | datetime | str | None = None,
+    include_undated: bool = False,
+) -> str:
+    """Render strict date-bound filter for date-like columns."""
+    if since is None and to is None:
+        return ""
+    if not SPARQL_VAR_RE.fullmatch(var_name):
+        raise ValueError(f"Invalid SPARQL variable name: {var_name!r}")
+
+    normalized_since: datetime | None = None
+    normalized_to: datetime | None = None
+    comparisons: list[str] = []
+    if since is not None:
+        normalized_since = _normalize_date_bound_datetime(since, field_name="since")
+        since_literal = quote_literal(_normalize_datetime_lexical(normalized_since))
+        comparisons.append(f"?{var_name} > {since_literal}^^xsd:dateTime")
+    if to is not None:
+        normalized_to = _normalize_date_bound_datetime(to, field_name="to")
+        to_literal = quote_literal(_normalize_datetime_lexical(normalized_to))
+        comparisons.append(f"?{var_name} < {to_literal}^^xsd:dateTime")
+    if normalized_since is not None and normalized_to is not None and normalized_since > normalized_to:
+        raise ValueError("since cannot be later than to")
+
+    comparison = " && ".join(comparisons)
+    if len(comparisons) > 1:
+        comparison = f"({comparison})"
+    if include_undated:
+        return f"FILTER(!BOUND(?{var_name}) || {comparison})"
+    return f"FILTER(BOUND(?{var_name}) && {comparison})"
 
 
 def since_filter(
@@ -122,17 +161,8 @@ def since_filter(
     *,
     include_undated: bool = False,
 ) -> str:
-    """Render strict `>` filter for date-like column."""
-    if since is None:
-        return ""
-    if not SPARQL_VAR_RE.fullmatch(var_name):
-        raise ValueError(f"Invalid SPARQL variable name: {var_name!r}")
-    normalized = _normalize_since_datetime_literal(since)
-    literal = quote_literal(normalized)
-    comparison = f"?{var_name} > {literal}^^xsd:dateTime"
-    if include_undated:
-        return f"FILTER(!BOUND(?{var_name}) || {comparison})"
-    return f"FILTER(BOUND(?{var_name}) && {comparison})"
+    """Backward-compatible wrapper for a lower date bound."""
+    return date_bounds_filter(var_name, since=since, include_undated=include_undated)
 
 
 def resource_type_clause(resource_type: str | None) -> str:

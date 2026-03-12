@@ -19,7 +19,12 @@ from cellar_wrapper.sparql import (
     build_search_by_subject_matter_query,
     build_search_communications_query,
 )
-from cellar_wrapper.sparql_builders.common import quote_literal, safe_iri, since_filter
+from cellar_wrapper.sparql_builders.common import (
+    date_bounds_filter,
+    quote_literal,
+    safe_iri,
+    since_filter,
+)
 
 
 def test_build_resolve_celex_exact_uses_equals_filter() -> None:
@@ -44,6 +49,7 @@ def test_relation_query_uses_since_date_time_filter() -> None:
         predicates=[PredicateSpec("cdm:work_cites_work", "cites")],
         direction="incoming",
         since="2025-01-01",
+        to=None,
         resource_type="PROP_REG",
         limit=200,
         offset=0,
@@ -58,6 +64,7 @@ def test_relation_query_monitoring_filter_is_strict() -> None:
         predicates=[PredicateSpec("cdm:work_cites_work", "cites")],
         direction="incoming",
         since="2025-01-01",
+        to=None,
         resource_type=None,
         limit=10,
         offset=0,
@@ -72,6 +79,7 @@ def test_relation_query_incoming_excludes_outgoing_branch() -> None:
         predicates=[PredicateSpec("cdm:resource_legal_amends_resource_legal", "amends")],
         direction="incoming",
         since=None,
+        to=None,
         resource_type=None,
         limit=10,
         offset=0,
@@ -86,6 +94,7 @@ def test_relation_query_outgoing_excludes_incoming_branch() -> None:
         predicates=[PredicateSpec("cdm:resource_legal_amends_resource_legal", "amends")],
         direction="outgoing",
         since=None,
+        to=None,
         resource_type=None,
         limit=10,
         offset=0,
@@ -123,6 +132,7 @@ def test_search_by_eurovoc_query_filters_by_concept_values() -> None:
         ["http://eurovoc.europa.eu/2220"],
         resource_type=None,
         since=None,
+        to=None,
         limit=50,
         offset=0,
     )
@@ -136,6 +146,7 @@ def test_search_by_subject_matter_query_filters_by_concept_values() -> None:
         ["http://publications.europa.eu/resource/authority/subject-matter/PDON"],
         resource_type=None,
         since=None,
+        to=None,
         limit=50,
         offset=0,
     )
@@ -153,6 +164,7 @@ def test_search_by_subject_matter_query_rejects_empty_concept_uris() -> None:
             [],
             resource_type=None,
             since=None,
+            to=None,
             limit=50,
             offset=0,
         )
@@ -177,6 +189,7 @@ def test_relation_query_rejects_empty_predicates() -> None:
             predicates=[],
             direction="incoming",
             since=None,
+            to=None,
             resource_type=None,
             limit=10,
             offset=0,
@@ -190,6 +203,7 @@ def test_relation_query_rejects_bad_direction() -> None:
             predicates=[PredicateSpec("cdm:work_cites_work", "cites")],
             direction="sideways",
             since=None,
+            to=None,
             resource_type=None,
             limit=10,
             offset=0,
@@ -202,6 +216,7 @@ def test_relation_query_escapes_bind_relation_type_literal() -> None:
         predicates=[PredicateSpec("cdm:work_cites_work", "rel'ation")],
         direction="incoming",
         since=None,
+        to=None,
         resource_type=None,
         limit=10,
         offset=0,
@@ -239,6 +254,24 @@ def test_since_filter_include_undated() -> None:
 def test_since_filter_strict_monitoring() -> None:
     clause = since_filter("date", "2025-01-01T10:11:12Z", include_undated=False)
     assert clause == "FILTER(BOUND(?date) && ?date > '2025-01-01T10:11:12Z'^^xsd:dateTime)"
+
+
+def test_date_bounds_filter_with_upper_bound_only() -> None:
+    clause = date_bounds_filter("date", to="2025-01-31", include_undated=True)
+    assert clause == "FILTER(!BOUND(?date) || ?date < '2025-01-31T00:00:00Z'^^xsd:dateTime)"
+
+
+def test_date_bounds_filter_with_both_bounds() -> None:
+    clause = date_bounds_filter("date", since="2025-01-01", to="2025-01-31", include_undated=False)
+    assert clause == (
+        "FILTER(BOUND(?date) && (?date > '2025-01-01T00:00:00Z'^^xsd:dateTime && "
+        "?date < '2025-01-31T00:00:00Z'^^xsd:dateTime))"
+    )
+
+
+def test_date_bounds_filter_rejects_inverted_range() -> None:
+    with pytest.raises(ValueError, match="since cannot be later than to"):
+        date_bounds_filter("date", since="2025-02-01", to="2025-01-01")
 
 
 def test_build_dossier_query_excludes_self_reference() -> None:

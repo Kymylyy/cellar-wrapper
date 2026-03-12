@@ -34,7 +34,9 @@ from .relation_execution import call_nim_result, call_relation_result, fetch_rel
 from .relation_specs import RelationCallSpec
 from .result_builders import build_list_result, build_query_meta
 from .validation import (
+    coerce_date_bound,
     coerce_since,
+    coerce_to,
     dedupe_non_empty_casefold,
     normalize_celex,
     normalize_country,
@@ -42,6 +44,7 @@ from .validation import (
     normalize_lang,
     normalize_non_empty_values,
     normalize_resource_type,
+    validate_date_range,
     validate_pagination,
 )
 
@@ -117,6 +120,19 @@ class ClientBase:
 
     def _coerce_since(self, since: date | datetime | str | None) -> str | None:
         return coerce_since(since)
+
+    def _coerce_to(self, to: date | datetime | str | None) -> str | None:
+        return coerce_to(to)
+
+    def _normalize_date_bounds(
+        self,
+        since: date | datetime | str | None,
+        to: date | datetime | str | None,
+    ) -> tuple[str | None, str | None]:
+        since_value = coerce_date_bound(since, field_name="since")
+        to_value = coerce_date_bound(to, field_name="to")
+        validate_date_range(since_value, to_value)
+        return since_value, to_value
 
     @staticmethod
     def _validate_pagination(limit: int, offset: int) -> None:
@@ -207,6 +223,7 @@ class ClientBase:
         method_name: str,
         celex: str,
         since: date | datetime | str | None,
+        to: date | datetime | str | None,
         include_undated: bool,
         resource_type: str | None,
         limit: int,
@@ -218,6 +235,7 @@ class ClientBase:
             method_name=method_name,
             celex=celex,
             since=since,
+            to=to,
             include_undated=include_undated,
             resource_type=resource_type,
             limit=limit,
@@ -228,7 +246,7 @@ class ClientBase:
             normalize_lang=self._normalize_lang,
             normalize_resource_type=self._normalize_resource_type,
             normalize_direction=self._normalize_direction,
-            coerce_since=self._coerce_since,
+            normalize_date_bounds=self._normalize_date_bounds,
             resolve_work_uri=self._resolve_work_uri,
             query_sparql=self._transport.query_sparql,
             list_result_builder=self._list_result,
@@ -240,6 +258,7 @@ class ClientBase:
         method_name: str,
         celex: str,
         since: date | datetime | str | None,
+        to: date | datetime | str | None,
         include_undated: bool,
         resource_type: str | None,
         limit: int,
@@ -252,6 +271,7 @@ class ClientBase:
             method_name=method_name,
             celex=celex,
             since=since,
+            to=to,
             include_undated=include_undated,
             resource_type=resource_type,
             limit=limit,
@@ -263,7 +283,7 @@ class ClientBase:
             normalize_lang=self._normalize_lang,
             normalize_resource_type=self._normalize_resource_type,
             normalize_direction=self._normalize_direction,
-            coerce_since=self._coerce_since,
+            normalize_date_bounds=self._normalize_date_bounds,
             resolve_work_uri=self._resolve_work_uri,
             query_sparql=self._transport.query_sparql,
         )
@@ -274,6 +294,7 @@ class ClientBase:
         method_name: str,
         celex: str,
         since: date | datetime | str | None,
+        to: date | datetime | str | None,
         include_undated: bool,
         resource_type: str | None,
         limit: int,
@@ -285,6 +306,7 @@ class ClientBase:
             method_name=method_name,
             celex=celex,
             since=since,
+            to=to,
             include_undated=include_undated,
             resource_type=resource_type,
             limit=limit,
@@ -300,6 +322,7 @@ class ClientBase:
         method_name: str,
         celex: str,
         since: date | datetime | str | None,
+        to: date | datetime | str | None,
         include_undated: bool,
         resource_type: str | None,
         limit: int,
@@ -310,6 +333,7 @@ class ClientBase:
             method_name=method_name,
             celex=celex,
             since=since,
+            to=to,
             include_undated=include_undated,
             resource_type=resource_type,
             limit=limit,
@@ -325,6 +349,7 @@ class ClientBase:
         method_name: str,
         celex: str,
         since: date | datetime | str | None,
+        to: date | datetime | str | None,
         include_undated: bool,
         resource_type: str | None,
         limit: int,
@@ -335,6 +360,7 @@ class ClientBase:
             method_name=method_name,
             celex=celex,
             since=since,
+            to=to,
             include_undated=include_undated,
             resource_type=resource_type,
             limit=limit,
@@ -345,7 +371,7 @@ class ClientBase:
             normalize_lang=self._normalize_lang,
             normalize_resource_type=self._normalize_resource_type,
             normalize_direction=self._normalize_direction,
-            coerce_since=self._coerce_since,
+            normalize_date_bounds=self._normalize_date_bounds,
             resolve_work_uri=self._resolve_work_uri,
             query_sparql=self._transport.query_sparql,
             list_result_builder=self._list_result,

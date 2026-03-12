@@ -64,9 +64,10 @@ HttpTransport(
 - `relation_type`
 
 For relation semantics, note in particular:
-- `get_delegated_acts` is backed by `cdm:resource_legal_based_on_resource_legal` and is broader in practice than the command name suggests.
+- `get_based_on_acts` is backed by `cdm:resource_legal_based_on_resource_legal` and returns the broad incoming `based_on` bucket.
 - `get_completing_acts` is backed by `cdm:resource_legal_completes_resource_legal` and is the narrower "supplements/completes this act" relation.
-- For some acts, the two result sets can overlap substantially.
+- For some acts, the two result sets can overlap substantially, but `get_completing_acts` is typically the narrower subset.
+- `get_based_on_acts` can include non-delegated resource types such as implementing acts, drafts, reports, and resolutions.
 
 `ArticleAnnotationItem` extends `RelationItem` and is returned by `get_article_annotations`. It may include:
 - `annotation_uri`

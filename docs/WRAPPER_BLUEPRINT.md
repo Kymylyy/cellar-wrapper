@@ -480,7 +480,7 @@ CELLAR Wrapper (~33 methods)
 │   ├── get_amendments(celex)             -> amendments (in / out)
 │   ├── get_repeals(celex)                -> repeals (in / out)
 │   ├── get_citations(celex)              -> citations (in / out)
-│   ├── get_delegated_acts(celex)         -> delegated / implementing acts
+│   ├── get_based_on_acts(celex)          -> broad "based on" acts / documents
 │   ├── get_completing_acts(celex)        -> completing acts
 │   ├── get_proposals_to_amend(celex)     -> proposals to amend
 │   ├── get_adopted_act(celex)            -> proposal -> adopted act
@@ -512,7 +512,7 @@ CELLAR Wrapper (~33 methods)
 ├── MONITORING
 │   ├── new_citations(celex, since)       -> new citations
 │   ├── new_amendments(celex, since)      -> new amendments
-│   ├── new_delegated_acts(celex, since)  -> new delegated / implementing acts
+│   ├── new_based_on_acts(celex, since)   -> new "based on" acts / documents
 │   ├── new_case_law(celex, since)        -> new case law
 │   ├── new_corrigenda(celex, since)      -> new corrigenda
 │   ├── new_consolidated(celex, since)    -> new consolidations

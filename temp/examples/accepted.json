@@ -1002,7 +1002,7 @@
   {
     "label": "DORA",
     "celex": "32022R2554",
-    "command": "relations get-delegated-acts",
+    "command": "relations get-based-on-acts",
     "purpose": "Checks delegated acts based on DORA.",
     "args": {
       "celex": "32022R2554",
@@ -1064,7 +1064,7 @@
         ],
         "returned_count": 3,
         "meta": {
-          "query_name": "get_delegated_acts",
+          "query_name": "get_based_on_acts",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
           "executed_at": "2026-03-12T19:13:11.001870Z",
           "limit": 3,
@@ -1076,7 +1076,7 @@
   {
     "label": "DORA RMF",
     "celex": "32024R1774",
-    "command": "relations get-delegated-acts",
+    "command": "relations get-based-on-acts",
     "purpose": "Checks delegated acts based on DORA RMF.",
     "args": {
       "celex": "32024R1774",
@@ -1088,7 +1088,7 @@
         "items": [],
         "returned_count": 0,
         "meta": {
-          "query_name": "get_delegated_acts",
+          "query_name": "get_based_on_acts",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
           "executed_at": "2026-03-12T19:13:11.129902Z",
           "limit": 200,

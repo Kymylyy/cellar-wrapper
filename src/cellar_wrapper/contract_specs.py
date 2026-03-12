@@ -38,7 +38,7 @@ RELATION_METHODS = frozenset(
         "get_consolidated_versions",
         "get_corrigenda",
         "get_deadlines",
-        "get_delegated_acts",
+        "get_based_on_acts",
         "get_legal_basis",
         "get_opinions",
         "get_other_relations",
@@ -49,7 +49,7 @@ RELATION_METHODS = frozenset(
         "new_citations",
         "new_consolidated",
         "new_corrigenda",
-        "new_delegated_acts",
+        "new_based_on_acts",
         "new_proposals_to_amend",
         "new_repeals",
     }

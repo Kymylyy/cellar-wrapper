@@ -15,7 +15,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `get_amendments` -> `cdm:resource_legal_amends_resource_legal`
 - `get_repeals` -> `cdm:resource_legal_repeals_resource_legal`, `cdm:resource_legal_implicitly_repeals_resource_legal`
 - `get_citations` -> `cdm:work_cites_work`
-- `get_delegated_acts` -> `cdm:resource_legal_based_on_resource_legal` (incoming)
+- `get_based_on_acts` -> `cdm:resource_legal_based_on_resource_legal` (incoming)
   - practical meaning: acts/documents based on the given act; often delegated acts, but not guaranteed to be limited to delegated regulations/directives
 - `get_completing_acts` -> `cdm:resource_legal_completes_resource_legal` (incoming)
   - practical meaning: the narrower subset of acts that CELLAR marks as completing/supplementing the given act; this can overlap heavily with delegated acts
@@ -76,7 +76,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `new_amendments` -> `get_amendments` + `date > since` (+ optional `date < to`)
 - `new_repeals` -> `get_repeals` + `date > since` (+ optional `date < to`)
 - `new_proposals_to_amend` -> `get_proposals_to_amend` + `date > since` (+ optional `date < to`)
-- `new_delegated_acts` -> `get_delegated_acts` + `date > since` (+ optional `date < to`)
+- `new_based_on_acts` -> `get_based_on_acts` + `date > since` (+ optional `date < to`)
 - `new_case_law` -> `get_cjeu_judgments` + `date > since` (+ optional `date < to`)
 - `new_preliminary_questions` -> `get_preliminary_questions` + `date > since` (+ optional `date < to`)
 - `new_corrigenda` -> `get_corrigenda` + `date > since` (+ optional `date < to`)

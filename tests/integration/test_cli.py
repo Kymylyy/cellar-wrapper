@@ -17,8 +17,10 @@ class StubClient:
         self.search_by_title_calls: list[dict[str, object]] = []
         self.get_consolidated_versions_calls: list[dict[str, object]] = []
         self.get_amendments_calls: list[dict[str, object]] = []
+        self.get_based_on_acts_calls: list[dict[str, object]] = []
         self.get_national_decisions_calls: list[dict[str, object]] = []
         self.monitoring_calls: dict[str, list[dict[str, object]]] = {
+            "new_based_on_acts": [],
             "new_repeals": [],
             "new_proposals_to_amend": [],
             "new_preliminary_questions": [],
@@ -38,6 +40,10 @@ class StubClient:
         self.get_amendments_calls.append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
+    def get_based_on_acts(self, **kwargs: object) -> dict[str, object]:
+        self.get_based_on_acts_calls.append(kwargs)
+        return {"items": [], "kwargs": kwargs}
+
     def get_consolidated_versions(self, **kwargs: object) -> dict[str, object]:
         self.get_consolidated_versions_calls.append(kwargs)
         return {"items": [], "kwargs": kwargs}
@@ -54,6 +60,10 @@ class StubClient:
 
     def new_repeals(self, **kwargs: object) -> dict[str, object]:
         self.monitoring_calls["new_repeals"].append(kwargs)
+        return {"items": [], "kwargs": kwargs}
+
+    def new_based_on_acts(self, **kwargs: object) -> dict[str, object]:
+        self.monitoring_calls["new_based_on_acts"].append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
     def new_proposals_to_amend(self, **kwargs: object) -> dict[str, object]:
@@ -300,6 +310,53 @@ def test_cli_relations_accepts_direction_filter(
     payload = json.loads(capsys.readouterr().out)
     assert payload["ok"] is True
     assert stub.get_amendments_calls[0]["direction"] == "outgoing"
+
+
+def test_cli_relations_dispatches_get_based_on_acts(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    stub = StubClient()
+    monkeypatch.setattr(cli, "_build_client", lambda args: stub)
+    exit_code = cli.run(
+        [
+            "relations",
+            "get-based-on-acts",
+            "--celex",
+            "32022R2554",
+            "--since",
+            "2025-01-01",
+        ]
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is True
+    assert stub.get_based_on_acts_calls[0]["celex"] == "32022R2554"
+    assert stub.get_based_on_acts_calls[0]["since"] == "2025-01-01"
+
+
+def test_cli_monitoring_dispatches_new_based_on_acts(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    stub = StubClient()
+    monkeypatch.setattr(cli, "_build_client", lambda args: stub)
+    exit_code = cli.run(
+        [
+            "monitoring",
+            "new-based-on-acts",
+            "--celex",
+            "32022R2554",
+            "--since",
+            "2025-01-01",
+        ]
+    )
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is True
+    assert stub.monitoring_calls["new_based_on_acts"][0]["celex"] == "32022R2554"
 
 
 def test_cli_generic_relation_output_omits_annotation_fields(

@@ -258,7 +258,7 @@ class MonitoringMixin:
             lang=lang,
         )
 
-    def new_delegated_acts(
+    def new_based_on_acts(
         self: ClientOpsProtocol,
         celex: str,
         since: date | datetime | str,
@@ -270,7 +270,7 @@ class MonitoringMixin:
         lang: str = DEFAULT_LANGUAGE,
     ) -> ListResult[RelationItem]:
         return self._new_relation(
-            method_name="new_delegated_acts",
+            method_name="new_based_on_acts",
             celex=celex,
             since=since,
             to=to,

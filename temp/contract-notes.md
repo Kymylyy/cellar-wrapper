@@ -55,3 +55,9 @@ Robocze notatki z testowania komend i kontraktow API.
 - Acts: `MiFID II`
 - Observation: For some acts, this contract is not limited in practice to delegated regulations/directives. It can behave more like "acts/documents based on this act", even though it is exposed under the name `get-based-on-acts`.
 - Follow-up: Treat the command name as narrower than the observed payload. Verify returned `resource_type` values when using this contract as an examples source.
+
+### `relations get-proposals-to-change`
+
+- Acts: `AI Act`, `PSD2`, `White Paper on urban wastewater treatment and water reuse`
+- Observation: Wrapper command and contract type now expose this as "proposals to change", because CELLAR’s `cdm:resource_legal_proposes_to_amend_resource_legal` includes amendment, repeal, and recast intent.
+- Follow-up: Treat results as legislative-change intents, not strictly "amendment-only" intentions.

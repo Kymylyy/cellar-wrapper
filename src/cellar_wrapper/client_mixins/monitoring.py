@@ -236,7 +236,7 @@ class MonitoringMixin:
             lang=lang,
         )
 
-    def new_proposals_to_amend(
+    def new_proposals_to_change(
         self: ClientOpsProtocol,
         celex: str,
         since: date | datetime | str,
@@ -248,7 +248,7 @@ class MonitoringMixin:
         lang: str = DEFAULT_LANGUAGE,
     ) -> ListResult[RelationItem]:
         return self._new_relation(
-            method_name="new_proposals_to_amend",
+            method_name="new_proposals_to_change",
             celex=celex,
             since=since,
             to=to,

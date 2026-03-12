@@ -1176,8 +1176,8 @@
   {
     "label": "AI Act",
     "celex": "32024R1689",
-    "command": "relations get-proposals-to-amend",
-    "purpose": "Checks proposal acts that would amend the AI Act.",
+    "command": "relations get-proposals-to-change",
+    "purpose": "Checks proposal acts that may amend, repeal, recast, or otherwise change the AI Act.",
     "args": {
       "celex": "32024R1689",
       "lang": "eng",
@@ -1195,7 +1195,7 @@
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG",
             "direction": "incoming",
             "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
-            "relation_type": "proposes_to_amend"
+            "relation_type": "proposes_to_change"
           },
           {
             "uri": "http://publications.europa.eu/resource/cellar/c8c51d1a-c572-11f0-8da2-01aa75ed71a1",
@@ -1205,12 +1205,12 @@
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG",
             "direction": "incoming",
             "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
-            "relation_type": "proposes_to_amend"
+            "relation_type": "proposes_to_change"
           }
         ],
         "returned_count": 2,
         "meta": {
-          "query_name": "get_proposals_to_amend",
+          "query_name": "get_proposals_to_change",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
           "executed_at": "2026-03-12T19:52:52.378603Z",
           "limit": 20,
@@ -1222,8 +1222,8 @@
   {
     "label": "PSD2",
     "celex": "32015L2366",
-    "command": "relations get-proposals-to-amend",
-    "purpose": "Checks proposal acts that would amend or repeal PSD2.",
+    "command": "relations get-proposals-to-change",
+    "purpose": "Checks proposal acts that may amend, repeal, recast, or otherwise change PSD2.",
     "args": {
       "celex": "32015L2366",
       "lang": "eng",
@@ -1241,7 +1241,7 @@
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_DIR",
             "direction": "incoming",
             "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
-            "relation_type": "proposes_to_amend"
+            "relation_type": "proposes_to_change"
           },
           {
             "uri": "http://publications.europa.eu/resource/cellar/4866bb3a-fe42-11ea-b44f-01aa75ed71a1",
@@ -1251,12 +1251,12 @@
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_DIR",
             "direction": "incoming",
             "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
-            "relation_type": "proposes_to_amend"
+            "relation_type": "proposes_to_change"
           }
         ],
         "returned_count": 2,
         "meta": {
-          "query_name": "get_proposals_to_amend",
+          "query_name": "get_proposals_to_change",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
           "executed_at": "2026-03-12T19:54:20.158097Z",
           "limit": 20,
@@ -1266,36 +1266,56 @@
     }
   },
   {
-    "label": "MiCA proposal",
-    "celex": "52020PC0593",
-    "command": "relations get-adopted-act",
-    "purpose": "Checks which adopted act resulted from the MiCA proposal.",
+    "label": "White Paper on urban wastewater treatment and water reuse",
+    "celex": "31991L0271",
+    "command": "relations get-proposals-to-change",
+    "purpose": "Checks proposal acts that may recast the existing urban wastewater framework.",
     "args": {
-      "celex": "52020PC0593",
+      "celex": "31991L0271",
       "lang": "eng",
-      "limit": 10
+      "limit": 20
     },
     "output": {
       "ok": true,
       "data": {
         "items": [
           {
-            "uri": "http://publications.europa.eu/resource/cellar/01d55833-0660-11ee-b12e-01aa75ed71a1",
-            "celex": "32023R1114",
-            "title": "Regulation (EU) 2023/1114 of the European Parliament and of the Council of 31 May 2023 on markets in crypto-assets, and amending Regulations (EU) No 1093/2010 and (EU) No 1095/2010 and Directives 2013/36/EU and (EU) 2019/1937 (Text with EEA relevance)",
-            "date": "2023-05-31T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
+            "uri": "http://publications.europa.eu/resource/cellar/fc078ec8-55f7-11ed-92ed-01aa75ed71a1",
+            "celex": "52022PC0541",
+            "title": "Proposal for a DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL concerning urban wastewater treatment (recast)",
+            "date": "2022-10-26T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_DIR",
             "direction": "incoming",
-            "predicate": "cdm:resource_legal_adopts_resource_legal",
-            "relation_type": "adopts"
+            "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
+            "relation_type": "proposes_to_change"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/ee49881c-e89e-41df-ac6f-6de813c9a4a6",
+            "celex": "52007PC0741",
+            "title": "Proposal for a Regulation of the European Parliament and of the Council adapting a number of instruments subject to the procedure referred to in Article 251 of the Treaty to Council Decision 1999/468/EC, as amended by Decision 2006/512/EC, with regard to the regulatory procedure with scrutiny - Part One - Adaptation to the regulatory procedure with scrutiny",
+            "date": "2007-11-23T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
+            "relation_type": "proposes_to_change"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/aee7d789-6e31-40a0-94a0-4c3470ad8cfb",
+            "celex": "52001PC0789(02)",
+            "title": "Proposal for a Regulation of the European Parliament and of the Council adapting the provisions relating to committees which assist the Commission in the exercise of its implementing powers laid down in European Parliament and Council instruments adopted in accordance with the procedure laid down in Article 251 of the Treaty",
+            "date": "2001-12-27T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
+            "relation_type": "proposes_to_change"
           }
         ],
-        "returned_count": 1,
+        "returned_count": 3,
         "meta": {
-          "query_name": "get_adopted_act",
+          "query_name": "get_proposals_to_change",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-12T20:08:00.704054Z",
-          "limit": 10,
+          "executed_at": "2026-03-12T20:50:47.007438Z",
+          "limit": 20,
           "offset": 0
         }
       }

@@ -162,7 +162,7 @@ class RelationsMixin:
             lang=lang,
         )
 
-    def get_proposals_to_amend(
+    def get_proposals_to_change(
         self: ClientOpsProtocol,
         celex: str,
         *,
@@ -175,7 +175,7 @@ class RelationsMixin:
     ) -> ListResult[RelationItem]:
         return _call_relation(
             self,
-            method_name="get_proposals_to_amend",
+            method_name="get_proposals_to_change",
             celex=celex,
             since=since,
             to=to,

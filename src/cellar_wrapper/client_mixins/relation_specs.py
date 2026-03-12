@@ -37,8 +37,8 @@ RELATION_CALL_SPECS: dict[str, RelationCallSpec] = {
         [PredicateSpec(PREDICATES["completes"], "completes")],
         "incoming",
     ),
-    "get_proposals_to_amend": RelationCallSpec(
-        [PredicateSpec(PREDICATES["proposes_to_amend"], "proposes_to_amend")],
+    "get_proposals_to_change": RelationCallSpec(
+        [PredicateSpec(PREDICATES["proposes_to_amend"], "proposes_to_change")],
         "incoming",
     ),
     "get_adopted_act": RelationCallSpec([PredicateSpec(PREDICATES["adopts"], "adopts")], "incoming"),
@@ -95,8 +95,8 @@ RELATION_CALL_SPECS: dict[str, RelationCallSpec] = {
         ],
         "incoming",
     ),
-    "new_proposals_to_amend": RelationCallSpec(
-        [PredicateSpec(PREDICATES["proposes_to_amend"], "proposes_to_amend")],
+    "new_proposals_to_change": RelationCallSpec(
+        [PredicateSpec(PREDICATES["proposes_to_amend"], "proposes_to_change")],
         "incoming",
     ),
     "new_based_on_acts": RelationCallSpec(

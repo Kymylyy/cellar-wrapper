@@ -69,8 +69,8 @@ Commands that support `--direction` accept `incoming`, `outgoing`, or `both` (de
 - Live examples:
   DORA: `get-completing-acts` returns `REG_DEL` only, while `get-based-on-acts` also returns `REG_IMPL`, `REG_DEL_DRAFT`, and `OWNINI_RES`.
   PSD2: `get-completing-acts` returns `REG_DEL` only, while `get-based-on-acts` also returns `REPORT`, `RES`, `OWNINI_RES`, and `REG_IMPL`.
-- `get-proposals-to-amend` (`get_proposals_to_amend`): Shows proposals to amend the given act. Direction: `incoming`.
-  Example: `cellar relations get-proposals-to-amend --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
+- `get-proposals-to-change` (`get_proposals_to_change`): Shows proposal acts that may amend, repeal, recast, or otherwise change the given act. Direction: `incoming`.
+  Example: `cellar relations get-proposals-to-change --celex 32024R1689 --since 2024-01-01 --lang eng --limit 50`
 - `get-adopted-act` (`get_adopted_act`): Shows adopted acts linked to the given act. Direction: `incoming`.
   Example: `cellar relations get-adopted-act --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
 - `get-related-works` (`get_related_works`): Shows generic related-work links. Direction: configurable with `--direction`; default `both`.
@@ -134,8 +134,8 @@ Relation-based `new-*` commands are `incoming` only.
   Example: `cellar monitoring new-amendments --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
 - `new-repeals` (`new_repeals`): New repeals since the given date/time.
   Example: `cellar monitoring new-repeals --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
-- `new-proposals-to-amend` (`new_proposals_to_amend`): New proposals to amend since the given date/time.
-  Example: `cellar monitoring new-proposals-to-amend --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
+- `new-proposals-to-change` (`new_proposals_to_change`): New proposals that may change the given act since the given date/time.
+  Example: `cellar monitoring new-proposals-to-change --celex 32024R1689 --since 2025-01-01 --lang eng --limit 50`
 - `new-based-on-acts` (`new_based_on_acts`): New acts/documents linked by the broad `based_on` relation since the given date/time.
   Example: `cellar monitoring new-based-on-acts --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
 - `new-case-law` (`new_case_law`): New CJEU case-law items since the given date/time.

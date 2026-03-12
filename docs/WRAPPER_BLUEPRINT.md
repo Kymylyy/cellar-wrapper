@@ -125,16 +125,16 @@ proposals citing DORA since January 2025".
 
 Applies to: all document types.
 
-### 6. Proposals to Amend
+### 6. Proposals to Change
 
 Specific to legislative proposals: what a proposal intends to change.
 
 | Question | Example |
 |---|---|
-| What does PSR propose to amend? | Reg. 1093/2010 (EBA), Reg. 2017/2394 (CPC) |
-| Which proposals want to amend DORA? | `52025PC0943` (CCP/ESMA amendments) |
+| What does PSR propose to change? | Reg. 1093/2010 (EBA), Reg. 2017/2394 (CPC), PSD2 |
+| Which proposals want to change DORA? | `52025PC0943` (CCP/ESMA, amendments/repeal/recast intent) |
 
-Property: `resource_legal_proposes_to_amend_resource_legal`.
+Property: `resource_legal_proposes_to_amend_resource_legal` (wrapper-level relation type now labeled `proposes_to_change`).
 
 Applies to: proposals (`PROP_REG`, `PROP_DIR`).
 
@@ -482,7 +482,7 @@ CELLAR Wrapper (~33 methods)
 │   ├── get_citations(celex)              -> citations (in / out)
 │   ├── get_based_on_acts(celex)          -> broad "based on" acts / documents
 │   ├── get_completing_acts(celex)        -> completing acts
-│   ├── get_proposals_to_amend(celex)     -> proposals to amend
+│   ├── get_proposals_to_change(celex)     -> proposals to change
 │   ├── get_adopted_act(celex)            -> proposal -> adopted act
 │   ├── get_related_works(celex)          -> related documents
 │   └── get_other_relations(celex)        -> suspends / defers / obsolete / influences
@@ -512,6 +512,7 @@ CELLAR Wrapper (~33 methods)
 ├── MONITORING
 │   ├── new_citations(celex, since)       -> new citations
 │   ├── new_amendments(celex, since)      -> new amendments
+│   ├── new_proposals_to_change(celex, since) -> proposals that may amend, repeal, or recast
 │   ├── new_based_on_acts(celex, since)   -> new "based on" acts / documents
 │   ├── new_case_law(celex, since)        -> new case law
 │   ├── new_corrigenda(celex, since)      -> new corrigenda

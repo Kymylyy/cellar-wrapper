@@ -136,6 +136,21 @@ def _query_handler(query: str) -> dict[str, object]:
             ]
         )
 
+    if "resource_legal_proposes_to_amend_resource_legal" in query:
+        return sparql_payload(
+            [
+                sparql_row(
+                    other="http://publications.europa.eu/resource/cellar/related",
+                    celex="52025PC1023",
+                    title="Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2017/745 and 2017/746",
+                    date="2025-12-16T00:00:00",
+                    relationType="proposes_to_change",
+                    direction="incoming",
+                    predicate="cdm:resource_legal_proposes_to_amend_resource_legal",
+                )
+            ]
+        )
+
     return sparql_payload(
         [
             sparql_row(
@@ -215,6 +230,34 @@ def test_public_methods_contract_runtime(method_name: str) -> None:
         assert isinstance(result.items[0], contract.item_type)
     else:
         assert isinstance(result, contract.return_type)
+
+
+def test_get_proposals_to_change_contract_emits_change_semantics() -> None:
+    transport = FakeTransport(
+        query_handler=_query_handler,
+        download_handler=_download_handler,
+    )
+    client = CellarClient(transport=transport)
+
+    result = client.get_proposals_to_change("32024R1689")
+
+    assert result.meta.query_name == "get_proposals_to_change"
+    assert result.items
+    assert all(item.relation_type == "proposes_to_change" for item in result.items)
+
+
+def test_new_proposals_to_change_contract_keeps_change_semantics() -> None:
+    transport = FakeTransport(
+        query_handler=_query_handler,
+        download_handler=_download_handler,
+    )
+    client = CellarClient(transport=transport)
+
+    result = client.new_proposals_to_change("32024R1689", "2025-01-01")
+
+    assert result.meta.query_name == "new_proposals_to_change"
+    assert result.items
+    assert all(item.relation_type == "proposes_to_change" for item in result.items)
 
 
 def test_non_monitoring_search_since_includes_undated_filter() -> None:

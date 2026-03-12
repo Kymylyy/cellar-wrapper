@@ -18,11 +18,12 @@ class StubClient:
         self.get_consolidated_versions_calls: list[dict[str, object]] = []
         self.get_amendments_calls: list[dict[str, object]] = []
         self.get_based_on_acts_calls: list[dict[str, object]] = []
+        self.get_proposals_to_change_calls: list[dict[str, object]] = []
         self.get_national_decisions_calls: list[dict[str, object]] = []
         self.monitoring_calls: dict[str, list[dict[str, object]]] = {
             "new_based_on_acts": [],
             "new_repeals": [],
-            "new_proposals_to_amend": [],
+            "new_proposals_to_change": [],
             "new_preliminary_questions": [],
         }
 
@@ -42,6 +43,10 @@ class StubClient:
 
     def get_based_on_acts(self, **kwargs: object) -> dict[str, object]:
         self.get_based_on_acts_calls.append(kwargs)
+        return {"items": [], "kwargs": kwargs}
+
+    def get_proposals_to_change(self, **kwargs: object) -> dict[str, object]:
+        self.get_proposals_to_change_calls.append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
     def get_consolidated_versions(self, **kwargs: object) -> dict[str, object]:
@@ -66,8 +71,8 @@ class StubClient:
         self.monitoring_calls["new_based_on_acts"].append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
-    def new_proposals_to_amend(self, **kwargs: object) -> dict[str, object]:
-        self.monitoring_calls["new_proposals_to_amend"].append(kwargs)
+    def new_proposals_to_change(self, **kwargs: object) -> dict[str, object]:
+        self.monitoring_calls["new_proposals_to_change"].append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
     def new_preliminary_questions(self, **kwargs: object) -> dict[str, object]:
@@ -514,7 +519,7 @@ def test_cli_parser_exposes_resource_type_for_regressed_commands(argv: list[str]
     ("command_name", "method_name"),
     [
         ("new-repeals", "new_repeals"),
-        ("new-proposals-to-amend", "new_proposals_to_amend"),
+        ("new-proposals-to-change", "new_proposals_to_change"),
         ("new-preliminary-questions", "new_preliminary_questions"),
     ],
 )
@@ -543,6 +548,31 @@ def test_cli_supports_new_monitoring_commands(
     assert payload["ok"] is True
     assert stub.monitoring_calls[method_name]
     assert stub.monitoring_calls[method_name][0]["to"] == "2025-02-01"
+
+
+def test_cli_relations_uses_get_proposals_to_change_method(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    stub = StubClient()
+    monkeypatch.setattr(cli, "_build_client", lambda args: stub)
+
+    exit_code = cli.run(["relations", "get-proposals-to-change", "--celex", "32024R1689"])
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is True
+    assert stub.get_proposals_to_change_calls
+    assert stub.get_proposals_to_change_calls[0]["celex"] == "32024R1689"
+
+
+def test_cli_rejects_legacy_proposal_change_command_names() -> None:
+    parser = cli.build_parser()
+    with pytest.raises(CellarValidationError):
+        parser.parse_args(["relations", "get-proposals-to-amend", "--celex", "32024R1689"])
+
+    with pytest.raises(CellarValidationError):
+        parser.parse_args(["monitoring", "new-proposals-to-amend", "--celex", "32024R1689", "--since", "2025-01-01"])
 
 
 def test_cli_monitoring_still_requires_since_when_to_is_present(capsys: pytest.CaptureFixture[str]) -> None:

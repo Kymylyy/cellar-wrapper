@@ -6,8 +6,12 @@ from datetime import date, datetime
 
 from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
-from cellar_wrapper.models import CaseLawItem, ListResult, RelationItem
-from cellar_wrapper.parser import parse_case_law_items, parse_relation_items
+from cellar_wrapper.models import ArticleAnnotationItem, CaseLawItem, ListResult, RelationItem
+from cellar_wrapper.parser import (
+    parse_article_annotation_items,
+    parse_case_law_items,
+    parse_relation_items,
+)
 from cellar_wrapper.sparql import (
     build_ag_opinions_query,
     build_article_annotations_query,
@@ -141,13 +145,13 @@ class CaseLawMixin:
         *,
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
-    ) -> ListResult[RelationItem]:
+    ) -> ListResult[ArticleAnnotationItem]:
         self._validate_pagination(limit, offset)
         query = build_article_annotations_query(self._resolve_work_uri(celex), limit=limit, offset=offset)
         return self._run_list_query(
             query_name="get_article_annotations",
             query=query,
-            parser=parse_relation_items,
+            parser=parse_article_annotation_items,
             limit=limit,
             offset=offset,
         )

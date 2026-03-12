@@ -6,7 +6,7 @@ import pytest
 
 from cellar_wrapper import cli
 from cellar_wrapper.errors import CellarNotFoundError, CellarValidationError
-from cellar_wrapper.models import ActRef
+from cellar_wrapper.models import ActRef, ArticleAnnotationItem, ListResult, QueryMeta, RelationItem
 from cellar_wrapper.version import __version__
 
 
@@ -261,6 +261,80 @@ def test_cli_relations_accepts_direction_filter(
     payload = json.loads(capsys.readouterr().out)
     assert payload["ok"] is True
     assert stub.get_amendments_calls[0]["direction"] == "outgoing"
+
+
+def test_cli_generic_relation_output_omits_annotation_fields(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    class RelationClient(StubClient):
+        def get_amendments(self, **kwargs: object) -> ListResult[RelationItem]:
+            return ListResult(
+                items=[
+                    RelationItem(
+                        uri="http://publications.europa.eu/resource/cellar/related",
+                        celex="32024R0001",
+                        direction="incoming",
+                        relation_type="amends",
+                        predicate="cdm:resource_legal_amends_resource_legal",
+                    )
+                ],
+                returned_count=1,
+                meta=QueryMeta(
+                    query_name="get_amendments",
+                    endpoint="https://example.test/sparql",
+                    executed_at="2026-03-12T00:00:00Z",
+                    limit=200,
+                    offset=0,
+                ),
+            )
+
+    monkeypatch.setattr(cli, "_build_client", lambda args: RelationClient())
+
+    exit_code = cli.run(["relations", "get-amendments", "--celex", "32022R2554"])
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    item = payload["data"]["items"][0]
+    assert "annotation_uri" not in item
+
+
+def test_cli_article_annotation_output_keeps_annotation_fields(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    class AnnotationClient(StubClient):
+        def get_article_annotations(self, **kwargs: object) -> ListResult[ArticleAnnotationItem]:
+            return ListResult(
+                items=[
+                    ArticleAnnotationItem(
+                        uri="http://publications.europa.eu/resource/cellar/annotated",
+                        direction="incoming",
+                        relation_type="article_annotation",
+                        predicate="cdm:resource_legal_amends_resource_legal",
+                        annotation_uri="http://publications.europa.eu/resource/cellar/annotation",
+                        annotation_article="5",
+                    )
+                ],
+                returned_count=1,
+                meta=QueryMeta(
+                    query_name="get_article_annotations",
+                    endpoint="https://example.test/sparql",
+                    executed_at="2026-03-12T00:00:00Z",
+                    limit=200,
+                    offset=0,
+                ),
+            )
+
+    monkeypatch.setattr(cli, "_build_client", lambda args: AnnotationClient())
+
+    exit_code = cli.run(["case-law", "get-article-annotations", "--celex", "32022R2554"])
+
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    item = payload["data"]["items"][0]
+    assert item["annotation_uri"] == "http://publications.europa.eu/resource/cellar/annotation"
+    assert item["annotation_article"] == "5"
 
 
 @pytest.mark.parametrize(

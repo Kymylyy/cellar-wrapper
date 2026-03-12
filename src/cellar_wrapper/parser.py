@@ -10,6 +10,7 @@ from cellar_wrapper.errors import CellarParseError
 from cellar_wrapper.models import (
     ActDetail,
     ActRef,
+    ArticleAnnotationItem,
     CaseLawItem,
     DossierItem,
     EurovocTag,
@@ -306,6 +307,24 @@ def parse_relation_items(rows: list[dict[str, dict[str, str]]]) -> list[Relation
     for ref, row in zip(refs, rows, strict=True):
         result.append(
             RelationItem(
+                **ref.model_dump(),
+                direction=value(row, "direction"),
+                predicate=value(row, "predicate"),
+                relation_type=value(row, "relationType"),
+            )
+        )
+    return result
+
+
+def parse_article_annotation_items(
+    rows: list[dict[str, dict[str, str]]],
+) -> list[ArticleAnnotationItem]:
+    """Parse article-annotation queries to ArticleAnnotationItem list."""
+    refs = parse_act_refs(rows)
+    result: list[ArticleAnnotationItem] = []
+    for ref, row in zip(refs, rows, strict=True):
+        result.append(
+            ArticleAnnotationItem(
                 **ref.model_dump(),
                 direction=value(row, "direction"),
                 predicate=value(row, "predicate"),

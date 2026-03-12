@@ -36,7 +36,7 @@ Runtime source-of-truth:
 | case-law | `get-ag-opinions` | `get_ag_opinions` | `ListResult` | `RelationItem` | list result; relation rows |
 | case-law | `get-preliminary-questions` | `get_preliminary_questions` | `ListResult` | `CaseLawItem` | list result; case-law rows |
 | case-law | `get-national-decisions` | `get_national_decisions` | `ListResult` | `CaseLawItem` | list result; case-law rows |
-| case-law | `get-article-annotations` | `get_article_annotations` | `ListResult` | `RelationItem` | list result; article annotations |
+| case-law | `get-article-annotations` | `get_article_annotations` | `ListResult` | `ArticleAnnotationItem` | list result; article annotations |
 | search | `search-by-eurovoc` | `search_by_eurovoc` | `ListResult` | `ActRef` | list result; act search rows |
 | search | `search-by-subject-matter` | `search_by_subject_matter` | `ListResult` | `ActRef` | list result; act search rows |
 | search | `search-by-title` | `search_by_title` | `ListResult` | `ActRef` | list result; act search rows |

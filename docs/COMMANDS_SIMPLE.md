@@ -102,7 +102,7 @@ Case-law relation commands (`get-cjeu-judgments`, `get-ag-opinions`, `get-prelim
   Example: `cellar case-law get-preliminary-questions --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
 - `get-national-decisions` (`get_national_decisions`): Lists national decisions that reference the act (optionally filtered by country).
   Example: `cellar case-law get-national-decisions --celex 32022R2554 --country DEU --since 2020-01-01 --lang eng --limit 50`
-- `get-article-annotations` (`get_article_annotations`): Lists article-level legal-basis annotations for the act.
+- `get-article-annotations` (`get_article_annotations`): Lists article-annotation rows for the act. These rows can include annotation qualifiers such as article, paragraph, subparagraph, point, and comment on legal basis when CELLAR provides them.
   Example: `cellar case-law get-article-annotations --celex 32022R2554 --limit 50`
 
 ## SEARCH
@@ -159,6 +159,7 @@ Relation-based `new-*` commands are `incoming` only.
 - `get-act` and `resolve-celex` return one main record.
 - Relation commands include a `direction` field (`incoming` / `outgoing`).
 - `both` means one command can return rows in both directions.
+- Article-annotation fields such as `annotation_article` and `annotation_paragraph` belong only to `get-article-annotations`, not to ordinary relation commands.
 - CLI wraps successful data as `{"ok": true, "data": ...}`.
 - CLI wraps errors as `{"ok": false, "error": {...}}`.
 - Full formal behavior still lives in [API_CONTRACT.md](API_CONTRACT.md).

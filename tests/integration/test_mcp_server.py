@@ -25,6 +25,7 @@ from cellar_wrapper.mcp_server import (
     build_mcp_server,
     main,
 )
+from cellar_wrapper.models import ArticleAnnotationItem, ListResult, QueryMeta, RelationItem
 from cellar_wrapper.version import __version__
 
 
@@ -247,6 +248,104 @@ def test_mcp_tool_dispatch_maps_direction_override(monkeypatch: pytest.MonkeyPat
     assert calls
     assert calls[0]["direction"] == "outgoing"
     assert structured_payload["kwargs"]["direction"] == "outgoing"
+
+
+def test_mcp_generic_relation_output_omits_annotation_fields(monkeypatch: pytest.MonkeyPatch) -> None:
+    _require_mcp_sdk()
+
+    class RecordingClient:
+        def __init__(self, **kwargs: Any) -> None:
+            self.kwargs = kwargs
+
+        def __enter__(self) -> RecordingClient:
+            return self
+
+        def __exit__(
+            self,
+            exc_type: type[BaseException] | None,
+            exc: BaseException | None,
+            tb: TracebackType | None,
+        ) -> None:
+            return None
+
+        def get_amendments(self, **kwargs: Any) -> ListResult[RelationItem]:
+            return ListResult(
+                items=[
+                    RelationItem(
+                        uri="http://publications.europa.eu/resource/cellar/related",
+                        celex="32024R0001",
+                        direction="incoming",
+                        relation_type="amends",
+                        predicate="cdm:resource_legal_amends_resource_legal",
+                    )
+                ],
+                returned_count=1,
+                meta=QueryMeta(
+                    query_name="get_amendments",
+                    endpoint="https://example.test/sparql",
+                    executed_at="2026-03-12T00:00:00Z",
+                    limit=200,
+                    offset=0,
+                ),
+            )
+
+    monkeypatch.setattr("cellar_wrapper.mcp_server.CellarClient", RecordingClient)
+
+    server = build_mcp_server()
+    structured_payload = _tool_call_payload(_call_tool(server, "get-amendments", {"celex": "32022R2554"}))
+
+    item = structured_payload["items"][0]
+    assert "annotation_uri" not in item
+
+
+def test_mcp_article_annotation_output_keeps_annotation_fields(monkeypatch: pytest.MonkeyPatch) -> None:
+    _require_mcp_sdk()
+
+    class RecordingClient:
+        def __init__(self, **kwargs: Any) -> None:
+            self.kwargs = kwargs
+
+        def __enter__(self) -> RecordingClient:
+            return self
+
+        def __exit__(
+            self,
+            exc_type: type[BaseException] | None,
+            exc: BaseException | None,
+            tb: TracebackType | None,
+        ) -> None:
+            return None
+
+        def get_article_annotations(self, **kwargs: Any) -> ListResult[ArticleAnnotationItem]:
+            return ListResult(
+                items=[
+                    ArticleAnnotationItem(
+                        uri="http://publications.europa.eu/resource/cellar/annotated",
+                        direction="incoming",
+                        relation_type="article_annotation",
+                        predicate="cdm:resource_legal_amends_resource_legal",
+                        annotation_uri="http://publications.europa.eu/resource/cellar/annotation",
+                        annotation_article="5",
+                    )
+                ],
+                returned_count=1,
+                meta=QueryMeta(
+                    query_name="get_article_annotations",
+                    endpoint="https://example.test/sparql",
+                    executed_at="2026-03-12T00:00:00Z",
+                    limit=200,
+                    offset=0,
+                ),
+            )
+
+    monkeypatch.setattr("cellar_wrapper.mcp_server.CellarClient", RecordingClient)
+
+    server = build_mcp_server()
+    structured_payload = _tool_call_payload(_call_tool(server, "get-article-annotations", {"celex": "32022R2554"}))
+
+    item = structured_payload["items"][0]
+    assert item["annotation_uri"] == "http://publications.europa.eu/resource/cellar/annotation"
+    assert item["annotation_article"] == "5"
 
 
 def test_mcp_domain_errors_raise_tool_error(monkeypatch: pytest.MonkeyPatch) -> None:

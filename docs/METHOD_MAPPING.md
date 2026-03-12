@@ -54,7 +54,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
   - `cdm:work_has_resource-type` = `DEC_NC`
   - `cdm:case-law_national_act_reference_european` (`CONTAINS` CELEX)
   - optional country filter via `cdm:case-law_originates_in_country`
-- `get_article_annotations` -> `owl:annotatedTarget`, `owl:annotatedSource`, `owl:annotatedProperty` + qualifier extraction (`article`, `paragraph`, `subparagraph`, `point`, `comment_on_legal_basis`)
+- `get_article_annotations` -> `owl:annotatedTarget`, `owl:annotatedSource`, `owl:annotatedProperty` + qualifier extraction (`article`, `paragraph`, `subparagraph`, `point`, `comment_on_legal_basis`) into `ArticleAnnotationItem`
 
 ## SEARCH
 - `search_by_eurovoc` -> 2-step:

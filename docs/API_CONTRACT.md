@@ -42,7 +42,7 @@ HttpTransport(
 ## Output contract
 - `QueryMeta(query_name, endpoint, executed_at, limit, offset)`
 - `ListResult[T](items, returned_count, meta)`
-- `ActRef`, `ActDetail`, `RelationItem`, `DossierItem`, `NIMItem`, `CaseLawItem`, `EurovocTag`, `SubjectMatterTag`, `ExpressionItem`, `DocumentPayload`
+- `ActRef`, `ActDetail`, `RelationItem`, `ArticleAnnotationItem`, `DossierItem`, `NIMItem`, `CaseLawItem`, `EurovocTag`, `SubjectMatterTag`, `ExpressionItem`, `DocumentPayload`
 - Date-like model fields (`ActRef.date`, `ActDetail.date_*`) are parsed into typed `date | datetime`.
 - Collection payload invariant: `returned_count == len(items)` (including empty collections).
 
@@ -57,13 +57,20 @@ HttpTransport(
 `NIMItem` may include `implemented_by_country`.
 `DossierItem` may include procedure metadata and status flags (`procedure_code`, `procedure_type`, `status_*`, `produces_act_*`).
 
-`RelationItem` may include article-level annotation fields for `get_article_annotations`:
+`RelationItem` is the generic legal-relation record. It includes shared relation fields such as:
+- `direction`
+- `predicate`
+- `relation_type`
+
+`ArticleAnnotationItem` extends `RelationItem` and is returned by `get_article_annotations`. It may include:
 - `annotation_uri`
 - `annotation_article`
 - `annotation_paragraph`
 - `annotation_subparagraph`
 - `annotation_point`
 - `annotation_comment_on_legal_basis`
+
+Normal relation-style commands no longer expose `annotation_*` fields in their payload shape.
 
 `DocumentPayload` returns base64-encoded content (`content_base64`).
 
@@ -163,6 +170,11 @@ For local index failures, details include `source = "local_eurovoc_index"` or
 ## CLI `--since`
 - `--since` is available only for commands whose API methods support it.
 - Commands like `get-deadlines` and `get-article-annotations` do not accept `--since`.
+
+## Contract migration note
+- `get_article_annotations` is the only public command that returns `ArticleAnnotationItem`.
+- Generic relation commands (`get_amendments`, `get_repeals`, `get_citations`, lifecycle relation methods, and relation-style monitoring methods) now return plain `RelationItem` rows without `annotation_*`.
+- This is an intentional contract cleanup: `annotation_*` is specific to OWL article-annotation rows, not to ordinary relation rows.
 
 ## `since` filtering semantics
 - Non-monitoring methods with optional `since` (`search_*`, `get_*`) use:

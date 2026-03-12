@@ -8,10 +8,12 @@ from cellar_wrapper.errors import CellarParseError
 from cellar_wrapper.parser import (
     parse_act_detail,
     parse_act_refs,
+    parse_article_annotation_items,
     parse_bindings,
     parse_case_law_items,
     parse_dossier_items,
     parse_nim_items,
+    parse_relation_items,
 )
 from tests.helpers import sparql_payload, sparql_row
 
@@ -152,6 +154,60 @@ def test_parse_nim_items_maps_country() -> None:
     items = parse_nim_items(rows)
     assert len(items) == 1
     assert items[0].implemented_by_country is not None
+
+
+def test_parse_relation_items_ignores_annotation_columns() -> None:
+    rows = [
+        sparql_row(
+            other="https://publications.europa.eu/resource/cellar/related",
+            celex="32024R0001",
+            relationType="relation",
+            direction="incoming",
+            predicate="cdm:work_related_to_work",
+            annotation="https://publications.europa.eu/resource/cellar/annotation",
+        )
+    ]
+    items = parse_relation_items(rows)
+    assert len(items) == 1
+    assert not hasattr(items[0], "annotation_uri")
+
+
+def test_parse_article_annotation_items_maps_qualifiers() -> None:
+    rows = [
+        sparql_row(
+            other="https://publications.europa.eu/resource/cellar/annotated",
+            relationType="article_annotation",
+            direction="incoming",
+            predicate="cdm:resource_legal_amends_resource_legal",
+            annotation="https://publications.europa.eu/resource/cellar/annotation",
+            article="5",
+            paragraph="1",
+            subparagraph="a",
+            point="i",
+            commentOnLegalBasis="reference note",
+        )
+    ]
+    items = parse_article_annotation_items(rows)
+    assert len(items) == 1
+    assert items[0].annotation_uri is not None
+    assert items[0].annotation_article == "5"
+    assert items[0].annotation_comment_on_legal_basis == "reference note"
+
+
+def test_parse_article_annotation_items_handles_partial_qualifiers() -> None:
+    rows = [
+        sparql_row(
+            other="https://publications.europa.eu/resource/cellar/annotated",
+            relationType="article_annotation",
+            direction="incoming",
+            predicate="cdm:resource_legal_amends_resource_legal",
+            annotation="https://publications.europa.eu/resource/cellar/annotation",
+        )
+    ]
+    items = parse_article_annotation_items(rows)
+    assert len(items) == 1
+    assert items[0].annotation_uri is not None
+    assert items[0].annotation_article is None
 
 
 def test_parse_act_detail_rejects_invalid_row_shape() -> None:

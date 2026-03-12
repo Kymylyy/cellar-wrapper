@@ -46,12 +46,12 @@ Robocze notatki z testowania komend i kontraktow API.
 - Observation: The result set is not limited to legal acts; it can also include communications, impact assessments, and staff working documents.
 - Follow-up: If the goal is to show citations from legal acts only, use examples that combine citations with resource-type filtering where possible.
 
-### `relations get-delegated-acts`
+### `relations get-based-on-acts`
 
 - Acts: `DORA`, `DORA RMF`
 - Observation: This contract only supports the base-act -> delegated-acts direction. For a delegated act itself, it does not show the underlying base act.
 - Follow-up: Use `lookup get-legal-basis` when the goal is to retrieve the reverse relation, i.e. delegated act -> base act.
 
 - Acts: `MiFID II`
-- Observation: For some acts, this contract is not limited in practice to delegated regulations/directives. It can behave more like "acts/documents based on this act", even though it is exposed under the name `get-delegated-acts`.
+- Observation: For some acts, this contract is not limited in practice to delegated regulations/directives. It can behave more like "acts/documents based on this act", even though it is exposed under the name `get-based-on-acts`.
 - Follow-up: Treat the command name as narrower than the observed payload. Verify returned `resource_type` values when using this contract as an examples source.

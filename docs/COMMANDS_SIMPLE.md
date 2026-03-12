@@ -61,10 +61,14 @@ Commands that support `--direction` accept `incoming`, `outgoing`, or `both` (de
   Example: `cellar relations get-repeals --celex 32022R2554 --direction outgoing --since 2024-01-01 --lang eng --limit 50`
 - `get-citations` (`get_citations`): Shows citation relations. Direction: configurable with `--direction`; default `both`.
   Example: `cellar relations get-citations --celex 32022R2554 --direction both --since 2024-01-01 --lang eng --limit 50`
-- `get-delegated-acts` (`get_delegated_acts`): Shows acts/documents linked by the `based_on` relation from the perspective of the base act. In practice this often means delegated acts, but the payload can also include other "based on" instruments or documents. Direction: `incoming`.
-  Example: `cellar relations get-delegated-acts --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
+- `get-based-on-acts` (`get_based_on_acts`): Shows acts and documents linked by the broad `based_on` relation from the perspective of the base act. This may include delegated acts, implementing acts, drafts, reports, resolutions, and other derived documents. Direction: `incoming`.
+  Example: `cellar relations get-based-on-acts --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
 - `get-completing-acts` (`get_completing_acts`): Shows acts linked by the narrower `completes` relation, i.e. acts that CELLAR marks as supplementing/completing the provisions of the given act. In practice these may overlap heavily with delegated acts for some base acts. Direction: `incoming`.
   Example: `cellar relations get-completing-acts --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
+- Practical difference: `get-based-on-acts` is the broad bucket; `get-completing-acts` is the narrower subset that CELLAR marks as completing the act.
+- Live examples:
+  DORA: `get-completing-acts` returns `REG_DEL` only, while `get-based-on-acts` also returns `REG_IMPL`, `REG_DEL_DRAFT`, and `OWNINI_RES`.
+  PSD2: `get-completing-acts` returns `REG_DEL` only, while `get-based-on-acts` also returns `REPORT`, `RES`, `OWNINI_RES`, and `REG_IMPL`.
 - `get-proposals-to-amend` (`get_proposals_to_amend`): Shows proposals to amend the given act. Direction: `incoming`.
   Example: `cellar relations get-proposals-to-amend --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
 - `get-adopted-act` (`get_adopted_act`): Shows adopted acts linked to the given act. Direction: `incoming`.
@@ -132,8 +136,8 @@ Relation-based `new-*` commands are `incoming` only.
   Example: `cellar monitoring new-repeals --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
 - `new-proposals-to-amend` (`new_proposals_to_amend`): New proposals to amend since the given date/time.
   Example: `cellar monitoring new-proposals-to-amend --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
-- `new-delegated-acts` (`new_delegated_acts`): New delegated acts since the given date/time.
-  Example: `cellar monitoring new-delegated-acts --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
+- `new-based-on-acts` (`new_based_on_acts`): New acts/documents linked by the broad `based_on` relation since the given date/time.
+  Example: `cellar monitoring new-based-on-acts --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
 - `new-case-law` (`new_case_law`): New CJEU case-law items since the given date/time.
   Example: `cellar monitoring new-case-law --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
 - `new-preliminary-questions` (`new_preliminary_questions`): New preliminary questions since the given date/time.

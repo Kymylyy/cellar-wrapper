@@ -20,7 +20,7 @@ Runtime source-of-truth:
 | relations | `get-amendments` | `get_amendments` | `ListResult` | `RelationItem` | list result; relation rows |
 | relations | `get-repeals` | `get_repeals` | `ListResult` | `RelationItem` | list result; relation rows |
 | relations | `get-citations` | `get_citations` | `ListResult` | `RelationItem` | list result; relation rows |
-| relations | `get-delegated-acts` | `get_delegated_acts` | `ListResult` | `RelationItem` | list result; relation rows |
+| relations | `get-based-on-acts` | `get_based_on_acts` | `ListResult` | `RelationItem` | list result; relation rows |
 | relations | `get-completing-acts` | `get_completing_acts` | `ListResult` | `RelationItem` | list result; relation rows |
 | relations | `get-proposals-to-amend` | `get_proposals_to_amend` | `ListResult` | `RelationItem` | list result; relation rows |
 | relations | `get-adopted-act` | `get_adopted_act` | `ListResult` | `RelationItem` | list result; relation rows |
@@ -46,7 +46,7 @@ Runtime source-of-truth:
 | monitoring | `new-amendments` | `new_amendments` | `ListResult` | `RelationItem` | list result; relation rows |
 | monitoring | `new-repeals` | `new_repeals` | `ListResult` | `RelationItem` | list result; relation rows |
 | monitoring | `new-proposals-to-amend` | `new_proposals_to_amend` | `ListResult` | `RelationItem` | list result; relation rows |
-| monitoring | `new-delegated-acts` | `new_delegated_acts` | `ListResult` | `RelationItem` | list result; relation rows |
+| monitoring | `new-based-on-acts` | `new_based_on_acts` | `ListResult` | `RelationItem` | list result; relation rows |
 | monitoring | `new-case-law` | `new_case_law` | `ListResult` | `CaseLawItem` | list result; case-law rows |
 | monitoring | `new-preliminary-questions` | `new_preliminary_questions` | `ListResult` | `CaseLawItem` | list result; case-law rows |
 | monitoring | `new-corrigenda` | `new_corrigenda` | `ListResult` | `RelationItem` | list result; relation rows |

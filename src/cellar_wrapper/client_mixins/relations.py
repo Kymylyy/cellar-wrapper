@@ -116,7 +116,7 @@ class RelationsMixin:
             direction=direction,
         )
 
-    def get_delegated_acts(
+    def get_based_on_acts(
         self: ClientOpsProtocol,
         celex: str,
         *,
@@ -129,7 +129,7 @@ class RelationsMixin:
     ) -> ListResult[RelationItem]:
         return _call_relation(
             self,
-            method_name="get_delegated_acts",
+            method_name="get_based_on_acts",
             celex=celex,
             since=since,
             to=to,

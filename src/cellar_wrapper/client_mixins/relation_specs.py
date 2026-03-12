@@ -29,7 +29,7 @@ RELATION_CALL_SPECS: dict[str, RelationCallSpec] = {
         "both",
     ),
     "get_citations": RelationCallSpec([PredicateSpec(PREDICATES["cites"], "cites")], "both"),
-    "get_delegated_acts": RelationCallSpec(
+    "get_based_on_acts": RelationCallSpec(
         [PredicateSpec(PREDICATES["based_on"], "based_on")],
         "incoming",
     ),
@@ -99,7 +99,7 @@ RELATION_CALL_SPECS: dict[str, RelationCallSpec] = {
         [PredicateSpec(PREDICATES["proposes_to_amend"], "proposes_to_amend")],
         "incoming",
     ),
-    "new_delegated_acts": RelationCallSpec(
+    "new_based_on_acts": RelationCallSpec(
         [PredicateSpec(PREDICATES["based_on"], "based_on")],
         "incoming",
     ),

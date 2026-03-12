@@ -263,6 +263,17 @@ def test_monitoring_group_new_citations_adds_since_filter() -> None:
     )
 
 
+def test_monitoring_group_new_based_on_acts_uses_based_on_predicate() -> None:
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
+    client = CellarClient(transport=transport)
+    result = client.new_based_on_acts("32022R2554", since="2025-01-01")
+
+    assert result.returned_count == 0
+    relation_queries = [query for query in transport.queries if "resource_legal_based_on_resource_legal" in query]
+    assert relation_queries
+    assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in relation_queries[0]
+
+
 def test_monitoring_group_new_by_eurovoc_uses_strict_since_after_resolve(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -293,6 +304,17 @@ def test_non_monitoring_since_filter_keeps_undated_rows() -> None:
         "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
         for query in transport.queries
     )
+
+
+def test_relations_group_get_based_on_acts_uses_based_on_predicate() -> None:
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
+    client = CellarClient(transport=transport)
+    result = client.get_based_on_acts("32022R2554", since="2025-01-01")
+
+    assert result.returned_count == 0
+    relation_queries = [query for query in transport.queries if "resource_legal_based_on_resource_legal" in query]
+    assert relation_queries
+    assert "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in relation_queries[0]
 
 
 def test_non_monitoring_combined_date_bounds_keep_undated_rows() -> None:

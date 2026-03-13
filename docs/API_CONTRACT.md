@@ -45,6 +45,7 @@ HttpTransport(
 - `ListResult[T](items, returned_count, meta)`
 - `ActRef`, `ActDetail`, `RelationItem`, `ArticleAnnotationItem`, `DossierItem`, `NIMItem`, `CaseLawItem`, `EurovocTag`, `SubjectMatterTag`, `ExpressionItem`, `DocumentPayload`
 - Date-like model fields (`ActRef.date`, `ActDetail.date_*`) are parsed into typed `date | datetime`.
+- `ActRef` metadata fields (`celex`, `title`, `date`, `resource_type`) are nullable by design; some commands intentionally project only part of these fields.
 - Collection payload invariant: `returned_count == len(items)` (including empty collections).
 
 `ActDetail` exposes enriched metadata:
@@ -71,6 +72,8 @@ Act-detail caveats:
 - `direction`
 - `predicate`
 - `relation_type`
+- `resource_type`, `title`, `date`, and `celex` are still inherited from `ActRef` and may be `null` when optional SPARQL bindings are missing.
+- `resource_type` values are CELLAR URIs when present, for example `http://publications.europa.eu/resource/authority/resource-type/REG`.
 
 For relation semantics, note in particular:
 - `get_based_on_acts` is backed by `cdm:resource_legal_based_on_resource_legal` and returns the broad incoming `based_on` bucket.
@@ -79,12 +82,12 @@ For relation semantics, note in particular:
 - `get_based_on_acts` can include non-delegated resource types such as implementing acts, drafts, reports, and resolutions.
 - `get_corrigenda` and `new_corrigenda` default to `resource_type = CORRIGENDUM`, while still allowing an explicit override.
 - When a relation-style command is filtered by `resource_type`, the returned `resource_type` field is constrained to the selected type rather than any sibling type attached to the same CELLAR work.
-- `get_legal_basis` can mix treaty-basis rows, legal acts based on the act, and other based-on documents such as recommendations.
+- `get_legal_basis` can mix treaty-basis rows (`based_on_concept_treaty`), legal acts based on the act (incoming), and legal acts the queried act is based on (outgoing). Rows can carry sparse metadata.
 - `get_legal_basis` is also the correct reverse-lookup path for delegated act -> base act.
 - `get_citations` is not limited to legal acts; depending on the act, it can include communications, impact assessments, staff working documents, and similar materials.
 - `get_nims` and `new_nims` are special among relation-style commands: they group raw CELLAR rows by national-act `uri` before returning public items, so raw omnibus-law row inflation is intentionally hidden from the public contract.
 - For proposal acts, `get_amendments` and `get_repeals` may return empty `incoming`/`both` results even when the proposal text clearly indicates planned amendments or repeals. Treat this as a current CELLAR relation-data limitation for proposals.
-- `get_other_relations` is a sparse catch-all bucket over predicates such as suspend/defer/obsolete/influence and is often empty for mainstream final acts.
+- `get_other_relations` is a sparse catch-all bucket over predicates such as suspend/defer/obsolete/influence and is often empty for mainstream final acts. It may also return non-legal resources and CELEX-less rows.
 
 `ArticleAnnotationItem` extends `RelationItem` and is returned by `get_article_annotations`. It may include:
 - `annotation_uri`
@@ -203,6 +206,12 @@ For local index failures, details include `source = "local_eurovoc_index"` or
 - `get_article_annotations` is the only public command that returns `ArticleAnnotationItem`.
 - Generic relation commands (`get_amendments`, `get_repeals`, `get_citations`, lifecycle relation methods, and relation-style monitoring methods) now return plain `RelationItem` rows without `annotation_*`.
 - This is an intentional contract cleanup: `annotation_*` is specific to OWL article-annotation rows, not to ordinary relation rows.
+
+Concept and URI-related fields are returned as canonical URIs where relevant. Examples:
+- `ActRef.resource_type`
+- `SubjectMatterTag.concept_uri`
+- `EurovocTag.concept_uri`
+- `ExpressionItem.language_uri`
 
 ## Date filtering semantics
 - `since` is a strict lower bound: `?date > since_datetime`.

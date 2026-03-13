@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from collections import defaultdict
 from collections.abc import Callable
 from datetime import date, datetime
 from typing import Any, cast
 
+from cellar_wrapper.constants import MAX_LIMIT
 from cellar_wrapper.errors import CellarValidationError
 from cellar_wrapper.models import CaseLawItem, ListResult, NIMItem, RelationItem
 from cellar_wrapper.parser import (
@@ -21,6 +23,57 @@ from .relation_specs import RELATION_CALL_SPECS, RelationCallSpec
 BindingRow = dict[str, dict[str, str]]
 QueryFn = Callable[[str], dict[str, Any]]
 ListResultBuilder = Callable[..., ListResult[Any]]
+
+
+def _date_sort_value(value: date | datetime | None) -> str:
+    if value is None:
+        return ""
+    return value.isoformat()
+
+
+def _first_non_null(items: list[NIMItem], attr: str) -> str | None:
+    for item in items:
+        value = getattr(item, attr)
+        if value is not None:
+            return cast(str, value)
+    return None
+
+
+def _group_nim_items(items: list[NIMItem], *, queried_celex: str) -> list[NIMItem]:
+    preferred_prefix = f"7{queried_celex[1:]}"
+    grouped_rows: dict[str, list[NIMItem]] = defaultdict(list)
+    for item in items:
+        grouped_rows[item.uri].append(item)
+
+    grouped_items: list[NIMItem] = []
+    for uri, group in grouped_rows.items():
+        all_celexes = sorted({item.celex for item in group if item.celex is not None})
+        matching_celexes = sorted({celex for celex in all_celexes if celex.startswith(preferred_prefix)})
+        preferred_celex = matching_celexes[0] if matching_celexes else (all_celexes[0] if all_celexes else None)
+
+        dated_values = [item.date for item in group if item.date is not None]
+        max_date = max(dated_values, key=_date_sort_value) if dated_values else None
+        title = next((item.title for item in group if item.title is not None), None)
+
+        grouped_items.append(
+            NIMItem(
+                uri=uri,
+                celex=preferred_celex,
+                title=title,
+                date=max_date,
+                resource_type=_first_non_null(group, "resource_type"),
+                direction=_first_non_null(group, "direction"),
+                predicate=_first_non_null(group, "predicate"),
+                relation_type=_first_non_null(group, "relation_type"),
+                implemented_by_country=_first_non_null(group, "implemented_by_country"),
+                all_celexes=all_celexes,
+                matching_celexes=matching_celexes,
+            )
+        )
+
+    grouped_items.sort(key=lambda item: ((item.implemented_by_country or ""), item.uri))
+    grouped_items.sort(key=lambda item: _date_sort_value(item.date), reverse=True)
+    return grouped_items
 
 
 def fetch_relation_rows(
@@ -158,6 +211,7 @@ def call_nim_result(
     lang: str,
     direction: str | None,
     validate_pagination: Callable[[int, int], None],
+    normalize_celex: Callable[[str], str],
     normalize_lang: Callable[[str], str],
     normalize_resource_type: Callable[[str | None], str | None],
     normalize_direction: Callable[[str | None], str | None],
@@ -169,32 +223,42 @@ def call_nim_result(
     query_sparql: QueryFn,
     list_result_builder: ListResultBuilder,
 ) -> ListResult[NIMItem]:
-    _, rows = fetch_relation_rows(
-        method_name=method_name,
-        celex=celex,
-        since=since,
-        to=to,
-        include_undated=include_undated,
-        resource_type=resource_type,
-        limit=limit,
-        offset=offset,
-        lang=lang,
-        direction=direction,
-        include_implemented_by_country=True,
-        validate_pagination=validate_pagination,
-        normalize_lang=normalize_lang,
-        normalize_resource_type=normalize_resource_type,
-        normalize_direction=normalize_direction,
-        normalize_date_bounds=normalize_date_bounds,
-        resolve_work_uri=resolve_work_uri,
-        query_sparql=query_sparql,
-    )
-    nim_items = parse_nim_items(rows)
+    normalized_celex = normalize_celex(celex)
+    all_rows: list[BindingRow] = []
+    raw_offset = 0
+    while True:
+        _, rows = fetch_relation_rows(
+            method_name=method_name,
+            celex=normalized_celex,
+            since=since,
+            to=to,
+            include_undated=include_undated,
+            resource_type=resource_type,
+            limit=MAX_LIMIT,
+            offset=raw_offset,
+            lang=lang,
+            direction=direction,
+            include_implemented_by_country=True,
+            validate_pagination=validate_pagination,
+            normalize_lang=normalize_lang,
+            normalize_resource_type=normalize_resource_type,
+            normalize_direction=normalize_direction,
+            normalize_date_bounds=normalize_date_bounds,
+            resolve_work_uri=resolve_work_uri,
+            query_sparql=query_sparql,
+        )
+        all_rows.extend(rows)
+        if len(rows) < MAX_LIMIT:
+            break
+        raw_offset += MAX_LIMIT
+
+    nim_items = _group_nim_items(parse_nim_items(all_rows), queried_celex=normalized_celex)
+    paginated_items = nim_items[offset : offset + limit]
     return cast(
         ListResult[NIMItem],
         list_result_builder(
             query_name=method_name,
-            items=nim_items,
+            items=paginated_items,
             limit=limit,
             offset=offset,
         ),

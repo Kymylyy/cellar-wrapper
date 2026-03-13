@@ -35,6 +35,9 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
   - practical meaning: returns consolidated-text relationships for the act and may include rows where linked work CELEX metadata is missing (`null`) due to CELLAR aliasing
 - `get_corrigenda` -> `cdm:resource_legal_corrects_resource_legal` (incoming)
 - `get_nims` -> `cdm:measure_national_implementing_implements_resource_legal` (incoming) + `cdm:measure_national_implementing_implemented_by_country`
+  - public semantics: raw rows are grouped by national-act `uri`, so one returned item means one unique national implementing act
+  - CELEX semantics: public `celex` is the preferred display CELEX for that grouped act; `all_celexes` contains the full grouped CELEX set and `matching_celexes` the queried-act subset
+  - practical meaning: one directive may have multiple implementing acts in one country, but duplicate raw CELLAR rows for the same national act are hidden
 - `get_dossier` -> 2-stage SPARQL execution:
   - stage 1 (core relation selection): `cdm:dossier_contains_work` (early paginated selection of dossier member works)
   - stage 2 (metadata enrichment): dossier procedure/status predicates (`cdm:procedure_code_interinstitutional_reference_procedure`, `cdm:procedure_code_interinstitutional_has_type`, `cdm:dossier_*`, `cdm:dossier_produces_resource_legal`) + optional work metadata (`cdm:resource_legal_id_celex`, `cdm:work_date_document`, `cdm:work_has_resource-type`, `cdm:expression_*`)
@@ -87,6 +90,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 - `new_corrigenda` -> `get_corrigenda` + `date > since` (+ optional `date < to`)
 - `new_consolidated` -> `get_consolidated_versions` + `date > since` (+ optional `date < to`)
 - `new_nims` -> `get_nims` + `date > since` (+ optional `date < to`)
+  - public semantics: the same grouped unique-act behavior as `get_nims`, applied after the date filter narrows candidate rows
 - `new_by_eurovoc` -> local EuroVoc resolution + final query via `VALUES ?concept` + strict `date > since` (+ optional `date < to`)
 
 ## DOWNLOAD

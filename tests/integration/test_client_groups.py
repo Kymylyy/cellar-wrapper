@@ -133,6 +133,134 @@ def test_lifecycle_group_get_nims_exposes_country() -> None:
     result = client.get_nims("32022R2554")
     assert result.returned_count == 1
     assert result.items[0].implemented_by_country is not None
+    assert result.items[0].all_celexes == ["72015L2366POL_258600"]
+    assert result.items[0].matching_celexes == []
+
+
+def test_lifecycle_group_get_nims_regression_groups_omnibus_rows_by_uri() -> None:
+    nim_uri = "http://publications.europa.eu/resource/cellar/nim-omnibus"
+
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return sparql_payload(
+                [
+                    sparql_row(
+                        work="http://publications.europa.eu/resource/cellar/act",
+                        celex="32023L2225",
+                    )
+                ]
+            )
+        return sparql_payload(
+            [
+                sparql_row(
+                    other=nim_uri,
+                    celex="72014L0092HUN_202507032",
+                    title="Hungarian omnibus implementation act",
+                    date="2025-02-03",
+                    relationType="nims",
+                    direction="incoming",
+                    predicate="cdm:measure_national_implementing_implements_resource_legal",
+                    implementedByCountry="http://publications.europa.eu/resource/authority/country/HUN",
+                ),
+                sparql_row(
+                    other=nim_uri,
+                    celex="72023L2225HUN_202507032",
+                    title="Hungarian omnibus implementation act",
+                    date="2025-02-03",
+                    relationType="nims",
+                    direction="incoming",
+                    predicate="cdm:measure_national_implementing_implements_resource_legal",
+                    implementedByCountry="http://publications.europa.eu/resource/authority/country/HUN",
+                ),
+                sparql_row(
+                    other=nim_uri,
+                    celex="72024L0927HUN_202507032",
+                    title="Hungarian omnibus implementation act",
+                    date="2025-02-03",
+                    relationType="nims",
+                    direction="incoming",
+                    predicate="cdm:measure_national_implementing_implements_resource_legal",
+                    implementedByCountry="http://publications.europa.eu/resource/authority/country/HUN",
+                ),
+                sparql_row(
+                    other=nim_uri,
+                    celex="72023L2225HUN_202507032",
+                    title="Hungarian omnibus implementation act",
+                    date="2025-02-03",
+                    relationType="nims",
+                    direction="incoming",
+                    predicate="cdm:measure_national_implementing_implements_resource_legal",
+                    implementedByCountry="http://publications.europa.eu/resource/authority/country/HUN",
+                ),
+            ]
+        )
+
+    client = CellarClient(transport=FakeTransport(query_handler=query_handler))
+    result = client.get_nims("32023L2225")
+
+    assert result.returned_count == 1
+    assert result.items[0].uri == nim_uri
+    assert result.items[0].celex == "72023L2225HUN_202507032"
+    assert result.items[0].all_celexes == [
+        "72014L0092HUN_202507032",
+        "72023L2225HUN_202507032",
+        "72024L0927HUN_202507032",
+    ]
+    assert result.items[0].matching_celexes == ["72023L2225HUN_202507032"]
+    assert result.items[0].implemented_by_country is not None
+
+
+def test_lifecycle_group_get_nims_paginates_after_grouping() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return sparql_payload(
+                [
+                    sparql_row(
+                        work="http://publications.europa.eu/resource/cellar/act",
+                        celex="32015L2366",
+                    )
+                ]
+            )
+        return sparql_payload(
+            [
+                sparql_row(
+                    other="http://publications.europa.eu/resource/cellar/nim-pol",
+                    celex="72015L2366POL_258600",
+                    date="2025-01-10",
+                    implementedByCountry="http://publications.europa.eu/resource/authority/country/POL",
+                ),
+                sparql_row(
+                    other="http://publications.europa.eu/resource/cellar/nim-hun",
+                    celex="72014L0092HUN_202507032",
+                    date="2025-03-01",
+                    implementedByCountry="http://publications.europa.eu/resource/authority/country/HUN",
+                ),
+                sparql_row(
+                    other="http://publications.europa.eu/resource/cellar/nim-deu",
+                    celex="72015L2366DEU_202500001",
+                    date="2025-03-01",
+                    implementedByCountry="http://publications.europa.eu/resource/authority/country/DEU",
+                ),
+                sparql_row(
+                    other="http://publications.europa.eu/resource/cellar/nim-hun",
+                    celex="72015L2366HUN_202507032",
+                    date="2025-03-01",
+                    implementedByCountry="http://publications.europa.eu/resource/authority/country/HUN",
+                ),
+            ]
+        )
+
+    client = CellarClient(transport=FakeTransport(query_handler=query_handler))
+    result = client.get_nims("32015L2366", limit=2, offset=1)
+
+    assert result.returned_count == 2
+    assert [item.uri for item in result.items] == [
+        "http://publications.europa.eu/resource/cellar/nim-hun",
+        "http://publications.europa.eu/resource/cellar/nim-pol",
+    ]
+    assert result.items[0].celex == "72015L2366HUN_202507032"
+    assert result.items[0].matching_celexes == ["72015L2366HUN_202507032"]
+    assert result.items[1].matching_celexes == ["72015L2366POL_258600"]
 
 
 def test_lifecycle_group_get_corrigenda_defaults_to_corrigendum_type() -> None:
@@ -316,6 +444,60 @@ def test_monitoring_group_new_corrigenda_defaults_to_corrigendum_type() -> None:
         in relation_queries[0]
     )
     assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in relation_queries[0]
+
+
+def test_monitoring_group_new_nims_groups_rows_and_applies_strict_since() -> None:
+    nim_uri = "http://publications.europa.eu/resource/cellar/nim-fin"
+
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return sparql_payload(
+                [
+                    sparql_row(
+                        work="http://publications.europa.eu/resource/cellar/act",
+                        celex="32023L2225",
+                    )
+                ]
+            )
+        return sparql_payload(
+            [
+                sparql_row(
+                    other=nim_uri,
+                    celex="72023L2225FIN_202600932",
+                    date="2026-02-04",
+                    relationType="nims",
+                    direction="incoming",
+                    predicate="cdm:measure_national_implementing_implements_resource_legal",
+                    implementedByCountry="http://publications.europa.eu/resource/authority/country/FIN",
+                ),
+                sparql_row(
+                    other=nim_uri,
+                    celex="72024L1619FIN_202600932",
+                    date="2026-02-04",
+                    relationType="nims",
+                    direction="incoming",
+                    predicate="cdm:measure_national_implementing_implements_resource_legal",
+                    implementedByCountry="http://publications.europa.eu/resource/authority/country/FIN",
+                ),
+            ]
+        )
+
+    transport = FakeTransport(query_handler=query_handler)
+    client = CellarClient(transport=transport)
+    result = client.new_nims("32023L2225", since="2025-01-01")
+
+    assert result.returned_count == 1
+    assert result.items[0].uri == nim_uri
+    assert result.items[0].celex == "72023L2225FIN_202600932"
+    assert result.items[0].all_celexes == [
+        "72023L2225FIN_202600932",
+        "72024L1619FIN_202600932",
+    ]
+    assert result.items[0].matching_celexes == ["72023L2225FIN_202600932"]
+    assert any(
+        "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+        for query in transport.queries
+    )
 
 
 def test_monitoring_group_new_by_eurovoc_uses_strict_since_after_resolve(

@@ -173,11 +173,12 @@ How Member States transposed a directive into national law.
 
 | Question | Example |
 |---|---|
-| Which countries transposed PSD2? | 50+ national acts (LVA, CYP, HUN, AUT, POL, SVK, DEU, CZE, BGR, EST, PRT, GRC...) |
+| Which countries transposed PSD2? | Public `get-nims` groups results into unique national acts; one country can still have several implementing acts |
 | When did Poland transpose it? | `72015L2366POL_202401176` - 2023-08-29 |
 | What is the directive transposition deadline? | `directive_date_transposition` |
 
 NIM CELEX pattern: `7` + directive CELEX + country code + sequence number.
+Public wrapper contract: `get-nims` / `new-nims` return unique national implementing acts grouped by national-act `uri`, expose a preferred `celex`, and include grouped context in `all_celexes` and `matching_celexes`. Raw CELLAR row inflation from omnibus acts is intentionally hidden.
 Total in CELLAR: 196,630 transposition acts.
 
 Applies to: directives only.

@@ -135,6 +135,34 @@ def test_lifecycle_group_get_nims_exposes_country() -> None:
     assert result.items[0].implemented_by_country is not None
 
 
+def test_lifecycle_group_get_corrigenda_defaults_to_corrigendum_type() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return _resolver_payload()
+        assert "?other cdm:work_has_resource-type ?type ." in query
+        assert (
+            "FILTER(?type = <http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM>)"
+            in query
+        )
+        return sparql_payload(
+            [
+                sparql_row(
+                    other="http://publications.europa.eu/resource/cellar/corrigendum",
+                    celex="32023R1114R(01)",
+                    direction="incoming",
+                    relationType="corrects",
+                    type="http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM",
+                )
+            ]
+        )
+
+    client = CellarClient(transport=FakeTransport(query_handler=query_handler))
+    result = client.get_corrigenda("32022R2554")
+    assert result.returned_count == 1
+    assert result.items[0].resource_type is not None
+    assert result.items[0].resource_type.endswith("/CORRIGENDUM")
+
+
 def test_case_law_group_get_cjeu_judgments() -> None:
     def query_handler(query: str) -> dict[str, object]:
         if "FILTER(UCASE(STR(?celex))" in query:
@@ -271,6 +299,22 @@ def test_monitoring_group_new_based_on_acts_uses_based_on_predicate() -> None:
     assert result.returned_count == 0
     relation_queries = [query for query in transport.queries if "resource_legal_based_on_resource_legal" in query]
     assert relation_queries
+    assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in relation_queries[0]
+
+
+def test_monitoring_group_new_corrigenda_defaults_to_corrigendum_type() -> None:
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
+    client = CellarClient(transport=transport)
+    result = client.new_corrigenda("32022R2554", since="2025-01-01")
+
+    assert result.returned_count == 0
+    relation_queries = [query for query in transport.queries if "resource_legal_corrects_resource_legal" in query]
+    assert relation_queries
+    assert "?other cdm:work_has_resource-type ?type ." in relation_queries[0]
+    assert (
+        "FILTER(?type = <http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM>)"
+        in relation_queries[0]
+    )
     assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in relation_queries[0]
 
 

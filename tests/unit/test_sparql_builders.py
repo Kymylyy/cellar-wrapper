@@ -58,6 +58,23 @@ def test_relation_query_uses_since_date_time_filter() -> None:
     assert "resource-type/PROP_REG" in query
 
 
+def test_relation_query_resource_type_filter_binds_selected_type() -> None:
+    query = build_relation_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        predicates=[PredicateSpec("cdm:resource_legal_corrects_resource_legal", "corrects")],
+        direction="incoming",
+        since=None,
+        to=None,
+        resource_type="CORRIGENDUM",
+        limit=50,
+        offset=0,
+    )
+
+    assert "OPTIONAL { ?other cdm:work_has_resource-type ?type }" not in query
+    assert "?other cdm:work_has_resource-type ?type ." in query
+    assert "FILTER(?type = <http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM>)" in query
+
+
 def test_relation_query_monitoring_filter_is_strict() -> None:
     query = build_relation_query(
         "https://publications.europa.eu/resource/cellar/example",

@@ -92,6 +92,7 @@ Most relation-style lifecycle commands are `incoming` (items linked to the given
 - `get-consolidated-versions` (`get_consolidated_versions`): Lists consolidated versions related to the act.
   Example: `cellar lifecycle get-consolidated-versions --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
 - `get-corrigenda` (`get_corrigenda`): Lists corrigenda for the act.
+  Default: results are constrained to `resource_type = CORRIGENDUM`. You can still override `--resource-type` explicitly for advanced inspection.
   Example: `cellar lifecycle get-corrigenda --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
 - `get-nims` (`get_nims`): Lists national implementing measures linked to the act.
   Example: `cellar lifecycle get-nims --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
@@ -150,6 +151,7 @@ Relation-based `new-*` commands are `incoming` only.
 - `new-preliminary-questions` (`new_preliminary_questions`): New preliminary questions since the given date/time.
   Example: `cellar monitoring new-preliminary-questions --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
 - `new-corrigenda` (`new_corrigenda`): New corrigenda since the given date/time.
+  Default: results are constrained to `resource_type = CORRIGENDUM`. You can still override `--resource-type` explicitly for advanced inspection.
   Example: `cellar monitoring new-corrigenda --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
 - `new-consolidated` (`new_consolidated`): New consolidated versions since the given date/time.
   Example: `cellar monitoring new-consolidated --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`

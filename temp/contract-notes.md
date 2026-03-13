@@ -61,3 +61,27 @@ Robocze notatki z testowania komend i kontraktow API.
 - Acts: `AI Act`, `PSD2`, `Urban Wastewater`
 - Observation: Wrapper command and contract type now expose this as "proposals to change", because CELLAR’s `cdm:resource_legal_proposes_to_amend_resource_legal` includes amendment, repeal, and recast intent.
 - Follow-up: Treat results as legislative-change intents, not strictly "amendment-only" intentions, and keep the raw `predicate` unchanged in payloads.
+
+### `lifecycle get-corrigenda`
+
+- Acts: `MiCA`
+- Observation: The same corrigendum can appear twice with the same `uri` and `celex`, once as `CORRIGENDUM` and once as `REG`. This looks like multi-typed CELLAR data rather than parser-side duplication.
+- Follow-up: If the goal is to show corrigenda only, consider filtering by `resource_type = CORRIGENDUM` or document the duplication explicitly.
+
+### `lifecycle get-opinions`
+
+- Acts: `DORA`, `MiCA`, `GDPR`, `PSD2`, `MiFID`, `CCD1`, `CCD2`, `FiDAR`, `PSD3`, `PSR`, `DORA RMF`, `AI Act`
+- Observation: In the checked set, non-empty results appeared only for proposal acts (`FiDAR`, `PSD3`, `PSR`). The payload mixes EESC and EP opinion relations with broader `influences`-based opinion-like documents such as ECB and EDPS materials.
+- Follow-up: Use proposal acts as examples for this command. Do not treat it as a generic "opinions for any act" contract.
+
+### `lifecycle get-consolidated-versions`
+
+- Acts: `PSD2`
+- Observation: The result set is broader than "consolidated versions of this act only". For `PSD2`, CELLAR returns both consolidated versions of PSD2 itself (for example `02015L2366-20240408`, `02015L2366-20250117`) and consolidated versions of other acts linked through the same `consolidates` relation. Some rows can also appear as parallel CELLAR resources without a mapped CELEX.
+- Follow-up: If the goal is to show only consolidated versions of the queried act, prefer examples where the CELEX starts with `0{base_celex}-` and treat rows with `celex: null` as non-canonical duplicates or aliases.
+
+### `lifecycle get-nims`
+
+- Acts: `PSD2`, `DORA`
+- Observation: This command is meaningful mainly for directives. For directive acts such as `PSD2`, it returns grouped national implementing acts. For regulations such as `DORA`, the practical result is an empty set because there are no national implementing measures in this CELLAR contract.
+- Follow-up: Prefer directive examples for positive `get-nims` payloads. Use regulations only as explicit zero-result boundary cases.

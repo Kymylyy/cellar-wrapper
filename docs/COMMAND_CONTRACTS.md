@@ -26,12 +26,12 @@ Runtime source-of-truth:
 | relations | `get-adopted-act` | `get_adopted_act` | `ListResult` | `RelationItem` | list result; relation rows |
 | relations | `get-related-works` | `get_related_works` | `ListResult` | `RelationItem` | list result; relation rows |
 | relations | `get-other-relations` | `get_other_relations` | `ListResult` | `RelationItem` | list result; relation rows |
-| lifecycle | `get-consolidated-versions` | `get_consolidated_versions` | `ListResult` | `RelationItem` | list result; relation rows |
+| lifecycle | `get-consolidated-versions` | `get_consolidated_versions` | `ListResult` | `RelationItem` | list result; relation rows, often mixed with consolidated-text aliases |
 | lifecycle | `get-corrigenda` | `get_corrigenda` | `ListResult` | `RelationItem` | list result; relation rows |
 | lifecycle | `get-nims` | `get_nims` | `ListResult` | `NIMItem` | list result; grouped unique national implementing acts |
-| lifecycle | `get-dossier` | `get_dossier` | `ListResult` | `DossierItem` | list result; dossier procedure rows |
-| lifecycle | `get-opinions` | `get_opinions` | `ListResult` | `RelationItem` | list result; relation rows |
-| lifecycle | `get-deadlines` | `get_deadlines` | `ListResult` | `RelationItem` | list result; relation rows |
+| lifecycle | `get-dossier` | `get_dossier` | `ListResult` | `DossierItem` | list result; dossier member documents with duplicated dossier/procedure metadata |
+| lifecycle | `get-opinions` | `get_opinions` | `ListResult` | `RelationItem` | list result; opinions and influence-like relation rows |
+| lifecycle | `get-deadlines` | `get_deadlines` | `ListResult` | `RelationItem` | list result; self-date legal facts for the queried act |
 | case-law | `get-cjeu-judgments` | `get_cjeu_judgments` | `ListResult` | `CaseLawItem` | list result; case-law rows |
 | case-law | `get-ag-opinions` | `get_ag_opinions` | `ListResult` | `RelationItem` | list result; relation rows |
 | case-law | `get-preliminary-questions` | `get_preliminary_questions` | `ListResult` | `CaseLawItem` | list result; case-law rows |

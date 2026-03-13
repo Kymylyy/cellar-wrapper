@@ -89,7 +89,7 @@ Commands that support `--direction` accept `incoming`, `outgoing`, or `both` (de
 
 Most relation-style lifecycle commands are `incoming` (items linked to the given act).
 
-- `get-consolidated-versions` (`get_consolidated_versions`): Lists consolidated versions related to the act.
+- `get-consolidated-versions` (`get_consolidated_versions`): Lists consolidated-text relations for the act and can include related consolidated resources that may carry `celex = null` aliases.
   Example: `cellar lifecycle get-consolidated-versions --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
 - `get-corrigenda` (`get_corrigenda`): Lists corrigenda for the act.
   Default: results are constrained to `resource_type = CORRIGENDUM`. You can still override `--resource-type` explicitly for advanced inspection.
@@ -97,11 +97,13 @@ Most relation-style lifecycle commands are `incoming` (items linked to the given
 - `get-nims` (`get_nims`): Lists unique national implementing acts for the act. One directive can have multiple implementing acts in the same country. Public results are grouped by national-act URI, so raw CELLAR row inflation is hidden.
   Output note: each item exposes a preferred `celex` plus `all_celexes` and `matching_celexes` for grouped omnibus acts.
   Example: `cellar lifecycle get-nims --celex 32015L2366 --since 2020-01-01 --lang eng --limit 50`
-- `get-dossier` (`get_dossier`): Returns dossier items and procedure metadata linked to the act.
+- `get-dossier` (`get_dossier`): Returns documents that are members of the act’s dossier, with dossier/procedure metadata copied to each row.
+  The input act itself is excluded; this is a dossier document feed, not a normalized legislative timeline.
   Example: `cellar lifecycle get-dossier --celex 32022R2554 --lang eng --limit 50`
-- `get-opinions` (`get_opinions`): Lists opinions connected to the act.
+- `get-opinions` (`get_opinions`): Lists opinion-like and influence-like rows connected to the act (including EP/EESC opinion resources and related legislative opinions summaries).
   Example: `cellar lifecycle get-opinions --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
-- `get-deadlines` (`get_deadlines`): Lists legal dates/deadlines linked to the act.
+- `get-deadlines` (`get_deadlines`): Lists legal date facts attached to the act (entry into force, transposition, deadline, etc.).
+  These are self-date rows on the queried act, typically `direction = outgoing`.
   Example: `cellar lifecycle get-deadlines --celex 32022R2554 --limit 50`
 
 ## CASE LAW

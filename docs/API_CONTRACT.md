@@ -173,6 +173,8 @@ For local index failures, details include `source = "local_eurovoc_index"` or
 - `get_dossier` uses staged SPARQL execution to improve latency on larger dossiers:
   1. a core-relation step selects dossier links via `cdm:dossier_contains_work` and paginates that reduced set early,
   2. a metadata enrichment step resolves optional procedure/status and work metadata (`cdm:procedure_code_interinstitutional_reference_procedure`, `cdm:procedure_code_interinstitutional_has_type`, `cdm:dossier_*`, `cdm:dossier_produces_resource_legal`, CELEX/title/date/type).
+- `get_dossier` returns dossier member documents, not normalized legislative milestones.
+- The queried act (`work`) is intentionally filtered out from results; returned rows are dossier co-members.
 - Result ordering is deterministic for pagination: primary sort by `date`, secondary tie-break by resource key (`other` work URI).
 
 ## CELEX resolution behavior

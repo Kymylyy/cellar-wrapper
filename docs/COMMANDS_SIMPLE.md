@@ -115,15 +115,20 @@ Most relation-style lifecycle commands are `incoming` (items linked to the given
 
 ## CASE LAW
 
-Case-law relation commands (`get-cjeu-judgments`, `get-ag-opinions`, `get-preliminary-questions`) are `incoming`.
+Case-law commands are `incoming` semantically.
+Only `get-ag-opinions` exposes relation fields such as `direction`, `predicate`, and `relation_type` in the public payload; the other three commands return `CaseLawItem` rows and therefore do not expose a `direction` field.
 
 - `get-cjeu-judgments` (`get_cjeu_judgments`): Lists CJEU judgments that interpret the act.
+  Note: This returns unique judgment rows, not the EUR-Lex WWW `Affected by case` block one-to-one. EUR-Lex can show multiple article-level rows for the same judgment, while the wrapper returns one row per judgment.
   Example: `cellar case-law get-cjeu-judgments --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
 - `get-ag-opinions` (`get_ag_opinions`): Lists Advocate General opinions linked to the act.
+  Contract note: Despite being grouped under `case-law`, this is a relation feed and returns `RelationItem`, not `CaseLawItem`.
   Example: `cellar case-law get-ag-opinions --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
 - `get-preliminary-questions` (`get_preliminary_questions`): Lists preliminary questions submitted about the act.
+  Note: In practice these are often `INFO_JUDICIAL` notice rows, so case-law-specific fields such as `ecli`, `court_formation`, `advocate_general`, and `origin_country` can legitimately remain `null`.
   Example: `cellar case-law get-preliminary-questions --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
 - `get-national-decisions` (`get_national_decisions`): Lists national decisions that reference the act (optionally filtered by country).
+  Note: This is a sparse feed matched by CELEX substring reference inside the national decision record, not by resolved act URI. Titles and case-law-specific fields are often `null`.
   Example: `cellar case-law get-national-decisions --celex 32022R2554 --country DEU --since 2020-01-01 --lang eng --limit 50`
 
 ## SEARCH

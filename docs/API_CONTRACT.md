@@ -60,6 +60,8 @@ Act-detail caveats:
 - For proposals, `date_end_of_validity = 9999-12-31` can appear as a placeholder max date rather than a meaningful end-of-validity signal.
 
 `CaseLawItem` may include `origin_country`.
+`get_ag_opinions` is intentionally different: although it is grouped under `case-law` in the CLI, its public payload is `RelationItem`, not `CaseLawItem`.
+Case-law metadata can be sparse in practice: preliminary-question rows often have `resource_type = INFO_JUDICIAL` with `ecli`, `court_formation`, `advocate_general`, and `origin_country` left `null`, while national-decision rows often also have `title = null`.
 `NIMItem` represents one grouped unique national implementing act per `uri`, not one raw CELLAR relation row. One directive can therefore return multiple `NIMItem` records for the same country when that country notified multiple implementing acts.
 `NIMItem` may include:
 - `implemented_by_country`

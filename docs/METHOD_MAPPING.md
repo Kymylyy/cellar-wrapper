@@ -32,20 +32,24 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
 
 ## LIFECYCLE
 - `get_consolidated_versions` -> `cdm:act_consolidated_consolidates_resource_legal` (incoming)
+  - practical meaning: returns consolidated-text relationships for the act and may include rows where linked work CELEX metadata is missing (`null`) due to CELLAR aliasing
 - `get_corrigenda` -> `cdm:resource_legal_corrects_resource_legal` (incoming)
 - `get_nims` -> `cdm:measure_national_implementing_implements_resource_legal` (incoming) + `cdm:measure_national_implementing_implemented_by_country`
 - `get_dossier` -> 2-stage SPARQL execution:
   - stage 1 (core relation selection): `cdm:dossier_contains_work` (early paginated selection of dossier member works)
   - stage 2 (metadata enrichment): dossier procedure/status predicates (`cdm:procedure_code_interinstitutional_reference_procedure`, `cdm:procedure_code_interinstitutional_has_type`, `cdm:dossier_*`, `cdm:dossier_produces_resource_legal`) + optional work metadata (`cdm:resource_legal_id_celex`, `cdm:work_date_document`, `cdm:work_has_resource-type`, `cdm:expression_*`)
+  - practical meaning: returns co-members of the same dossier (the queried act is excluded) as a feed, not a normalized legislative timeline
   - ordering: deterministic by `date` with resource-key tie-break (`other` URI)
 - `get_opinions` ->
   - `cdm:resource_legal_contains_eesc_opinion_on_resource_legal`
   - `cdm:resource_legal_contains_ep_opinion_on_resource_legal`
   - `cdm:resource_legal_influences_resource_legal`
+  - practical meaning: includes opinion rows and influence-like legal-link rows, depending on data quality
 - `get_deadlines` ->
   - `cdm:resource_legal_date_deadline`
   - `cdm:resource_legal_date_entry-into-force`
   - `cdm:directive_date_transposition`
+  - practical meaning: date facts about the queried act (typically self-directed rows, often `direction = outgoing`)
 
 ## CASE LAW
 - `get_cjeu_judgments` -> `cdm:case-law_interpretes_resource_legal`

@@ -95,6 +95,8 @@ class NIMItem(RelationItem):
     """National implementing measure relation record."""
 
     implemented_by_country: str | None = None
+    all_celexes: list[str] = Field(default_factory=list)
+    matching_celexes: list[str] = Field(default_factory=list)
 
 
 class CaseLawItem(ActRef):

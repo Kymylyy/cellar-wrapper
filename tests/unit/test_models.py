@@ -64,8 +64,12 @@ def test_extended_models_accept_new_metadata_fields() -> None:
     nim_item = NIMItem(
         uri="http://publications.europa.eu/resource/cellar/nim-item",
         implemented_by_country="http://publications.europa.eu/resource/authority/country/POL",
+        all_celexes=["72015L2366POL_258600", "72015L2366POL_259382"],
+        matching_celexes=["72015L2366POL_258600"],
     )
     assert nim_item.implemented_by_country is not None
+    assert nim_item.all_celexes == ["72015L2366POL_258600", "72015L2366POL_259382"]
+    assert nim_item.matching_celexes == ["72015L2366POL_258600"]
 
 
 def test_relation_item_rejects_annotation_fields() -> None:

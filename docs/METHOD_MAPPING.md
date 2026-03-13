@@ -29,6 +29,7 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
   - `cdm:resource_legal_defers_application_of_resource_legal`
   - `cdm:resource_legal_renders_obsolete_resource_legal`
   - `cdm:resource_legal_influences_resource_legal`
+- `get_article_annotations` -> `owl:annotatedTarget`, `owl:annotatedSource`, `owl:annotatedProperty` + qualifier extraction (`article`, `paragraph`, `subparagraph`, `point`, `comment_on_legal_basis`) into `ArticleAnnotationItem`
 
 ## LIFECYCLE
 - `get_consolidated_versions` -> `cdm:act_consolidated_consolidates_resource_legal` (incoming)
@@ -64,7 +65,6 @@ Method-to-CDM/SPARQL mapping used by `CellarClient`.
   - `cdm:work_has_resource-type` = `DEC_NC`
   - `cdm:case-law_national_act_reference_european` (`CONTAINS` CELEX)
   - optional country filter via `cdm:case-law_originates_in_country`
-- `get_article_annotations` -> `owl:annotatedTarget`, `owl:annotatedSource`, `owl:annotatedProperty` + qualifier extraction (`article`, `paragraph`, `subparagraph`, `point`, `comment_on_legal_basis`) into `ArticleAnnotationItem`
 
 ## SEARCH
 - `search_by_eurovoc` -> 2-step:

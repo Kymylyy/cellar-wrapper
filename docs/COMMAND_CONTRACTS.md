@@ -26,6 +26,7 @@ Runtime source-of-truth:
 | relations | `get-adopted-act` | `get_adopted_act` | `ListResult` | `RelationItem` | list result; relation rows |
 | relations | `get-related-works` | `get_related_works` | `ListResult` | `RelationItem` | list result; relation rows |
 | relations | `get-other-relations` | `get_other_relations` | `ListResult` | `RelationItem` | list result; relation rows |
+| relations | `get-article-annotations` | `get_article_annotations` | `ListResult` | `ArticleAnnotationItem` | list result; article annotations |
 | lifecycle | `get-consolidated-versions` | `get_consolidated_versions` | `ListResult` | `RelationItem` | list result; relation rows, often mixed with consolidated-text aliases |
 | lifecycle | `get-corrigenda` | `get_corrigenda` | `ListResult` | `RelationItem` | list result; relation rows |
 | lifecycle | `get-nims` | `get_nims` | `ListResult` | `NIMItem` | list result; grouped unique national implementing acts |
@@ -36,7 +37,6 @@ Runtime source-of-truth:
 | case-law | `get-ag-opinions` | `get_ag_opinions` | `ListResult` | `RelationItem` | list result; relation rows |
 | case-law | `get-preliminary-questions` | `get_preliminary_questions` | `ListResult` | `CaseLawItem` | list result; case-law rows |
 | case-law | `get-national-decisions` | `get_national_decisions` | `ListResult` | `CaseLawItem` | list result; case-law rows |
-| case-law | `get-article-annotations` | `get_article_annotations` | `ListResult` | `ArticleAnnotationItem` | list result; article annotations |
 | search | `search-by-eurovoc` | `search_by_eurovoc` | `ListResult` | `ActRef` | list result; act search rows |
 | search | `search-by-subject-matter` | `search_by_subject_matter` | `ListResult` | `ActRef` | list result; act search rows |
 | search | `search-by-title` | `search_by_title` | `ListResult` | `ActRef` | list result; act search rows |

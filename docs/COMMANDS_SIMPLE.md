@@ -88,6 +88,9 @@ Commands that support `--direction` accept `incoming`, `outgoing`, or `both` (de
   Note: This is a sparse, catch-all bucket. In practice it is often empty for mainstream final acts and can be most useful on proposals.
   Note: Rows can include non-legal documents and can also appear with `celex = null` when CELLAR has relation metadata without canonical CELEX.
   Example: `cellar relations get-other-relations --celex 52023PC0367 --direction both --lang eng --limit 50`
+- `get-article-annotations` (`get_article_annotations`): Shows article-annotation rows for the act. This is a special annotated-relation endpoint: it returns `ArticleAnnotationItem` rows with qualifier fields such as article, paragraph, subparagraph, point, and comment on legal basis when CELLAR provides them.
+  Note: Unlike ordinary relation commands, this command accepts neither `--direction` nor date/resource-type/lang filters.
+  Example: `cellar relations get-article-annotations --celex 32022R2554 --limit 50`
 
 ## LIFECYCLE
 
@@ -122,8 +125,6 @@ Case-law relation commands (`get-cjeu-judgments`, `get-ag-opinions`, `get-prelim
   Example: `cellar case-law get-preliminary-questions --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
 - `get-national-decisions` (`get_national_decisions`): Lists national decisions that reference the act (optionally filtered by country).
   Example: `cellar case-law get-national-decisions --celex 32022R2554 --country DEU --since 2020-01-01 --lang eng --limit 50`
-- `get-article-annotations` (`get_article_annotations`): Lists article-annotation rows for the act. These rows can include annotation qualifiers such as article, paragraph, subparagraph, point, and comment on legal basis when CELLAR provides them.
-  Example: `cellar case-law get-article-annotations --celex 32022R2554 --limit 50`
 
 ## SEARCH
 

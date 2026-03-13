@@ -177,7 +177,7 @@ def test_cli_rejects_to_for_get_deadlines(capsys: pytest.CaptureFixture[str]) ->
 def test_cli_rejects_since_for_get_article_annotations(capsys: pytest.CaptureFixture[str]) -> None:
     exit_code = cli.run(
         [
-            "case-law",
+            "relations",
             "get-article-annotations",
             "--celex",
             "32022R2554",
@@ -194,7 +194,7 @@ def test_cli_rejects_since_for_get_article_annotations(capsys: pytest.CaptureFix
 def test_cli_rejects_to_for_get_article_annotations(capsys: pytest.CaptureFixture[str]) -> None:
     exit_code = cli.run(
         [
-            "case-law",
+            "relations",
             "get-article-annotations",
             "--celex",
             "32022R2554",
@@ -429,13 +429,22 @@ def test_cli_article_annotation_output_keeps_annotation_fields(
 
     monkeypatch.setattr(cli, "_build_client", lambda args: AnnotationClient())
 
-    exit_code = cli.run(["case-law", "get-article-annotations", "--celex", "32022R2554"])
+    exit_code = cli.run(["relations", "get-article-annotations", "--celex", "32022R2554"])
 
     assert exit_code == 0
     payload = json.loads(capsys.readouterr().out)
     item = payload["data"]["items"][0]
     assert item["annotation_uri"] == "http://publications.europa.eu/resource/cellar/annotation"
     assert item["annotation_article"] == "5"
+
+
+def test_cli_case_law_group_rejects_get_article_annotations(capsys: pytest.CaptureFixture[str]) -> None:
+    exit_code = cli.run(["case-law", "get-article-annotations", "--celex", "32022R2554"])
+
+    assert exit_code == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is False
+    assert payload["error"]["type"] == "CellarValidationError"
 
 
 @pytest.mark.parametrize(

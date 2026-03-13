@@ -94,8 +94,9 @@ Most relation-style lifecycle commands are `incoming` (items linked to the given
 - `get-corrigenda` (`get_corrigenda`): Lists corrigenda for the act.
   Default: results are constrained to `resource_type = CORRIGENDUM`. You can still override `--resource-type` explicitly for advanced inspection.
   Example: `cellar lifecycle get-corrigenda --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
-- `get-nims` (`get_nims`): Lists national implementing measures linked to the act.
-  Example: `cellar lifecycle get-nims --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
+- `get-nims` (`get_nims`): Lists unique national implementing acts for the act. One directive can have multiple implementing acts in the same country. Public results are grouped by national-act URI, so raw CELLAR row inflation is hidden.
+  Output note: each item exposes a preferred `celex` plus `all_celexes` and `matching_celexes` for grouped omnibus acts.
+  Example: `cellar lifecycle get-nims --celex 32015L2366 --since 2020-01-01 --lang eng --limit 50`
 - `get-dossier` (`get_dossier`): Returns dossier items and procedure metadata linked to the act.
   Example: `cellar lifecycle get-dossier --celex 32022R2554 --lang eng --limit 50`
 - `get-opinions` (`get_opinions`): Lists opinions connected to the act.
@@ -155,8 +156,9 @@ Relation-based `new-*` commands are `incoming` only.
   Example: `cellar monitoring new-corrigenda --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
 - `new-consolidated` (`new_consolidated`): New consolidated versions since the given date/time.
   Example: `cellar monitoring new-consolidated --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
-- `new-nims` (`new_nims`): New national implementing measures since the given date/time.
-  Example: `cellar monitoring new-nims --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
+- `new-nims` (`new_nims`): New unique national implementing acts since the given date/time. One directive can have multiple implementing acts in the same country. Public results are grouped by national-act URI, so raw CELLAR row inflation is hidden.
+  Output note: each item exposes a preferred `celex` plus `all_celexes` and `matching_celexes` for grouped omnibus acts.
+  Example: `cellar monitoring new-nims --celex 32015L2366 --since 2025-01-01 --lang eng --limit 50`
 - `new-by-eurovoc` (`new_by_eurovoc`): New acts since the given date/time filtered by EuroVoc tags.
   Example: `cellar monitoring new-by-eurovoc --tags banking supervision --since 2025-01-01 --lang eng --limit 50`
 
@@ -170,6 +172,7 @@ Relation-based `new-*` commands are `incoming` only.
 ## Notes for readers
 
 - Most commands return lists; use `--limit` and `--offset` for paging.
+- For `get-nims` and `new-nims`, paging applies to grouped unique national acts, not raw CELLAR relation rows.
 - `get-act` and `resolve-celex` return one main record.
 - Relation commands include a `direction` field (`incoming` / `outgoing`).
 - `both` means one command can return rows in both directions.

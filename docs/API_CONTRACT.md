@@ -59,7 +59,12 @@ Act-detail caveats:
 - For proposals, `date_end_of_validity = 9999-12-31` can appear as a placeholder max date rather than a meaningful end-of-validity signal.
 
 `CaseLawItem` may include `origin_country`.
-`NIMItem` may include `implemented_by_country`.
+`NIMItem` represents one grouped unique national implementing act per `uri`, not one raw CELLAR relation row. One directive can therefore return multiple `NIMItem` records for the same country when that country notified multiple implementing acts.
+`NIMItem` may include:
+- `implemented_by_country`
+- `all_celexes`: all unique non-null CELEX values observed on grouped raw rows for the same national-act `uri`
+- `matching_celexes`: the subset of `all_celexes` that matches the queried act's NIM CELEX pattern
+- `celex`: the preferred display CELEX for the grouped act, prioritizing a CELEX that matches the queried act when available
 `DossierItem` may include procedure metadata and status flags (`procedure_code`, `procedure_type`, `status_*`, `produces_act_*`).
 
 `RelationItem` is the generic legal-relation record. It includes shared relation fields such as:
@@ -77,6 +82,7 @@ For relation semantics, note in particular:
 - `get_legal_basis` can mix treaty-basis rows, legal acts based on the act, and other based-on documents such as recommendations.
 - `get_legal_basis` is also the correct reverse-lookup path for delegated act -> base act.
 - `get_citations` is not limited to legal acts; depending on the act, it can include communications, impact assessments, staff working documents, and similar materials.
+- `get_nims` and `new_nims` are special among relation-style commands: they group raw CELLAR rows by national-act `uri` before returning public items, so raw omnibus-law row inflation is intentionally hidden from the public contract.
 - For proposal acts, `get_amendments` and `get_repeals` may return empty `incoming`/`both` results even when the proposal text clearly indicates planned amendments or repeals. Treat this as a current CELLAR relation-data limitation for proposals.
 - `get_other_relations` is a sparse catch-all bucket over predicates such as suspend/defer/obsolete/influence and is often empty for mainstream final acts.
 

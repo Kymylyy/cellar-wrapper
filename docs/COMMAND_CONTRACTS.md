@@ -28,7 +28,7 @@ Runtime source-of-truth:
 | relations | `get-other-relations` | `get_other_relations` | `ListResult` | `RelationItem` | list result; relation rows |
 | lifecycle | `get-consolidated-versions` | `get_consolidated_versions` | `ListResult` | `RelationItem` | list result; relation rows |
 | lifecycle | `get-corrigenda` | `get_corrigenda` | `ListResult` | `RelationItem` | list result; relation rows |
-| lifecycle | `get-nims` | `get_nims` | `ListResult` | `NIMItem` | list result; national implementing measures |
+| lifecycle | `get-nims` | `get_nims` | `ListResult` | `NIMItem` | list result; grouped unique national implementing acts |
 | lifecycle | `get-dossier` | `get_dossier` | `ListResult` | `DossierItem` | list result; dossier procedure rows |
 | lifecycle | `get-opinions` | `get_opinions` | `ListResult` | `RelationItem` | list result; relation rows |
 | lifecycle | `get-deadlines` | `get_deadlines` | `ListResult` | `RelationItem` | list result; relation rows |
@@ -51,7 +51,7 @@ Runtime source-of-truth:
 | monitoring | `new-preliminary-questions` | `new_preliminary_questions` | `ListResult` | `CaseLawItem` | list result; case-law rows |
 | monitoring | `new-corrigenda` | `new_corrigenda` | `ListResult` | `RelationItem` | list result; relation rows |
 | monitoring | `new-consolidated` | `new_consolidated` | `ListResult` | `RelationItem` | list result; relation rows |
-| monitoring | `new-nims` | `new_nims` | `ListResult` | `NIMItem` | list result; national implementing measures |
+| monitoring | `new-nims` | `new_nims` | `ListResult` | `NIMItem` | list result; grouped unique national implementing acts |
 | monitoring | `new-by-eurovoc` | `new_by_eurovoc` | `ListResult` | `ActRef` | list result; act search rows |
 | download | `get-text` | `get_text` | `DocumentPayload` | - | download payload |
 | download | `get-summary` | `get_summary` | `DocumentPayload` | - | download payload |

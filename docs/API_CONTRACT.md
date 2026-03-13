@@ -54,6 +54,10 @@ HttpTransport(
 - `addresses_institutions`
 - `signatory_names`
 
+Act-detail caveats:
+- `addresses_institutions` is act-dependent and may legitimately be empty even when `created_by_agents` or `responsible_agents` are populated.
+- For proposals, `date_end_of_validity = 9999-12-31` can appear as a placeholder max date rather than a meaningful end-of-validity signal.
+
 `CaseLawItem` may include `origin_country`.
 `NIMItem` may include `implemented_by_country`.
 `DossierItem` may include procedure metadata and status flags (`procedure_code`, `procedure_type`, `status_*`, `produces_act_*`).
@@ -68,6 +72,11 @@ For relation semantics, note in particular:
 - `get_completing_acts` is backed by `cdm:resource_legal_completes_resource_legal` and is the narrower "supplements/completes this act" relation.
 - For some acts, the two result sets can overlap substantially, but `get_completing_acts` is typically the narrower subset.
 - `get_based_on_acts` can include non-delegated resource types such as implementing acts, drafts, reports, and resolutions.
+- `get_legal_basis` can mix treaty-basis rows, legal acts based on the act, and other based-on documents such as recommendations.
+- `get_legal_basis` is also the correct reverse-lookup path for delegated act -> base act.
+- `get_citations` is not limited to legal acts; depending on the act, it can include communications, impact assessments, staff working documents, and similar materials.
+- For proposal acts, `get_amendments` and `get_repeals` may return empty `incoming`/`both` results even when the proposal text clearly indicates planned amendments or repeals. Treat this as a current CELLAR relation-data limitation for proposals.
+- `get_other_relations` is a sparse catch-all bucket over predicates such as suspend/defer/obsolete/influence and is often empty for mainstream final acts.
 
 `ArticleAnnotationItem` extends `RelationItem` and is returned by `get_article_annotations`. It may include:
 - `annotation_uri`

@@ -85,3 +85,9 @@ Robocze notatki z testowania komend i kontraktow API.
 - Acts: `PSD2`, `DORA`
 - Observation: This command is meaningful mainly for directives. For directive acts such as `PSD2`, it returns grouped national implementing acts. For regulations such as `DORA`, the practical result is an empty set because there are no national implementing measures in this CELLAR contract.
 - Follow-up: Prefer directive examples for positive `get-nims` payloads. Use regulations only as explicit zero-result boundary cases.
+
+### `case-law get-preliminary-questions`
+
+- Acts: `PSD2`
+- Observation: On EUR-Lex WWW, preliminary questions are not shown as unique cases. The same `CN` case can appear in several rows because EUR-Lex lists multiple article-level links for one preliminary reference. The wrapper command deduplicates this at the work level and returns unique case-law rows.
+- Follow-up: When comparing the wrapper payload with the EUR-Lex act page, compare unique `CN` CELEX values rather than raw row counts.

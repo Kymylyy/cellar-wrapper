@@ -522,6 +522,32 @@
     }
   },
   {
+    "label": "PSR",
+    "celex": "52023PC0367",
+    "command": "relations get-amendments",
+    "purpose": "Checks amendment relations for the PSR proposal in both directions.",
+    "args": {
+      "celex": "52023PC0367",
+      "direction": "both",
+      "lang": "eng",
+      "limit": 10
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [],
+        "returned_count": 0,
+        "meta": {
+          "query_name": "get_amendments",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-13T09:28:24.984990Z",
+          "limit": 10,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
     "label": "PSD2",
     "celex": "32015L2366",
     "command": "relations get-repeals",
@@ -722,32 +748,6 @@
           "query_name": "get_repeals",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
           "executed_at": "2026-03-13T09:28:21.849920Z",
-          "limit": 10,
-          "offset": 0
-        }
-      }
-    }
-  },
-  {
-    "label": "PSR",
-    "celex": "52023PC0367",
-    "command": "relations get-amendments",
-    "purpose": "Checks amendment relations for the PSR proposal in both directions.",
-    "args": {
-      "celex": "52023PC0367",
-      "direction": "both",
-      "lang": "eng",
-      "limit": 10
-    },
-    "output": {
-      "ok": true,
-      "data": {
-        "items": [],
-        "returned_count": 0,
-        "meta": {
-          "query_name": "get_amendments",
-          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:24.984990Z",
           "limit": 10,
           "offset": 0
         }
@@ -1604,85 +1604,237 @@
     }
   },
   {
-    "label": "PSR",
-    "celex": "52023PC0367",
-    "command": "lifecycle get-opinions",
-    "purpose": "Checks institutional and opinion-like documents returned around the PSR proposal.",
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "lifecycle get-nims",
+    "purpose": "Checks grouped national implementing acts for PSD2, including omnibus records with multiple CELEX values in all_celexes.",
     "args": {
-      "celex": "52023PC0367",
-      "lang": "eng"
+      "celex": "32015L2366",
+      "lang": "eng",
+      "limit": 10
     },
     "output": {
       "ok": true,
       "data": {
         "items": [
           {
-            "uri": "http://publications.europa.eu/resource/cellar/748b5714-2dd4-11ef-a61b-01aa75ed71a1",
-            "celex": "52024AB0013",
-            "title": "Opinion of the European Central Bank of 30 April 2024 on a proposed Regulation and Directive on payment and electronic money services (CON/2024/13)",
-            "date": "2024-04-30T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN",
+            "uri": "http://publications.europa.eu/resource/cellar/9f7c09e6-6000-4d3b-933c-e4472ca877c3",
+            "celex": "72015L2366PRT_202507330",
+            "title": null,
+            "date": "2025-12-29T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
             "direction": "incoming",
-            "predicate": "cdm:resource_legal_influences_resource_legal",
-            "relation_type": "influences"
+            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
+            "relation_type": "nims",
+            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/PRT",
+            "all_celexes": [
+              "72015L2366PRT_202507330"
+            ],
+            "matching_celexes": [
+              "72015L2366PRT_202507330"
+            ]
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/4ff15ab7-9366-11f0-97c8-01aa75ed71a1",
-            "celex": "52024AP0298",
-            "title": "P9_TA(2024)0298 – Payment services in the internal market and amending Regulation (EU) No 1093/2010 – European Parliament legislative resolution of 23 April 2024 on the proposal for a regulation of the European Parliament and of the Council on payment services in the internal market and amending Regulation (EU) No 1093/2010 (COM(2023)0367 – C9-0217/2023 – 2023/0210(COD)) (Ordinary legislative procedure: first reading)",
-            "date": "2024-04-23T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/RES_LEGIS",
+            "uri": "http://publications.europa.eu/resource/cellar/ca9b2968-3e6e-4750-b76c-adb1694f5da8",
+            "celex": "72015L2366GRC_202600056",
+            "title": null,
+            "date": "2025-12-12T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
             "direction": "incoming",
-            "predicate": "cdm:resource_legal_contains_ep_opinion_on_resource_legal",
-            "relation_type": "ep_opinion"
+            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
+            "relation_type": "nims",
+            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/GRC",
+            "all_celexes": [
+              "72015L2366GRC_202600056"
+            ],
+            "matching_celexes": [
+              "72015L2366GRC_202600056"
+            ]
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/828399c1-da9c-11ee-b9d9-01aa75ed71a1",
-            "celex": "52023AE3611",
-            "title": "Opinion of the European Economic and Social Committee on a) Proposal for a Regulation of the European Parliament and of the Council on a framework for Financial Data Access and amending Regulations (EU) No 1093/2010, (EU) No 1094/2010, (EU) No 1095/2010 and (EU) 2022/2554 (COM(2023) 360 final — 2023/0205 (COD)) b) Proposal for a Directive of the European Parliament and of the Council on payment services and electronic money services in the Internal Market amending Directive 98/26/EC and repealing Directives 2015/2366/EU and 2009/110/EC (COM(2023) 366 final — 2023/0209 (COD)) and c) Proposal for a Regulation of the European Parliament and of the Council on payment services in the internal market and amending Regulation (EU) No 1093/2010 (COM(2023) 367 final — 2023/0210 (COD))",
-            "date": "2023-12-14T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN",
+            "uri": "http://publications.europa.eu/resource/cellar/7e1a502b-036b-42a6-96ad-1da0d5e4538a",
+            "celex": "72015L2366BGR_202504559",
+            "title": null,
+            "date": "2025-08-05T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
             "direction": "incoming",
-            "predicate": "cdm:resource_legal_contains_eesc_opinion_on_resource_legal",
-            "relation_type": "eesc_opinion"
+            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
+            "relation_type": "nims",
+            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/BGR",
+            "all_celexes": [
+              "72015L2366BGR_202504559"
+            ],
+            "matching_celexes": [
+              "72015L2366BGR_202504559"
+            ]
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/a10ac491-dce2-4198-a3ff-da8c46fdcb09",
-            "celex": null,
-            "title": "Open finance and payments",
-            "date": "2023-11-23T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_PROVIS",
+            "uri": "http://publications.europa.eu/resource/cellar/6f7f145d-6942-40de-acd8-548d03ad31dc",
+            "celex": "72015L2366EST_202504532",
+            "title": null,
+            "date": "2025-07-08T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
             "direction": "incoming",
-            "predicate": "cdm:resource_legal_contains_eesc_opinion_on_resource_legal",
-            "relation_type": "eesc_opinion"
+            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
+            "relation_type": "nims",
+            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/EST",
+            "all_celexes": [
+              "72015L2366EST_202504532"
+            ],
+            "matching_celexes": [
+              "72015L2366EST_202504532"
+            ]
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/a10ac491-dce2-4198-a3ff-da8c46fdcb09",
-            "celex": null,
-            "title": "Open finance and payments",
-            "date": "2023-11-23T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_PROVIS",
+            "uri": "http://publications.europa.eu/resource/cellar/79efa8da-16b0-11f0-b1a3-01aa75ed71a1",
+            "celex": "72015L2366DEU_202502012",
+            "title": null,
+            "date": "2025-03-05T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
             "direction": "incoming",
-            "predicate": "cdm:resource_legal_influences_resource_legal",
-            "relation_type": "influences"
+            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
+            "relation_type": "nims",
+            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/DEU",
+            "all_celexes": [
+              "72015L2366DEU_202502012"
+            ],
+            "matching_celexes": [
+              "72015L2366DEU_202502012"
+            ]
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/95540fc2-8423-11ee-99ba-01aa75ed71a1",
-            "celex": "52023XX01019",
-            "title": "Summary of the Opinion of the European Data Protection Supervisor on the Proposal for a Regulation on payment services in the internal market and the Proposal for a Directive on payment services and electronic money services in the Internal Market (The full text of this Opinion can be found in English, French and German on the EDPS website https://edps.europa.eu)",
-            "date": "2023-11-16T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/SUM",
+            "uri": "http://publications.europa.eu/resource/cellar/5c5bf74b-20bc-4703-b924-22cb48d2145a",
+            "celex": "72015L2366CZE_202501104",
+            "title": null,
+            "date": "2025-02-14T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
             "direction": "incoming",
-            "predicate": "cdm:resource_legal_influences_resource_legal",
-            "relation_type": "influences"
+            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
+            "relation_type": "nims",
+            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/CZE",
+            "all_celexes": [
+              "72002L0065CZE_202501104",
+              "72009L0138CZE_202501104",
+              "72011L0083CZE_202501104",
+              "72014L0017CZE_202501104",
+              "72014L0065CZE_202501104",
+              "72015L0849CZE_202501104",
+              "72015L2366CZE_202501104",
+              "72019L0878CZE_202501104",
+              "72022L2556CZE_202501104",
+              "72023L2673CZE_202501104",
+              "72023R1114CZE_202501104",
+              "72024L1619CZE_202501104",
+              "72024R0886CZE_202501104"
+            ],
+            "matching_celexes": [
+              "72015L2366CZE_202501104"
+            ]
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/880b0c38-a236-4370-a948-5d195ef3a47d",
+            "celex": "72015L2366HRV_202500807",
+            "title": null,
+            "date": "2025-01-27T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
+            "direction": "incoming",
+            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
+            "relation_type": "nims",
+            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/HRV",
+            "all_celexes": [
+              "72015L2366HRV_202500807"
+            ],
+            "matching_celexes": [
+              "72015L2366HRV_202500807"
+            ]
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/439aa207-8543-40d4-9862-b8b7b5f7a992",
+            "celex": "72015L2366SVN_202501678",
+            "title": null,
+            "date": "2024-12-30T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
+            "direction": "incoming",
+            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
+            "relation_type": "nims",
+            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/SVN",
+            "all_celexes": [
+              "71998L0026SVN_202501678",
+              "72015L2366SVN_202501678",
+              "72022L2556SVN_202501678",
+              "72024R0886SVN_202501678"
+            ],
+            "matching_celexes": [
+              "72015L2366SVN_202501678"
+            ]
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/bf2f4a1c-2362-44f5-a0d3-2b2331ab75a4",
+            "celex": "72015L2366LVA_202500309",
+            "title": null,
+            "date": "2024-12-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
+            "direction": "incoming",
+            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
+            "relation_type": "nims",
+            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/LVA",
+            "all_celexes": [
+              "72015L2366LVA_202500309"
+            ],
+            "matching_celexes": [
+              "72015L2366LVA_202500309"
+            ]
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/f9496a2a-ee7d-4fbb-8723-080c44576c9c",
+            "celex": "72015L2366CZE_202501103",
+            "title": null,
+            "date": "2024-12-16T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
+            "direction": "incoming",
+            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
+            "relation_type": "nims",
+            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/CZE",
+            "all_celexes": [
+              "72015L2366CZE_202501103",
+              "72022L2556CZE_202501103"
+            ],
+            "matching_celexes": [
+              "72015L2366CZE_202501103"
+            ]
           }
         ],
-        "returned_count": 6,
+        "returned_count": 10,
         "meta": {
-          "query_name": "get_opinions",
+          "query_name": "get_nims",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:25.875556Z",
-          "limit": 200,
+          "executed_at": "2026-03-13T09:29:46.658143Z",
+          "limit": 10,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "DORA",
+    "celex": "32022R2554",
+    "command": "lifecycle get-nims",
+    "purpose": "Checks the boundary case for a regulation, where get-nims returns no national implementing measures.",
+    "args": {
+      "celex": "32022R2554",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [],
+        "returned_count": 0,
+        "meta": {
+          "query_name": "get_nims",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-13T09:29:49.760904Z",
+          "limit": 5,
           "offset": 0
         }
       }
@@ -1921,6 +2073,91 @@
     }
   },
   {
+    "label": "PSR",
+    "celex": "52023PC0367",
+    "command": "lifecycle get-opinions",
+    "purpose": "Checks institutional and opinion-like documents returned around the PSR proposal.",
+    "args": {
+      "celex": "52023PC0367",
+      "lang": "eng"
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/748b5714-2dd4-11ef-a61b-01aa75ed71a1",
+            "celex": "52024AB0013",
+            "title": "Opinion of the European Central Bank of 30 April 2024 on a proposed Regulation and Directive on payment and electronic money services (CON/2024/13)",
+            "date": "2024-04-30T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_influences_resource_legal",
+            "relation_type": "influences"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/4ff15ab7-9366-11f0-97c8-01aa75ed71a1",
+            "celex": "52024AP0298",
+            "title": "P9_TA(2024)0298 – Payment services in the internal market and amending Regulation (EU) No 1093/2010 – European Parliament legislative resolution of 23 April 2024 on the proposal for a regulation of the European Parliament and of the Council on payment services in the internal market and amending Regulation (EU) No 1093/2010 (COM(2023)0367 – C9-0217/2023 – 2023/0210(COD)) (Ordinary legislative procedure: first reading)",
+            "date": "2024-04-23T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/RES_LEGIS",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_contains_ep_opinion_on_resource_legal",
+            "relation_type": "ep_opinion"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/828399c1-da9c-11ee-b9d9-01aa75ed71a1",
+            "celex": "52023AE3611",
+            "title": "Opinion of the European Economic and Social Committee on a) Proposal for a Regulation of the European Parliament and of the Council on a framework for Financial Data Access and amending Regulations (EU) No 1093/2010, (EU) No 1094/2010, (EU) No 1095/2010 and (EU) 2022/2554 (COM(2023) 360 final — 2023/0205 (COD)) b) Proposal for a Directive of the European Parliament and of the Council on payment services and electronic money services in the Internal Market amending Directive 98/26/EC and repealing Directives 2015/2366/EU and 2009/110/EC (COM(2023) 366 final — 2023/0209 (COD)) and c) Proposal for a Regulation of the European Parliament and of the Council on payment services in the internal market and amending Regulation (EU) No 1093/2010 (COM(2023) 367 final — 2023/0210 (COD))",
+            "date": "2023-12-14T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_contains_eesc_opinion_on_resource_legal",
+            "relation_type": "eesc_opinion"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/a10ac491-dce2-4198-a3ff-da8c46fdcb09",
+            "celex": null,
+            "title": "Open finance and payments",
+            "date": "2023-11-23T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_PROVIS",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_contains_eesc_opinion_on_resource_legal",
+            "relation_type": "eesc_opinion"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/a10ac491-dce2-4198-a3ff-da8c46fdcb09",
+            "celex": null,
+            "title": "Open finance and payments",
+            "date": "2023-11-23T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_PROVIS",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_influences_resource_legal",
+            "relation_type": "influences"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/95540fc2-8423-11ee-99ba-01aa75ed71a1",
+            "celex": "52023XX01019",
+            "title": "Summary of the Opinion of the European Data Protection Supervisor on the Proposal for a Regulation on payment services in the internal market and the Proposal for a Directive on payment services and electronic money services in the Internal Market (The full text of this Opinion can be found in English, French and German on the EDPS website https://edps.europa.eu)",
+            "date": "2023-11-16T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/SUM",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_influences_resource_legal",
+            "relation_type": "influences"
+          }
+        ],
+        "returned_count": 6,
+        "meta": {
+          "query_name": "get_opinions",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-13T09:29:25.875556Z",
+          "limit": 200,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
     "label": "PSD2",
     "celex": "32015L2366",
     "command": "lifecycle get-deadlines",
@@ -1975,236 +2212,443 @@
     }
   },
   {
-    "label": "PSD2",
-    "celex": "32015L2366",
-    "command": "lifecycle get-nims",
-    "purpose": "Checks grouped national implementing acts for PSD2, including omnibus records with multiple CELEX values in all_celexes.",
+    "label": "AI Act",
+    "celex": "32024R1689",
+    "command": "lifecycle get-deadlines",
+    "purpose": "Checks that the AI Act returns multiple self-date rows, including several staged entry-into-force dates and later deadline dates.",
     "args": {
-      "celex": "32015L2366",
-      "lang": "eng",
-      "limit": 10
+      "celex": "32024R1689",
+      "limit": 50
     },
     "output": {
       "ok": true,
       "data": {
         "items": [
           {
-            "uri": "http://publications.europa.eu/resource/cellar/9f7c09e6-6000-4d3b-933c-e4472ca877c3",
-            "celex": "72015L2366PRT_202507330",
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
             "title": null,
-            "date": "2025-12-29T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
-            "direction": "incoming",
-            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
-            "relation_type": "nims",
-            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/PRT",
-            "all_celexes": [
-              "72015L2366PRT_202507330"
-            ],
-            "matching_celexes": [
-              "72015L2366PRT_202507330"
-            ]
+            "date": "2024-08-01T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_entry-into-force",
+            "relation_type": "entry_into_force"
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/ca9b2968-3e6e-4750-b76c-adb1694f5da8",
-            "celex": "72015L2366GRC_202600056",
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
             "title": null,
-            "date": "2025-12-12T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
-            "direction": "incoming",
-            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
-            "relation_type": "nims",
-            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/GRC",
-            "all_celexes": [
-              "72015L2366GRC_202600056"
-            ],
-            "matching_celexes": [
-              "72015L2366GRC_202600056"
-            ]
+            "date": "2025-02-02T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_entry-into-force",
+            "relation_type": "entry_into_force"
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/7e1a502b-036b-42a6-96ad-1da0d5e4538a",
-            "celex": "72015L2366BGR_202504559",
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
             "title": null,
-            "date": "2025-08-05T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
-            "direction": "incoming",
-            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
-            "relation_type": "nims",
-            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/BGR",
-            "all_celexes": [
-              "72015L2366BGR_202504559"
-            ],
-            "matching_celexes": [
-              "72015L2366BGR_202504559"
-            ]
+            "date": "2025-08-02T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_entry-into-force",
+            "relation_type": "entry_into_force"
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/6f7f145d-6942-40de-acd8-548d03ad31dc",
-            "celex": "72015L2366EST_202504532",
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
             "title": null,
-            "date": "2025-07-08T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
-            "direction": "incoming",
-            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
-            "relation_type": "nims",
-            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/EST",
-            "all_celexes": [
-              "72015L2366EST_202504532"
-            ],
-            "matching_celexes": [
-              "72015L2366EST_202504532"
-            ]
+            "date": "2026-08-02T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_entry-into-force",
+            "relation_type": "entry_into_force"
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/79efa8da-16b0-11f0-b1a3-01aa75ed71a1",
-            "celex": "72015L2366DEU_202502012",
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
             "title": null,
-            "date": "2025-03-05T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
-            "direction": "incoming",
-            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
-            "relation_type": "nims",
-            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/DEU",
-            "all_celexes": [
-              "72015L2366DEU_202502012"
-            ],
-            "matching_celexes": [
-              "72015L2366DEU_202502012"
-            ]
+            "date": "2027-08-02T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_deadline",
+            "relation_type": "deadline"
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/5c5bf74b-20bc-4703-b924-22cb48d2145a",
-            "celex": "72015L2366CZE_202501104",
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
             "title": null,
-            "date": "2025-02-14T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
-            "direction": "incoming",
-            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
-            "relation_type": "nims",
-            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/CZE",
-            "all_celexes": [
-              "72002L0065CZE_202501104",
-              "72009L0138CZE_202501104",
-              "72011L0083CZE_202501104",
-              "72014L0017CZE_202501104",
-              "72014L0065CZE_202501104",
-              "72015L0849CZE_202501104",
-              "72015L2366CZE_202501104",
-              "72019L0878CZE_202501104",
-              "72022L2556CZE_202501104",
-              "72023L2673CZE_202501104",
-              "72023R1114CZE_202501104",
-              "72024L1619CZE_202501104",
-              "72024R0886CZE_202501104"
-            ],
-            "matching_celexes": [
-              "72015L2366CZE_202501104"
-            ]
+            "date": "2027-08-02T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_entry-into-force",
+            "relation_type": "entry_into_force"
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/880b0c38-a236-4370-a948-5d195ef3a47d",
-            "celex": "72015L2366HRV_202500807",
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
             "title": null,
-            "date": "2025-01-27T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
-            "direction": "incoming",
-            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
-            "relation_type": "nims",
-            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/HRV",
-            "all_celexes": [
-              "72015L2366HRV_202500807"
-            ],
-            "matching_celexes": [
-              "72015L2366HRV_202500807"
-            ]
+            "date": "2028-08-02T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_deadline",
+            "relation_type": "deadline"
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/439aa207-8543-40d4-9862-b8b7b5f7a992",
-            "celex": "72015L2366SVN_202501678",
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
             "title": null,
-            "date": "2024-12-30T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
-            "direction": "incoming",
-            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
-            "relation_type": "nims",
-            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/SVN",
-            "all_celexes": [
-              "71998L0026SVN_202501678",
-              "72015L2366SVN_202501678",
-              "72022L2556SVN_202501678",
-              "72024R0886SVN_202501678"
-            ],
-            "matching_celexes": [
-              "72015L2366SVN_202501678"
-            ]
+            "date": "2029-08-01T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_deadline",
+            "relation_type": "deadline"
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/bf2f4a1c-2362-44f5-a0d3-2b2331ab75a4",
-            "celex": "72015L2366LVA_202500309",
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
             "title": null,
-            "date": "2024-12-28T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
-            "direction": "incoming",
-            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
-            "relation_type": "nims",
-            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/LVA",
-            "all_celexes": [
-              "72015L2366LVA_202500309"
-            ],
-            "matching_celexes": [
-              "72015L2366LVA_202500309"
-            ]
+            "date": "2029-08-02T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_deadline",
+            "relation_type": "deadline"
           },
           {
-            "uri": "http://publications.europa.eu/resource/cellar/f9496a2a-ee7d-4fbb-8723-080c44576c9c",
-            "celex": "72015L2366CZE_202501103",
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
             "title": null,
-            "date": "2024-12-16T00:00:00",
-            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/MEAS_NATION_IMPL",
-            "direction": "incoming",
-            "predicate": "cdm:measure_national_implementing_implements_resource_legal",
-            "relation_type": "nims",
-            "implemented_by_country": "http://publications.europa.eu/resource/authority/country/CZE",
-            "all_celexes": [
-              "72015L2366CZE_202501103",
-              "72022L2556CZE_202501103"
-            ],
-            "matching_celexes": [
-              "72015L2366CZE_202501103"
-            ]
+            "date": "2030-08-02T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_deadline",
+            "relation_type": "deadline"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
+            "title": null,
+            "date": "2030-12-31T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_deadline",
+            "relation_type": "deadline"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/dc8116a1-3fe6-11ef-865a-01aa75ed71a1",
+            "celex": "32024R1689",
+            "title": null,
+            "date": "2031-08-02T00:00:00",
+            "resource_type": null,
+            "direction": "outgoing",
+            "predicate": "cdm:resource_legal_date_deadline",
+            "relation_type": "deadline"
           }
         ],
-        "returned_count": 10,
+        "returned_count": 12,
         "meta": {
-          "query_name": "get_nims",
+          "query_name": "get_deadlines",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:46.658143Z",
-          "limit": 10,
+          "executed_at": "2026-03-13T13:18:19.039079Z",
+          "limit": 50,
           "offset": 0
         }
       }
     }
   },
   {
-    "label": "DORA",
-    "celex": "32022R2554",
-    "command": "lifecycle get-nims",
-    "purpose": "Checks the boundary case for a regulation, where get-nims returns no national implementing measures.",
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "case-law get-cjeu-judgments",
+    "purpose": "Checks unique CJEU judgments linked to PSD2 without a since filter, including case-law-specific fields such as ECLI, court formation, Advocate General, and origin country.",
     "args": {
-      "celex": "32022R2554",
+      "celex": "32015L2366",
       "lang": "eng",
       "limit": 5
     },
     "output": {
       "ok": true,
       "data": {
-        "items": [],
-        "returned_count": 0,
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/862d5b5d-d167-11ee-b9d9-01aa75ed71a1",
+            "celex": "62022CJ0661",
+            "title": "Judgment of the Court (Fifth Chamber) of 22 February 2024.#'ABC Projektai' UAB v Lietuvos bankas.#Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas.#Reference for a preliminary ruling – Payment services in the internal market – Directive (EU) 2015/2366 – Article 4(3) and (5) – Payment service or payment transaction – Directive 2009/110/EC – Article 2(2) – Issuance of electronic money – Holding of customer funds by a payment institution without a specific payment order – Classification.#Case C-661/22.",
+            "date": "2024-02-22T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
+            "ecli": "ECLI:EU:C:2024:148",
+            "court_formation": "http://publications.europa.eu/resource/authority/formjug/CHAMB_05_C",
+            "advocate_general": "http://publications.europa.eu/resource/cellar/8e01d479-c04c-11e5-9e54-01aa75ed71a1",
+            "origin_country": "http://publications.europa.eu/resource/authority/country/LTU"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/ac870c71-5355-11ec-91ac-01aa75ed71a1",
+            "celex": "62020CJ0484",
+            "title": "Judgment of the Court (Ninth Chamber) of 2 December 2021.#Vodafone Kabel Deutschland GmbH v Bundesverband der Verbraucherzentralen und Verbraucherverbände - Verbraucherzentrale Bundesverband eV.#Request for a preliminary ruling from the Oberlandesgericht München.#Reference for a preliminary ruling – Consumer protection – Directive (EU) 2015/2366 – Payment services – Article 62(4) – Charges applicable – Article 107(1) – Full harmonisation – Article 115(1) and (2) – Transposition and application – Subscriptions for cable television and internet access – Contracts of indefinite duration concluded before the date for transposition of that directive – Charges applied to payment transactions without direct debit authorisation that are initiated after that date.#Case C-484/20.",
+            "date": "2021-12-02T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
+            "ecli": "ECLI:EU:C:2021:975",
+            "court_formation": "http://publications.europa.eu/resource/authority/formjug/CHAMB_09_C",
+            "advocate_general": "http://publications.europa.eu/resource/cellar/fc7a5e9f-5469-11ec-91ac-01aa75ed71a1",
+            "origin_country": "http://publications.europa.eu/resource/authority/country/DEU"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/ff21d11c-2403-11eb-b57e-01aa75ed71a1",
+            "celex": "62019CJ0287",
+            "title": "Judgment of the Court (First Chamber) of 11 November 2020.#DenizBank AG v Verein für Konsumenteninformation.#Request for a preliminary ruling from the Oberster Gerichtshof.#Reference for a preliminary ruling – Consumer protection – Directive (EU) 2015/2366 – Payment services in the internal market – Article 4(14) – Concept of ‘payment instrument’ – Personalised multifunctional bank cards – Near-field communication (NFC) functionality – Article 52(6)(a) and Article 54(1) – Information to be provided to users – Change in the conditions of a framework contract – Tacit consent – Article 63(1)(a) and (b) – Rights and obligations related to payment services – Derogation for low-value payment instruments – Conditions under which applicable – Payment instrument that does not allow its blocking – Payment instrument used anonymously – Limitation of the temporal effects of the judgment.#Case C-287/19.",
+            "date": "2020-11-11T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
+            "ecli": "ECLI:EU:C:2020:897",
+            "court_formation": "http://publications.europa.eu/resource/authority/formjug/CHAMB_01_C",
+            "advocate_general": "http://publications.europa.eu/resource/cellar/8e01d479-c04c-11e5-9e54-01aa75ed71a1",
+            "origin_country": "http://publications.europa.eu/resource/authority/country/AUT"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/3d380a4e-0ebe-11eb-bc07-01aa75ed71a1",
+            "celex": "62018CJ0778",
+            "title": "Judgment of the Court (Fifth Chamber) of 15 October 2020.#Association française des usagers de banques v Ministre de l'Économie et des Finances.#Request for a preliminary ruling from the Conseil d'État (France).#Reference for a preliminary ruling – Consumer protection – Payment services in the internal market – Directive 2007/64/EC – Article 45 – Directive (EU) 2015/2366 – Article 55 – Termination of a framework contract – Directive 2014/17/EU – Credit agreements for consumers relating to residential immovable property – Article 12(1), (2)(a) and (3) – Tying practices – Bundling practices – Directive 2014/92/EU – Payment accounts – Articles 9 to 14 – Account switching – Obligation to deposit income on a payment account held with the lender during a period fixed by the credit agreement as consideration for an individual advantage – Duration of the obligation – Loss of the individual advantage in the event of early termination of the account.#Case C-778/18.",
+            "date": "2020-10-15T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
+            "ecli": "ECLI:EU:C:2020:831",
+            "court_formation": "http://publications.europa.eu/resource/authority/formjug/CHAMB_05_C",
+            "advocate_general": "http://publications.europa.eu/resource/cellar/0ff18fa3-c04a-11e5-9e54-01aa75ed71a1",
+            "origin_country": "http://publications.europa.eu/resource/authority/country/FRA"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/84c7c123-0be5-11e8-966a-01aa75ed71a1",
+            "celex": "62016CJ0643",
+            "title": "Judgment of the Court (First Chamber) of 7 February 2018.#American Express Co. v The Lords Commissioners of Her Majesty’s Treasury.#Request for a preliminary ruling from the High Court of Justice (England & Wales), Queen's Bench Division (Administrative Court).#Reference for a preliminary ruling — Directive (EU) 2015/2366 — Payment services in the internal market — Article 35(1) — Obligation to provide authorised or registered payment service providers with access to payment systems — Point (b) of the first subparagraph of Article 35(2) — Inapplicability of that obligation to payment systems composed exclusively of payment service providers belonging to a group — Applicability of that obligation to three party payment card schemes that have entered into co-branding or agency arrangements — Validity.#Case C-643/16.",
+            "date": "2018-02-07T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
+            "ecli": "ECLI:EU:C:2018:67",
+            "court_formation": "http://publications.europa.eu/resource/authority/formjug/CHAMB_01_C",
+            "advocate_general": "http://publications.europa.eu/resource/cellar/8e01d479-c04c-11e5-9e54-01aa75ed71a1",
+            "origin_country": "http://publications.europa.eu/resource/authority/country/GBR"
+          }
+        ],
+        "returned_count": 5,
         "meta": {
-          "query_name": "get_nims",
+          "query_name": "get_cjeu_judgments",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:49.760904Z",
+          "executed_at": "2026-03-13T13:35:34.916896Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "case-law get-ag-opinions",
+    "purpose": "Checks Advocate General opinions linked to PSD2, using a mature directive with a small but real CJEU case-law footprint.",
+    "args": {
+      "celex": "32015L2366",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/26556ddb-636a-11ee-9220-01aa75ed71a1",
+            "celex": "62022CC0661",
+            "title": "Opinion of Advocate General Campos Sánchez-Bordona delivered on 5 October 2023.#'ABC Projektai' UAB v Lietuvos bankas.#Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas.#Reference for a preliminary ruling – Payment services in the internal market – Directive (EU) 2015/2366 – Article 4(3) and (5) – Payment service or payment transaction – Directive 2009/110/EC – Article 2(2) – Issuance of electronic money – Holding of customer funds by a payment institution without a specific payment order – Classification.#Case C-661/22.",
+            "date": "2023-10-05T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_AG",
+            "direction": "incoming",
+            "predicate": "cdm:case-law_has_conclusions_opinion_advocate-general",
+            "relation_type": "ag_opinion"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/27676e7c-8acd-11ea-812f-01aa75ed71a1",
+            "celex": "62019CC0287",
+            "title": "Opinion of Advocate General Campos Sánchez-Bordona delivered on 30 April 2020.#DenizBank AG v Verein für Konsumenteninformation.#Request for a preliminary ruling from the Oberster Gerichtshof.#Reference for a preliminary ruling – Consumer protection – Directive (EU) 2015/2366 – Payment services in the internal market – Article 4(14) – Concept of ‘payment instrument’ – Personalised multifunctional bank cards – Near-field communication (NFC) functionality – Article 52(6)(a) and Article 54(1) – Information to be provided to users – Change in the conditions of a framework contract – Tacit consent – Article 63(1)(a) and (b) – Rights and obligations related to payment services – Derogation for low-value payment instruments – Conditions under which applicable – Payment instrument that does not allow its blocking – Payment instrument used anonymously – Limitation of the temporal effects of the judgment.#Case C-287/19.",
+            "date": "2020-04-30T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_AG",
+            "direction": "incoming",
+            "predicate": "cdm:case-law_has_conclusions_opinion_advocate-general",
+            "relation_type": "ag_opinion"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/136687e9-5955-11ea-8b81-01aa75ed71a1",
+            "celex": "62018CC0778",
+            "title": "Opinion of Advocate General Saugmandsgaard Øe delivered on 27 February 2020.#Association française des usagers de banques v Ministre de l'Économie et des Finances.#Request for a preliminary ruling from the Conseil d'État (France).#Reference for a preliminary ruling – Consumer protection – Payment services in the internal market – Directive 2007/64/EC – Article 45 – Directive (EU) 2015/2366 – Article 55 – Termination of a framework contract – Directive 2014/17/EU – Credit agreements for consumers relating to residential immovable property – Article 12(1), (2)(a) and (3) – Tying practices – Bundling practices – Directive 2014/92/EU – Payment accounts – Articles 9 to 14 – Account switching – Obligation to deposit income on a payment account held with the lender during a period fixed by the credit agreement as consideration for an individual advantage – Duration of the obligation – Loss of the individual advantage in the event of early termination of the account.#Case C-778/18.",
+            "date": "2020-02-27T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_AG",
+            "direction": "incoming",
+            "predicate": "cdm:case-law_has_conclusions_opinion_advocate-general",
+            "relation_type": "ag_opinion"
+          }
+        ],
+        "returned_count": 3,
+        "meta": {
+          "query_name": "get_ag_opinions",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-13T13:25:23.790945Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "CCD1",
+    "celex": "32008L0048",
+    "command": "case-law get-national-decisions",
+    "purpose": "Checks national court decisions linked to CCD1 across multiple countries without needing a country filter.",
+    "args": {
+      "celex": "32008L0048",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/e9eb480a-cbd4-11ee-b9d9-01aa75ed71a1",
+            "celex": "82023AT0622(51)",
+            "title": null,
+            "date": "2023-06-22T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC_NC",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": "http://publications.europa.eu/resource/authority/country/AUT"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/ab0e5e67-6463-11ef-a8ba-01aa75ed71a1",
+            "celex": "82021DE1207(51)",
+            "title": null,
+            "date": "2021-12-07T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC_NC",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": "http://publications.europa.eu/resource/authority/country/DEU"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/72e39471-a948-11ed-b508-01aa75ed71a1",
+            "celex": "82021PT0923(51)",
+            "title": null,
+            "date": "2021-09-23T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC_NC",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": "http://publications.europa.eu/resource/authority/country/PRT"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/756b59ed-28c5-11eb-9d7e-01aa75ed71a1",
+            "celex": "82019LU1128(51)",
+            "title": null,
+            "date": "2019-11-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC_NC",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": "http://publications.europa.eu/resource/authority/country/LUX"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/05918311-28c6-11eb-9d7e-01aa75ed71a1",
+            "celex": "82019LU0710(51)",
+            "title": null,
+            "date": "2019-07-10T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC_NC",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": "http://publications.europa.eu/resource/authority/country/LUX"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "get_national_decisions",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-13T13:35:30.613174Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "case-law get-preliminary-questions",
+    "purpose": "Checks preliminary-question case-law items for PSD2, where EUR-Lex WWW shows repeated article-level links but the wrapper returns unique case rows.",
+    "args": {
+      "celex": "32015L2366",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/76088f46-814e-11f0-9af8-01aa75ed71a1",
+            "celex": "62025CN0339",
+            "title": "Case C-339/25, Iulicris Recycling: Request for a preliminary ruling from the Tribunal de l’entreprise francophone de Bruxelles (Belgium) lodged on 17 May 2025 - Iulicris Recycling v Ibanfirst SA",
+            "date": "2025-05-17T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": null
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/6c8d3203-70cb-11f0-bf4e-01aa75ed71a1",
+            "celex": "62025CN0274",
+            "title": "Case C-274/25, Alternative Payments: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 10 April 2025 - Alternative Payments UAB v Lietuvos bankas",
+            "date": "2025-04-10T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": null
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/f9f8f7ce-2eca-11f0-8a44-01aa75ed71a1",
+            "celex": "62025CN0070",
+            "title": "Case C-70/25, Tukowiecka: Request for a preliminary ruling from the Sad Rejonowy w Koszalinie (Poland) lodged on 3 February 2025 - N.O. v PKO BP S.A.",
+            "date": "2025-02-03T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": null
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/258e4b1e-1f12-11f0-b1a3-01aa75ed71a1",
+            "celex": "62025CN0051",
+            "title": "Case C-51/25, Betaal Garant Nederland: Request for a preliminary ruling from the College van Beroep voor het bedrijfsleven (Netherlands) lodged on 28 January 2025 - Betaal Garant Nederland CV v De Nederlandsche Bank NV; other party: Vereniging Eigen Huis",
+            "date": "2025-01-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": null
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/7dc819e5-7f45-11ed-9887-01aa75ed71a1",
+            "celex": "62022CN0661",
+            "title": "Case C-661/22: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 20 October 2022 - Bruc Bond UAB v Lietuvos bankas",
+            "date": "2022-10-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": null
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "get_preliminary_questions",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-13T13:38:00.964559Z",
           "limit": 5,
           "offset": 0
         }

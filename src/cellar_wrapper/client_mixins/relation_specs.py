@@ -61,6 +61,7 @@ RELATION_CALL_SPECS: dict[str, RelationCallSpec] = {
     "get_corrigenda": RelationCallSpec(
         [PredicateSpec(PREDICATES["corrects"], "corrects")],
         "incoming",
+        default_resource_type="CORRIGENDUM",
     ),
     "get_nims": RelationCallSpec(
         [PredicateSpec(PREDICATES["nims"], "nims")],
@@ -112,6 +113,7 @@ RELATION_CALL_SPECS: dict[str, RelationCallSpec] = {
     "new_corrigenda": RelationCallSpec(
         [PredicateSpec(PREDICATES["corrects"], "corrects")],
         "incoming",
+        default_resource_type="CORRIGENDUM",
     ),
     "new_consolidated": RelationCallSpec(
         [PredicateSpec(PREDICATES["consolidates"], "consolidates")],

@@ -72,6 +72,8 @@ For relation semantics, note in particular:
 - `get_completing_acts` is backed by `cdm:resource_legal_completes_resource_legal` and is the narrower "supplements/completes this act" relation.
 - For some acts, the two result sets can overlap substantially, but `get_completing_acts` is typically the narrower subset.
 - `get_based_on_acts` can include non-delegated resource types such as implementing acts, drafts, reports, and resolutions.
+- `get_corrigenda` and `new_corrigenda` default to `resource_type = CORRIGENDUM`, while still allowing an explicit override.
+- When a relation-style command is filtered by `resource_type`, the returned `resource_type` field is constrained to the selected type rather than any sibling type attached to the same CELLAR work.
 - `get_legal_basis` can mix treaty-basis rows, legal acts based on the act, and other based-on documents such as recommendations.
 - `get_legal_basis` is also the correct reverse-lookup path for delegated act -> base act.
 - `get_citations` is not limited to legal acts; depending on the act, it can include communications, impact assessments, staff working documents, and similar materials.

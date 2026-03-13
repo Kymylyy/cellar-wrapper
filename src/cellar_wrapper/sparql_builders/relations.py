@@ -13,7 +13,6 @@ from .common import (
     language_uri,
     limit_offset,
     quote_literal,
-    resource_type_clause,
     resource_type_uri,
     safe_iri,
     with_prefixes,
@@ -83,13 +82,20 @@ def build_relation_query(
         )
     extra_select = (" " + " ".join(extra_select_vars)) if extra_select_vars else ""
     extra_optional = ("\n  " + "\n  ".join(optional_blocks)) if optional_blocks else ""
+    if resource_type is None:
+        type_clause = f'OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}'
+    else:
+        type_clause = (
+            f'?other {PREDICATES["work_has_resource_type"]} ?type .\n'
+            f'  FILTER(?type = <{resource_type_uri(resource_type)}>)'
+        )
 
     query = f"""
 SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predicate ?ecli ?courtFormation ?advocateGeneral{extra_select} WHERE {{
 {union_block}
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
-  OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}
+  {type_clause}
   OPTIONAL {{ ?other {PREDICATES["case_law_ecli"]} ?ecli }}
   OPTIONAL {{ ?other {PREDICATES["case_law_delivered_by_court_formation"]} ?courtFormation }}
   OPTIONAL {{ ?other {PREDICATES["case_law_delivered_by_advocate_general"]} ?advocateGeneral }}
@@ -99,7 +105,6 @@ SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predi
     ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
-  {resource_type_clause(resource_type)}
   {date_bounds_filter("date", since=since, to=to, include_undated=include_undated)}
 }}
 ORDER BY DESC(?date)

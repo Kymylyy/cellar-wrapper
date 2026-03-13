@@ -1447,5 +1447,89 @@
         }
       }
     }
+  },
+  {
+    "label": "EU funds amounts proposal",
+    "celex": "52024PC0100",
+    "command": "relations get-other-relations",
+    "purpose": "Checks mixed other relations around the proposal adjusting funding amounts across EU programmes and funds.",
+    "args": {
+      "celex": "52024PC0100",
+      "direction": "incoming",
+      "lang": "eng",
+      "limit": 10
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/8c64c180-df4b-11f0-8439-01aa75ed71a1",
+            "celex": "52025DC0799",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS on the withdrawal of the Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulation (EU) 2021/522, Regulation (EU) 2021/1057, Regulation (EU) 2021/1060, Regulation (EU) 2021/1139, Regulation (EU) 2021/1229 and Regulation (EU) 2021/1755 as regards changes to the amounts of funds for certain programmes and funds",
+            "date": "2025-12-22T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_renders_obsolete_resource_legal",
+            "relation_type": "renders_obsolete"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/6dc279f0-57cd-433c-9b92-6b0779e48121",
+            "celex": null,
+            "title": "Opinion - European Economic and Social Committee - MFF: Changes to the amounts for certain programmes and funds",
+            "date": "2024-03-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_ADOP",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_influences_resource_legal",
+            "relation_type": "influences"
+          }
+        ],
+        "returned_count": 2,
+        "meta": {
+          "query_name": "get_other_relations",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-13T07:47:52Z",
+          "limit": 10,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "Aluminium anti-dumping duty",
+    "celex": "32021R1784",
+    "command": "relations get-other-relations",
+    "purpose": "Checks suspension relations around the implementing regulation imposing anti-dumping duties on aluminium flat-rolled products from China.",
+    "args": {
+      "celex": "32021R1784",
+      "direction": "incoming",
+      "lang": "eng",
+      "limit": 10
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/c07296c1-2a2e-11ec-bd8e-01aa75ed71a1",
+            "celex": "32021D1788",
+            "title": "Commission Implementing Decision (EU) 2021/1788 of 8 October 2021 suspending the definitive anti-dumping duties imposed by Implementing Regulation (EU) 2021/1784 on imports of aluminium flat-rolled products originating in the People’s Republic of China",
+            "date": "2021-10-08T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_suspends_resource_legal",
+            "relation_type": "suspends"
+          }
+        ],
+        "returned_count": 1,
+        "meta": {
+          "query_name": "get_other_relations",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-13T07:47:52Z",
+          "limit": 10,
+          "offset": 0
+        }
+      }
+    }
   }
 ]

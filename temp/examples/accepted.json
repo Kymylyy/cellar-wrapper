@@ -1347,6 +1347,112 @@
     }
   },
   {
+    "label": "MiCA",
+    "celex": "32023R1114",
+    "command": "relations get-article-annotations",
+    "purpose": "Checks article-annotation rows for MiCA using an offset that exposes populated article/paragraph/subparagraph qualifiers alongside sparse annotated-relation rows.",
+    "args": {
+      "celex": "32023R1114",
+      "limit": 5,
+      "offset": 8
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/5a0e488a-9ff3-11f0-97c8-01aa75ed71a1",
+            "celex": null,
+            "title": null,
+            "date": "2025-06-27T00:00:00",
+            "resource_type": null,
+            "direction": "incoming",
+            "predicate": "http://publications.europa.eu/ontology/cdm#resource_legal_based_on_resource_legal",
+            "relation_type": "article_annotation",
+            "annotation_uri": "http://publications.europa.eu/.well-known/genid/5a0e488a-9ff3-11f0-97c8-01aa75ed71a1/9a870f33-39b5-4aa6-ae1f-c7586da548d7",
+            "annotation_article": "45",
+            "annotation_paragraph": "7",
+            "annotation_subparagraph": "4",
+            "annotation_point": null,
+            "annotation_comment_on_legal_basis": "A45P7L4"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/5a0e488a-9ff3-11f0-97c8-01aa75ed71a1",
+            "celex": null,
+            "title": null,
+            "date": "2025-06-27T00:00:00",
+            "resource_type": null,
+            "direction": "incoming",
+            "predicate": "http://publications.europa.eu/ontology/cdm#resource_legal_completes_resource_legal",
+            "relation_type": "article_annotation",
+            "annotation_uri": "http://publications.europa.eu/.well-known/genid/5a0e488a-9ff3-11f0-97c8-01aa75ed71a1/f90bd413-a4e3-4f99-85e9-9256fe5b8755",
+            "annotation_article": null,
+            "annotation_paragraph": null,
+            "annotation_subparagraph": null,
+            "annotation_point": null,
+            "annotation_comment_on_legal_basis": null
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/cd046b46-91cc-11f0-97c8-01aa75ed71a1",
+            "celex": null,
+            "title": null,
+            "date": "2025-06-05T00:00:00",
+            "resource_type": null,
+            "direction": "incoming",
+            "predicate": "http://publications.europa.eu/ontology/cdm#resource_legal_based_on_resource_legal",
+            "relation_type": "article_annotation",
+            "annotation_uri": "http://publications.europa.eu/.well-known/genid/cd046b46-91cc-11f0-97c8-01aa75ed71a1/1e4f97f9-e0e0-4818-b477-383d31286e85",
+            "annotation_article": "18",
+            "annotation_paragraph": "6",
+            "annotation_subparagraph": "3",
+            "annotation_point": null,
+            "annotation_comment_on_legal_basis": "A18P6L3"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/fbb5cea1-91cb-11f0-97c8-01aa75ed71a1",
+            "celex": null,
+            "title": null,
+            "date": "2025-06-05T00:00:00",
+            "resource_type": null,
+            "direction": "incoming",
+            "predicate": "http://publications.europa.eu/ontology/cdm#resource_legal_based_on_resource_legal",
+            "relation_type": "article_annotation",
+            "annotation_uri": "http://publications.europa.eu/.well-known/genid/fbb5cea1-91cb-11f0-97c8-01aa75ed71a1/a2b75128-668e-4c35-8ed1-9e3de1491128",
+            "annotation_article": "18",
+            "annotation_paragraph": "7",
+            "annotation_subparagraph": "3",
+            "annotation_point": null,
+            "annotation_comment_on_legal_basis": "A18P7L3"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/cd046b46-91cc-11f0-97c8-01aa75ed71a1",
+            "celex": null,
+            "title": null,
+            "date": "2025-06-05T00:00:00",
+            "resource_type": null,
+            "direction": "incoming",
+            "predicate": "http://publications.europa.eu/ontology/cdm#resource_legal_completes_resource_legal",
+            "relation_type": "article_annotation",
+            "annotation_uri": "http://publications.europa.eu/.well-known/genid/cd046b46-91cc-11f0-97c8-01aa75ed71a1/286d58f6-05a4-400a-865c-865f4461c5d6",
+            "annotation_article": null,
+            "annotation_paragraph": null,
+            "annotation_subparagraph": null,
+            "annotation_point": null,
+            "annotation_comment_on_legal_basis": null
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "get_article_annotations",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-13T14:01:34.780515Z",
+          "limit": 5,
+          "offset": 8
+        }
+      }
+    }
+  },
+  {
     "label": "PSD2",
     "celex": "32015L2366",
     "command": "lifecycle get-consolidated-versions",

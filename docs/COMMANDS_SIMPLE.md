@@ -36,16 +36,18 @@ cellar lookup get-act --celex 32022R2554 --lang eng
 ## LOOKUP
 
 - `resolve-celex` (`resolve_celex`): Finds canonical CELEX/work reference for the given CELEX value.
+  Notes: This is an intentional URI-resolution command. The returned payload is often minimal and may only contain `uri` and `celex`, while other `ActRef` fields can remain `null`.
   Example: `cellar lookup resolve-celex --celex 32022R2554`
 - `get-act` (`get_act`): Returns one detailed act card: CELEX, ELI, title, type, key dates, in-force flag, EEA relevance, responsible institutions, and signatory names.
-  Notes: `addresses_institutions` is act-dependent and may legitimately be empty even when other institution-related fields are populated. For proposals, `date_end_of_validity = 9999-12-31` can appear as a placeholder max date rather than a meaningful end-of-validity signal.
+  Notes: `date` is intentionally not a populated alias in this endpoint; use `date_document`, `date_entry_into_force`, and `date_end_of_validity` instead. `addresses_institutions` is act-dependent and may legitimately be empty even when other institution-related fields are populated. For proposals, `date_end_of_validity = 9999-12-31` can appear as a placeholder max date rather than a meaningful end-of-validity signal.
   Example: `cellar lookup get-act --celex 32022R2554 --lang eng`
 - `get-eurovoc` (`get_eurovoc`): Lists EuroVoc tags linked to an act.
   Example: `cellar lookup get-eurovoc --celex 32022R2554 --limit 50 --offset 0`
 - `get-subject-matter` (`get_subject_matter`): Lists subject-matter tags linked to an act.
   Example: `cellar lookup get-subject-matter --celex 32022R2554 --limit 50 --offset 0`
-- `get-legal-basis` (`get_legal_basis`): Lists legal-basis-style relations. Results can mix treaty basis entries, level-2 acts based on the act, and other documents based on the act such as recommendations.
-  Practical note: This is also the command to use for the reverse lookup delegated act -> base act.
+- `get-legal-basis` (`get_legal_basis`): Lists legal-basis-style relations for all three variants available in this source: incoming `based_on`, outgoing `based_on`, and outgoing treaty-basis `based_on_concept_treaty`.
+  Practical note: This is also the command to use for delegated act -> base act reverse lookup.
+  Note: The same command can include non-legal concept rows, and some rows may have `celex`, `title`, `date`, or `resource_type` as `null`.
   Example: `cellar lookup get-legal-basis --celex 32022R2554 --limit 50 --offset 0`
 - `get-directory-codes` (`get_directory_codes`): Lists directory-code concepts assigned to an act.
   Example: `cellar lookup get-directory-codes --celex 32022R2554 --limit 50 --offset 0`
@@ -67,6 +69,7 @@ Commands that support `--direction` accept `incoming`, `outgoing`, or `both` (de
   Note: Results are not limited to legal acts. Depending on the act, they can also include communications, impact assessments, staff working documents, and similar related documents.
   Example: `cellar relations get-citations --celex 32022R2554 --direction both --since 2024-01-01 --lang eng --limit 50`
 - `get-based-on-acts` (`get_based_on_acts`): Shows acts and documents linked by the broad `based_on` relation from the perspective of the base act. This may include delegated acts, implementing acts, drafts, reports, resolutions, and other derived documents. Direction: `incoming`.
+  Note: This is the broad bucket for incoming base-derived links from this act and commonly returns mixed `resource_type` values beyond just delegated acts.
   Reverse lookup note: This command does not show the base act for a delegated act. For delegated act -> base act, use `lookup get-legal-basis`.
   Example: `cellar relations get-based-on-acts --celex 32022R2554 --since 2024-01-01 --lang eng --limit 50`
 - `get-completing-acts` (`get_completing_acts`): Shows acts linked by the narrower `completes` relation, i.e. acts that CELLAR marks as supplementing/completing the provisions of the given act. In practice these may overlap heavily with delegated acts for some base acts. Direction: `incoming`.
@@ -83,6 +86,7 @@ Commands that support `--direction` accept `incoming`, `outgoing`, or `both` (de
   Example: `cellar relations get-related-works --celex 32022R2554 --direction incoming --since 2024-01-01 --lang eng --limit 50`
 - `get-other-relations` (`get_other_relations`): Shows other legal relations (for example suspend, defer, obsolete, influence). Direction: configurable with `--direction`; default `both`.
   Note: This is a sparse, catch-all bucket. In practice it is often empty for mainstream final acts and can be most useful on proposals.
+  Note: Rows can include non-legal documents and can also appear with `celex = null` when CELLAR has relation metadata without canonical CELEX.
   Example: `cellar relations get-other-relations --celex 52023PC0367 --direction both --lang eng --limit 50`
 
 ## LIFECYCLE

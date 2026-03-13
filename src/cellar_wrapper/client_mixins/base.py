@@ -368,6 +368,7 @@ class ClientBase:
             lang=lang,
             direction=None,
             validate_pagination=self._validate_pagination,
+            normalize_celex=self._normalize_celex,
             normalize_lang=self._normalize_lang,
             normalize_resource_type=self._normalize_resource_type,
             normalize_direction=self._normalize_direction,

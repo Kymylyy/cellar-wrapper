@@ -2,13 +2,13 @@
 
 [![CI](https://github.com/Kymylyy/cellar-wrapper/actions/workflows/ci.yml/badge.svg)](https://github.com/Kymylyy/cellar-wrapper/actions/workflows/ci.yml)
 
-`cellar-wrapper` helps you pull legal and legislative data from the EU Publications Office CELLAR service in a more practical way.
+`cellar-wrapper` helps you get legal and legislative data from the EU Publications Office CELLAR service in a simpler, more practical way.
 
 You can use it:
 
 - as a Python library,
 - from the command line,
-- or as an MCP server for AI/tool integrations.
+- and, if needed, as an MCP server for AI/tool integrations.
 
 This project is community-maintained and unofficial. It is not affiliated with, endorsed by, or operated by the European Union or the Publications Office of the European Union.
 
@@ -31,6 +31,18 @@ The project is meant for people who need to:
 
 In short: it is a practical access layer over CELLAR for legal research, compliance work, and structured data collection.
 
+## Current state and limitations
+
+This is a hobby project, not an official product.
+
+Before using it seriously, keep in mind:
+
+- the project is still evolving, so commands and outputs may change,
+- some data comes directly from CELLAR and can be incomplete, sparse, or inconsistent,
+- not every legal question maps neatly to one command,
+- MCP support exists, but the main practical use today is still Python and the CLI,
+- if you need a fully stable interface, this project is probably not there yet.
+
 ## Installation
 
 Library and CLI:
@@ -46,6 +58,8 @@ pip install "cellar-wrapper[mcp]"
 ```
 
 ## Quick use from the command line
+
+For most people, the CLI is the easiest way to start.
 
 Check that the CLI is installed:
 
@@ -99,9 +113,18 @@ with CellarClient() as client:
     print(act.celex, act.title)
 ```
 
+## Help, bugs, and security
+
+If something does not work, or if you want to ask how to use the project:
+
+- Support and usage questions: [SUPPORT.md](SUPPORT.md)
+- Bug reports and feature requests: https://github.com/Kymylyy/cellar-wrapper/issues
+- Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
+- Security reporting: [SECURITY.md](SECURITY.md)
+
 ## Quick use as MCP
 
-If you want to expose the project to an assistant or another tool through MCP, install the MCP extra:
+If you want to connect the project to an assistant or another tool through MCP, install the MCP extra:
 
 ```bash
 pip install "cellar-wrapper[mcp]"

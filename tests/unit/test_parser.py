@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import UTC, date, datetime
 from typing import Any
 
 import pytest
@@ -144,6 +145,40 @@ def test_parse_act_detail_rejects_conflicting_scalar_values() -> None:
 
     assert exc_info.value.details["parser"] == "parse_act_detail"
     assert exc_info.value.details["field"] == "title"
+
+
+def test_parse_act_detail_collects_unique_entry_into_force_values_in_deterministic_order() -> None:
+    rows = [
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32022R2554",
+            dateEntryIntoForce="2025-01-17",
+        ),
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32022R2554",
+            dateEntryIntoForce="2023-01-16",
+        ),
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32022R2554",
+            dateEntryIntoForce="2025-01-17",
+        ),
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32022R2554",
+            dateEntryIntoForce="2025-01-17T10:00:00Z",
+        ),
+    ]
+
+    detail = parse_act_detail(rows)
+
+    assert detail is not None
+    assert detail.date_entry_into_force == [
+        date(2023, 1, 16),
+        date(2025, 1, 17),
+        datetime(2025, 1, 17, 10, 0, tzinfo=UTC),
+    ]
 
 
 def test_parse_act_detail_rejects_conflicting_work_uris() -> None:

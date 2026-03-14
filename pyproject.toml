@@ -18,7 +18,9 @@ maintainers = [
 keywords = ["cellar", "celex", "eu-law", "sparql", "legal-tech"]
 classifiers = [
   "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.11",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Topic :: Internet :: WWW/HTTP",
@@ -44,6 +46,7 @@ mcp = [
 ]
 
 [project.urls]
+Homepage = "https://github.com/Kymylyy/cellar-wrapper"
 Repository = "https://github.com/Kymylyy/cellar-wrapper"
 Issues = "https://github.com/Kymylyy/cellar-wrapper/issues"
 Documentation = "https://github.com/Kymylyy/cellar-wrapper/tree/main/docs"
@@ -60,6 +63,7 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
+"cellar_wrapper" = ["py.typed"]
 "cellar_wrapper.data" = ["*.json"]
 
 [tool.pytest.ini_options]

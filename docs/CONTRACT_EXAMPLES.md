@@ -67,7 +67,9 @@ Output:
       "R. METSOLA, P. KULLGREN"
     ],
     "date_document": "2023-05-31",
-    "date_entry_into_force": "2023-06-29",
+    "date_entry_into_force": [
+      "2023-06-29"
+    ],
     "date_end_of_validity": "9999-12-31"
   }
 }
@@ -103,7 +105,7 @@ Output:
     "addresses_institutions": [],
     "signatory_names": [],
     "date_document": "2023-06-28",
-    "date_entry_into_force": null,
+    "date_entry_into_force": [],
     "date_end_of_validity": "9999-12-31"
   }
 }
@@ -146,7 +148,9 @@ Output:
       "M. Schulz, N. SCHMIT"
     ],
     "date_document": "2015-11-25",
-    "date_entry_into_force": "2016-01-12",
+    "date_entry_into_force": [
+      "2016-01-12"
+    ],
     "date_end_of_validity": "2026-06-18"
   }
 }

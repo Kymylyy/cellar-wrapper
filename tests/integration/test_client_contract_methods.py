@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import inspect
+from datetime import date
 from typing import Any
 
 import pytest
@@ -48,7 +49,18 @@ def _query_handler(query: str) -> dict[str, object]:
                     dateEntryIntoForce="2023-01-16",
                     dateEndOfValidity="2099-12-31",
                     title="Digital operational resilience act",
-                )
+                ),
+                sparql_row(
+                    work="http://publications.europa.eu/resource/cellar/act",
+                    celex="32022R2554",
+                    eli="http://data.europa.eu/eli/reg/2022/2554/oj",
+                    type="REG",
+                    inForce="true",
+                    dateDocument="2022-12-14",
+                    dateEntryIntoForce="2025-01-17",
+                    dateEndOfValidity="2099-12-31",
+                    title="Digital operational resilience act",
+                ),
             ]
         )
 
@@ -246,6 +258,21 @@ def test_get_proposals_to_change_contract_emits_change_semantics() -> None:
     assert result.meta.query_name == "get_proposals_to_change"
     assert result.items
     assert all(item.relation_type == "proposes_to_change" for item in result.items)
+
+
+def test_get_act_contract_exposes_entry_into_force_as_list() -> None:
+    transport = FakeTransport(
+        query_handler=_query_handler,
+        download_handler=_download_handler,
+    )
+    client = CellarClient(transport=transport)
+
+    result = client.get_act("32022R2554")
+
+    assert result.date_entry_into_force == [
+        date(2023, 1, 16),
+        date(2025, 1, 17),
+    ]
 
 
 def test_new_proposals_to_change_contract_keeps_change_semantics() -> None:

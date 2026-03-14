@@ -3575,5 +3575,311 @@
         }
       }
     }
+  },
+  {
+    "label": "MiCA",
+    "celex": "32023R1114",
+    "command": "monitoring new-citations",
+    "purpose": "Checks new citation relations for MiCA since 2025-10-01, showing that monitoring can return a mixed payload of communications, staff working documents, impact assessments, and legal acts.",
+    "args": {
+      "celex": "32023R1114",
+      "since": "2025-10-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/729cec7e-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025DC0940",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Further development of capital market integration and supervision within the Union",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/db5d0668-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025SC0943",
+            "title": "COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/IMPACT_ASSESS",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/05d13940-b982-11f0-b37f-01aa75ed71a1",
+            "celex": "52025SC0750",
+            "title": "COMMISSION STAFF WORKING DOCUMENT Albania 2025 Report Accompanying the document COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS 2025 Communication on EU enlargement policy",
+            "date": "2025-11-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/SWD",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/0f0ca852-b982-11f0-b37f-01aa75ed71a1",
+            "celex": "52025SC0759",
+            "title": "COMMISSION STAFF WORKING DOCUMENT Ukraine 2025 Report Accompanying the document COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS 2025 Communication on EU enlargement policy",
+            "date": "2025-11-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/SWD",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/784dd911-afe3-11f0-b37f-01aa75ed71a1",
+            "celex": "32025R2033",
+            "title": "Council Regulation (EU) 2025/2033 of 23 October 2025 amending Regulation (EU) No 833/2014 concerning restrictive measures in view of Russia’s actions destabilising the situation in Ukraine",
+            "date": "2025-10-23T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "new_citations",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:31:02.453137Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "MiCA",
+    "celex": "32023R1114",
+    "command": "monitoring new-citations",
+    "purpose": "Checks new legal-act citations for MiCA since 2025-10-01 by filtering monitoring results to resource type REG.",
+    "args": {
+      "celex": "32023R1114",
+      "since": "2025-10-01",
+      "resource_type": "REG",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/784dd911-afe3-11f0-b37f-01aa75ed71a1",
+            "celex": "32025R2033",
+            "title": "Council Regulation (EU) 2025/2033 of 23 October 2025 amending Regulation (EU) No 833/2014 concerning restrictive measures in view of Russia’s actions destabilising the situation in Ukraine",
+            "date": "2025-10-23T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/4d4fd51a-afee-11f0-b37f-01aa75ed71a1",
+            "celex": "32025R2041",
+            "title": "Council Regulation (EU) 2025/2041 of 23 October 2025 amending Regulation (EC) No 765/2006 concerning restrictive measures in view of the situation in Belarus and the involvement of Belarus in the Russian aggression against Ukraine",
+            "date": "2025-10-23T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          }
+        ],
+        "returned_count": 2,
+        "meta": {
+          "query_name": "new_citations",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:31:27.624396Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "DORA",
+    "celex": "32022R2554",
+    "command": "monitoring new-citations",
+    "purpose": "Checks new citation relations for DORA since 2025-01-01, showing that monitoring can surface a mixed set of reports, evaluations, proposals, and impact assessments.",
+    "args": {
+      "celex": "32022R2554",
+      "since": "2025-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/0708fcf9-1c65-11f1-8c3a-01aa75ed71a1",
+            "celex": "52026DC0119",
+            "title": "REPORT FROM THE COMMISSION TO THE COUNCIL AND THE EUROPEAN PARLIAMENT on the preparedness in the EU financial sector",
+            "date": "2026-03-10T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REPORT",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/b09330ad-f609-11f0-b9bc-01aa75ed71a1",
+            "celex": "52026SC0002",
+            "title": "COMMISSION STAFF WORKING DOCUMENT EVALUATION Accompanying the document REPORT FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT AND THE COUNCIL on the evaluation of the European Union Agency for Cybersecurity (ENISA) and the European Cybersecurity Certification Framework",
+            "date": "2026-01-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/EVL",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/03aee288-f75c-11f0-b9bc-01aa75ed71a1",
+            "celex": "52026PC0011",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on the European Union Agency for Cybersecurity (ENISA), the European cybersecurity certification framework, and ICT supply chain security and repealing Regulation (EU) 2019/881 (The Cybersecurity Act 2)",
+            "date": "2026-01-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/49f6907b-f75d-11f0-b9bc-01aa75ed71a1",
+            "celex": "52026SC0011",
+            "title": "COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the documents Proposal for a Regulation of the European Parliament and of the Council on the European Union Agency for Cybersecurity (ENISA), European cybersecurity certification framework, and ICT supply chain security and repealing Regulation (EU) 2019/881 (The Cybersecurity Act 2) And Proposal for a Directive of the European Parliament and of the Council amending Directive (EU) 2022/2555 as regards simplification measures and alignment with the [Proposal for the Cybersecurity Act 2]",
+            "date": "2026-01-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/IMPACT_ASSESS",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/a578f185-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0943",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG",
+            "direction": "incoming",
+            "predicate": "cdm:work_cites_work",
+            "relation_type": "cites"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "new_citations",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:31:26.199108Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "MiFID",
+    "celex": "32014L0065",
+    "command": "monitoring new-amendments",
+    "purpose": "Checks new amendment relations for MiFID since 2023-01-01.",
+    "args": {
+      "celex": "32014L0065",
+      "since": "2023-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/36846669-a229-11ef-85f0-01aa75ed71a1",
+            "celex": "32024L2811",
+            "title": "Directive (EU) 2024/2811 of the European Parliament and of the Council of 23 October 2024 amending Directive 2014/65/EU to make public capital markets in the Union more attractive for companies and to facilitate access to capital for small and medium-sized enterprises and repealing Directive 2001/34/EC (Text with EEA relevance)",
+            "date": "2024-10-23T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_amends_resource_legal",
+            "relation_type": "amends"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/7c7fb58f-dcf0-11ee-b9d9-01aa75ed71a1",
+            "celex": "32024L0790",
+            "title": "Directive (EU) 2024/790 of the European Parliament and of the Council of 28 February 2024 amending Directive 2014/65/EU on markets in financial instruments (Text with EEA relevance)",
+            "date": "2024-02-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_amends_resource_legal",
+            "relation_type": "amends"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/e995b108-9ed8-11ee-b164-01aa75ed71a1",
+            "celex": "32023L2864",
+            "title": "Directive (EU) 2023/2864 of the European Parliament and of the Council of 13 December 2023 amending certain Directives as regards the establishment and functioning of the European single access point (Text with EEA relevance)",
+            "date": "2023-12-13T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_amends_resource_legal",
+            "relation_type": "amends"
+          }
+        ],
+        "returned_count": 3,
+        "meta": {
+          "query_name": "new_amendments",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:31:02.918543Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "monitoring new-amendments",
+    "purpose": "Checks new amendment relations for PSD2 since 2022-12-01, showing that monitoring can return both directive and regulation amendments.",
+    "args": {
+      "celex": "32015L2366",
+      "since": "2022-12-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/d395dbf7-e597-11ee-8b2b-01aa75ed71a1",
+            "celex": "32024R0886",
+            "title": "Regulation (EU) 2024/886 of the European Parliament and of the Council of 13 March 2024 amending Regulations (EU) No 260/2012 and (EU) 2021/1230 and Directives 98/26/EC and (EU) 2015/2366 as regards instant credit transfers in euro (Text with EEA relevance)",
+            "date": "2024-03-13T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_amends_resource_legal",
+            "relation_type": "amends"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/e2e67364-85bd-11ed-9887-01aa75ed71a1",
+            "celex": "32022L2556",
+            "title": "Directive (EU) 2022/2556 of the European Parliament and of the Council of 14 December 2022 amending Directives 2009/65/EC, 2009/138/EC, 2011/61/EU, 2013/36/EU, 2014/59/EU, 2014/65/EU, (EU) 2015/2366 and (EU) 2016/2341 as regards digital operational resilience for the financial sector (Text with EEA relevance)",
+            "date": "2022-12-14T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_amends_resource_legal",
+            "relation_type": "amends"
+          }
+        ],
+        "returned_count": 2,
+        "meta": {
+          "query_name": "new_amendments",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:31:27.798973Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
   }
 ]

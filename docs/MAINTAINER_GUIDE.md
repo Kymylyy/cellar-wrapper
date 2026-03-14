@@ -23,6 +23,31 @@ public examples or maintained documentation.
    - an upstream data drift that should be reflected in curated examples,
    - or a bug/regression that must be fixed before docs are refreshed.
 
+## Live audit modes
+
+- Default mode is `full`: run the selected curated examples exactly as listed.
+- `--mode smoke`: run a fixed small representative subset of curated examples.
+- `--command "lookup get-act"`: repeatable exact command filter.
+- `--group lookup`: repeatable group filter based on the first token in the command name.
+- `--label MiCA`: repeatable exact example-label filter.
+- `--limit N`: cap the final selected set after filtering and mode selection.
+- `--fail-fast`: stop on the first failure.
+- `--timeout-seconds 30`: per-example subprocess timeout; default is 30 seconds.
+- `--slow-threshold-seconds 10`: mark slower examples in progress output; default is 10 seconds.
+
+Useful invocations:
+
+- `python scripts/audit_contract_examples_live.py`
+  Runs the full curated audit.
+- `python scripts/audit_contract_examples_live.py --mode smoke`
+  Fast sanity check across a fixed high-signal subset of curated examples.
+- `python scripts/audit_contract_examples_live.py --command "lookup get-act" --command "download get-summary"`
+  Re-check only specific documented commands.
+- `python scripts/audit_contract_examples_live.py --group monitoring --fail-fast`
+  Focus on one group and stop immediately on the first regression.
+- `python scripts/audit_contract_examples_live.py --label MiCA --timeout-seconds 45`
+  Re-run one specific example with a longer timeout.
+
 ## CI expectations
 
 - Regular CI should always validate the command surface through tests and the generated command manifest artifact.

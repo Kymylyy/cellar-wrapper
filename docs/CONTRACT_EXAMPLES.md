@@ -68,7 +68,9 @@ Output:
     ],
     "date_document": "2023-05-31",
     "date_entry_into_force": [
-      "2023-06-29"
+      "2023-06-29",
+      "2024-06-30",
+      "2024-12-30"
     ],
     "date_end_of_validity": "9999-12-31"
   }

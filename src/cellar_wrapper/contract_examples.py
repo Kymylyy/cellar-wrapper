@@ -9,10 +9,12 @@ import shlex
 import subprocess
 import sys
 from collections import defaultdict
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Collection, Mapping, Sequence
 from copy import deepcopy
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any
+from time import perf_counter
+from typing import Any, Literal
 
 from cellar_wrapper.cli_specs import COMMANDS, CommandSpec
 
@@ -31,6 +33,84 @@ GROUP_TITLES = {
 }
 CONTENT_BASE64_PREVIEW_CHARS = 120
 VOLATILE_PATHS: tuple[tuple[str, ...], ...] = (("data", "meta", "executed_at"),)
+SMOKE_EXAMPLE_KEYS: tuple[tuple[str, str], ...] = (
+    ("lookup resolve-celex", "DORA"),
+    ("lookup get-act", "MiCA"),
+    ("relations get-amendments", "PSR"),
+    ("lifecycle get-consolidated-versions", "PSD2"),
+    ("case-law get-cjeu-judgments", "PSD2"),
+    ("search search-by-title", "Crypto-assets"),
+    ("monitoring new-citations", "MiCA"),
+    ("download get-summary", "DORA"),
+)
+STDIO_EXCERPT_CHARS = 800
+SLOW_SUMMARY_LIMIT = 5
+AuditStatus = Literal["passed", "cli_error", "decode_error", "mismatch", "timeout"]
+
+
+@dataclass(frozen=True)
+class AuditExampleRef:
+    index: int
+    command: str
+    group: str
+    label: str
+    cli: str
+    example: Mapping[str, Any]
+
+
+@dataclass(frozen=True)
+class ContractExamplesAuditOptions:
+    smoke: bool = False
+    command_filter: frozenset[str] = frozenset()
+    group_filter: frozenset[str] = frozenset()
+    label_filter: frozenset[str] = frozenset()
+    limit: int | None = None
+    timeout_seconds: float | None = None
+    slow_threshold_seconds: float | None = None
+    fail_fast: bool = False
+
+
+@dataclass(frozen=True)
+class ContractExampleAuditRecord:
+    example: AuditExampleRef
+    position: int
+    total: int
+    status: AuditStatus
+    elapsed_seconds: float
+    is_slow: bool
+    returncode: int | None = None
+    stdout: str = ""
+    stderr: str = ""
+    summary: str = ""
+    details: str = ""
+
+    @property
+    def failed(self) -> bool:
+        return self.status != "passed"
+
+
+@dataclass(frozen=True)
+class ContractExamplesAuditRun:
+    options: ContractExamplesAuditOptions
+    total_examples: int
+    selected_examples: list[AuditExampleRef] = field(default_factory=list)
+    records: list[ContractExampleAuditRecord] = field(default_factory=list)
+
+    @property
+    def failure_records(self) -> list[ContractExampleAuditRecord]:
+        return [record for record in self.records if record.failed]
+
+    @property
+    def passed_records(self) -> list[ContractExampleAuditRecord]:
+        return [record for record in self.records if not record.failed]
+
+    @property
+    def timed_out_records(self) -> list[ContractExampleAuditRecord]:
+        return [record for record in self.records if record.status == "timeout"]
+
+    @property
+    def total_elapsed_seconds(self) -> float:
+        return sum(record.elapsed_seconds for record in self.records)
 
 
 def load_contract_examples(path: Path) -> list[dict[str, Any]]:
@@ -170,61 +250,348 @@ def diff_payloads(expected: Any, actual: Any) -> str:
     )
 
 
-def audit_examples_live(examples: Sequence[Mapping[str, Any]]) -> list[str]:
-    validate_examples(examples)
-    env = build_cli_env()
-    failures: list[str] = []
+def _coerce_exact_filter(values: str | Collection[str] | None) -> frozenset[str]:
+    if values is None:
+        return frozenset()
+    if isinstance(values, str):
+        normalized = values.strip()
+        return frozenset({normalized}) if normalized else frozenset()
 
-    for example in examples:
-        completed = subprocess.run(
-            build_cli_argv(example),
-            cwd=ROOT,
-            env=env,
-            capture_output=True,
-            text=True,
-            check=False,
+    normalized_values: list[str] = []
+    for value in values:
+        normalized = str(value).strip()
+        if normalized:
+            normalized_values.append(normalized)
+    return frozenset(normalized_values)
+
+
+def group_from_command(command: str) -> str:
+    return command.split(maxsplit=1)[0] if command else ""
+
+
+def _build_audit_example_refs(examples: Sequence[Mapping[str, Any]]) -> list[AuditExampleRef]:
+    refs: list[AuditExampleRef] = []
+    for index, example in enumerate(examples, start=1):
+        command = str(example["command"])
+        refs.append(
+            AuditExampleRef(
+                index=index,
+                command=command,
+                group=group_from_command(command),
+                label=str(example["label"]),
+                cli=render_cli(command, example["args"]),
+                example=example,
+            )
+        )
+    return refs
+
+
+def _select_smoke_examples(selected: Sequence[AuditExampleRef]) -> list[AuditExampleRef]:
+    first_match_by_key: dict[tuple[str, str], AuditExampleRef] = {}
+    smoke_keys = set(SMOKE_EXAMPLE_KEYS)
+    for ref in selected:
+        key = (ref.command, ref.label)
+        if key in smoke_keys and key not in first_match_by_key:
+            first_match_by_key[key] = ref
+    return [first_match_by_key[key] for key in SMOKE_EXAMPLE_KEYS if key in first_match_by_key]
+
+
+def select_audit_examples(
+    examples: Sequence[Mapping[str, Any]],
+    *,
+    smoke: bool = False,
+    command_filter: str | Collection[str] | None = None,
+    group_filter: str | Collection[str] | None = None,
+    label_filter: str | Collection[str] | None = None,
+    limit: int | None = None,
+) -> list[AuditExampleRef]:
+    validate_examples(examples)
+    selected = _build_audit_example_refs(examples)
+
+    exact_commands = _coerce_exact_filter(command_filter)
+    exact_groups = _coerce_exact_filter(group_filter)
+    exact_labels = _coerce_exact_filter(label_filter)
+
+    if exact_commands:
+        selected = [ref for ref in selected if ref.command in exact_commands]
+    if exact_groups:
+        selected = [ref for ref in selected if ref.group in exact_groups]
+    if exact_labels:
+        selected = [ref for ref in selected if ref.label in exact_labels]
+
+    if smoke:
+        selected = _select_smoke_examples(selected)
+
+    if limit is not None:
+        if limit < 0:
+            raise ValueError("limit must be >= 0")
+        selected = selected[:limit]
+
+    return selected
+
+
+def format_audit_progress_line(example: AuditExampleRef, *, position: int, total: int) -> str:
+    return f"[{position}/{total}] RUN {example.command} [{example.label}]"
+
+
+def format_audit_result_line(record: ContractExampleAuditRecord) -> str:
+    status = "PASS" if record.status == "passed" else record.status.upper()
+    slow_suffix = " SLOW" if record.is_slow else ""
+    return (
+        f"[{record.position}/{record.total}] {status}{slow_suffix} {record.elapsed_seconds:.2f}s "
+        f"{record.example.command} [{record.example.label}]"
+    )
+
+
+def _timeout_details(exc: subprocess.TimeoutExpired) -> str:
+    stdout = exc.stdout.strip() if isinstance(exc.stdout, str) else ""
+    stderr = exc.stderr.strip() if isinstance(exc.stderr, str) else ""
+    tail = stderr or stdout or "<no output>"
+    return "\n".join([f"Timed out after {exc.timeout:.2f}s", _bounded_excerpt(tail)])
+
+
+def _bounded_excerpt(text: str, *, limit: int = STDIO_EXCERPT_CHARS) -> str:
+    normalized = text.strip()
+    if not normalized:
+        return "<no output>"
+    if len(normalized) <= limit:
+        return normalized
+    return f"{normalized[:limit]}... [truncated, total length {len(normalized)}]"
+
+
+def audit_examples_live_detailed(
+    examples: Sequence[Mapping[str, Any]],
+    *,
+    options: ContractExamplesAuditOptions | None = None,
+    env: Mapping[str, str] | None = None,
+    progress_handler: Callable[[str], None] | None = None,
+    result_handler: Callable[[str], None] | None = None,
+) -> ContractExamplesAuditRun:
+    validate_examples(examples)
+    resolved_options = options or ContractExamplesAuditOptions()
+    resolved_env = dict(build_cli_env() if env is None else env)
+    selected_examples = select_audit_examples(
+        examples,
+        smoke=resolved_options.smoke,
+        command_filter=resolved_options.command_filter,
+        group_filter=resolved_options.group_filter,
+        label_filter=resolved_options.label_filter,
+        limit=resolved_options.limit,
+    )
+    records: list[ContractExampleAuditRecord] = []
+    total = len(selected_examples)
+
+    for position, selected in enumerate(selected_examples, start=1):
+        if progress_handler is not None:
+            progress_handler(format_audit_progress_line(selected, position=position, total=total))
+
+        start = perf_counter()
+        try:
+            completed = subprocess.run(
+                build_cli_argv(selected.example),
+                cwd=ROOT,
+                env=resolved_env,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=resolved_options.timeout_seconds,
+            )
+        except subprocess.TimeoutExpired as exc:
+            elapsed_seconds = perf_counter() - start
+            record = ContractExampleAuditRecord(
+                example=selected,
+                position=position,
+                total=total,
+                status="timeout",
+                elapsed_seconds=elapsed_seconds,
+                is_slow=(
+                    resolved_options.slow_threshold_seconds is not None
+                    and elapsed_seconds >= resolved_options.slow_threshold_seconds
+                ),
+                summary=f"Timed out after {exc.timeout:.2f}s",
+                details=_timeout_details(exc),
+            )
+            records.append(record)
+            if result_handler is not None:
+                result_handler(format_audit_result_line(record))
+            if resolved_options.fail_fast:
+                break
+            continue
+
+        elapsed_seconds = perf_counter() - start
+        is_slow = (
+            resolved_options.slow_threshold_seconds is not None
+            and elapsed_seconds >= resolved_options.slow_threshold_seconds
         )
 
-        command_label = f"{example['command']} [{example['label']}]"
         if completed.returncode != 0:
-            failures.append(
-                "\n".join(
-                    [
-                        f"## {command_label}",
-                        f"CLI exited with {completed.returncode}",
-                        completed.stderr.strip() or completed.stdout.strip() or "<no output>",
-                    ]
-                )
+            record = ContractExampleAuditRecord(
+                example=selected,
+                position=position,
+                total=total,
+                status="cli_error",
+                elapsed_seconds=elapsed_seconds,
+                is_slow=is_slow,
+                returncode=completed.returncode,
+                stdout=completed.stdout,
+                stderr=completed.stderr,
+                summary=f"CLI exited with {completed.returncode}",
+                details=_bounded_excerpt(completed.stderr or completed.stdout),
             )
+            records.append(record)
+            if result_handler is not None:
+                result_handler(format_audit_result_line(record))
+            if resolved_options.fail_fast:
+                break
             continue
 
         try:
             actual_payload = json.loads(completed.stdout)
         except json.JSONDecodeError as exc:
-            failures.append(
-                "\n".join(
-                    [
-                        f"## {command_label}",
-                        f"Failed to decode CLI JSON output: {exc}",
-                        completed.stdout.strip() or "<empty stdout>",
-                    ]
-                )
+            record = ContractExampleAuditRecord(
+                example=selected,
+                position=position,
+                total=total,
+                status="decode_error",
+                elapsed_seconds=elapsed_seconds,
+                is_slow=is_slow,
+                returncode=completed.returncode,
+                stdout=completed.stdout,
+                stderr=completed.stderr,
+                summary=f"Failed to decode CLI JSON output: {exc}",
+                details=_bounded_excerpt(completed.stdout),
             )
+            records.append(record)
+            if result_handler is not None:
+                result_handler(format_audit_result_line(record))
+            if resolved_options.fail_fast:
+                break
             continue
 
-        expected_payload = normalize_payload(example["output"])
+        expected_payload = normalize_payload(selected.example["output"])
         actual_normalized = normalize_payload(actual_payload)
         if actual_normalized != expected_payload:
-            failures.append(
-                "\n".join(
-                    [
-                        f"## {command_label}",
-                        diff_payloads(expected_payload, actual_normalized),
-                    ]
-                )
+            record = ContractExampleAuditRecord(
+                example=selected,
+                position=position,
+                total=total,
+                status="mismatch",
+                elapsed_seconds=elapsed_seconds,
+                is_slow=is_slow,
+                returncode=completed.returncode,
+                stdout=completed.stdout,
+                stderr=completed.stderr,
+                summary="Live output did not match curated example",
+                details=diff_payloads(expected_payload, actual_normalized),
             )
+            records.append(record)
+            if result_handler is not None:
+                result_handler(format_audit_result_line(record))
+            if resolved_options.fail_fast:
+                break
+            continue
 
-    return failures
+        record = ContractExampleAuditRecord(
+            example=selected,
+            position=position,
+            total=total,
+            status="passed",
+            elapsed_seconds=elapsed_seconds,
+            is_slow=is_slow,
+            returncode=completed.returncode,
+            stdout=completed.stdout,
+            stderr=completed.stderr,
+            summary="Matched curated example",
+        )
+        records.append(record)
+        if result_handler is not None:
+            result_handler(format_audit_result_line(record))
+
+    return ContractExamplesAuditRun(
+        options=resolved_options,
+        total_examples=len(examples),
+        selected_examples=selected_examples,
+        records=records,
+    )
+
+
+def render_audit_failures(run: ContractExamplesAuditRun) -> list[str]:
+    failure_records = run.failure_records
+    if not failure_records:
+        return []
+
+    summary = (
+        "Audit failures: "
+        f"{len(failure_records)} of {len(run.records)} executed "
+        f"({len(run.selected_examples)} selected from {run.total_examples} total examples)."
+    )
+    rendered = [summary]
+    for record in failure_records:
+        rendered.append(
+            "\n".join(
+                [
+                    f"## {record.example.command} [{record.example.label}]",
+                    f"CLI: {record.example.cli}",
+                    f"Status: {record.status}",
+                    f"Elapsed: {record.elapsed_seconds:.2f}s",
+                    record.summary,
+                    record.details or "<no details>",
+                ]
+            )
+        )
+    return rendered
+
+
+def render_audit_summary(run: ContractExamplesAuditRun) -> list[str]:
+    lines = [
+        "Audit summary:",
+        f"- selected: {len(run.selected_examples)} of {run.total_examples}",
+        f"- executed: {len(run.records)}",
+        f"- passed: {len(run.passed_records)}",
+        f"- failed: {len(run.failure_records)}",
+        f"- timed_out: {len(run.timed_out_records)}",
+        f"- total_runtime_s: {run.total_elapsed_seconds:.2f}",
+    ]
+    slowest_records = sorted(
+        run.records,
+        key=lambda record: record.elapsed_seconds,
+        reverse=True,
+    )[:SLOW_SUMMARY_LIMIT]
+    if slowest_records:
+        lines.append("- slowest:")
+        for record in slowest_records:
+            lines.append(
+                f"  - {record.elapsed_seconds:.2f}s {record.example.command} [{record.example.label}]"
+            )
+    return lines
+
+
+def audit_examples_live(
+    examples: Sequence[Mapping[str, Any]],
+    *,
+    smoke: bool = False,
+    command_filter: str | Collection[str] | None = None,
+    group_filter: str | Collection[str] | None = None,
+    label_filter: str | Collection[str] | None = None,
+    limit: int | None = None,
+    timeout_seconds: float | None = None,
+    slow_threshold_seconds: float | None = None,
+    fail_fast: bool = False,
+) -> list[str]:
+    run = audit_examples_live_detailed(
+        examples,
+        options=ContractExamplesAuditOptions(
+            smoke=smoke,
+            command_filter=_coerce_exact_filter(command_filter),
+            group_filter=_coerce_exact_filter(group_filter),
+            label_filter=_coerce_exact_filter(label_filter),
+            limit=limit,
+            timeout_seconds=timeout_seconds,
+            slow_threshold_seconds=slow_threshold_seconds,
+            fail_fast=fail_fast,
+        ),
+    )
+    return render_audit_failures(run)
 
 
 def _markdown_friendly_value(value: Any) -> Any:

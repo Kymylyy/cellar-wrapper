@@ -1,6 +1,7 @@
-# Commands in Plain Language
+# Command Guide
 
-This file explains each public `cellar` command in simple words.
+This guide explains each public `cellar` command in simple words and helps you
+pick the right command for the job.
 
 If you use MCP instead of CLI: MCP tool names are the same as command names below (for example `get-act`, `new-citations`).
 
@@ -108,6 +109,7 @@ Most relation-style lifecycle commands are `incoming` (items linked to the given
   The input act itself is excluded; this is a dossier document feed, not a normalized legislative timeline.
   Example: `cellar lifecycle get-dossier --celex 32022R2554 --lang eng --limit 50`
 - `get-opinions` (`get_opinions`): Lists opinion-like and influence-like rows connected to the act (including EP/EESC opinion resources and related legislative opinions summaries).
+  Note: In practice this is most useful on proposals and legislative packages. Many mainstream final acts return an empty set.
   Example: `cellar lifecycle get-opinions --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
 - `get-deadlines` (`get_deadlines`): Lists legal date facts attached to the act (entry into force, transposition, deadline, etc.).
   These are self-date rows on the queried act, typically `direction = outgoing`.
@@ -140,6 +142,7 @@ Only `get-ag-opinions` exposes relation fields such as `direction`, `predicate`,
 - `search-by-title` (`search_by_title`): Finds acts by title keyword.
   Example: `cellar search search-by-title --keyword resilience --resource-types REG_IMPL PUB_GEN --since 2024-01-01 --lang eng --limit 50`
 - `search-communications` (`search_communications`): Finds communication documents by DG code.
+  Note: Use this for early policy and preparatory signals. Communications are not binding legislation.
   Example: `cellar search search-communications --dg FISMA --since 2024-01-01 --lang eng --limit 50`
 - `find-eurovoc-concept` (`find_eurovoc_concept`): Finds EuroVoc concepts by label (from the local packaged index).
   Example: `cellar search find-eurovoc-concept --label banking --limit 20 --offset 0`
@@ -191,4 +194,5 @@ Relation-based `new-*` commands are `incoming` only.
 - Article-annotation fields such as `annotation_article` and `annotation_paragraph` belong only to `get-article-annotations`, not to ordinary relation commands.
 - CLI wraps successful data as `{"ok": true, "data": ...}`.
 - CLI wraps errors as `{"ok": false, "error": {...}}`.
-- Full formal behavior still lives in [API_CONTRACT.md](API_CONTRACT.md).
+- Full maintained behavior lives in [CONTRACT_REFERENCE.md](CONTRACT_REFERENCE.md).
+- Accepted live payload examples live in [CONTRACT_EXAMPLES.md](CONTRACT_EXAMPLES.md).

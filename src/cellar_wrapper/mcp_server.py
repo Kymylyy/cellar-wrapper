@@ -256,10 +256,7 @@ def _signature_for_spec(spec: CommandSpec) -> Signature:
 
 
 def _tool_description(spec: CommandSpec) -> str:
-    return (
-        f"CELLAR command '{spec.group} {spec.command}' "
-        f"mapped to CellarClient.{spec.method}."
-    )
+    return spec.description
 
 
 def _tool_error(message: str) -> Exception:

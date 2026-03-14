@@ -27,8 +27,8 @@ def _load_cli_specs_module() -> Any:
 _CLI_SPECS = _load_cli_specs_module()
 COMMANDS = _CLI_SPECS.COMMANDS
 
-DEFAULT_INPUT_PATH = ROOT / "temp" / "examples" / "accepted.json"
-DEFAULT_OUTPUT_PATH = ROOT / "temp" / "examples" / "accepted.generated.md"
+DEFAULT_INPUT_PATH = ROOT / "docs" / "examples" / "contract-examples.json"
+DEFAULT_OUTPUT_PATH = ROOT / "docs" / "CONTRACT_EXAMPLES.md"
 
 GROUP_TITLES = {
     "lookup": "LOOKUP",
@@ -39,16 +39,17 @@ GROUP_TITLES = {
     "monitoring": "MONITORING",
     "download": "DOWNLOAD",
 }
+CONTENT_BASE64_PREVIEW_CHARS = 120
 
 
-def load_accepted_examples(path: Path) -> list[dict[str, Any]]:
+def load_contract_examples(path: Path) -> list[dict[str, Any]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, list):
-        raise ValueError(f"Accepted examples payload must be a list: {path}")
+        raise ValueError(f"Contract examples payload must be a list: {path}")
     examples: list[dict[str, Any]] = []
     for index, item in enumerate(payload):
         if not isinstance(item, dict):
-            raise ValueError(f"Accepted example #{index + 1} must be an object")
+            raise ValueError(f"Contract example #{index + 1} must be an object")
         examples.append(item)
     return examples
 
@@ -62,20 +63,31 @@ def validate_examples(
 
     unknown_commands = sorted({command for command in example_commands if command not in known_commands})
     if unknown_commands:
-        raise ValueError(f"Unknown commands in accepted examples: {', '.join(unknown_commands)}")
+        raise ValueError(f"Unknown commands in contract examples: {', '.join(unknown_commands)}")
 
     missing_commands = sorted(known_commands.difference(example_commands))
     if missing_commands:
-        raise ValueError(f"Missing accepted examples for commands: {', '.join(missing_commands)}")
+        raise ValueError(f"Missing contract examples for commands: {', '.join(missing_commands)}")
 
     for index, example in enumerate(examples):
+        for field_name in ("label", "purpose"):
+            value = example.get(field_name)
+            if not isinstance(value, str) or not value.strip():
+                raise ValueError(
+                    f"Contract example #{index + 1} must contain non-empty string `{field_name}`"
+                )
+        celex_value = example.get("celex")
+        if celex_value is not None and (not isinstance(celex_value, str) or not celex_value.strip()):
+            raise ValueError(
+                f"Contract example #{index + 1} must contain string `celex` or null"
+            )
         if "args" not in example or not isinstance(example["args"], dict):
-            raise ValueError(f"Accepted example #{index + 1} must contain an object `args`")
+            raise ValueError(f"Contract example #{index + 1} must contain an object `args`")
         if "output" not in example:
-            raise ValueError(f"Accepted example #{index + 1} must contain `output`")
+            raise ValueError(f"Contract example #{index + 1} must contain `output`")
 
 
-def render_cli(command: str, args: Mapping[str, Any]) -> str:
+def build_cli_parts(command: str, args: Mapping[str, Any]) -> list[str]:
     parts = ["cellar", *command.split()]
     for key, value in args.items():
         option_name = f"--{key.replace('_', '-')}"
@@ -87,14 +99,35 @@ def render_cli(command: str, args: Mapping[str, Any]) -> str:
             for item in value:
                 if isinstance(item, bool) or item is None:
                     raise ValueError(f"Unsupported value for list argument `{key}`: {item!r}")
-                parts.append(shlex.quote(str(item)))
+                parts.append(str(item))
             continue
 
         if isinstance(value, bool) or value is None:
             raise ValueError(f"Unsupported value for argument `{key}`: {value!r}")
-        parts.append(shlex.quote(str(value)))
+        parts.append(str(value))
 
-    return " ".join(parts)
+    return parts
+
+
+def render_cli(command: str, args: Mapping[str, Any]) -> str:
+    return shlex.join(build_cli_parts(command, args))
+
+
+def _markdown_friendly_value(value: Any) -> Any:
+    if isinstance(value, dict):
+        friendly: dict[str, Any] = {}
+        for key, item in value.items():
+            if key == "content_base64" and isinstance(item, str) and len(item) > CONTENT_BASE64_PREVIEW_CHARS:
+                friendly[key] = (
+                    f"{item[:CONTENT_BASE64_PREVIEW_CHARS]}..."
+                    f" [truncated in docs, total length {len(item)}]"
+                )
+                continue
+            friendly[key] = _markdown_friendly_value(item)
+        return friendly
+    if isinstance(value, list):
+        return [_markdown_friendly_value(item) for item in value]
+    return value
 
 
 def render_markdown(
@@ -108,9 +141,9 @@ def render_markdown(
         grouped_examples[str(example["command"])].append(example)
 
     lines = [
-        "# Accepted Examples",
+        "# Contract Examples",
         "",
-        "Generated from `temp/examples/accepted.json`.",
+        "Generated from `docs/examples/contract-examples.json`.",
         "Source of truth remains the JSON file; this Markdown is a readable render.",
         "",
     ]
@@ -128,7 +161,11 @@ def render_markdown(
             label = str(example.get("label") or f"Example {index}")
             purpose = str(example.get("purpose") or "")
             cli = render_cli(command_name, example["args"])
-            output_json = json.dumps(example["output"], ensure_ascii=False, indent=2)
+            output_json = json.dumps(
+                _markdown_friendly_value(example["output"]),
+                ensure_ascii=False,
+                indent=2,
+            )
 
             lines.extend([f"#### {label}", ""])
             if purpose:
@@ -153,7 +190,7 @@ def render_markdown(
 
 def main() -> int:
     try:
-        examples = load_accepted_examples(DEFAULT_INPUT_PATH)
+        examples = load_contract_examples(DEFAULT_INPUT_PATH)
         markdown = render_markdown(examples)
         DEFAULT_OUTPUT_PATH.write_text(markdown, encoding="utf-8")
     except Exception as exc:

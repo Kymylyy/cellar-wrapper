@@ -116,10 +116,18 @@ Data sources, attribution, and artifact policy:
 ## Documentation
 
 - Docs index: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/README.md
-- API contract: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/API_CONTRACT.md
-- Command contracts: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/COMMAND_CONTRACTS.md
+- Command guide: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/COMMAND_GUIDE.md
+- Contract reference: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/CONTRACT_REFERENCE.md
+- Accepted examples: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/CONTRACT_EXAMPLES.md
+- Maintainer guide: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/MAINTAINER_GUIDE.md
 - Method mapping: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/METHOD_MAPPING.md
-- Plain-language command guide: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/COMMANDS_SIMPLE.md
+
+Example/source-of-truth policy:
+
+- command inventory and return-shape mapping are code-derived
+- accepted live payloads are curated in `docs/examples/contract-examples.json`
+- `docs/CONTRACT_EXAMPLES.md` is a generated render of that JSON
+- archival material lives under `docs/research/`
 
 ## Project Policies
 

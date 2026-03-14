@@ -1,13 +1,15 @@
-# CELLAR Wrapper - Blueprint (DEPRECATED)
+# CELLAR Wrapper Blueprint (ARCHIVE)
 
 > [!WARNING]
-> This document is a historical blueprint and is no longer a maintained source of truth.
-> Since it was written, the API contract and implementation have changed.
+> This document is a historical blueprint only.
+> It was part of the early design process, but the API contract, examples, and
+> implementation have changed since it was written.
 >
 > Current sources:
-> - [API_CONTRACT.md](API_CONTRACT.md)
-> - [METHOD_MAPPING.md](METHOD_MAPPING.md)
-> - [research/README.md](research/README.md) (archived research notes)
+> - [../CONTRACT_REFERENCE.md](../CONTRACT_REFERENCE.md)
+> - [../CONTRACT_EXAMPLES.md](../CONTRACT_EXAMPLES.md)
+> - [../METHOD_MAPPING.md](../METHOD_MAPPING.md)
+> - [README.md](README.md)
 
 ## What CELLAR Covers and What It Does Not
 

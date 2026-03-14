@@ -1,4 +1,14 @@
-# EUROVOC
+# EUROVOC Performance History
+
+> [!WARNING]
+> This is an archival performance/design note.
+> It documents the reasoning behind a past EuroVoc implementation change and is
+> not the maintained source of truth for current behavior.
+>
+> Current maintained docs:
+> - [../CONTRACT_REFERENCE.md](../CONTRACT_REFERENCE.md)
+> - [../COMMAND_GUIDE.md](../COMMAND_GUIDE.md)
+> - [README.md](../README.md)
 
 ## Goal
 

@@ -1,6 +1,11 @@
-# METHOD_MAPPING
+# Method Mapping
 
-Method-to-CDM/SPARQL mapping used by `CellarClient`.
+This document is a maintainer/reference aid. It maps public wrapper methods to
+the underlying CELLAR predicates and SPARQL shapes.
+
+For user-facing behavior and caveats, prefer
+[CONTRACT_REFERENCE.md](CONTRACT_REFERENCE.md). For historical design notes,
+use [research/README.md](research/README.md).
 
 ## LOOKUP
 - `resolve_celex` -> `cdm:resource_legal_id_celex` (exact then `CONTAINS` fallback)

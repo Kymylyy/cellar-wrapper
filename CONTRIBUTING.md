@@ -25,8 +25,10 @@ python -m build --sdist --wheel
 
 ## Scope and Contracts
 
-- `docs/API_CONTRACT.md` is the behavior source-of-truth.
-- `docs/COMMAND_CONTRACTS.md` is the command-to-return-contract reference.
+- `docs/CONTRACT_REFERENCE.md` is the maintained behavior/source-of-truth document.
+- `docs/examples/contract-examples.json` is the canonical accepted examples corpus.
+- `docs/CONTRACT_EXAMPLES.md` is generated from that JSON and must stay in sync.
+- `docs/MAINTAINER_GUIDE.md` documents the refresh/audit workflow for examples and docs.
 - Changes to behavior or CLI output must update docs in the same PR.
 - Keep changes surgical; avoid unrelated refactors.
 

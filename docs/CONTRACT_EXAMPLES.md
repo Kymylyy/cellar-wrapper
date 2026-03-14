@@ -1,6 +1,6 @@
-# Accepted Examples
+# Contract Examples
 
-Generated from `temp/examples/accepted.json`.
+Generated from `docs/examples/contract-examples.json`.
 Source of truth remains the JSON file; this Markdown is a readable render.
 
 ## LOOKUP
@@ -1655,7 +1655,7 @@ Purpose: Checks that DORA can return consolidated texts of related amended acts 
 
 CLI:
 ```bash
-cellar lifecycle get-consolidated-versions --celex 32022R2554 --lang eng --limit 6
+cellar lifecycle get-consolidated-versions --celex 32022R2554 --lang eng --limit 5
 ```
 
 Output:
@@ -1664,6 +1664,16 @@ Output:
   "ok": true,
   "data": {
     "items": [
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/c66360df-d7ec-11ef-be2a-01aa75ed71a1",
+        "celex": "02009R1060-20250117",
+        "title": "Regulation (EC) No 1060/2009 of the European Parliament and of the Council of 16 September 2009 on credit rating agencies (Text with EEA relevance)",
+        "date": "2025-01-17T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
+        "direction": "incoming",
+        "predicate": "cdm:act_consolidated_consolidates_resource_legal",
+        "relation_type": "consolidates"
+      },
       {
         "uri": "http://publications.europa.eu/resource/cellar/bdbf03f9-d255-11ef-be2a-01aa75ed71a1",
         "celex": "02016R1011-20250117",
@@ -1678,16 +1688,6 @@ Output:
         "uri": "http://publications.europa.eu/resource/cellar/36f87942-dd8f-11ef-be2a-01aa75ed71a1",
         "celex": "02014R0600-20250117",
         "title": "Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)",
-        "date": "2025-01-17T00:00:00",
-        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
-        "direction": "incoming",
-        "predicate": "cdm:act_consolidated_consolidates_resource_legal",
-        "relation_type": "consolidates"
-      },
-      {
-        "uri": "http://publications.europa.eu/resource/cellar/c66360df-d7ec-11ef-be2a-01aa75ed71a1",
-        "celex": "02009R1060-20250117",
-        "title": "Regulation (EC) No 1060/2009 of the European Parliament and of the Council of 16 September 2009 on credit rating agencies (Text with EEA relevance)",
         "date": "2025-01-17T00:00:00",
         "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
         "direction": "incoming",
@@ -1713,24 +1713,14 @@ Output:
         "direction": "incoming",
         "predicate": "cdm:act_consolidated_consolidates_resource_legal",
         "relation_type": "consolidates"
-      },
-      {
-        "uri": "http://publications.europa.eu/resource/cellar/b23b5298-d255-11ef-be2a-01aa75ed71a1",
-        "celex": null,
-        "title": "Regulation (EU) 2016/1011 of the European Parliament and of the Council of 8 June 2016 on indices used as benchmarks in financial instruments and financial contracts or to measure the performance of investment funds and amending Directives 2008/48/EC and 2014/17/EU and Regulation (EU) No 596/2014 (Text with EEA relevance)",
-        "date": "2025-01-17T00:00:00",
-        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
-        "direction": "incoming",
-        "predicate": "cdm:act_consolidated_consolidates_resource_legal",
-        "relation_type": "consolidates"
       }
     ],
-    "returned_count": 6,
+    "returned_count": 5,
     "meta": {
       "query_name": "get_consolidated_versions",
       "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-      "executed_at": "2026-03-14T12:21:23.110838Z",
-      "limit": 6,
+      "executed_at": "2026-03-14T16:40:29.743960Z",
+      "limit": 5,
       "offset": 0
     }
   }
@@ -4890,7 +4880,7 @@ Purpose: Checks new consolidated versions for DORA since 2025-01-01, showing tha
 
 CLI:
 ```bash
-cellar monitoring new-consolidated --celex 32022R2554 --since 2025-01-01 --lang eng --limit 10
+cellar monitoring new-consolidated --celex 32022R2554 --since 2025-01-01 --lang eng --limit 5
 ```
 
 Output:
@@ -4899,16 +4889,6 @@ Output:
   "ok": true,
   "data": {
     "items": [
-      {
-        "uri": "http://publications.europa.eu/resource/cellar/c66360df-d7ec-11ef-be2a-01aa75ed71a1",
-        "celex": "02009R1060-20250117",
-        "title": "Regulation (EC) No 1060/2009 of the European Parliament and of the Council of 16 September 2009 on credit rating agencies (Text with EEA relevance)",
-        "date": "2025-01-17T00:00:00",
-        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
-        "direction": "incoming",
-        "predicate": "cdm:act_consolidated_consolidates_resource_legal",
-        "relation_type": "consolidates"
-      },
       {
         "uri": "http://publications.europa.eu/resource/cellar/bdbf03f9-d255-11ef-be2a-01aa75ed71a1",
         "celex": "02016R1011-20250117",
@@ -4923,6 +4903,16 @@ Output:
         "uri": "http://publications.europa.eu/resource/cellar/36f87942-dd8f-11ef-be2a-01aa75ed71a1",
         "celex": "02014R0600-20250117",
         "title": "Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)",
+        "date": "2025-01-17T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
+        "direction": "incoming",
+        "predicate": "cdm:act_consolidated_consolidates_resource_legal",
+        "relation_type": "consolidates"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/c66360df-d7ec-11ef-be2a-01aa75ed71a1",
+        "celex": "02009R1060-20250117",
+        "title": "Regulation (EC) No 1060/2009 of the European Parliament and of the Council of 16 September 2009 on credit rating agencies (Text with EEA relevance)",
         "date": "2025-01-17T00:00:00",
         "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
         "direction": "incoming",
@@ -4948,64 +4938,14 @@ Output:
         "direction": "incoming",
         "predicate": "cdm:act_consolidated_consolidates_resource_legal",
         "relation_type": "consolidates"
-      },
-      {
-        "uri": "http://publications.europa.eu/resource/cellar/c3ac7e3e-d7ec-11ef-be2a-01aa75ed71a1",
-        "celex": null,
-        "title": "Regulation (EC) No 1060/2009 of the European Parliament and of the Council of 16 September 2009 on credit rating agencies (Text with EEA relevance)",
-        "date": "2025-01-17T00:00:00",
-        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
-        "direction": "incoming",
-        "predicate": "cdm:act_consolidated_consolidates_resource_legal",
-        "relation_type": "consolidates"
-      },
-      {
-        "uri": "http://publications.europa.eu/resource/cellar/b23b5298-d255-11ef-be2a-01aa75ed71a1",
-        "celex": null,
-        "title": "Regulation (EU) 2016/1011 of the European Parliament and of the Council of 8 June 2016 on indices used as benchmarks in financial instruments and financial contracts or to measure the performance of investment funds and amending Directives 2008/48/EC and 2014/17/EU and Regulation (EU) No 596/2014 (Text with EEA relevance)",
-        "date": "2025-01-17T00:00:00",
-        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
-        "direction": "incoming",
-        "predicate": "cdm:act_consolidated_consolidates_resource_legal",
-        "relation_type": "consolidates"
-      },
-      {
-        "uri": "http://publications.europa.eu/resource/cellar/1a12b521-dd8f-11ef-be2a-01aa75ed71a1",
-        "celex": null,
-        "title": "Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)",
-        "date": "2025-01-17T00:00:00",
-        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
-        "direction": "incoming",
-        "predicate": "cdm:act_consolidated_consolidates_resource_legal",
-        "relation_type": "consolidates"
-      },
-      {
-        "uri": "http://publications.europa.eu/resource/cellar/45cc27eb-e880-11ef-b5e9-01aa75ed71a1",
-        "celex": null,
-        "title": "Regulation (EU) No 909/2014 of the European Parliament and of the Council of 23 July 2014 on improving securities settlement in the European Union and on central securities depositories and amending Directives 98/26/EC and 2014/65/EU and Regulation (EU) No 236/2012 (Text with EEA relevance)",
-        "date": "2025-01-17T00:00:00",
-        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
-        "direction": "incoming",
-        "predicate": "cdm:act_consolidated_consolidates_resource_legal",
-        "relation_type": "consolidates"
-      },
-      {
-        "uri": "http://publications.europa.eu/resource/cellar/62b799bc-0992-11f0-b1a3-01aa75ed71a1",
-        "celex": null,
-        "title": "Regulation (EU) No 648/2012 of the European Parliament and of the Council of 4 July 2012 on OTC derivatives, central counterparties and trade repositories (Text with EEA relevance)",
-        "date": "2025-01-17T00:00:00",
-        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
-        "direction": "incoming",
-        "predicate": "cdm:act_consolidated_consolidates_resource_legal",
-        "relation_type": "consolidates"
       }
     ],
-    "returned_count": 10,
+    "returned_count": 5,
     "meta": {
       "query_name": "new_consolidated",
       "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-      "executed_at": "2026-03-14T12:43:45.991298Z",
-      "limit": 10,
+      "executed_at": "2026-03-14T16:40:30.866816Z",
+      "limit": 5,
       "offset": 0
     }
   }
@@ -5282,9 +5222,7 @@ Output:
     "source_url": "http://publications.europa.eu/resource/cellar/0caf473a-85bd-11ed-9887-01aa75ed71a1.0006.03/DOC_1",
     "content_type": "application/xhtml+xml;charset=UTF-8",
     "language": "eng",
-    "content_text_preview": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML//EN\" \"xhtml-strict.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><!-- CONVEX # converter_version:9.15.0 # generated_on:20231208-0931 # ELI version:0.10 --><head>\n      <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"/>\n      <link type=\"text/css\" rel=\"stylesheet\" href=\"oj-convex.css\"/>\n      <title>L_2022333EN.01000101.xml</title>\n   </head>\n   <body>\n      <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n         <col width=\"10%\"/>\n         <col width=\"10%\"/>\n         <col width=\"60%\"/>\n         <col width=\"20%\"/>\n",
-    "content_base64_length": 995824,
-    "content_truncated": true
+    "content_base64": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgaHRtbCBQVUJMSUMgIi0vL1czQy8vRFREIFhIVE1MLy9FTiIgInhodG1s... [truncated in docs, total length 995824]"
   }
 }
 ```
@@ -5308,9 +5246,7 @@ Output:
     "source_url": "http://publications.europa.eu/resource/cellar/98ba2ed0-d620-11ee-b9d9-01aa75ed71a1.0001.02/DOC_2",
     "content_type": "application/xhtml+xml;type=xhtml5;charset=UTF-8",
     "language": "eng",
-    "content_text_preview": "<!DOCTYPE html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\"><head><meta charset=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><title>Digital operational resilience for the financial sector</title><meta name=\"description\" content=\"The Regulation sets EU-wide rules to ensure that financial entities can withstand and recover from digital and ICT-related disruptions.\"/><meta name=\"author\" content=\"PUBL\"/><meta name=\"copyright\" content=\"© European Union, 2026\"/><meta name=\"op-spec-version\" content=\"4.0\"/><meta name=\"op-creator-version\" content=\"ESTeam EUR-Lex LegisSum Editor v1.0\"/><meta name=\"op-multilingual-pub\" content=\"no\"/><meta property",
-    "content_base64_length": 28456,
-    "content_truncated": true
+    "content_base64": "PCFET0NUWVBFIGh0bWw+CjxodG1sIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBsYW5nPSJlbiIgeG1sOmxhbmc9ImVuIj48aGVhZD48... [truncated in docs, total length 28456]"
   }
 }
 ```

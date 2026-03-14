@@ -5,35 +5,30 @@ from __future__ import annotations
 import argparse
 from typing import Any
 
-from cellar_wrapper.http import TimeoutConfig
-
-
-def positive_int(raw: str) -> int:
-    try:
-        value = int(raw)
-    except ValueError as exc:
-        raise argparse.ArgumentTypeError("must be an integer") from exc
-    if value < 1:
-        raise argparse.ArgumentTypeError("must be >= 1")
-    return value
+from cellar_wrapper.client_config import (
+    client_kwargs_from_values,
+    finite_positive_float,
+    positive_int,
+    positive_timeout,
+)
 
 
 def client_kwargs_from_namespace(args: argparse.Namespace) -> dict[str, Any]:
-    defaults = TimeoutConfig()
-    timeout = TimeoutConfig(
-        connect=args.timeout_connect if args.timeout_connect is not None else defaults.connect,
-        read=args.timeout_read if args.timeout_read is not None else defaults.read,
-        write=args.timeout_write if args.timeout_write is not None else defaults.write,
-        pool=args.timeout_pool if args.timeout_pool is not None else defaults.pool,
+    return client_kwargs_from_values(
+        base_url_sparql=args.base_url_sparql,
+        base_url_resource=args.base_url_resource,
+        user_agent=args.user_agent,
+        retries=args.retries,
+        timeout_connect=args.timeout_connect,
+        timeout_read=args.timeout_read,
+        timeout_write=args.timeout_write,
+        timeout_pool=args.timeout_pool,
     )
 
-    kwargs: dict[str, Any] = {"timeout": timeout}
-    if args.base_url_sparql is not None:
-        kwargs["base_url_sparql"] = args.base_url_sparql
-    if args.base_url_resource is not None:
-        kwargs["base_url_resource"] = args.base_url_resource
-    if args.user_agent is not None:
-        kwargs["user_agent"] = args.user_agent
-    if args.retries is not None:
-        kwargs["retries"] = args.retries
-    return kwargs
+
+__all__ = [
+    "client_kwargs_from_namespace",
+    "finite_positive_float",
+    "positive_int",
+    "positive_timeout",
+]

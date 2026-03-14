@@ -195,4 +195,4 @@ Relation-based `new-*` commands are `incoming` only.
 - CLI wraps successful data as `{"ok": true, "data": ...}`.
 - CLI wraps errors as `{"ok": false, "error": {...}}`.
 - Full maintained behavior lives in [CONTRACT_REFERENCE.md](CONTRACT_REFERENCE.md).
-- Accepted live payload examples live in [CONTRACT_EXAMPLES.md](CONTRACT_EXAMPLES.md).
+- Curated live payload examples live in [CONTRACT_EXAMPLES.md](CONTRACT_EXAMPLES.md); they are representative examples for readers, not an exhaustive command catalog.

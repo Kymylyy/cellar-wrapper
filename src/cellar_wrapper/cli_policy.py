@@ -1,155 +1,44 @@
-"""CLI argument policy derived from CommandSpec metadata."""
+"""CLI argument policy derived from command parameter metadata."""
 
 from __future__ import annotations
 
 import argparse
 from typing import Any
 
-from cellar_wrapper.cli_specs import CommandSpec
-from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
-
-DIRECTION_CHOICES = ("incoming", "outgoing", "both")
-
-_LIST_ARG_HELP: dict[str, str] = {
-    "tags": "One or more EuroVoc tags.",
-    "codes": "One or more subject-matter codes.",
-}
-
-_SCALAR_ARG_HELP: dict[str, str] = {
-    "keyword": "Title keyword to search.",
-    "dg": "Directorate-General code (for example FISMA).",
-    "label": "EuroVoc label to match.",
-}
-
-_SIMPLE_OPTIONAL_ARG_SPECS: tuple[tuple[str, str, str, Any], ...] = (
-    ("has_country", "--country", "Filter by ISO-3 country code.", None),
-    ("has_lang", "--lang", "Language code.", DEFAULT_LANGUAGE),
-)
+from cellar_wrapper.cli_runtime import positive_int
+from cellar_wrapper.cli_specs import CommandParameterSpec, CommandSpec
 
 
-def _list_arg_help(arg_name: str) -> str:
-    return _LIST_ARG_HELP.get(arg_name, f"One or more values for {arg_name}.")
-
-
-def _scalar_arg_help(arg_name: str) -> str:
-    return _SCALAR_ARG_HELP.get(arg_name, f"Value for {arg_name}.")
-
-
-def _add_since_argument(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
-    if spec.requires_since:
-        command_parser.add_argument("--since", required=True, help="Include items from this date/time.")
-        return
-    if spec.has_since:
-        command_parser.add_argument("--since", help="Optional lower date/time bound.")
-
-
-def _supports_date_bounds(spec: CommandSpec) -> bool:
-    return spec.requires_since or spec.has_since
-
-
-def _add_to_argument(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
-    if _supports_date_bounds(spec):
-        command_parser.add_argument("--to", help="Optional upper date/time bound.")
-
-
-def _add_simple_optional_arguments(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
-    for field_name, option_name, help_text, default in _SIMPLE_OPTIONAL_ARG_SPECS:
-        if not getattr(spec, field_name):
-            continue
-        kwargs: dict[str, Any] = {"help": help_text}
-        if default is not None:
-            kwargs["default"] = default
-        command_parser.add_argument(option_name, **kwargs)
-    if spec.has_resource_type:
-        command_parser.add_argument(
-            "--resource-types",
-            nargs="+",
-            help="Filter by one or more CELLAR resource type tokens.",
-        )
-    if spec.has_direction:
-        command_parser.add_argument(
-            "--direction",
-            choices=DIRECTION_CHOICES,
-            default="both",
-            help="Relation direction to include.",
-        )
-
-
-def _add_pagination_arguments(command_parser: argparse.ArgumentParser) -> None:
-    command_parser.add_argument(
-        "--limit",
-        type=int,
-        default=DEFAULT_LIMIT,
-        help="Maximum number of items to return.",
-    )
-    command_parser.add_argument(
-        "--offset",
-        type=int,
-        default=DEFAULT_OFFSET,
-        help="Number of items to skip before returning results.",
-    )
-
-
-def _add_custom_value_arguments(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
-    if spec.list_arg_name is not None:
-        command_parser.add_argument(
-            f"--{spec.list_arg_name}",
-            nargs="+",
-            required=True,
-            help=_list_arg_help(spec.list_arg_name),
-        )
-    if spec.scalar_arg_name is not None:
-        command_parser.add_argument(
-            f"--{spec.scalar_arg_name}",
-            required=True,
-            help=_scalar_arg_help(spec.scalar_arg_name),
-        )
+def _argparse_kwargs(param: CommandParameterSpec) -> dict[str, Any]:
+    kwargs: dict[str, Any] = {"help": param.help_text}
+    if param.required:
+        kwargs["required"] = True
+    if param.has_default:
+        kwargs["default"] = param.default
+    if param.choices is not None:
+        kwargs["choices"] = param.choices
+    if param.is_list:
+        kwargs["nargs"] = "+"
+    if param.kind == "limit":
+        kwargs["type"] = positive_int
+    elif param.kind == "offset":
+        kwargs["type"] = int
+    return kwargs
 
 
 def configure_command_parser(command_parser: argparse.ArgumentParser, spec: CommandSpec) -> None:
-    """Attach command-specific arguments based on a command spec."""
+    """Attach command-specific arguments based on command metadata."""
     command_parser.set_defaults(command_spec=spec)
-
-    if spec.requires_celex:
-        command_parser.add_argument("--celex", required=True, help="CELEX identifier.")
-    _add_since_argument(command_parser, spec)
-    _add_to_argument(command_parser, spec)
-    _add_simple_optional_arguments(command_parser, spec)
-    if spec.has_limit_offset:
-        _add_pagination_arguments(command_parser)
-    if spec.has_format:
-        command_parser.add_argument("--format", default="pdf", help="Document format (for example pdf).")
-    _add_custom_value_arguments(command_parser, spec)
+    for param in spec.parameters:
+        command_parser.add_argument(param.cli_option, **_argparse_kwargs(param))
 
 
 def build_method_kwargs(spec: CommandSpec, args: argparse.Namespace) -> dict[str, Any]:
     """Map parsed CLI args to client method kwargs."""
     kwargs: dict[str, Any] = {}
-    if spec.requires_celex:
-        kwargs["celex"] = args.celex
-
-    since = getattr(args, "since", None)
-    if since is not None:
-        kwargs["since"] = since
-    to = getattr(args, "to", None)
-    if to is not None:
-        kwargs["to"] = to
-
-    if spec.has_resource_type:
-        kwargs["resource_types"] = getattr(args, "resource_types", None)
-    if spec.has_country:
-        kwargs["country"] = getattr(args, "country", None)
-    if spec.has_lang:
-        kwargs["lang"] = args.lang
-    if spec.has_direction:
-        kwargs["direction"] = args.direction
-    if spec.has_limit_offset:
-        kwargs["limit"] = args.limit
-        kwargs["offset"] = args.offset
-    if spec.has_format:
-        kwargs["format"] = args.format
-    if spec.list_arg_name is not None:
-        kwargs[spec.list_arg_name] = getattr(args, spec.list_arg_name)
-    if spec.scalar_arg_name is not None:
-        kwargs[spec.scalar_arg_name] = getattr(args, spec.scalar_arg_name)
+    for param in spec.parameters:
+        value = getattr(args, param.name)
+        if value is None and param.name in {"since", "to"}:
+            continue
+        kwargs[param.name] = value
     return kwargs

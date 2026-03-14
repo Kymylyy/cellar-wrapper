@@ -9,7 +9,7 @@ from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
 from cellar_wrapper.errors import CellarValidationError
 from cellar_wrapper.models import ActRef, CaseLawItem, ListResult, NIMItem, RelationItem
-from cellar_wrapper.parser import parse_act_refs
+from cellar_wrapper.parser import parse_uri_act_refs
 from cellar_wrapper.sparql import build_search_by_eurovoc_query
 
 
@@ -428,7 +428,7 @@ class MonitoringMixin:
         return self._run_list_query(
             query_name="new_by_eurovoc",
             query=query,
-            parser=parse_act_refs,
+            parser=parse_uri_act_refs,
             limit=limit,
             offset=offset,
         )

@@ -17,7 +17,6 @@ from cellar_wrapper.models import (
 from cellar_wrapper.parser import (
     parse_act_detail,
     parse_act_refs,
-    parse_bindings,
     parse_eurovoc_tags,
     parse_expressions,
     parse_relation_items,
@@ -39,10 +38,10 @@ class LookupMixin:
         normalized = self._normalize_celex(celex)
 
         exact_query = build_resolve_celex_query(normalized, use_contains=False)
-        rows = parse_bindings(self._transport.query_sparql(exact_query))
+        rows = self._query_rows(exact_query)
         if not rows:
             fallback_query = build_resolve_celex_query(normalized, use_contains=True)
-            rows = parse_bindings(self._transport.query_sparql(fallback_query))
+            rows = self._query_rows(fallback_query)
 
         if not rows:
             raise CellarNotFoundError(
@@ -50,7 +49,7 @@ class LookupMixin:
                 details={"entity": "celex", "celex": normalized, "phase": "resolve_exact_then_contains"},
             )
 
-        refs = parse_act_refs(rows)
+        refs = parse_act_refs(rows, uri_key="work")
         for ref in refs:
             if ref.celex and ref.celex.upper() == normalized:
                 return ref
@@ -67,7 +66,7 @@ class LookupMixin:
         normalized_lang = self._normalize_lang(lang)
         work_uri = self._resolve_work_uri(celex)
         query = build_get_act_query(work_uri, lang=normalized_lang)
-        rows = parse_bindings(self._transport.query_sparql(query))
+        rows = self._query_rows(query)
         detail = parse_act_detail(rows)
         if detail is None:
             raise CellarNotFoundError(

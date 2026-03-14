@@ -5,23 +5,24 @@ from __future__ import annotations
 import argparse
 import importlib
 import os
+import sys
 from collections.abc import Callable, Mapping
 from inspect import Parameter, Signature
 from typing import Annotated, Any, Literal, Protocol, cast
 
-from pydantic import Field
+from pydantic import BaseModel, ConfigDict, Field, create_model
 
 from cellar_wrapper.cli_policy import build_method_kwargs
-from cellar_wrapper.cli_specs import COMMANDS, CommandSpec
+from cellar_wrapper.cli_specs import COMMANDS, CommandParameterSpec, CommandSpec
 from cellar_wrapper.client import CellarClient
-from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET, MAX_LIMIT
+from cellar_wrapper.client_config import build_client_kwargs, validate_finite_positive_float
+from cellar_wrapper.constants import MAX_LIMIT
 from cellar_wrapper.error_serialization import format_cellar_error
 from cellar_wrapper.errors import (
     CellarError,
     CellarInternalError,
     CellarValidationError,
 )
-from cellar_wrapper.http import TimeoutConfig, validate_http_url
 from cellar_wrapper.serialization import to_jsonable
 from cellar_wrapper.version import __version__
 
@@ -111,62 +112,24 @@ def _optional_float_env(env: Mapping[str, str], key: str) -> float | None:
     if raw is None:
         return None
     try:
-        return float(raw)
+        value = float(raw)
     except ValueError as exc:
         raise CellarValidationError(f"{key} must be a float: {raw!r}") from exc
-
-
-def _timeout_from_env(env: Mapping[str, str]) -> TimeoutConfig | None:
-    connect = _optional_float_env(env, CELLAR_MCP_TIMEOUT_CONNECT)
-    read = _optional_float_env(env, CELLAR_MCP_TIMEOUT_READ)
-    write = _optional_float_env(env, CELLAR_MCP_TIMEOUT_WRITE)
-    pool = _optional_float_env(env, CELLAR_MCP_TIMEOUT_POOL)
-
-    if connect is None and read is None and write is None and pool is None:
-        return None
-
-    defaults = TimeoutConfig()
-    return TimeoutConfig(
-        connect=connect if connect is not None else defaults.connect,
-        read=read if read is not None else defaults.read,
-        write=write if write is not None else defaults.write,
-        pool=pool if pool is not None else defaults.pool,
-    )
+    return validate_finite_positive_float(value, field=key)
 
 
 def _client_kwargs_from_env(env: Mapping[str, str] | None = None) -> dict[str, Any]:
     source = os.environ if env is None else env
-    kwargs: dict[str, Any] = {}
-
-    base_url_sparql = _optional_str_env(source, CELLAR_MCP_BASE_URL_SPARQL)
-    if base_url_sparql is not None:
-        kwargs["base_url_sparql"] = validate_http_url(
-            base_url_sparql,
-            field=CELLAR_MCP_BASE_URL_SPARQL,
-        )
-
-    base_url_resource = _optional_str_env(source, CELLAR_MCP_BASE_URL_RESOURCE)
-    if base_url_resource is not None:
-        kwargs["base_url_resource"] = validate_http_url(
-            base_url_resource,
-            field=CELLAR_MCP_BASE_URL_RESOURCE,
-        )
-
-    user_agent = _optional_str_env(source, CELLAR_MCP_USER_AGENT)
-    if user_agent is not None:
-        kwargs["user_agent"] = user_agent
-
-    retries = _optional_int_env(source, CELLAR_MCP_RETRIES)
-    if retries is not None:
-        if retries < 1:
-            raise CellarValidationError(f"{CELLAR_MCP_RETRIES} must be >= 1")
-        kwargs["retries"] = retries
-
-    timeout = _timeout_from_env(source)
-    if timeout is not None:
-        kwargs["timeout"] = timeout
-
-    return kwargs
+    return build_client_kwargs(
+        base_url_sparql=_optional_str_env(source, CELLAR_MCP_BASE_URL_SPARQL),
+        base_url_resource=_optional_str_env(source, CELLAR_MCP_BASE_URL_RESOURCE),
+        user_agent=_optional_str_env(source, CELLAR_MCP_USER_AGENT),
+        retries=_optional_int_env(source, CELLAR_MCP_RETRIES),
+        timeout_connect=_optional_float_env(source, CELLAR_MCP_TIMEOUT_CONNECT),
+        timeout_read=_optional_float_env(source, CELLAR_MCP_TIMEOUT_READ),
+        timeout_write=_optional_float_env(source, CELLAR_MCP_TIMEOUT_WRITE),
+        timeout_pool=_optional_float_env(source, CELLAR_MCP_TIMEOUT_POOL),
+    )
 
 
 _NO_DEFAULT = object()
@@ -192,64 +155,49 @@ def _append_signature_parameter(
     )
 
 
-def _add_optional_signature_parameters(parameters: list[Parameter], spec: CommandSpec) -> None:
-    optional_specs: tuple[tuple[bool, str, Any, Any], ...] = (
-        (spec.has_resource_type, "resource_types", ResourceTypeListArg | None, None),
-        (spec.has_country, "country", CountryArg | None, None),
-        (spec.has_lang, "lang", LangArg, DEFAULT_LANGUAGE),
-        (spec.has_direction, "direction", DirectionArg, "both"),
-        (spec.has_limit_offset, "limit", LimitArg, DEFAULT_LIMIT),
-        (spec.has_limit_offset, "offset", OffsetArg, DEFAULT_OFFSET),
-        (spec.has_format, "format", FormatArg, "pdf"),
-    )
-    for enabled, name, annotation, default in optional_specs:
-        if not enabled:
-            continue
-        _append_signature_parameter(
-            parameters,
-            name=name,
-            annotation=annotation,
-            default=default,
-        )
+def _annotation_for_parameter(param: CommandParameterSpec) -> Any:
+    if param.kind == "celex":
+        return CelexArg
+    if param.kind == "since":
+        return SinceArg if param.required else SinceArg | None
+    if param.kind == "to":
+        return ToArg | None
+    if param.kind == "resource_types":
+        return ResourceTypeListArg | None
+    if param.kind == "country":
+        return CountryArg | None
+    if param.kind == "lang":
+        return LangArg
+    if param.kind == "direction":
+        return DirectionArg
+    if param.kind == "limit":
+        return LimitArg
+    if param.kind == "offset":
+        return OffsetArg
+    if param.kind == "format":
+        return FormatArg
+    if param.kind == "string":
+        return NonEmptyStrArg
+    if param.kind == "string_list":
+        return NonEmptyStrListArg
+    raise ValueError(f"Unsupported parameter kind: {param.kind}")
 
 
 def _signature_for_spec(spec: CommandSpec) -> Signature:
     parameters: list[Parameter] = []
-
-    if spec.requires_celex:
-        _append_signature_parameter(parameters, name="celex", annotation=CelexArg)
-
-    if spec.requires_since:
-        _append_signature_parameter(parameters, name="since", annotation=SinceArg)
-    elif spec.has_since:
+    for param in spec.parameters:
+        if param.has_default:
+            _append_signature_parameter(
+                parameters,
+                name=param.name,
+                annotation=_annotation_for_parameter(param),
+                default=param.default,
+            )
+            continue
         _append_signature_parameter(
             parameters,
-            name="since",
-            annotation=SinceArg | None,
-            default=None,
-        )
-    if spec.requires_since or spec.has_since:
-        _append_signature_parameter(
-            parameters,
-            name="to",
-            annotation=ToArg | None,
-            default=None,
-        )
-
-    _add_optional_signature_parameters(parameters, spec)
-
-    if spec.list_arg_name is not None:
-        _append_signature_parameter(
-            parameters,
-            name=spec.list_arg_name,
-            annotation=NonEmptyStrListArg,
-        )
-
-    if spec.scalar_arg_name is not None:
-        _append_signature_parameter(
-            parameters,
-            name=spec.scalar_arg_name,
-            annotation=NonEmptyStrArg,
+            name=param.name,
+            annotation=_annotation_for_parameter(param),
         )
 
     return Signature(parameters=parameters)
@@ -266,42 +214,53 @@ def _tool_error(message: str) -> Exception:
     return tool_error_cls(message)
 
 
-def _enforce_strict_tool_arguments(server: MCPServer, tool_name: str) -> None:
-    """Force FastMCP arg model to reject unknown parameters."""
+class _StrictArgModelBase(BaseModel):
+    """Minimal FastMCP-compatible arg model that forbids unknown fields."""
+
+    model_config = ConfigDict(extra="forbid", arbitrary_types_allowed=True)
+
+    def model_dump_one_level(self) -> dict[str, Any]:
+        return self.model_dump(mode="python")
+
+
+def _strict_arg_model_for_spec(spec: CommandSpec) -> type[_StrictArgModelBase]:
+    model_fields: dict[str, Any] = {}
+    for param in spec.parameters:
+        annotation = _annotation_for_parameter(param)
+        if param.has_default:
+            model_fields[param.name] = (annotation, param.default)
+            continue
+        model_fields[param.name] = annotation
+    return create_model(
+        f"{spec.method}Arguments",
+        __base__=_StrictArgModelBase,
+        **model_fields,
+    )
+
+
+def _replace_tool_arg_model(server: MCPServer, spec: CommandSpec) -> None:
+    """Replace FastMCP's permissive arg model with an explicit strict model."""
     tool_manager = getattr(server, "_tool_manager", None)
     if tool_manager is None:
         return
     get_tool = getattr(tool_manager, "get_tool", None)
     if not callable(get_tool):
         return
-    tool = get_tool(tool_name)
+    tool = get_tool(spec.command)
     if tool is None:
         return
-
-    arg_model = getattr(getattr(tool, "fn_metadata", None), "arg_model", None)
-    if arg_model is None:
+    fn_metadata = getattr(tool, "fn_metadata", None)
+    if fn_metadata is None:
         return
-    model_config = getattr(arg_model, "model_config", None)
-    if model_config is None:
-        return
-
-    model_config["extra"] = "forbid"
-    arg_model.model_rebuild(force=True)
+    arg_model = _strict_arg_model_for_spec(spec)
+    fn_metadata.arg_model = arg_model
     tool.parameters = arg_model.model_json_schema(by_alias=True)
 
 
 def _tool_for_spec(spec: CommandSpec, client_factory: Callable[[], CellarClient]) -> Callable[..., Any]:
     signature = _signature_for_spec(spec)
-    allowed_args = set(signature.parameters.keys())
 
     def tool(**tool_args: Any) -> Any:
-        unknown_args = sorted(set(tool_args) - allowed_args)
-        if unknown_args:
-            unknown_args_csv = ", ".join(unknown_args)
-            raise _tool_error(
-                f"Invalid parameters for tool '{spec.command}': {unknown_args_csv}"
-            )
-
         namespace = argparse.Namespace(**tool_args)
         method_kwargs = build_method_kwargs(spec, namespace)
 
@@ -350,7 +309,7 @@ def build_mcp_server(
             name=spec.command,
             description=_tool_description(spec),
         )
-        _enforce_strict_tool_arguments(server, spec.command)
+        _replace_tool_arg_model(server, spec)
     return server
 
 
@@ -360,9 +319,15 @@ def build_main_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def _main_argv(argv: list[str] | None) -> list[str]:
+    if argv is not None:
+        return argv
+    return sys.argv[1:] if sys.argv[1:] == ["--version"] else []
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = build_main_parser()
-    parser.parse_args([] if argv is None else argv)
+    parser.parse_args(_main_argv(argv))
 
     try:
         server = build_mcp_server()
@@ -372,4 +337,4 @@ def main(argv: list[str] | None = None) -> None:
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

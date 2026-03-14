@@ -224,8 +224,8 @@ def test_search_by_eurovoc_query_uses_values_for_filtered_resource_types() -> No
         offset=0,
     )
 
-    assert "OPTIONAL { ?work cdm:work_has_resource-type ?type }" not in query
-    assert "?work cdm:work_has_resource-type ?type ." in query
+    assert "OPTIONAL { ?uri cdm:work_has_resource-type ?type }" not in query
+    assert "?uri cdm:work_has_resource-type ?type ." in query
     assert (
         "VALUES ?type { "
         "<http://publications.europa.eu/resource/authority/resource-type/PROP_REG> "
@@ -244,8 +244,8 @@ def test_search_by_subject_matter_query_uses_values_for_filtered_resource_types(
         offset=0,
     )
 
-    assert "OPTIONAL { ?work cdm:work_has_resource-type ?type }" not in query
-    assert "?work cdm:work_has_resource-type ?type ." in query
+    assert "OPTIONAL { ?uri cdm:work_has_resource-type ?type }" not in query
+    assert "?uri cdm:work_has_resource-type ?type ." in query
     assert (
         "VALUES ?type { "
         "<http://publications.europa.eu/resource/authority/resource-type/DEC> "
@@ -264,8 +264,8 @@ def test_search_by_title_query_uses_values_for_filtered_resource_types() -> None
         offset=0,
     )
 
-    assert "OPTIONAL { ?work cdm:work_has_resource-type ?type }" not in query
-    assert "?work cdm:work_has_resource-type ?type ." in query
+    assert "OPTIONAL { ?uri cdm:work_has_resource-type ?type }" not in query
+    assert "?uri cdm:work_has_resource-type ?type ." in query
     assert (
         "VALUES ?type { "
         "<http://publications.europa.eu/resource/authority/resource-type/REG_IMPL> "
@@ -447,7 +447,7 @@ def test_build_dossier_query_keeps_outer_projection_for_parser() -> None:
         "?statusWithdrawn",
         "?producesAct",
         "?producesActCelex",
-        "?other",
+        "?uri",
         "?celex",
         "?title",
         "?date",
@@ -503,7 +503,7 @@ def test_build_national_decisions_query_can_filter_by_country() -> None:
 
 def test_search_communications_requires_service_binding() -> None:
     query = build_search_communications_query("FISMA", since=None, limit=10, offset=0)
-    assert "?work cdm:resource_legal_service_responsible ?service ." in query
+    assert "?uri cdm:resource_legal_service_responsible ?service ." in query
     assert "OPTIONAL { ?work cdm:resource_legal_service_responsible ?service }" not in query
 
 

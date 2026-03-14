@@ -96,7 +96,7 @@ def build_legal_basis_query(work_uri: str, *, limit: int, offset: int) -> str:
     work_iri = safe_iri(work_uri, field="work_uri")
     default_lang_iri = language_uri(DEFAULT_LANGUAGE)
     query = f"""
-SELECT DISTINCT ?other ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
+SELECT DISTINCT ?uri ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
   {{
     ?other {PREDICATES["based_on"]} <{work_iri}> .
     BIND({quote_literal("incoming")} AS ?direction)
@@ -113,6 +113,7 @@ SELECT DISTINCT ?other ?celex ?title ?date ?type ?relationType ?direction ?predi
     BIND({quote_literal("based_on_concept_treaty")} AS ?relationType)
     BIND({quote_literal(PREDICATES["based_on_concept_treaty"])} AS ?predicate)
   }}
+  BIND(?other AS ?uri)
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
   OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}

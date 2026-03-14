@@ -51,10 +51,23 @@ def test_parse_act_refs_requires_uri_column() -> None:
     assert exc_info.value.details["row_index"] == 0
 
 
+def test_parse_act_refs_supports_explicit_uri_key() -> None:
+    rows = [
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32022R2554",
+        )
+    ]
+    refs = parse_act_refs(rows, uri_key="work")
+
+    assert len(refs) == 1
+    assert refs[0].uri == "https://publications.europa.eu/resource/cellar/work"
+
+
 def test_parse_case_law_items_maps_case_fields() -> None:
     rows = [
         sparql_row(
-            other="https://publications.europa.eu/resource/cellar/case",
+            uri="https://publications.europa.eu/resource/cellar/case",
             celex="62019CJ0287",
             ecli="ECLI:EU:C:2020:897",
             courtFormation="First Chamber",
@@ -113,10 +126,48 @@ def test_parse_act_detail_collects_multi_value_fields() -> None:
     assert len(detail.signatory_names) == 2
 
 
+def test_parse_act_detail_rejects_conflicting_scalar_values() -> None:
+    rows = [
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32022R2554",
+            title="Title A",
+        ),
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32022R2554",
+            title="Title B",
+        ),
+    ]
+    with pytest.raises(CellarParseError, match="Conflicting scalar value") as exc_info:
+        parse_act_detail(rows)
+
+    assert exc_info.value.details["parser"] == "parse_act_detail"
+    assert exc_info.value.details["field"] == "title"
+
+
+def test_parse_act_detail_rejects_conflicting_work_uris() -> None:
+    rows = [
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work-a",
+            celex="32022R2554",
+        ),
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work-b",
+            celex="32022R2554",
+        ),
+    ]
+    with pytest.raises(CellarParseError, match="Conflicting work URI") as exc_info:
+        parse_act_detail(rows)
+
+    assert exc_info.value.details["parser"] == "parse_act_detail"
+    assert exc_info.value.details["field"] == "work"
+
+
 def test_parse_dossier_items_maps_metadata_and_status_flags() -> None:
     rows = [
         sparql_row(
-            other="https://publications.europa.eu/resource/cellar/related",
+            uri="https://publications.europa.eu/resource/cellar/related",
             celex="52023PC0367",
             dossier="https://publications.europa.eu/resource/cellar/dossier",
             procedureCode="2023/0210/COD",
@@ -143,7 +194,7 @@ def test_parse_dossier_items_maps_metadata_and_status_flags() -> None:
 def test_parse_nim_items_maps_country() -> None:
     rows = [
         sparql_row(
-            other="https://publications.europa.eu/resource/cellar/nim",
+            uri="https://publications.europa.eu/resource/cellar/nim",
             celex="72015L2366POL_258600",
             relationType="nims",
             direction="incoming",
@@ -159,7 +210,7 @@ def test_parse_nim_items_maps_country() -> None:
 def test_parse_relation_items_ignores_annotation_columns() -> None:
     rows = [
         sparql_row(
-            other="https://publications.europa.eu/resource/cellar/related",
+            uri="https://publications.europa.eu/resource/cellar/related",
             celex="32024R0001",
             relationType="relation",
             direction="incoming",
@@ -175,7 +226,7 @@ def test_parse_relation_items_ignores_annotation_columns() -> None:
 def test_parse_article_annotation_items_maps_qualifiers() -> None:
     rows = [
         sparql_row(
-            other="https://publications.europa.eu/resource/cellar/annotated",
+            uri="https://publications.europa.eu/resource/cellar/annotated",
             relationType="article_annotation",
             direction="incoming",
             predicate="cdm:resource_legal_amends_resource_legal",
@@ -197,7 +248,7 @@ def test_parse_article_annotation_items_maps_qualifiers() -> None:
 def test_parse_article_annotation_items_handles_partial_qualifiers() -> None:
     rows = [
         sparql_row(
-            other="https://publications.europa.eu/resource/cellar/annotated",
+            uri="https://publications.europa.eu/resource/cellar/annotated",
             relationType="article_annotation",
             direction="incoming",
             predicate="cdm:resource_legal_amends_resource_legal",

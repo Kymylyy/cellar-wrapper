@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import importlib
 import json
+import os
+import subprocess
+import sys
 from datetime import UTC, datetime
 from types import TracebackType
 from typing import Any, cast
@@ -10,7 +13,6 @@ import anyio
 import pytest
 
 from cellar_wrapper.cli_specs import COMMANDS, CommandSpec
-from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OFFSET
 from cellar_wrapper.errors import CellarHTTPError, CellarValidationError
 from cellar_wrapper.http import TimeoutConfig
 from cellar_wrapper.mcp_server import (
@@ -72,48 +74,12 @@ def _tool_call_payload(result: Any) -> dict[str, Any]:
 def _expected_schema_contract(
     spec: CommandSpec,
 ) -> tuple[set[str], set[str], dict[str, Any], set[str]]:
-    properties: set[str] = set()
-    required: set[str] = set()
-    defaults: dict[str, Any] = {}
-    without_default: set[str] = set()
-
-    def add_required(name: str) -> None:
-        properties.add(name)
-        required.add(name)
-        without_default.add(name)
-
-    def add_default(name: str, value: Any) -> None:
-        properties.add(name)
-        defaults[name] = value
-
-    if spec.requires_celex:
-        add_required("celex")
-
-    if spec.requires_since:
-        add_required("since")
-    elif spec.has_since:
-        add_default("since", None)
-    if spec.requires_since or spec.has_since:
-        add_default("to", None)
-
-    if spec.has_resource_type:
-        add_default("resource_types", None)
-    if spec.has_country:
-        add_default("country", None)
-    if spec.has_lang:
-        add_default("lang", DEFAULT_LANGUAGE)
-    if spec.has_direction:
-        add_default("direction", "both")
-    if spec.has_limit_offset:
-        add_default("limit", DEFAULT_LIMIT)
-        add_default("offset", DEFAULT_OFFSET)
-    if spec.has_format:
-        add_default("format", "pdf")
-    if spec.list_arg_name is not None:
-        add_required(spec.list_arg_name)
-    if spec.scalar_arg_name is not None:
-        add_required(spec.scalar_arg_name)
-
+    properties = {param.name for param in spec.parameters}
+    required = {param.name for param in spec.parameters if param.required}
+    defaults = {param.name: param.default for param in spec.parameters if param.has_default}
+    without_default = {
+        param.name for param in spec.parameters if param.required and not param.has_default
+    }
     return properties, required, defaults, without_default
 
 
@@ -650,6 +616,19 @@ def test_client_kwargs_from_env_rejects_invalid_numbers() -> None:
         _client_kwargs_from_env({CELLAR_MCP_RETRIES: "not-an-int"})
 
 
+@pytest.mark.parametrize(
+    ("key", "raw"),
+    (
+        (CELLAR_MCP_TIMEOUT_CONNECT, "nan"),
+        (CELLAR_MCP_TIMEOUT_READ, "inf"),
+        (CELLAR_MCP_TIMEOUT_WRITE, "-inf"),
+    ),
+)
+def test_client_kwargs_from_env_rejects_non_finite_timeouts(key: str, raw: str) -> None:
+    with pytest.raises(CellarValidationError, match=key):
+        _client_kwargs_from_env({key: raw})
+
+
 def test_main_exits_with_install_hint_when_mcp_dependency_missing(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -672,3 +651,19 @@ def test_main_version_flag(capsys: pytest.CaptureFixture[str]) -> None:
         main(["--version"])
     assert exc_info.value.code == 0
     assert capsys.readouterr().out.strip() == f"cellar-mcp {__version__}"
+
+
+def test_main_honors_process_argv_for_version_flag() -> None:
+    env = os.environ.copy()
+    existing = env.get("PYTHONPATH")
+    env["PYTHONPATH"] = "src" if not existing else f"src{os.pathsep}{existing}"
+    completed = subprocess.run(
+        [sys.executable, "-m", "cellar_wrapper.mcp_server", "--version"],
+        cwd=".",
+        env=env,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert completed.returncode == 0
+    assert completed.stdout.strip() == f"cellar-mcp {__version__}"

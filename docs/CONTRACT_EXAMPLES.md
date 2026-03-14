@@ -1,7 +1,7 @@
 # Contract Examples
 
 Generated from `docs/examples/contract-examples.json`.
-Source of truth remains the JSON file; this Markdown is a readable render.
+Source of truth remains the JSON file; this Markdown is a readable render of curated examples.
 
 ## LOOKUP
 

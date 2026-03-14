@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from collections.abc import Callable, Sequence
+from dataclasses import dataclass
 from datetime import date, datetime
 from typing import Any, cast
 
@@ -11,7 +12,6 @@ from cellar_wrapper.constants import MAX_LIMIT
 from cellar_wrapper.errors import CellarValidationError
 from cellar_wrapper.models import CaseLawItem, ListResult, NIMItem, RelationItem
 from cellar_wrapper.parser import (
-    parse_bindings,
     parse_case_law_items,
     parse_nim_items,
     parse_relation_items,
@@ -21,8 +21,23 @@ from cellar_wrapper.sparql import build_relation_query
 from .relation_specs import RELATION_CALL_SPECS, RelationCallSpec
 
 BindingRow = dict[str, dict[str, str]]
-QueryFn = Callable[[str], dict[str, Any]]
 ListResultBuilder = Callable[..., ListResult[Any]]
+DateBound = date | datetime | str | None
+
+
+@dataclass(frozen=True)
+class RelationExecutionContext:
+    """Bound client operations needed to execute relation-style queries."""
+
+    validate_pagination: Callable[[int, int], None]
+    normalize_celex: Callable[[str], str]
+    normalize_lang: Callable[[str], str]
+    normalize_resource_types: Callable[[Sequence[str] | None], list[str] | None]
+    normalize_direction: Callable[[str | None], str | None]
+    normalize_date_bounds: Callable[[DateBound, DateBound], tuple[str | None, str | None]]
+    resolve_work_uri: Callable[[str], str]
+    query_rows: Callable[[str], list[BindingRow]]
+    list_result_builder: ListResultBuilder
 
 
 def _date_sort_value(value: date | datetime | None) -> str:
@@ -78,10 +93,11 @@ def _group_nim_items(items: list[NIMItem], *, queried_celex: str) -> list[NIMIte
 
 def fetch_relation_rows(
     *,
+    context: RelationExecutionContext,
     method_name: str,
     celex: str,
-    since: date | datetime | str | None,
-    to: date | datetime | str | None,
+    since: DateBound,
+    to: DateBound,
     include_undated: bool,
     resource_types: Sequence[str] | None,
     limit: int,
@@ -89,29 +105,19 @@ def fetch_relation_rows(
     lang: str,
     direction: str | None,
     include_implemented_by_country: bool,
-    validate_pagination: Callable[[int, int], None],
-    normalize_lang: Callable[[str], str],
-    normalize_resource_types: Callable[[Sequence[str] | None], list[str] | None],
-    normalize_direction: Callable[[str | None], str | None],
-    normalize_date_bounds: Callable[
-        [date | datetime | str | None, date | datetime | str | None],
-        tuple[str | None, str | None],
-    ],
-    resolve_work_uri: Callable[[str], str],
-    query_sparql: QueryFn,
 ) -> tuple[RelationCallSpec, list[BindingRow]]:
     spec = RELATION_CALL_SPECS.get(method_name)
     if spec is None:
         raise CellarValidationError(f"Unsupported relation method: {method_name}")
 
-    validate_pagination(limit, offset)
-    normalized_lang = normalize_lang(lang)
-    normalized_types = normalize_resource_types(resource_types)
+    context.validate_pagination(limit, offset)
+    normalized_lang = context.normalize_lang(lang)
+    normalized_types = context.normalize_resource_types(resource_types)
     if normalized_types is None and spec.default_resource_type is not None:
         normalized_types = [spec.default_resource_type]
-    normalized_direction = normalize_direction(direction) or spec.direction
-    since_value, to_value = normalize_date_bounds(since, to)
-    work_uri = resolve_work_uri(celex)
+    normalized_direction = context.normalize_direction(direction) or spec.direction
+    since_value, to_value = context.normalize_date_bounds(since, to)
+    work_uri = context.resolve_work_uri(celex)
 
     query = build_relation_query(
         work_uri,
@@ -127,35 +133,25 @@ def fetch_relation_rows(
         include_origin_country=spec.case_law,
         include_implemented_by_country=include_implemented_by_country,
     )
-    rows = parse_bindings(query_sparql(query))
-    return spec, rows
+    return spec, context.query_rows(query)
 
 
 def call_relation_result(
     *,
+    context: RelationExecutionContext,
     method_name: str,
     celex: str,
-    since: date | datetime | str | None,
-    to: date | datetime | str | None,
+    since: DateBound,
+    to: DateBound,
     include_undated: bool,
     resource_types: Sequence[str] | None,
     limit: int,
     offset: int,
     lang: str,
     direction: str | None,
-    validate_pagination: Callable[[int, int], None],
-    normalize_lang: Callable[[str], str],
-    normalize_resource_types: Callable[[Sequence[str] | None], list[str] | None],
-    normalize_direction: Callable[[str | None], str | None],
-    normalize_date_bounds: Callable[
-        [date | datetime | str | None, date | datetime | str | None],
-        tuple[str | None, str | None],
-    ],
-    resolve_work_uri: Callable[[str], str],
-    query_sparql: QueryFn,
-    list_result_builder: ListResultBuilder,
 ) -> ListResult[RelationItem] | ListResult[CaseLawItem]:
     spec, rows = fetch_relation_rows(
+        context=context,
         method_name=method_name,
         celex=celex,
         since=since,
@@ -167,20 +163,13 @@ def call_relation_result(
         lang=lang,
         direction=direction,
         include_implemented_by_country=False,
-        validate_pagination=validate_pagination,
-        normalize_lang=normalize_lang,
-        normalize_resource_types=normalize_resource_types,
-        normalize_direction=normalize_direction,
-        normalize_date_bounds=normalize_date_bounds,
-        resolve_work_uri=resolve_work_uri,
-        query_sparql=query_sparql,
     )
 
     if spec.case_law:
         case_items = parse_case_law_items(rows)
         return cast(
             ListResult[CaseLawItem],
-            list_result_builder(
+            context.list_result_builder(
                 query_name=method_name,
                 items=case_items,
                 limit=limit,
@@ -191,7 +180,7 @@ def call_relation_result(
     relation_items = parse_relation_items(rows)
     return cast(
         ListResult[RelationItem],
-        list_result_builder(
+        context.list_result_builder(
             query_name=method_name,
             items=relation_items,
             limit=limit,
@@ -202,34 +191,24 @@ def call_relation_result(
 
 def call_nim_result(
     *,
+    context: RelationExecutionContext,
     method_name: str,
     celex: str,
-    since: date | datetime | str | None,
-    to: date | datetime | str | None,
+    since: DateBound,
+    to: DateBound,
     include_undated: bool,
     resource_types: Sequence[str] | None,
     limit: int,
     offset: int,
     lang: str,
     direction: str | None,
-    validate_pagination: Callable[[int, int], None],
-    normalize_celex: Callable[[str], str],
-    normalize_lang: Callable[[str], str],
-    normalize_resource_types: Callable[[Sequence[str] | None], list[str] | None],
-    normalize_direction: Callable[[str | None], str | None],
-    normalize_date_bounds: Callable[
-        [date | datetime | str | None, date | datetime | str | None],
-        tuple[str | None, str | None],
-    ],
-    resolve_work_uri: Callable[[str], str],
-    query_sparql: QueryFn,
-    list_result_builder: ListResultBuilder,
 ) -> ListResult[NIMItem]:
-    normalized_celex = normalize_celex(celex)
+    normalized_celex = context.normalize_celex(celex)
     all_rows: list[BindingRow] = []
     raw_offset = 0
     while True:
         _, rows = fetch_relation_rows(
+            context=context,
             method_name=method_name,
             celex=normalized_celex,
             since=since,
@@ -241,13 +220,6 @@ def call_nim_result(
             lang=lang,
             direction=direction,
             include_implemented_by_country=True,
-            validate_pagination=validate_pagination,
-            normalize_lang=normalize_lang,
-            normalize_resource_types=normalize_resource_types,
-            normalize_direction=normalize_direction,
-            normalize_date_bounds=normalize_date_bounds,
-            resolve_work_uri=resolve_work_uri,
-            query_sparql=query_sparql,
         )
         all_rows.extend(rows)
         if len(rows) < MAX_LIMIT:
@@ -258,7 +230,7 @@ def call_nim_result(
     paginated_items = nim_items[offset : offset + limit]
     return cast(
         ListResult[NIMItem],
-        list_result_builder(
+        context.list_result_builder(
             query_name=method_name,
             items=paginated_items,
             limit=limit,

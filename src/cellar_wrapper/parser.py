@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from datetime import date, datetime
 from typing import Any
 
@@ -19,6 +20,8 @@ from cellar_wrapper.models import (
     RelationItem,
     SubjectMatterTag,
 )
+
+BindingRow = dict[str, dict[str, str]]
 
 
 def _value_excerpt(value: Any, *, limit: int = 120) -> str:
@@ -125,6 +128,31 @@ def value(row: dict[str, dict[str, str]], key: str) -> str | None:
     return slot.get("value")
 
 
+def _build_act_ref(
+    row: BindingRow,
+    *,
+    parser: str,
+    row_index: int,
+    uri_key: str,
+) -> ActRef:
+    uri = value(row, uri_key)
+    if uri is None:
+        raise _parse_error(
+            "SPARQL row missing required URI column",
+            parser=parser,
+            row_index=row_index,
+            field=uri_key,
+            value=row,
+        )
+    return ActRef(
+        uri=uri,
+        celex=value(row, "celex"),
+        title=value(row, "title"),
+        date=parse_date_value(value(row, "date"), field_name="date"),
+        resource_type=value(row, "type"),
+    )
+
+
 def parse_date_value(raw: str | None, *, field_name: str) -> date | datetime | None:
     """Parse ISO date/datetime payload used by CELLAR fields."""
     if raw is None:
@@ -169,44 +197,48 @@ def parse_bool_value(
     )
 
 
-def parse_act_refs(rows: list[dict[str, dict[str, str]]]) -> list[ActRef]:
+def parse_act_refs(
+    rows: list[BindingRow],
+    *,
+    uri_key: str = "uri",
+) -> list[ActRef]:
     """Parse generic work rows into ActRef objects."""
     items: list[ActRef] = []
     for row_index, row in enumerate(rows):
         row = _ensure_binding_row(row, parser="parse_act_refs", row_index=row_index)
-        uri = (
-            value(row, "work")
-            or value(row, "other")
-            or value(row, "act")
-            or value(row, "uri")
-            or value(row, "summary")
-            or value(row, "opinion")
-            or value(row, "dossier")
-            or value(row, "item")
-        )
-        if uri is None:
-            # Keep strict behavior for malformed rows.
-            raise _parse_error(
-                "Missing URI-like column in SPARQL row",
-                parser="parse_act_refs",
-                row_index=row_index,
-                field="work|other|act|uri|summary|opinion|dossier|item",
-                value=row,
-            )
-
-        items.append(
-            ActRef(
-                uri=uri,
-                celex=value(row, "celex"),
-                title=value(row, "title"),
-                date=parse_date_value(value(row, "date"), field_name="date"),
-                resource_type=value(row, "type"),
-            )
-        )
+        items.append(_build_act_ref(row, parser="parse_act_refs", row_index=row_index, uri_key=uri_key))
     return items
 
 
-def parse_act_detail(rows: list[dict[str, dict[str, str]]]) -> ActDetail | None:
+def parse_uri_act_refs(rows: list[BindingRow]) -> list[ActRef]:
+    """Parse list-query rows exposing the canonical ``?uri`` column."""
+    return parse_act_refs(rows, uri_key="uri")
+
+
+def _merge_scalar_value(
+    values: dict[str, str | None],
+    *,
+    key: str,
+    candidate: str | None,
+    row_index: int,
+) -> None:
+    if candidate is None:
+        return
+    existing = values[key]
+    if existing is None:
+        values[key] = candidate
+        return
+    if existing != candidate:
+        raise _parse_error(
+            f"Conflicting scalar value for {key}",
+            parser="parse_act_detail",
+            row_index=row_index,
+            field=key,
+            value={"existing": existing, "candidate": candidate},
+        )
+
+
+def parse_act_detail(rows: list[BindingRow]) -> ActDetail | None:
     """Parse work-level detail query into ActDetail."""
     if not rows:
         return None
@@ -215,8 +247,8 @@ def parse_act_detail(rows: list[dict[str, dict[str, str]]]) -> ActDetail | None:
         _ensure_binding_row(row, parser="parse_act_detail", row_index=row_index)
         for row_index, row in enumerate(rows)
     ]
-    uri = value(normalized_rows[0], "work")
-    if uri is None:
+    work_uri = value(normalized_rows[0], "work")
+    if work_uri is None:
         raise _parse_error(
             "get_act query returned row without work URI",
             parser="parse_act_detail",
@@ -245,10 +277,24 @@ def parse_act_detail(rows: list[dict[str, dict[str, str]]]) -> ActDetail | None:
     addresses_seen: set[str] = set()
     signatories_seen: set[str] = set()
 
-    for row in normalized_rows:
+    for row_index, row in enumerate(normalized_rows):
+        row_work_uri = value(row, "work")
+        if row_work_uri != work_uri:
+            raise _parse_error(
+                "Conflicting work URI in act detail rows",
+                parser="parse_act_detail",
+                row_index=row_index,
+                field="work",
+                value={"expected": work_uri, "candidate": row_work_uri},
+            )
+
         for key in first_values:
-            if first_values[key] is None:
-                first_values[key] = value(row, key)
+            _merge_scalar_value(
+                first_values,
+                key=key,
+                candidate=value(row, key),
+                row_index=row_index,
+            )
         for key, target, seen in (
             ("createdBy", created_by_agents, created_by_seen),
             ("responsibleAgent", responsible_agents, responsible_seen),
@@ -274,7 +320,7 @@ def parse_act_detail(rows: list[dict[str, dict[str, str]]]) -> ActDetail | None:
     )
 
     return ActDetail(
-        uri=uri,
+        uri=work_uri,
         celex=first_values["celex"],
         title=first_values["title"],
         resource_type=first_values["type"],
@@ -300,11 +346,15 @@ def parse_act_detail(rows: list[dict[str, dict[str, str]]]) -> ActDetail | None:
     )
 
 
-def parse_relation_items(rows: list[dict[str, dict[str, str]]]) -> list[RelationItem]:
+def _act_ref_rows(rows: list[BindingRow]) -> Iterable[tuple[ActRef, BindingRow]]:
+    refs = parse_uri_act_refs(rows)
+    return zip(refs, rows, strict=True)
+
+
+def parse_relation_items(rows: list[BindingRow]) -> list[RelationItem]:
     """Parse relation queries to RelationItem list."""
-    refs = parse_act_refs(rows)
     result: list[RelationItem] = []
-    for ref, row in zip(refs, rows, strict=True):
+    for ref, row in _act_ref_rows(rows):
         result.append(
             RelationItem(
                 **ref.model_dump(),
@@ -317,12 +367,11 @@ def parse_relation_items(rows: list[dict[str, dict[str, str]]]) -> list[Relation
 
 
 def parse_article_annotation_items(
-    rows: list[dict[str, dict[str, str]]],
+    rows: list[BindingRow],
 ) -> list[ArticleAnnotationItem]:
     """Parse article-annotation queries to ArticleAnnotationItem list."""
-    refs = parse_act_refs(rows)
     result: list[ArticleAnnotationItem] = []
-    for ref, row in zip(refs, rows, strict=True):
+    for ref, row in _act_ref_rows(rows):
         result.append(
             ArticleAnnotationItem(
                 **ref.model_dump(),
@@ -340,11 +389,10 @@ def parse_article_annotation_items(
     return result
 
 
-def parse_case_law_items(rows: list[dict[str, dict[str, str]]]) -> list[CaseLawItem]:
+def parse_case_law_items(rows: list[BindingRow]) -> list[CaseLawItem]:
     """Parse case-law rows."""
-    refs = parse_act_refs(rows)
     result: list[CaseLawItem] = []
-    for ref, row in zip(refs, rows, strict=True):
+    for ref, row in _act_ref_rows(rows):
         result.append(
             CaseLawItem(
                 **ref.model_dump(),
@@ -357,11 +405,10 @@ def parse_case_law_items(rows: list[dict[str, dict[str, str]]]) -> list[CaseLawI
     return result
 
 
-def parse_dossier_items(rows: list[dict[str, dict[str, str]]]) -> list[DossierItem]:
+def parse_dossier_items(rows: list[BindingRow]) -> list[DossierItem]:
     """Parse dossier query rows."""
-    refs = parse_act_refs(rows)
     result: list[DossierItem] = []
-    for row_index, (ref, row) in enumerate(zip(refs, rows, strict=True)):
+    for row_index, (ref, row) in enumerate(_act_ref_rows(rows)):
         result.append(
             DossierItem(
                 **ref.model_dump(),
@@ -396,11 +443,10 @@ def parse_dossier_items(rows: list[dict[str, dict[str, str]]]) -> list[DossierIt
     return result
 
 
-def parse_nim_items(rows: list[dict[str, dict[str, str]]]) -> list[NIMItem]:
+def parse_nim_items(rows: list[BindingRow]) -> list[NIMItem]:
     """Parse NIM relation rows."""
-    refs = parse_act_refs(rows)
     result: list[NIMItem] = []
-    for ref, row in zip(refs, rows, strict=True):
+    for ref, row in _act_ref_rows(rows):
         result.append(
             NIMItem(
                 **ref.model_dump(),

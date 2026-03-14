@@ -89,8 +89,9 @@ def build_relation_query(
         type_clause = resource_type_clause("other", resource_types)
 
     query = f"""
-SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predicate ?ecli ?courtFormation ?advocateGeneral{extra_select} WHERE {{
+SELECT DISTINCT ?uri ?celex ?title ?date ?type ?direction ?relationType ?predicate ?ecli ?courtFormation ?advocateGeneral{extra_select} WHERE {{
 {union_block}
+  BIND(?other AS ?uri)
   OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?other {PREDICATES["work_date_document"]} ?date }}
   {type_clause}
@@ -116,7 +117,7 @@ def build_dossier_query(work_uri: str, *, limit: int, offset: int, lang: str = D
     work_iri = safe_iri(work_uri, field="work_uri")
     lang_iri = language_uri(lang)
     query = f"""
-SELECT DISTINCT ?dossier ?procedureCode ?procedureType ?statusAdopted ?statusPending ?statusWithdrawn ?producesAct ?producesActCelex ?other ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
+SELECT DISTINCT ?dossier ?procedureCode ?procedureType ?statusAdopted ?statusPending ?statusWithdrawn ?producesAct ?producesActCelex ?uri ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
   {{
     SELECT DISTINCT ?dossier ?other ?date WHERE {{
       ?dossier {PREDICATES["dossier_contains_work"]} <{work_iri}> .
@@ -127,6 +128,7 @@ SELECT DISTINCT ?dossier ?procedureCode ?procedureType ?statusAdopted ?statusPen
     ORDER BY ?date ?other ?dossier
     {limit_offset(limit, offset)}
   }}
+  BIND(?other AS ?uri)
   BIND({quote_literal("dossier_contains_work")} AS ?relationType)
   BIND({quote_literal(PREDICATES["dossier_contains_work"])} AS ?predicate)
   BIND({quote_literal("incoming")} AS ?direction)
@@ -158,19 +160,19 @@ def build_deadlines_query(work_uri: str, *, limit: int, offset: int) -> str:
     """Build deadlines query."""
     work_iri = safe_iri(work_uri, field="work_uri")
     query = f"""
-SELECT DISTINCT ?other ?celex ?date ?relationType ?direction ?predicate WHERE {{
-  BIND(<{work_iri}> AS ?other)
-  OPTIONAL {{ ?other {PREDICATES["resource_legal_id_celex"]} ?celex }}
+SELECT DISTINCT ?uri ?celex ?date ?relationType ?direction ?predicate WHERE {{
+  BIND(<{work_iri}> AS ?uri)
+  OPTIONAL {{ ?uri {PREDICATES["resource_legal_id_celex"]} ?celex }}
   {{
-    ?other {PREDICATES["deadline"]} ?date .
+    ?uri {PREDICATES["deadline"]} ?date .
     BIND({quote_literal("deadline")} AS ?relationType)
     BIND({quote_literal(PREDICATES["deadline"])} AS ?predicate)
   }} UNION {{
-    ?other {PREDICATES["entry_into_force"]} ?date .
+    ?uri {PREDICATES["entry_into_force"]} ?date .
     BIND({quote_literal("entry_into_force")} AS ?relationType)
     BIND({quote_literal(PREDICATES["entry_into_force"])} AS ?predicate)
   }} UNION {{
-    ?other {PREDICATES["directive_transposition"]} ?date .
+    ?uri {PREDICATES["directive_transposition"]} ?date .
     BIND({quote_literal("directive_transposition")} AS ?relationType)
     BIND({quote_literal(PREDICATES["directive_transposition"])} AS ?predicate)
   }}
@@ -195,18 +197,18 @@ def build_ag_opinions_query(
     work_iri = safe_iri(work_uri, field="work_uri")
     lang_iri = language_uri(lang)
     query = f"""
-SELECT DISTINCT ?opinion ?celex ?title ?date ?type ?direction ?relationType ?predicate WHERE {{
+SELECT DISTINCT ?uri ?celex ?title ?date ?type ?direction ?relationType ?predicate WHERE {{
   ?case {PREDICATES["cjeu_interprets"]} <{work_iri}> .
   ?case {PREDICATES["ag_opinion"]} ?opinion .
-  BIND(?opinion AS ?other)
+  BIND(?opinion AS ?uri)
   BIND({quote_literal("incoming")} AS ?direction)
   BIND({quote_literal("ag_opinion")} AS ?relationType)
   BIND({quote_literal(PREDICATES["ag_opinion"])} AS ?predicate)
-  OPTIONAL {{ ?opinion {PREDICATES["resource_legal_id_celex"]} ?celex }}
-  OPTIONAL {{ ?opinion {PREDICATES["work_date_document"]} ?date }}
-  OPTIONAL {{ ?opinion {PREDICATES["work_has_resource_type"]} ?type }}
+  OPTIONAL {{ ?uri {PREDICATES["resource_legal_id_celex"]} ?celex }}
+  OPTIONAL {{ ?uri {PREDICATES["work_date_document"]} ?date }}
+  OPTIONAL {{ ?uri {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
-    ?expr {PREDICATES["expression_belongs_to_work"]} ?opinion .
+    ?expr {PREDICATES["expression_belongs_to_work"]} ?uri .
     ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
@@ -237,10 +239,11 @@ def build_national_decisions_query(
             f"FILTER(CONTAINS(UCASE(STR(?originCountry)), {quote_literal(country.upper())}))"
         )
     query = f"""
-SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predicate ?originCountry WHERE {{
+SELECT DISTINCT ?uri ?celex ?title ?date ?type ?direction ?relationType ?predicate ?originCountry WHERE {{
   ?other {PREDICATES["work_has_resource_type"]} <{dec_nc_uri}> .
   ?other {PREDICATES["national_act_reference"]} ?ref .
   FILTER(CONTAINS(UCASE(STR(?ref)), {quote_literal(celex.upper())}))
+  BIND(?other AS ?uri)
   BIND({quote_literal("incoming")} AS ?direction)
   BIND({quote_literal("national_decision_reference")} AS ?relationType)
   BIND({quote_literal(PREDICATES["national_act_reference"])} AS ?predicate)
@@ -266,10 +269,11 @@ def build_article_annotations_query(work_uri: str, *, limit: int, offset: int) -
     """Build OWL annotation-level relation query."""
     work_iri = safe_iri(work_uri, field="work_uri")
     query = f"""
-SELECT DISTINCT ?other ?predicate ?relationType ?direction ?date ?annotation ?article ?paragraph ?subparagraph ?point ?commentOnLegalBasis WHERE {{
+SELECT DISTINCT ?uri ?predicate ?relationType ?direction ?date ?annotation ?article ?paragraph ?subparagraph ?point ?commentOnLegalBasis WHERE {{
   ?annotation owl:annotatedTarget <{work_iri}> .
   ?annotation owl:annotatedSource ?other .
   ?annotation owl:annotatedProperty ?annProp .
+  BIND(?other AS ?uri)
   BIND(STR(?annProp) AS ?predicate)
   BIND({quote_literal("article_annotation")} AS ?relationType)
   BIND({quote_literal("incoming")} AS ?direction)

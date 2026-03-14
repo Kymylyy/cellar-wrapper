@@ -47,7 +47,7 @@ def test_relations_group_get_amendments() -> None:
         return sparql_payload(
             [
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/other",
+                    uri="http://publications.europa.eu/resource/cellar/other",
                     celex="32024R0886",
                     direction="incoming",
                     relationType="amends",
@@ -70,7 +70,7 @@ def test_relations_group_get_amendments_direction_override() -> None:
         return sparql_payload(
             [
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/other",
+                    uri="http://publications.europa.eu/resource/cellar/other",
                     celex="32011L0061",
                     direction="outgoing",
                     relationType="amends",
@@ -91,7 +91,7 @@ def test_lifecycle_group_get_dossier() -> None:
         return sparql_payload(
             [
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/proposal",
+                    uri="http://publications.europa.eu/resource/cellar/proposal",
                     celex="52020PC0595",
                     dossier="http://publications.europa.eu/resource/cellar/dossier",
                     procedureCode="2023/0210/COD",
@@ -120,7 +120,7 @@ def test_lifecycle_group_get_nims_exposes_country() -> None:
         return sparql_payload(
             [
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/nim",
+                    uri="http://publications.europa.eu/resource/cellar/nim",
                     celex="72015L2366POL_258600",
                     relationType="nims",
                     direction="incoming",
@@ -153,7 +153,7 @@ def test_lifecycle_group_get_nims_regression_groups_omnibus_rows_by_uri() -> Non
         return sparql_payload(
             [
                 sparql_row(
-                    other=nim_uri,
+                    uri=nim_uri,
                     celex="72014L0092HUN_202507032",
                     title="Hungarian omnibus implementation act",
                     date="2025-02-03",
@@ -163,7 +163,7 @@ def test_lifecycle_group_get_nims_regression_groups_omnibus_rows_by_uri() -> Non
                     implementedByCountry="http://publications.europa.eu/resource/authority/country/HUN",
                 ),
                 sparql_row(
-                    other=nim_uri,
+                    uri=nim_uri,
                     celex="72023L2225HUN_202507032",
                     title="Hungarian omnibus implementation act",
                     date="2025-02-03",
@@ -173,7 +173,7 @@ def test_lifecycle_group_get_nims_regression_groups_omnibus_rows_by_uri() -> Non
                     implementedByCountry="http://publications.europa.eu/resource/authority/country/HUN",
                 ),
                 sparql_row(
-                    other=nim_uri,
+                    uri=nim_uri,
                     celex="72024L0927HUN_202507032",
                     title="Hungarian omnibus implementation act",
                     date="2025-02-03",
@@ -183,7 +183,7 @@ def test_lifecycle_group_get_nims_regression_groups_omnibus_rows_by_uri() -> Non
                     implementedByCountry="http://publications.europa.eu/resource/authority/country/HUN",
                 ),
                 sparql_row(
-                    other=nim_uri,
+                    uri=nim_uri,
                     celex="72023L2225HUN_202507032",
                     title="Hungarian omnibus implementation act",
                     date="2025-02-03",
@@ -224,25 +224,25 @@ def test_lifecycle_group_get_nims_paginates_after_grouping() -> None:
         return sparql_payload(
             [
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/nim-pol",
+                    uri="http://publications.europa.eu/resource/cellar/nim-pol",
                     celex="72015L2366POL_258600",
                     date="2025-01-10",
                     implementedByCountry="http://publications.europa.eu/resource/authority/country/POL",
                 ),
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/nim-hun",
+                    uri="http://publications.europa.eu/resource/cellar/nim-hun",
                     celex="72014L0092HUN_202507032",
                     date="2025-03-01",
                     implementedByCountry="http://publications.europa.eu/resource/authority/country/HUN",
                 ),
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/nim-deu",
+                    uri="http://publications.europa.eu/resource/cellar/nim-deu",
                     celex="72015L2366DEU_202500001",
                     date="2025-03-01",
                     implementedByCountry="http://publications.europa.eu/resource/authority/country/DEU",
                 ),
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/nim-hun",
+                    uri="http://publications.europa.eu/resource/cellar/nim-hun",
                     celex="72015L2366HUN_202507032",
                     date="2025-03-01",
                     implementedByCountry="http://publications.europa.eu/resource/authority/country/HUN",
@@ -276,7 +276,7 @@ def test_lifecycle_group_get_corrigenda_defaults_to_corrigendum_type() -> None:
         return sparql_payload(
             [
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/corrigendum",
+                    uri="http://publications.europa.eu/resource/cellar/corrigendum",
                     celex="32023R1114R(01)",
                     direction="incoming",
                     relationType="corrects",
@@ -299,7 +299,7 @@ def test_case_law_group_get_cjeu_judgments() -> None:
         return sparql_payload(
             [
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/judgment",
+                    uri="http://publications.europa.eu/resource/cellar/judgment",
                     celex="62019CJ0287",
                     ecli="ECLI:EU:C:2020:897",
                 )
@@ -320,7 +320,7 @@ def test_case_law_group_get_national_decisions_country_filter() -> None:
             else sparql_payload(
                 [
                     sparql_row(
-                        other="http://publications.europa.eu/resource/cellar/national-case",
+                        uri="http://publications.europa.eu/resource/cellar/national-case",
                         celex="82021DE0115(51)",
                         originCountry="http://publications.europa.eu/resource/authority/country/DEU",
                     )
@@ -340,7 +340,7 @@ def test_search_group_search_by_title() -> None:
         return sparql_payload(
             [
                 sparql_row(
-                    work="http://publications.europa.eu/resource/cellar/work",
+                    uri="http://publications.europa.eu/resource/cellar/work",
                     celex="52023PC0367",
                     title="Proposal on payment services",
                 )
@@ -357,7 +357,7 @@ def test_search_group_search_by_title_passes_resource_types_as_values_clause() -
         query_handler=lambda _query: sparql_payload(
             [
                 sparql_row(
-                    work="http://publications.europa.eu/resource/cellar/work",
+                    uri="http://publications.europa.eu/resource/cellar/work",
                     celex="32025R2263",
                     title="Crypto-assets",
                     type="REG_IMPL",
@@ -369,8 +369,8 @@ def test_search_group_search_by_title_passes_resource_types_as_values_clause() -
     result = client.search_by_title("crypto-assets", resource_types=["REG_IMPL", "PUB_GEN"])
 
     assert result.returned_count == 1
-    assert "OPTIONAL { ?work cdm:work_has_resource-type ?type }" not in transport.queries[0]
-    assert "?work cdm:work_has_resource-type ?type ." in transport.queries[0]
+    assert "OPTIONAL { ?uri cdm:work_has_resource-type ?type }" not in transport.queries[0]
+    assert "?uri cdm:work_has_resource-type ?type ." in transport.queries[0]
     assert (
         "VALUES ?type { "
         "<http://publications.europa.eu/resource/authority/resource-type/REG_IMPL> "
@@ -388,7 +388,7 @@ def test_search_group_filtered_title_results_do_not_leak_sibling_types() -> None
             return sparql_payload(
                 [
                     sparql_row(
-                        work="http://publications.europa.eu/resource/cellar/pub-gen",
+                        uri="http://publications.europa.eu/resource/cellar/pub-gen",
                         celex="52024DC0001",
                         title="Crypto-assets communication",
                         type="PUB_GEN",
@@ -398,13 +398,13 @@ def test_search_group_filtered_title_results_do_not_leak_sibling_types() -> None
         return sparql_payload(
             [
                 sparql_row(
-                    work="http://publications.europa.eu/resource/cellar/pub-gen",
+                    uri="http://publications.europa.eu/resource/cellar/pub-gen",
                     celex="52024DC0001",
                     title="Crypto-assets communication",
                     type="PUB_GEN",
                 ),
                 sparql_row(
-                    work="http://publications.europa.eu/resource/cellar/sibling",
+                    uri="http://publications.europa.eu/resource/cellar/sibling",
                     celex="52024SC0001",
                     title="Crypto-assets staff working document",
                     type="STU",
@@ -433,7 +433,7 @@ def test_search_group_search_by_eurovoc_resolves_tags_before_search(
         return sparql_payload(
             [
                 sparql_row(
-                    work="http://publications.europa.eu/resource/cellar/work",
+                    uri="http://publications.europa.eu/resource/cellar/work",
                     celex="52023PC0367",
                     title="Proposal on payment services",
                 )
@@ -468,7 +468,7 @@ def test_search_group_search_by_eurovoc_passes_resource_types_as_values_clause(
 
     _ = client.search_by_eurovoc(["financial services"], resource_types=["PROP_REG", "PROP_DIR"])
 
-    assert "?work cdm:work_has_resource-type ?type ." in transport.queries[0]
+    assert "?uri cdm:work_has_resource-type ?type ." in transport.queries[0]
     assert (
         "VALUES ?type { "
         "<http://publications.europa.eu/resource/authority/resource-type/PROP_REG> "
@@ -584,7 +584,7 @@ def test_monitoring_group_new_nims_groups_rows_and_applies_strict_since() -> Non
         return sparql_payload(
             [
                 sparql_row(
-                    other=nim_uri,
+                    uri=nim_uri,
                     celex="72023L2225FIN_202600932",
                     date="2026-02-04",
                     relationType="nims",
@@ -593,7 +593,7 @@ def test_monitoring_group_new_nims_groups_rows_and_applies_strict_since() -> Non
                     implementedByCountry="http://publications.europa.eu/resource/authority/country/FIN",
                 ),
                 sparql_row(
-                    other=nim_uri,
+                    uri=nim_uri,
                     celex="72024L1619FIN_202600932",
                     date="2026-02-04",
                     relationType="nims",

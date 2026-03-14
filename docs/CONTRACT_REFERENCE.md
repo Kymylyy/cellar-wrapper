@@ -9,9 +9,10 @@ For plain-language guidance on when to use a command, see
 
 ## Source-of-truth policy
 
-- Command inventory and argument/default behavior come from `src/cellar_wrapper/cli_specs.py` and `src/cellar_wrapper/cli_policy.py`.
-- Return-type mapping comes from `src/cellar_wrapper/contract_specs.py`.
-- This document explains the maintained behavior of those surfaces; it should stay aligned with code and accepted examples.
+- Command inventory, argument/default behavior, and return-type mapping come from `src/cellar_wrapper/cli_specs.py`.
+- Full command coverage is exported as `docs/artifact/command-manifest.json`.
+- Curated examples are human-facing documentation, not the full coverage mechanism.
+- This document explains the maintained behavior of those surfaces; it should stay aligned with code and curated examples.
 
 ## Client constructor
 
@@ -248,7 +249,7 @@ Concept and URI-related fields are returned as canonical URIs where relevant. Ex
 ## MCP contract
 - Entrypoint: `python -m cellar_wrapper.mcp_server` (install extra: `pip install "cellar-wrapper[mcp]"`).
 - Transport: stdio only.
-- Tool surface: generated from `CommandSpec` and `COMMANDS`; currently `45` tools.
+- Tool surface: generated from `CommandSpec` and `COMMANDS`.
 - Tool names match CLI command slugs exactly (for example `resolve-celex`, `get-amendments`, `new-citations`).
 - Tool descriptions are maintained in `cli_specs.py` and are intended to explain what the tool does and when to prefer it.
 - Tool argument mapping reuses `build_method_kwargs`:
@@ -293,7 +294,7 @@ contracts.
 
 Runtime source-of-truth:
 - commands/groups/methods: `src/cellar_wrapper/cli_specs.py`
-- return contracts: `src/cellar_wrapper/contract_specs.py`
+- full coverage artifact: `docs/artifact/command-manifest.json`
 - payload models: `src/cellar_wrapper/models.py`
 
 Type-filtering input contract:

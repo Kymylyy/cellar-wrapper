@@ -8,24 +8,17 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from cellar_wrapper.contract_examples import (  # noqa: E402
-    DEFAULT_INPUT_PATH,
-    DEFAULT_OUTPUT_PATH,
-    load_contract_examples,
-    render_markdown,
-)
+from cellar_wrapper.contract_manifest import DEFAULT_OUTPUT_PATH, render_manifest_json  # noqa: E402
 
 
 def main() -> int:
     try:
-        examples = load_contract_examples(DEFAULT_INPUT_PATH)
-        markdown = render_markdown(examples)
-        DEFAULT_OUTPUT_PATH.write_text(markdown, encoding="utf-8")
+        DEFAULT_OUTPUT_PATH.write_text(render_manifest_json(), encoding="utf-8")
     except Exception as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
 
-    print(f"Wrote {DEFAULT_OUTPUT_PATH.relative_to(ROOT)}")
+    print(f"Wrote {DEFAULT_OUTPUT_PATH.relative_to(DEFAULT_OUTPUT_PATH.parents[2])}")
     return 0
 
 

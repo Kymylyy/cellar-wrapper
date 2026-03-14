@@ -1,29 +1,22 @@
 from __future__ import annotations
 
-import importlib.util
-import sys
-from pathlib import Path
-from types import ModuleType
 from typing import Any
 
 import pytest
 
-ROOT = Path(__file__).resolve().parents[2]
-SCRIPT_PATH = ROOT / "scripts" / "render_contract_examples.py"
+from cellar_wrapper.cli_specs import COMMANDS, CommandSpec
+from cellar_wrapper.contract_examples import (
+    DEFAULT_INPUT_PATH,
+    DEFAULT_OUTPUT_PATH,
+    load_contract_examples,
+    render_cli,
+    render_markdown,
+    validate_examples,
+)
 
 
-def _load_generator_module() -> ModuleType:
-    spec = importlib.util.spec_from_file_location("render_contract_examples", SCRIPT_PATH)
-    assert spec is not None
-    assert spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
-
-
-def _spec_by_command(module: ModuleType, command_name: str) -> Any:
-    for spec in module.COMMANDS:
+def _spec_by_command(command_name: str) -> CommandSpec:
+    for spec in COMMANDS:
         full_name = f"{spec.group} {spec.command}"
         if full_name == command_name:
             return spec
@@ -41,9 +34,7 @@ def _example(command: str, label: str, args: dict[str, Any], output: dict[str, A
 
 
 def test_render_cli_quotes_values_with_whitespace() -> None:
-    module = _load_generator_module()
-
-    cli = module.render_cli(
+    cli = render_cli(
         "search search-by-eurovoc",
         {"tags": ["financial services"], "since": "2025-01-01", "lang": "eng"},
     )
@@ -55,8 +46,7 @@ def test_render_cli_quotes_values_with_whitespace() -> None:
 
 
 def test_validate_examples_rejects_unknown_commands() -> None:
-    module = _load_generator_module()
-    specs = [_spec_by_command(module, "lookup resolve-celex")]
+    specs = [_spec_by_command("lookup resolve-celex")]
     examples = [
         _example(
             "lookup wrong-command",
@@ -67,14 +57,13 @@ def test_validate_examples_rejects_unknown_commands() -> None:
     ]
 
     with pytest.raises(ValueError, match="Unknown commands"):
-        module.validate_examples(examples, command_specs=specs)
+        validate_examples(examples, command_specs=specs)
 
 
-def test_validate_examples_requires_full_command_coverage() -> None:
-    module = _load_generator_module()
+def test_validate_examples_allows_curated_subset() -> None:
     specs = [
-        _spec_by_command(module, "lookup resolve-celex"),
-        _spec_by_command(module, "download get-summary"),
+        _spec_by_command("lookup resolve-celex"),
+        _spec_by_command("download get-summary"),
     ]
     examples = [
         _example(
@@ -85,13 +74,11 @@ def test_validate_examples_requires_full_command_coverage() -> None:
         )
     ]
 
-    with pytest.raises(ValueError, match="Missing contract examples"):
-        module.validate_examples(examples, command_specs=specs)
+    validate_examples(examples, command_specs=specs)
 
 
 def test_validate_examples_requires_label_and_purpose() -> None:
-    module = _load_generator_module()
-    specs = [_spec_by_command(module, "lookup resolve-celex")]
+    specs = [_spec_by_command("lookup resolve-celex")]
     examples = [
         {
             "label": " ",
@@ -104,12 +91,11 @@ def test_validate_examples_requires_label_and_purpose() -> None:
     ]
 
     with pytest.raises(ValueError, match="non-empty string `label`"):
-        module.validate_examples(examples, command_specs=specs)
+        validate_examples(examples, command_specs=specs)
 
 
 def test_validate_examples_allows_null_celex_for_non_celex_commands() -> None:
-    module = _load_generator_module()
-    specs = [_spec_by_command(module, "search search-by-title")]
+    specs = [_spec_by_command("search search-by-title")]
     examples = [
         {
             "label": "Search",
@@ -121,14 +107,13 @@ def test_validate_examples_allows_null_celex_for_non_celex_commands() -> None:
         }
     ]
 
-    module.validate_examples(examples, command_specs=specs)
+    validate_examples(examples, command_specs=specs)
 
 
 def test_render_markdown_groups_examples_and_preserves_order() -> None:
-    module = _load_generator_module()
     specs = [
-        _spec_by_command(module, "search search-by-eurovoc"),
-        _spec_by_command(module, "download get-summary"),
+        _spec_by_command("search search-by-eurovoc"),
+        _spec_by_command("download get-summary"),
     ]
     examples = [
         _example(
@@ -151,8 +136,9 @@ def test_render_markdown_groups_examples_and_preserves_order() -> None:
         ),
     ]
 
-    rendered = module.render_markdown(examples, command_specs=specs)
+    rendered = render_markdown(examples, command_specs=specs)
 
+    assert "Source of truth remains the JSON file; this Markdown is a readable render of curated examples." in rendered
     assert "## SEARCH" in rendered
     assert "## DOWNLOAD" in rendered
     assert rendered.index("#### First Search") < rendered.index("#### Second Search")
@@ -161,8 +147,7 @@ def test_render_markdown_groups_examples_and_preserves_order() -> None:
 
 
 def test_render_markdown_includes_pretty_printed_output_json() -> None:
-    module = _load_generator_module()
-    specs = [_spec_by_command(module, "lookup resolve-celex")]
+    specs = [_spec_by_command("lookup resolve-celex")]
     examples = [
         _example(
             "lookup resolve-celex",
@@ -172,7 +157,7 @@ def test_render_markdown_includes_pretty_printed_output_json() -> None:
         )
     ]
 
-    rendered = module.render_markdown(examples, command_specs=specs)
+    rendered = render_markdown(examples, command_specs=specs)
 
     assert "```json" in rendered
     assert '"celex": "32022R2554"' in rendered
@@ -180,8 +165,7 @@ def test_render_markdown_includes_pretty_printed_output_json() -> None:
 
 
 def test_render_markdown_truncates_large_content_base64_in_docs_output() -> None:
-    module = _load_generator_module()
-    specs = [_spec_by_command(module, "download get-text")]
+    specs = [_spec_by_command("download get-text")]
     examples = [
         _example(
             "download get-text",
@@ -199,17 +183,15 @@ def test_render_markdown_truncates_large_content_base64_in_docs_output() -> None
         )
     ]
 
-    rendered = module.render_markdown(examples, command_specs=specs)
+    rendered = render_markdown(examples, command_specs=specs)
 
     assert "[truncated in docs, total length 200]" in rendered
     assert '"content_type": "application/xhtml+xml"' in rendered
 
 
 def test_repo_accepted_examples_render_successfully() -> None:
-    module = _load_generator_module()
-
-    examples = module.load_contract_examples(module.DEFAULT_INPUT_PATH)
-    rendered = module.render_markdown(examples)
+    examples = load_contract_examples(DEFAULT_INPUT_PATH)
+    rendered = render_markdown(examples)
 
     assert "## MONITORING" in rendered
     assert "### `download get-text`" in rendered
@@ -217,10 +199,8 @@ def test_repo_accepted_examples_render_successfully() -> None:
 
 
 def test_repo_contract_examples_markdown_is_in_sync() -> None:
-    module = _load_generator_module()
-
-    examples = module.load_contract_examples(module.DEFAULT_INPUT_PATH)
-    rendered = module.render_markdown(examples)
-    committed = module.DEFAULT_OUTPUT_PATH.read_text(encoding="utf-8")
+    examples = load_contract_examples(DEFAULT_INPUT_PATH)
+    rendered = render_markdown(examples)
+    committed = DEFAULT_OUTPUT_PATH.read_text(encoding="utf-8")
 
     assert rendered == committed

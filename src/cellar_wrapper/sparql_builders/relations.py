@@ -13,6 +13,7 @@ from .common import (
     language_uri,
     limit_offset,
     quote_literal,
+    resource_type_clause,
     resource_type_uri,
     safe_iri,
     with_prefixes,
@@ -25,7 +26,7 @@ def build_relation_query(
     predicates: Sequence[PredicateSpec],
     direction: str,
     since: date | datetime | str | None,
-    resource_type: str | None,
+    resource_types: Sequence[str] | None,
     limit: int,
     offset: int,
     to: date | datetime | str | None = None,
@@ -82,13 +83,10 @@ def build_relation_query(
         )
     extra_select = (" " + " ".join(extra_select_vars)) if extra_select_vars else ""
     extra_optional = ("\n  " + "\n  ".join(optional_blocks)) if optional_blocks else ""
-    if resource_type is None:
+    if resource_types is None:
         type_clause = f'OPTIONAL {{ ?other {PREDICATES["work_has_resource_type"]} ?type }}'
     else:
-        type_clause = (
-            f'?other {PREDICATES["work_has_resource_type"]} ?type .\n'
-            f'  FILTER(?type = <{resource_type_uri(resource_type)}>)'
-        )
+        type_clause = resource_type_clause("other", resource_types)
 
     query = f"""
 SELECT DISTINCT ?other ?celex ?title ?date ?type ?direction ?relationType ?predicate ?ecli ?courtFormation ?advocateGeneral{extra_select} WHERE {{

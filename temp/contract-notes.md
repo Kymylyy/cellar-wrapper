@@ -66,7 +66,13 @@ Robocze notatki z testowania komend i kontraktow API.
 
 - Acts: `MiCA`
 - Observation: The same corrigendum can appear twice with the same `uri` and `celex`, once as `CORRIGENDUM` and once as `REG`. This looks like multi-typed CELLAR data rather than parser-side duplication.
-- Follow-up: If the goal is to show corrigenda only, consider filtering by `resource_type = CORRIGENDUM` or document the duplication explicitly.
+- Follow-up: If the goal is to show corrigenda only, consider filtering by `resource_types = ["CORRIGENDUM"]` or document the duplication explicitly.
+
+### `search search-by-title`
+
+- Acts: `Crypto-assets`
+- Observation: With filtered `resource_types`, the wrapper now binds `?type` through `VALUES`, so title-search payload rows stay inside the requested type set. For `PUB_GEN`, the wrapper no longer leaks sibling `SUM_EXE` or `STU` rows from the same CELLAR family.
+- Follow-up: Keep at least one accepted title-search example that proves filtered `resource_types` behave as an exact type-set constraint rather than a loose work-level filter.
 
 ### `lifecycle get-opinions`
 
@@ -79,6 +85,12 @@ Robocze notatki z testowania komend i kontraktow API.
 - Acts: `PSD2`
 - Observation: The result set is broader than "consolidated versions of this act only". For `PSD2`, CELLAR returns both consolidated versions of PSD2 itself (for example `02015L2366-20240408`, `02015L2366-20250117`) and consolidated versions of other acts linked through the same `consolidates` relation. Some rows can also appear as parallel CELLAR resources without a mapped CELEX.
 - Follow-up: If the goal is to show only consolidated versions of the queried act, prefer examples where the CELEX starts with `0{base_celex}-` and treat rows with `celex: null` as non-canonical duplicates or aliases.
+
+### `search search-by-title`
+
+- Acts: `Crypto-assets`
+- Observation: With `resource_types=["PUB_GEN"]` or `resource_types=["REG_IMPL", "PUB_GEN"]`, filtered title search now keeps row-level `resource_type` inside the requested set. Sibling types such as `SUM_EXE` and `STU` no longer leak through from the same CELLAR work.
+- Follow-up: Keep at least one accepted example for filtered title search and one for filtered monitoring/search unions so the contract shows both the no-leak regression fix and the new multi-type OR semantics.
 
 ### `lifecycle get-nims`
 

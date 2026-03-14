@@ -43,6 +43,7 @@ CelexArg = Annotated[str, Field(pattern=CELEX_PATTERN)]
 SinceArg = Annotated[str, Field(min_length=1)]
 ToArg = Annotated[str, Field(min_length=1)]
 ResourceTypeArg = Annotated[str, Field(pattern=RESOURCE_TYPE_PATTERN)]
+ResourceTypeListArg = Annotated[list[ResourceTypeArg], Field(min_length=1)]
 CountryArg = Annotated[str, Field(pattern=COUNTRY_PATTERN)]
 LangArg = Annotated[str, Field(pattern=LANG_PATTERN)]
 DirectionArg = Literal["incoming", "outgoing", "both"]
@@ -193,7 +194,7 @@ def _append_signature_parameter(
 
 def _add_optional_signature_parameters(parameters: list[Parameter], spec: CommandSpec) -> None:
     optional_specs: tuple[tuple[bool, str, Any, Any], ...] = (
-        (spec.has_resource_type, "resource_type", ResourceTypeArg | None, None),
+        (spec.has_resource_type, "resource_types", ResourceTypeListArg | None, None),
         (spec.has_country, "country", CountryArg | None, None),
         (spec.has_lang, "lang", LangArg, DEFAULT_LANGUAGE),
         (spec.has_direction, "direction", DirectionArg, "both"),

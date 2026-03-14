@@ -12,6 +12,7 @@ from .common import (
     language_uri,
     limit_offset,
     quote_literal,
+    resource_type_clause,
     resource_type_uri,
     safe_iri,
     with_prefixes,
@@ -21,7 +22,7 @@ from .common import (
 def build_search_by_eurovoc_query(
     tags: Sequence[str],
     *,
-    resource_type: str | None,
+    resource_types: Sequence[str] | None,
     since: date | datetime | str | None,
     limit: int,
     offset: int,
@@ -37,11 +38,11 @@ def build_search_by_eurovoc_query(
         raise ValueError("concept_uris cannot be empty")
     values_clause = " ".join(concept_values)
     lang_iri = language_uri(lang)
-
-    type_clause = ""
-    if resource_type is not None:
-        type_iri = resource_type_uri(resource_type)
-        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{type_iri}> ."
+    type_clause = (
+        f'OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}'
+        if resource_types is None
+        else resource_type_clause("work", resource_types)
+    )
 
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
@@ -49,13 +50,12 @@ SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   VALUES ?concept {{ {values_clause} }}
   OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
-  OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
+  {type_clause}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
     ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
-  {type_clause}
   {date_bounds_filter("date", since=since, to=to, include_undated=include_undated)}
 }}
 ORDER BY DESC(?date)
@@ -67,7 +67,7 @@ ORDER BY DESC(?date)
 def build_search_by_subject_matter_query(
     concept_uris: Sequence[str],
     *,
-    resource_type: str | None,
+    resource_types: Sequence[str] | None,
     since: date | datetime | str | None,
     limit: int,
     offset: int,
@@ -82,11 +82,11 @@ def build_search_by_subject_matter_query(
         raise ValueError("concept_uris cannot be empty")
     values_clause = " ".join(concept_values)
     lang_iri = language_uri(lang)
-
-    type_clause = ""
-    if resource_type is not None:
-        type_iri = resource_type_uri(resource_type)
-        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{type_iri}> ."
+    type_clause = (
+        f'OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}'
+        if resource_types is None
+        else resource_type_clause("work", resource_types)
+    )
 
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
@@ -94,13 +94,12 @@ SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   VALUES ?concept {{ {values_clause} }}
   OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
-  OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
+  {type_clause}
   OPTIONAL {{
     ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
     ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
-  {type_clause}
   {date_bounds_filter("date", since=since, to=to, include_undated=True)}
 }}
 ORDER BY DESC(?date)
@@ -112,7 +111,7 @@ ORDER BY DESC(?date)
 def build_search_by_title_query(
     keyword: str,
     *,
-    resource_type: str | None,
+    resource_types: Sequence[str] | None,
     since: date | datetime | str | None,
     limit: int,
     offset: int,
@@ -121,10 +120,11 @@ def build_search_by_title_query(
 ) -> str:
     """Build search by title keyword query."""
     lang_iri = language_uri(lang)
-    type_clause = ""
-    if resource_type is not None:
-        type_iri = resource_type_uri(resource_type)
-        type_clause = f"?work {PREDICATES['work_has_resource_type']} <{type_iri}> ."
+    type_clause = (
+        f'OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}'
+        if resource_types is None
+        else resource_type_clause("work", resource_types)
+    )
 
     query = f"""
 SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
@@ -134,7 +134,6 @@ SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
   FILTER(CONTAINS(LCASE(STR(?title)), LCASE({quote_literal(keyword)})))
   OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
   OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
-  OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
   {type_clause}
   {date_bounds_filter("date", since=since, to=to, include_undated=True)}
 }}

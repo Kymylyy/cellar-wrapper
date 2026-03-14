@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any, cast
+
 import pytest
 
 from cellar_wrapper.client import CellarClient
@@ -28,7 +30,7 @@ def test_invalid_language_raises_validation_error() -> None:
 def test_invalid_direction_raises_validation_error() -> None:
     client = CellarClient(transport=FakeTransport())
     with pytest.raises(CellarValidationError, match="Invalid direction"):
-        client.get_amendments("32022R2554", direction="sideways")
+        client.get_amendments("32022R2554", direction=cast(Any, "sideways"))
 
 
 def test_limit_above_max_raises_validation_error() -> None:
@@ -128,6 +130,18 @@ def test_search_by_title_empty_keyword_raises_validation_error() -> None:
     client = CellarClient(transport=FakeTransport())
     with pytest.raises(CellarValidationError, match="keyword cannot be empty"):
         client.search_by_title("   ")
+
+
+def test_search_by_title_empty_resource_types_raises_validation_error() -> None:
+    client = CellarClient(transport=FakeTransport())
+    with pytest.raises(CellarValidationError, match="resource_types cannot be empty"):
+        client.search_by_title("dora", resource_types=[])
+
+
+def test_search_by_title_invalid_resource_type_token_raises_validation_error() -> None:
+    client = CellarClient(transport=FakeTransport())
+    with pytest.raises(CellarValidationError, match="Invalid resource_type"):
+        client.search_by_title("dora", resource_types=["PROP-REG"])
 
 
 def test_search_by_eurovoc_empty_tags_raises_validation_error() -> None:

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib
 import json
+from datetime import UTC, datetime
 from types import TracebackType
 from typing import Any, cast
 
@@ -27,6 +28,8 @@ from cellar_wrapper.mcp_server import (
 )
 from cellar_wrapper.models import ArticleAnnotationItem, ListResult, QueryMeta, RelationItem
 from cellar_wrapper.version import __version__
+
+EXECUTED_AT = datetime(2026, 3, 12, tzinfo=UTC)
 
 
 def _list_tools(server: Any) -> list[Any]:
@@ -94,7 +97,7 @@ def _expected_schema_contract(
         add_default("to", None)
 
     if spec.has_resource_type:
-        add_default("resource_type", None)
+        add_default("resource_types", None)
     if spec.has_country:
         add_default("country", None)
     if spec.has_lang:
@@ -158,7 +161,7 @@ def test_mcp_tool_schemas_cover_all_commands() -> None:
             assert "default" not in properties[name]
 
 
-def test_mcp_regressed_commands_expose_resource_type_in_schema() -> None:
+def test_mcp_regressed_commands_expose_resource_types_in_schema() -> None:
     _require_mcp_sdk()
     server = build_mcp_server()
     tools = {tool.name: tool for tool in _list_tools(server)}
@@ -173,8 +176,8 @@ def test_mcp_regressed_commands_expose_resource_type_in_schema() -> None:
         "new-nims",
     ):
         properties = tools[command_name].inputSchema["properties"]
-        assert "resource_type" in properties
-        assert properties["resource_type"]["default"] is None
+        assert "resource_types" in properties
+        assert properties["resource_types"]["default"] is None
 
 
 def test_mcp_tool_dispatch_maps_kwargs_correctly(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -211,7 +214,7 @@ def test_mcp_tool_dispatch_maps_kwargs_correctly(monkeypatch: pytest.MonkeyPatch
     assert calls[0] == {
         "celex": "32022R2554",
         "to": "2025-02-01",
-        "resource_type": None,
+        "resource_types": None,
         "lang": "eng",
         "direction": "both",
         "limit": 200,
@@ -219,6 +222,48 @@ def test_mcp_tool_dispatch_maps_kwargs_correctly(monkeypatch: pytest.MonkeyPatch
     }
     assert structured_payload["kwargs"]["celex"] == "32022R2554"
     assert structured_payload["kwargs"]["to"] == "2025-02-01"
+
+
+def test_mcp_tool_dispatch_maps_resource_types_list(monkeypatch: pytest.MonkeyPatch) -> None:
+    _require_mcp_sdk()
+    calls: list[dict[str, Any]] = []
+
+    class RecordingClient:
+        def __init__(self, **kwargs: Any) -> None:
+            self.kwargs = kwargs
+
+        def __enter__(self) -> RecordingClient:
+            return self
+
+        def __exit__(
+            self,
+            exc_type: type[BaseException] | None,
+            exc: BaseException | None,
+            tb: TracebackType | None,
+        ) -> None:
+            return None
+
+        def search_by_title(self, **kwargs: Any) -> dict[str, Any]:
+            calls.append(kwargs)
+            return {"kwargs": kwargs}
+
+    monkeypatch.setattr("cellar_wrapper.mcp_server.CellarClient", RecordingClient)
+
+    server = build_mcp_server()
+    structured_payload = _tool_call_payload(
+        _call_tool(
+            server,
+            "search-by-title",
+            {
+                "keyword": "crypto-assets",
+                "resource_types": ["REG_IMPL", "PUB_GEN"],
+            },
+        )
+    )
+
+    assert calls
+    assert calls[0]["resource_types"] == ["REG_IMPL", "PUB_GEN"]
+    assert structured_payload["kwargs"]["resource_types"] == ["REG_IMPL", "PUB_GEN"]
 
 
 def test_mcp_tool_dispatch_maps_direction_override(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -289,7 +334,7 @@ def test_mcp_generic_relation_output_omits_annotation_fields(monkeypatch: pytest
                 meta=QueryMeta(
                     query_name="get_amendments",
                     endpoint="https://example.test/sparql",
-                    executed_at="2026-03-12T00:00:00Z",
+                    executed_at=EXECUTED_AT,
                     limit=200,
                     offset=0,
                 ),
@@ -337,7 +382,7 @@ def test_mcp_get_proposals_to_change_emits_change_semantics(monkeypatch: pytest.
                 meta=QueryMeta(
                     query_name="get_proposals_to_change",
                     endpoint="https://example.test/sparql",
-                    executed_at="2026-03-12T00:00:00Z",
+                    executed_at=EXECUTED_AT,
                     limit=200,
                     offset=0,
                 ),
@@ -390,7 +435,7 @@ def test_mcp_article_annotation_output_keeps_annotation_fields(monkeypatch: pyte
                 meta=QueryMeta(
                     query_name="get_article_annotations",
                     endpoint="https://example.test/sparql",
-                    executed_at="2026-03-12T00:00:00Z",
+                    executed_at=EXECUTED_AT,
                     limit=200,
                     offset=0,
                 ),

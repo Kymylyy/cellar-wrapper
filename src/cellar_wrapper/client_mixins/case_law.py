@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from datetime import date, datetime
 
 from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
@@ -26,7 +27,7 @@ def _call_case_law_relation(
     celex: str,
     since: date | datetime | str | None,
     to: date | datetime | str | None,
-    resource_type: str | None,
+    resource_types: Sequence[str] | None,
     limit: int,
     offset: int,
     lang: str,
@@ -37,7 +38,7 @@ def _call_case_law_relation(
         since=since,
         to=to,
         include_undated=True,
-        resource_type=resource_type,
+        resource_types=resource_types,
         limit=limit,
         offset=offset,
         lang=lang,
@@ -53,7 +54,7 @@ class CaseLawMixin:
         *,
         since: date | datetime | str | None = None,
         to: date | datetime | str | None = None,
-        resource_type: str | None = None,
+        resource_types: Sequence[str] | None = None,
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
@@ -64,7 +65,7 @@ class CaseLawMixin:
             celex=celex,
             since=since,
             to=to,
-            resource_type=resource_type,
+            resource_types=resource_types,
             limit=limit,
             offset=offset,
             lang=lang,
@@ -104,7 +105,7 @@ class CaseLawMixin:
         *,
         since: date | datetime | str | None = None,
         to: date | datetime | str | None = None,
-        resource_type: str | None = None,
+        resource_types: Sequence[str] | None = None,
         limit: int = DEFAULT_LIMIT,
         offset: int = DEFAULT_OFFSET,
         lang: str = DEFAULT_LANGUAGE,
@@ -115,7 +116,7 @@ class CaseLawMixin:
             celex=celex,
             since=since,
             to=to,
-            resource_type=resource_type,
+            resource_types=resource_types,
             limit=limit,
             offset=offset,
             lang=lang,

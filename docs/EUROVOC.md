@@ -58,17 +58,17 @@ result set.
   - time: **264.98 s**
   - result: 50
 
-- `search_by_eurovoc("payment", resource_type=REG, limit=50)`
+- `search_by_eurovoc("payment", resource_types=["REG"], limit=50)`
   - HTTP 200
   - time: **36.04 s**
   - result: 50
 
-- `search_by_eurovoc("payment", resource_type=PROP_REG, limit=50)`
+- `search_by_eurovoc("payment", resource_types=["PROP_REG"], limit=50)`
   - HTTP 200
   - time: **10.04 s**
   - result: 50
 
-Conclusion: narrowing by `resource_type` helps, but it does not solve the main
+Conclusion: narrowing by `resource_types` helps, but it does not solve the main
 bottleneck.
 
 ### Target Variant (2 steps, final filtering by concept URI)
@@ -135,7 +135,7 @@ fail-fast lever, not a stable product strategy.
 Yes, we can preserve almost exactly the same business semantics:
 - API input stays text-based,
 - `OR` across tags stays,
-- `since/resource_type/lang/limit/offset` stay,
+- `since/resource_types/lang/limit/offset` stay,
 - only the execution mechanics change (2 steps instead of 1 heavy query).
 
 ### Potential Differences / Risks
@@ -159,7 +159,7 @@ as a configuration step rather than runtime work:
 1. One-time preload of the EuroVoc dictionary, or resolve during setup.
 2. Define a stable monitoring profile as a list of `concept_uri`.
 3. Run recurring monitoring only by URI (`VALUES ?concept`) + `since`
-   + optional `resource_type`.
+   + optional `resource_types`.
 
 Consequence:
 - the expensive step A (label resolution) does not need to run on every cycle,

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import UTC, date, datetime, time
 from urllib.parse import urlparse
@@ -165,11 +166,25 @@ def since_filter(
     return date_bounds_filter(var_name, since=since, include_undated=include_undated)
 
 
-def resource_type_clause(resource_type: str | None) -> str:
-    """Render optional resource-type filter clause."""
-    if resource_type is None:
+def resource_type_clause(
+    subject_var: str,
+    resource_types: Sequence[str] | None,
+    *,
+    type_var: str = "type",
+) -> str:
+    """Render resource-type filter clause for one or more requested types."""
+    if resource_types is None:
         return ""
+    if not SPARQL_VAR_RE.fullmatch(subject_var):
+        raise ValueError(f"Invalid SPARQL variable name: {subject_var!r}")
+    if not SPARQL_VAR_RE.fullmatch(type_var):
+        raise ValueError(f"Invalid SPARQL variable name: {type_var!r}")
+
+    type_iris = [f"<{resource_type_uri(resource_type)}>" for resource_type in resource_types]
+    if not type_iris:
+        raise ValueError("resource_types cannot be empty")
+    values_clause = " ".join(type_iris)
     return (
-        f"?other {PREDICATES['work_has_resource_type']} "
-        f"<{resource_type_uri(resource_type)}> ."
+        f"?{subject_var} {PREDICATES['work_has_resource_type']} ?{type_var} .\n"
+        f"  VALUES ?{type_var} {{ {values_clause} }}"
     )

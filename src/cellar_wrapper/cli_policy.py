@@ -22,7 +22,6 @@ _SCALAR_ARG_HELP: dict[str, str] = {
 }
 
 _SIMPLE_OPTIONAL_ARG_SPECS: tuple[tuple[str, str, str, Any], ...] = (
-    ("has_resource_type", "--resource-type", "Filter by CELLAR resource type token.", None),
     ("has_country", "--country", "Filter by ISO-3 country code.", None),
     ("has_lang", "--lang", "Language code.", DEFAULT_LANGUAGE),
 )
@@ -61,6 +60,12 @@ def _add_simple_optional_arguments(command_parser: argparse.ArgumentParser, spec
         if default is not None:
             kwargs["default"] = default
         command_parser.add_argument(option_name, **kwargs)
+    if spec.has_resource_type:
+        command_parser.add_argument(
+            "--resource-types",
+            nargs="+",
+            help="Filter by one or more CELLAR resource type tokens.",
+        )
     if spec.has_direction:
         command_parser.add_argument(
             "--direction",
@@ -131,7 +136,7 @@ def build_method_kwargs(spec: CommandSpec, args: argparse.Namespace) -> dict[str
         kwargs["to"] = to
 
     if spec.has_resource_type:
-        kwargs["resource_type"] = getattr(args, "resource_type", None)
+        kwargs["resource_types"] = getattr(args, "resource_types", None)
     if spec.has_country:
         kwargs["country"] = getattr(args, "country", None)
     if spec.has_lang:

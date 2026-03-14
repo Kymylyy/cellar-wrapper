@@ -31,13 +31,24 @@ def normalize_lang(lang: str) -> str:
     return normalized
 
 
-def normalize_resource_type(resource_type: str | None) -> str | None:
-    if resource_type is None:
+def normalize_resource_types(resource_types: Sequence[str] | None) -> list[str] | None:
+    if resource_types is None:
         return None
-    normalized = resource_type.strip().upper()
-    if not RESOURCE_TYPE_RE.fullmatch(normalized):
-        raise CellarValidationError(f"Invalid resource_type: {resource_type!r}")
-    return normalized
+
+    normalized_values: list[str] = []
+    seen_values: set[str] = set()
+    for resource_type in resource_types:
+        normalized = resource_type.strip().upper()
+        if not RESOURCE_TYPE_RE.fullmatch(normalized):
+            raise CellarValidationError(f"Invalid resource_type: {resource_type!r}")
+        if normalized in seen_values:
+            continue
+        seen_values.add(normalized)
+        normalized_values.append(normalized)
+
+    if not normalized_values:
+        raise CellarValidationError("resource_types cannot be empty")
+    return normalized_values
 
 
 def normalize_country(country: str | None) -> str | None:

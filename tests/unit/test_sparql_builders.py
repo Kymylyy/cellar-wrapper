@@ -17,6 +17,7 @@ from cellar_wrapper.sparql import (
     build_resolve_celex_query,
     build_search_by_eurovoc_query,
     build_search_by_subject_matter_query,
+    build_search_by_title_query,
     build_search_communications_query,
 )
 from cellar_wrapper.sparql_builders.common import (
@@ -50,7 +51,7 @@ def test_relation_query_uses_since_date_time_filter() -> None:
         direction="incoming",
         since="2025-01-01",
         to=None,
-        resource_type="PROP_REG",
+        resource_types=["PROP_REG"],
         limit=200,
         offset=0,
     )
@@ -65,14 +66,40 @@ def test_relation_query_resource_type_filter_binds_selected_type() -> None:
         direction="incoming",
         since=None,
         to=None,
-        resource_type="CORRIGENDUM",
+        resource_types=["CORRIGENDUM"],
         limit=50,
         offset=0,
     )
 
     assert "OPTIONAL { ?other cdm:work_has_resource-type ?type }" not in query
     assert "?other cdm:work_has_resource-type ?type ." in query
-    assert "FILTER(?type = <http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM>)" in query
+    assert (
+        "VALUES ?type { "
+        "<http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM> }"
+        in query
+    )
+    assert "FILTER(?type =" not in query
+
+
+def test_relation_query_multiple_resource_types_render_values_clause() -> None:
+    query = build_relation_query(
+        "https://publications.europa.eu/resource/cellar/example",
+        predicates=[PredicateSpec("cdm:work_cites_work", "cites")],
+        direction="incoming",
+        since=None,
+        to=None,
+        resource_types=["PROP_REG", "PROP_DIR"],
+        limit=25,
+        offset=0,
+    )
+
+    assert "?other cdm:work_has_resource-type ?type ." in query
+    assert (
+        "VALUES ?type { "
+        "<http://publications.europa.eu/resource/authority/resource-type/PROP_REG> "
+        "<http://publications.europa.eu/resource/authority/resource-type/PROP_DIR> }"
+        in query
+    )
 
 
 def test_relation_query_monitoring_filter_is_strict() -> None:
@@ -82,7 +109,7 @@ def test_relation_query_monitoring_filter_is_strict() -> None:
         direction="incoming",
         since="2025-01-01",
         to=None,
-        resource_type=None,
+        resource_types=None,
         limit=10,
         offset=0,
         include_undated=False,
@@ -97,7 +124,7 @@ def test_relation_query_incoming_excludes_outgoing_branch() -> None:
         direction="incoming",
         since=None,
         to=None,
-        resource_type=None,
+        resource_types=None,
         limit=10,
         offset=0,
     )
@@ -112,7 +139,7 @@ def test_relation_query_outgoing_excludes_incoming_branch() -> None:
         direction="outgoing",
         since=None,
         to=None,
-        resource_type=None,
+        resource_types=None,
         limit=10,
         offset=0,
     )
@@ -147,7 +174,7 @@ def test_build_concept_query_has_limit_offset() -> None:
 def test_search_by_eurovoc_query_filters_by_concept_values() -> None:
     query = build_search_by_eurovoc_query(
         ["http://eurovoc.europa.eu/2220"],
-        resource_type=None,
+        resource_types=None,
         since=None,
         to=None,
         limit=50,
@@ -161,7 +188,7 @@ def test_search_by_eurovoc_query_filters_by_concept_values() -> None:
 def test_search_by_subject_matter_query_filters_by_concept_values() -> None:
     query = build_search_by_subject_matter_query(
         ["http://publications.europa.eu/resource/authority/subject-matter/PDON"],
-        resource_type=None,
+        resource_types=None,
         since=None,
         to=None,
         limit=50,
@@ -179,12 +206,72 @@ def test_search_by_subject_matter_query_rejects_empty_concept_uris() -> None:
     with pytest.raises(ValueError, match="concept_uris cannot be empty"):
         build_search_by_subject_matter_query(
             [],
-            resource_type=None,
+            resource_types=None,
             since=None,
             to=None,
             limit=50,
             offset=0,
         )
+
+
+def test_search_by_eurovoc_query_uses_values_for_filtered_resource_types() -> None:
+    query = build_search_by_eurovoc_query(
+        ["http://eurovoc.europa.eu/2220"],
+        resource_types=["PROP_REG", "PROP_DIR"],
+        since=None,
+        to=None,
+        limit=50,
+        offset=0,
+    )
+
+    assert "OPTIONAL { ?work cdm:work_has_resource-type ?type }" not in query
+    assert "?work cdm:work_has_resource-type ?type ." in query
+    assert (
+        "VALUES ?type { "
+        "<http://publications.europa.eu/resource/authority/resource-type/PROP_REG> "
+        "<http://publications.europa.eu/resource/authority/resource-type/PROP_DIR> }"
+        in query
+    )
+
+
+def test_search_by_subject_matter_query_uses_values_for_filtered_resource_types() -> None:
+    query = build_search_by_subject_matter_query(
+        ["http://publications.europa.eu/resource/authority/subject-matter/PDON"],
+        resource_types=["DEC", "OPIN_DRAFT_NATION_LEGIS"],
+        since=None,
+        to=None,
+        limit=50,
+        offset=0,
+    )
+
+    assert "OPTIONAL { ?work cdm:work_has_resource-type ?type }" not in query
+    assert "?work cdm:work_has_resource-type ?type ." in query
+    assert (
+        "VALUES ?type { "
+        "<http://publications.europa.eu/resource/authority/resource-type/DEC> "
+        "<http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS> }"
+        in query
+    )
+
+
+def test_search_by_title_query_uses_values_for_filtered_resource_types() -> None:
+    query = build_search_by_title_query(
+        "crypto-assets",
+        resource_types=["REG_IMPL", "PUB_GEN"],
+        since=None,
+        to=None,
+        limit=50,
+        offset=0,
+    )
+
+    assert "OPTIONAL { ?work cdm:work_has_resource-type ?type }" not in query
+    assert "?work cdm:work_has_resource-type ?type ." in query
+    assert (
+        "VALUES ?type { "
+        "<http://publications.europa.eu/resource/authority/resource-type/REG_IMPL> "
+        "<http://publications.europa.eu/resource/authority/resource-type/PUB_GEN> }"
+        in query
+    )
 
 
 def test_article_annotations_query_requests_article_level_qualifiers() -> None:
@@ -207,7 +294,7 @@ def test_relation_query_rejects_empty_predicates() -> None:
             direction="incoming",
             since=None,
             to=None,
-            resource_type=None,
+            resource_types=None,
             limit=10,
             offset=0,
         )
@@ -221,7 +308,7 @@ def test_relation_query_rejects_bad_direction() -> None:
             direction="sideways",
             since=None,
             to=None,
-            resource_type=None,
+            resource_types=None,
             limit=10,
             offset=0,
         )
@@ -234,7 +321,7 @@ def test_relation_query_escapes_bind_relation_type_literal() -> None:
         direction="incoming",
         since=None,
         to=None,
-        resource_type=None,
+        resource_types=None,
         limit=10,
         offset=0,
     )

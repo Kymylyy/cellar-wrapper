@@ -40,7 +40,7 @@ class ClientOpsProtocol(Protocol):
 
     def _normalize_lang(self, lang: str) -> str: ...
 
-    def _normalize_resource_type(self, resource_type: str | None) -> str | None: ...
+    def _normalize_resource_types(self, resource_types: Sequence[str] | None) -> list[str] | None: ...
 
     def _normalize_direction(self, direction: str | None) -> str | None: ...
 
@@ -103,7 +103,7 @@ class ClientOpsProtocol(Protocol):
         since: date | datetime | str | None,
         to: date | datetime | str | None,
         include_undated: bool,
-        resource_type: str | None,
+        resource_types: Sequence[str] | None,
         limit: int,
         offset: int,
         lang: str,
@@ -118,7 +118,7 @@ class ClientOpsProtocol(Protocol):
         since: date | datetime | str | None,
         to: date | datetime | str | None,
         include_undated: bool,
-        resource_type: str | None,
+        resource_types: Sequence[str] | None,
         limit: int,
         offset: int,
         lang: str,
@@ -132,7 +132,7 @@ class ClientOpsProtocol(Protocol):
         since: date | datetime | str | None,
         to: date | datetime | str | None,
         include_undated: bool,
-        resource_type: str | None,
+        resource_types: Sequence[str] | None,
         limit: int,
         offset: int,
         lang: str,
@@ -145,7 +145,7 @@ class ClientOpsProtocol(Protocol):
         celex: str,
         since: date | datetime | str,
         to: date | datetime | str | None,
-        resource_type: str | None,
+        resource_types: Sequence[str] | None,
         limit: int,
         offset: int,
         lang: str,
@@ -158,7 +158,7 @@ class ClientOpsProtocol(Protocol):
         celex: str,
         since: date | datetime | str,
         to: date | datetime | str | None,
-        resource_type: str | None,
+        resource_types: Sequence[str] | None,
         limit: int,
         offset: int,
         lang: str,
@@ -171,7 +171,7 @@ class ClientOpsProtocol(Protocol):
         celex: str,
         since: date | datetime | str,
         to: date | datetime | str | None,
-        resource_type: str | None,
+        resource_types: Sequence[str] | None,
         limit: int,
         offset: int,
         lang: str,
@@ -181,7 +181,7 @@ class ClientOpsProtocol(Protocol):
         self,
         tags: Sequence[str],
         *,
-        resource_type: str | None = None,
+        resource_types: Sequence[str] | None = None,
         since: date | datetime | str | None = None,
         to: date | datetime | str | None = None,
         limit: int,

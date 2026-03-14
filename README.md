@@ -41,7 +41,6 @@ Before using it seriously, keep in mind:
 - some data comes directly from CELLAR and can be incomplete, sparse, or inconsistent,
 - not every legal question maps neatly to one command,
 - MCP support exists, but the main practical use today is still Python and the CLI,
-- if you need a fully stable interface, this project is probably not there yet.
 
 ## Installation
 

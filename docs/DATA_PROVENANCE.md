@@ -1,5 +1,8 @@
 # Data Provenance
 
+For the artifact inventory, see [DATA_ARTIFACTS.md](DATA_ARTIFACTS.md). For
+the broader docs/update workflow, see [MAINTAINER_GUIDE.md](MAINTAINER_GUIDE.md).
+
 This project ships runtime taxonomy indexes as package data:
 
 - `src/cellar_wrapper/data/eurovoc_index.json`

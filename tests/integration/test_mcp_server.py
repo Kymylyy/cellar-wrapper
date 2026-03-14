@@ -134,6 +134,17 @@ def test_mcp_registers_all_command_specs() -> None:
     assert {tool.name for tool in tools} == {spec.command for spec in COMMANDS}
 
 
+def test_mcp_tool_descriptions_match_command_specs() -> None:
+    _require_mcp_sdk()
+    server = build_mcp_server()
+    tools = {tool.name: tool for tool in _list_tools(server)}
+
+    for spec in COMMANDS:
+        description = getattr(tools[spec.command], "description", None)
+        assert description == spec.description
+        assert "mapped to CellarClient" not in description
+
+
 def test_mcp_tool_schemas_cover_all_commands() -> None:
     _require_mcp_sdk()
     server = build_mcp_server()

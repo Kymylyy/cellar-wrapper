@@ -2,6 +2,9 @@
 
 This document explains large non-code files stored in `docs/artifact/`.
 
+For the maintainer workflow around examples and docs refresh, see
+[MAINTAINER_GUIDE.md](MAINTAINER_GUIDE.md).
+
 ## Purpose
 
 These files are research/support artifacts for exploration and analysis.
@@ -30,7 +33,7 @@ Source attribution and reuse notes are documented in `DATA_PROVENANCE.md`.
 - Keep artifacts only when they support active docs/research workflows.
 - If an artifact is superseded, replace it in-place or remove it in the same
   commit as related doc updates.
-- Any behavioral/API changes must be documented in `API_CONTRACT.md`, not here.
+- Any behavioral/API changes must be documented in `CONTRACT_REFERENCE.md`, not here.
 - Refresh packaged runtime EuroVoc index with:
   `python3 scripts/build_runtime_eurovoc_index.py`
 - Refresh packaged runtime subject-matter index with:

@@ -3445,5 +3445,135 @@
         }
       }
     }
+  },
+  {
+    "label": "Banking",
+    "command": "search find-eurovoc-concept",
+    "purpose": "Checks local EuroVoc concept lookup for a banking-related label, showing that the command returns matching EuroVoc concepts rather than acts and can be used to discover tags for later EuroVoc-based searches.",
+    "args": {
+      "label": "banking",
+      "limit": 10,
+      "offset": 0
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "concept_uri": "http://eurovoc.europa.eu/c_c565cff5",
+            "label": "EU banking union"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/c_047e5912",
+            "label": "European Banking Authority"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/2149",
+            "label": "banking"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/2447",
+            "label": "banking policy"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/3612",
+            "label": "banking profession"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/3994",
+            "label": "banking secrecy"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/3251",
+            "label": "banking supervision"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/4356",
+            "label": "banking system"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/3248",
+            "label": "electronic banking"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/521",
+            "label": "law of banking"
+          }
+        ],
+        "returned_count": 10,
+        "meta": {
+          "query_name": "find_eurovoc_concept",
+          "endpoint": "local://eurovoc-index",
+          "executed_at": "2026-03-14T12:10:33.827022Z",
+          "limit": 10,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "Payment",
+    "command": "search find-eurovoc-concept",
+    "purpose": "Checks the same local EuroVoc concept lookup for a payment-related label, showing that case-insensitive substring matching can return multiple related concepts under one broad term.",
+    "args": {
+      "label": "payment",
+      "limit": 10,
+      "offset": 0
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "concept_uri": "http://eurovoc.europa.eu/c_8b0ac3e2",
+            "label": "EU direct payments"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/4603",
+            "label": "European Payments Union"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/2217",
+            "label": "advance payment"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/4671",
+            "label": "balance of payments"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/73",
+            "label": "balance of payments assistance"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/4644",
+            "label": "balance-of-payments deficit"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/2619",
+            "label": "bonus payment"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/6210",
+            "label": "deadline for payment"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/2219",
+            "label": "international payment"
+          },
+          {
+            "concept_uri": "http://eurovoc.europa.eu/2220",
+            "label": "intra-EU payment"
+          }
+        ],
+        "returned_count": 10,
+        "meta": {
+          "query_name": "find_eurovoc_concept",
+          "endpoint": "local://eurovoc-index",
+          "executed_at": "2026-03-14T12:10:33.828533Z",
+          "limit": 10,
+          "offset": 0
+        }
+      }
+    }
   }
 ]

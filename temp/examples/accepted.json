@@ -2935,5 +2935,335 @@
         }
       }
     }
+  },
+  {
+    "label": "Bank",
+    "command": "search search-by-subject-matter",
+    "purpose": "Checks broad subject-matter-based act search for a short banking-related input that expands to multiple local subject-matter concepts and returns a mixed policy feed.",
+    "args": {
+      "codes": [
+        "bank"
+      ],
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/4f25b2a1-1c5e-11f1-8c3a-01aa75ed71a1",
+            "celex": "52026AB0008",
+            "title": "Opinion of the European Central Bank of 9 March 2026 on emergency powers (CON/2026/8)",
+            "date": "2026-03-09T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/5cb8d511-0dfd-11f1-8870-01aa75ed71a1",
+            "celex": "32026D0423",
+            "title": "Council Decision (EU) 2026/423 of 17 February 2026 amending Decision 1999/70/EC concerning the external auditors of the national central banks, as regards the external auditors of Banka Slovenije",
+            "date": "2026-02-17T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/4f228037-16a2-11f1-8870-01aa75ed71a1",
+            "celex": "32026D0443",
+            "title": "Council Decision (EU) 2026/443 of 17 February 2026 amending Decision 1999/70/EC concerning the external auditors of the national central banks, as regards the external auditors of Eesti Pank",
+            "date": "2026-02-17T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/3ece6ff5-1a23-11f1-9769-01aa75ed71a1",
+            "celex": null,
+            "title": "European Parliament decision of 10 February 2026 on the proposal of the European Central Bank for the appointment of the Vice-Chair of the Supervisory Board of the European Central Bank (N10-0080/2025 - C10-0366/2025 - 2025/0906(NLE))",
+            "date": "2026-02-10T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/ADOPT_TEXT"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/417c6464-07f1-11f1-825d-01aa75ed71a1",
+            "celex": null,
+            "title": "Letter from Frank Elderson, Member of the Executive Board of the European Central Bank (ECB), to Richard Raši, Speaker of the National Council of the Slovak Republic, regarding certain amendments to the law on restrictions on cash payments",
+            "date": "2026-02-10T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/LET_DRAFT_NATION_LEGIS"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "search_by_subject_matter",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T11:51:07.038295Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "Bank",
+    "command": "search search-by-subject-matter",
+    "purpose": "Checks the same subject-matter search constrained to draft national-legislation ECB opinions, turning the broad banking feed into a single-type result set.",
+    "args": {
+      "codes": [
+        "bank"
+      ],
+      "resource_type": "OPIN_DRAFT_NATION_LEGIS",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/4f25b2a1-1c5e-11f1-8c3a-01aa75ed71a1",
+            "celex": "52026AB0008",
+            "title": "Opinion of the European Central Bank of 9 March 2026 on emergency powers (CON/2026/8)",
+            "date": "2026-03-09T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/27d2f44a-f5fe-11f0-b9bc-01aa75ed71a1",
+            "celex": "52026AB0002",
+            "title": "Opinion of the European Central Bank of 19 January 2026 on the supervisory independence of the Banque nationale de Belgique/Nationale Bank van België, the prevention of conflicts of interest of its members of staff and governance bodies, independent directors and strategic decisions of credit institutions (CON/2026/2)",
+            "date": "2026-01-19T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/e84e4a3e-e4af-11f0-abd8-01aa75ed71a1",
+            "celex": "52025AB0045",
+            "title": "Opinion of the European Central Bank of 19 December 2025 on an increase in a tax imposed on credit institutions (CON/2025/45)",
+            "date": "2025-12-19T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/67ab50cb-e4a6-11f0-abd8-01aa75ed71a1",
+            "celex": "52025AB0043",
+            "title": "Opinion of the European Central Bank of 18 December 2025 on certain provisions relating to the interaction between national law and the Single Supervisory Mechanism and sector-specific banking rules (CON/2025/43)",
+            "date": "2025-12-18T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/68d40bfa-d9aa-11f0-8da2-01aa75ed71a1",
+            "celex": "52025AB0041",
+            "title": "Opinion of the European Central Bank of 12 December 2025 on the taxation of financial institutions (CON/2025/41)",
+            "date": "2025-12-12T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "search_by_subject_matter",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T11:52:19.386699Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "Bank",
+    "command": "search search-by-subject-matter",
+    "purpose": "Checks the same filtered subject-matter search with a since bound, showing that the recent-only window narrows the banking-opinion feed from late 2025-2026 down to two 2026 items.",
+    "args": {
+      "codes": [
+        "bank"
+      ],
+      "resource_type": "OPIN_DRAFT_NATION_LEGIS",
+      "since": "2026-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/4f25b2a1-1c5e-11f1-8c3a-01aa75ed71a1",
+            "celex": "52026AB0008",
+            "title": "Opinion of the European Central Bank of 9 March 2026 on emergency powers (CON/2026/8)",
+            "date": "2026-03-09T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/27d2f44a-f5fe-11f0-b9bc-01aa75ed71a1",
+            "celex": "52026AB0002",
+            "title": "Opinion of the European Central Bank of 19 January 2026 on the supervisory independence of the Banque nationale de Belgique/Nationale Bank van België, the prevention of conflicts of interest of its members of staff and governance bodies, independent directors and strategic decisions of credit institutions (CON/2026/2)",
+            "date": "2026-01-19T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+          }
+        ],
+        "returned_count": 2,
+        "meta": {
+          "query_name": "search_by_subject_matter",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T11:52:19.760572Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "FISMA",
+    "command": "search search-communications",
+    "purpose": "Checks the current FISMA communications feed, showing that this command returns communication documents only and can serve as a practical policy-monitoring stream for the financial domain.",
+    "args": {
+      "dg": "FISMA",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/729cec7e-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025DC0940",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Further development of capital market integration and supervision within the Union",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/80f5cdfe-c5f4-11f0-8da2-01aa75ed71a1",
+            "celex": "52025DC0839",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Enhancing the capacity of the EU supplementary pension sector to improve retirement income and supply long-term capital to the EU economy",
+            "date": "2025-11-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/adde8ca2-9ec3-11f0-97c8-01aa75ed71a1",
+            "celex": "52025DC0681",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS on a Financial Literacy Strategy for the EU",
+            "date": "2025-09-30T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/d00c94ca-04e6-11f0-b1a3-01aa75ed71a1",
+            "celex": "52025DC0124",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Savings and Investments Union A Strategy to Foster Citizens’ Wealth and Economic Competitiveness in the EU",
+            "date": "2025-03-19T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/e973bd72-0ac7-11ee-b12e-01aa75ed71a1",
+            "celex": "52023DC0317",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS A sustainable finance framework that works on the ground",
+            "date": "2023-06-13T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "search_communications",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:03:20.012945Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "FISMA",
+    "command": "search search-communications",
+    "purpose": "Checks the same FISMA communications feed with a since bound, showing how the date filter narrows the policy stream to more recent financial communications.",
+    "args": {
+      "dg": "FISMA",
+      "since": "2025-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/729cec7e-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025DC0940",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Further development of capital market integration and supervision within the Union",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/80f5cdfe-c5f4-11f0-8da2-01aa75ed71a1",
+            "celex": "52025DC0839",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Enhancing the capacity of the EU supplementary pension sector to improve retirement income and supply long-term capital to the EU economy",
+            "date": "2025-11-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/adde8ca2-9ec3-11f0-97c8-01aa75ed71a1",
+            "celex": "52025DC0681",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS on a Financial Literacy Strategy for the EU",
+            "date": "2025-09-30T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/d00c94ca-04e6-11f0-b1a3-01aa75ed71a1",
+            "celex": "52025DC0124",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Savings and Investments Union A Strategy to Foster Citizens’ Wealth and Economic Competitiveness in the EU",
+            "date": "2025-03-19T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          }
+        ],
+        "returned_count": 4,
+        "meta": {
+          "query_name": "search_communications",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:03:20.004532Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "FISMA",
+    "command": "search search-communications",
+    "purpose": "Checks a narrow FISMA date window around the Digital Finance package, surfacing the Digital Finance Strategy and Retail Payments Strategy communications as a thematic policy wave rather than a generic DG feed.",
+    "args": {
+      "dg": "FISMA",
+      "since": "2020-09-01",
+      "to": "2020-12-31",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/5c003fe1-3f91-11eb-b27b-01aa75ed71a1",
+            "celex": "52020DC0822",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL AND THE EUROPEAN CENTRAL BANK Tackling non-performing loans in the aftermath of the COVID-19 pandemic",
+            "date": "2020-12-16T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/c3e96998-fe3f-11ea-b44f-01aa75ed71a1",
+            "celex": "52020DC0591",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS on a Digital Finance Strategy for the EU",
+            "date": "2020-09-24T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/8da10d50-fe42-11ea-b44f-01aa75ed71a1",
+            "celex": "52020DC0592",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE COUNCIL, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS on a Retail Payments Strategy for the EU",
+            "date": "2020-09-24T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
+          }
+        ],
+        "returned_count": 3,
+        "meta": {
+          "query_name": "search_communications",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:03:50.439524Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
   }
 ]

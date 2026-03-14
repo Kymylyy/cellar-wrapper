@@ -8,7 +8,7 @@ from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
 from cellar_wrapper.constants import DEFAULT_LANGUAGE, SUMMARY_ACCEPT, TEXT_FORMAT_ACCEPT
 from cellar_wrapper.errors import CellarHTTPError, CellarNotFoundError, CellarValidationError
 from cellar_wrapper.models import DocumentPayload
-from cellar_wrapper.parser import parse_act_refs, parse_bindings
+from cellar_wrapper.parser import parse_uri_act_refs
 from cellar_wrapper.sparql import build_summary_lookup_query
 
 
@@ -60,14 +60,14 @@ class DownloadMixin:
         normalized_celex = self._normalize_celex(celex)
         normalized_lang = self._normalize_lang(lang)
         summary_query = build_summary_lookup_query(self._resolve_work_uri(normalized_celex))
-        rows = parse_bindings(self._transport.query_sparql(summary_query))
+        rows = self._query_rows(summary_query)
         if not rows:
             raise CellarNotFoundError(
                 f"No legislative summary found for CELEX: {normalized_celex}",
                 details={"entity": "summary", "celex": normalized_celex},
             )
 
-        summary_uri = parse_act_refs(rows)[0].uri
+        summary_uri = parse_uri_act_refs(rows)[0].uri
         try:
             content, content_type, source_url = self._transport.download(
                 summary_uri,

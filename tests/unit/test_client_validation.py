@@ -253,7 +253,7 @@ def test_summary_download_uses_xhtml5_accept() -> None:
             return sparql_payload(
                 [
                     sparql_row(
-                        summary="http://publications.europa.eu/resource/legissum/2404020302_1"
+                        uri="http://publications.europa.eu/resource/legissum/2404020302_1"
                     )
                 ]
             )
@@ -286,7 +286,7 @@ def test_get_summary_404_download_raises_not_found() -> None:
             return sparql_payload(
                 [
                     sparql_row(
-                        summary="http://publications.europa.eu/resource/legissum/2404020302_1"
+                        uri="http://publications.europa.eu/resource/legissum/2404020302_1"
                     )
                 ]
             )

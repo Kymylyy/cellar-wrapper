@@ -81,6 +81,8 @@ class ClientOpsProtocol(Protocol):
         offset: int | None,
     ) -> ListResult[T]: ...
 
+    def _query_rows(self, query: str) -> list[dict[str, dict[str, str]]]: ...
+
     def _find_local_eurovoc_concepts(
         self,
         label: str,

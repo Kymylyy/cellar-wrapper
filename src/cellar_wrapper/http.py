@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 import random
 import time
 from dataclasses import dataclass
@@ -65,6 +66,8 @@ class TimeoutConfig:
             ("write", self.write),
             ("pool", self.pool),
         ):
+            if not math.isfinite(field_value):
+                raise CellarValidationError(f"timeout.{field_name} must be finite")
             if field_value <= 0:
                 raise CellarValidationError(f"timeout.{field_name} must be > 0")
 

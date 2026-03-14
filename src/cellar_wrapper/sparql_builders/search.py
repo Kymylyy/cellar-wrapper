@@ -39,20 +39,20 @@ def build_search_by_eurovoc_query(
     values_clause = " ".join(concept_values)
     lang_iri = language_uri(lang)
     type_clause = (
-        f'OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}'
+        f'OPTIONAL {{ ?uri {PREDICATES["work_has_resource_type"]} ?type }}'
         if resource_types is None
-        else resource_type_clause("work", resource_types)
+        else resource_type_clause("uri", resource_types)
     )
 
     query = f"""
-SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
-  ?work {PREDICATES["work_is_about_concept_eurovoc"]} ?concept .
+SELECT DISTINCT ?uri ?celex ?title ?date ?type WHERE {{
+  ?uri {PREDICATES["work_is_about_concept_eurovoc"]} ?concept .
   VALUES ?concept {{ {values_clause} }}
-  OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
-  OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
+  OPTIONAL {{ ?uri {PREDICATES["resource_legal_id_celex"]} ?celex }}
+  OPTIONAL {{ ?uri {PREDICATES["work_date_document"]} ?date }}
   {type_clause}
   OPTIONAL {{
-    ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
+    ?expr {PREDICATES["expression_belongs_to_work"]} ?uri .
     ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
@@ -83,20 +83,20 @@ def build_search_by_subject_matter_query(
     values_clause = " ".join(concept_values)
     lang_iri = language_uri(lang)
     type_clause = (
-        f'OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}'
+        f'OPTIONAL {{ ?uri {PREDICATES["work_has_resource_type"]} ?type }}'
         if resource_types is None
-        else resource_type_clause("work", resource_types)
+        else resource_type_clause("uri", resource_types)
     )
 
     query = f"""
-SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
-  ?work {PREDICATES["subject_matter"]} ?concept .
+SELECT DISTINCT ?uri ?celex ?title ?date ?type WHERE {{
+  ?uri {PREDICATES["subject_matter"]} ?concept .
   VALUES ?concept {{ {values_clause} }}
-  OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
-  OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
+  OPTIONAL {{ ?uri {PREDICATES["resource_legal_id_celex"]} ?celex }}
+  OPTIONAL {{ ?uri {PREDICATES["work_date_document"]} ?date }}
   {type_clause}
   OPTIONAL {{
-    ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
+    ?expr {PREDICATES["expression_belongs_to_work"]} ?uri .
     ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}
@@ -121,19 +121,19 @@ def build_search_by_title_query(
     """Build search by title keyword query."""
     lang_iri = language_uri(lang)
     type_clause = (
-        f'OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}'
+        f'OPTIONAL {{ ?uri {PREDICATES["work_has_resource_type"]} ?type }}'
         if resource_types is None
-        else resource_type_clause("work", resource_types)
+        else resource_type_clause("uri", resource_types)
     )
 
     query = f"""
-SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
-  ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
+SELECT DISTINCT ?uri ?celex ?title ?date ?type WHERE {{
+  ?expr {PREDICATES["expression_belongs_to_work"]} ?uri .
   ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
   ?expr {PREDICATES["expression_title"]} ?title .
   FILTER(CONTAINS(LCASE(STR(?title)), LCASE({quote_literal(keyword)})))
-  OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
-  OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
+  OPTIONAL {{ ?uri {PREDICATES["resource_legal_id_celex"]} ?celex }}
+  OPTIONAL {{ ?uri {PREDICATES["work_date_document"]} ?date }}
   {type_clause}
   {date_bounds_filter("date", since=since, to=to, include_undated=True)}
 }}
@@ -156,15 +156,15 @@ def build_search_communications_query(
     communic_uri = resource_type_uri("COMMUNIC")
     lang_iri = language_uri(lang)
     query = f"""
-SELECT DISTINCT ?work ?celex ?title ?date ?type WHERE {{
-  ?work {PREDICATES["work_has_resource_type"]} <{communic_uri}> .
-  ?work {PREDICATES["resource_legal_service_responsible"]} ?service .
+SELECT DISTINCT ?uri ?celex ?title ?date ?type WHERE {{
+  ?uri {PREDICATES["work_has_resource_type"]} <{communic_uri}> .
+  ?uri {PREDICATES["resource_legal_service_responsible"]} ?service .
   FILTER(CONTAINS(UCASE(STR(?service)), UCASE({quote_literal(dg)})))
-  OPTIONAL {{ ?work {PREDICATES["resource_legal_id_celex"]} ?celex }}
-  OPTIONAL {{ ?work {PREDICATES["work_date_document"]} ?date }}
-  OPTIONAL {{ ?work {PREDICATES["work_has_resource_type"]} ?type }}
+  OPTIONAL {{ ?uri {PREDICATES["resource_legal_id_celex"]} ?celex }}
+  OPTIONAL {{ ?uri {PREDICATES["work_date_document"]} ?date }}
+  OPTIONAL {{ ?uri {PREDICATES["work_has_resource_type"]} ?type }}
   OPTIONAL {{
-    ?expr {PREDICATES["expression_belongs_to_work"]} ?work .
+    ?expr {PREDICATES["expression_belongs_to_work"]} ?uri .
     ?expr {PREDICATES["expression_uses_language"]} <{lang_iri}> .
     ?expr {PREDICATES["expression_title"]} ?title .
   }}

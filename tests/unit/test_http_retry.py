@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from collections.abc import Generator
 from contextlib import contextmanager
 from datetime import UTC, datetime, timedelta
@@ -50,6 +51,12 @@ def test_transport_validates_sparql_endpoint_url() -> None:
 def test_timeout_config_requires_positive_values() -> None:
     with pytest.raises(CellarValidationError, match="timeout.connect must be > 0"):
         TimeoutConfig(connect=0)
+
+
+@pytest.mark.parametrize("value", [math.nan, math.inf, -math.inf])
+def test_timeout_config_requires_finite_values(value: float) -> None:
+    with pytest.raises(CellarValidationError, match="timeout.connect must be finite"):
+        TimeoutConfig(connect=value)
 
 
 def test_retry_on_503_then_success(monkeypatch: pytest.MonkeyPatch) -> None:

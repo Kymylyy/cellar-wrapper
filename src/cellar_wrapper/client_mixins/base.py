@@ -30,7 +30,12 @@ from cellar_wrapper.parser import parse_bindings
 from cellar_wrapper.subject_matter_index import load_default_subject_matter_index
 
 from .protocols import TransportProtocol
-from .relation_execution import call_nim_result, call_relation_result, fetch_relation_rows
+from .relation_execution import (
+    RelationExecutionContext,
+    call_nim_result,
+    call_relation_result,
+    fetch_relation_rows,
+)
 from .relation_specs import RelationCallSpec
 from .result_builders import build_list_result, build_query_meta
 from .validation import (
@@ -202,7 +207,7 @@ class ClientBase:
         limit: int | None,
         offset: int | None,
     ) -> ListResult[T]:
-        rows = parse_bindings(self._transport.query_sparql(query))
+        rows = self._query_rows(query)
         items = parser(rows)
         return self._list_result(
             query_name=query_name,
@@ -211,11 +216,27 @@ class ClientBase:
             offset=offset,
         )
 
+    def _query_rows(self, query: str) -> list[dict[str, dict[str, str]]]:
+        return parse_bindings(self._transport.query_sparql(query))
+
     def _resolve_work_uri(self, celex: str) -> str:
         return self.resolve_celex(celex).uri
 
     def resolve_celex(self, celex: str) -> ActRef:  # pragma: no cover - implemented in LookupMixin
         raise NotImplementedError
+
+    def _relation_execution_context(self) -> RelationExecutionContext:
+        return RelationExecutionContext(
+            validate_pagination=self._validate_pagination,
+            normalize_celex=self._normalize_celex,
+            normalize_lang=self._normalize_lang,
+            normalize_resource_types=self._normalize_resource_types,
+            normalize_direction=self._normalize_direction,
+            normalize_date_bounds=self._normalize_date_bounds,
+            resolve_work_uri=self._resolve_work_uri,
+            query_rows=self._query_rows,
+            list_result_builder=self._list_result,
+        )
 
     def _call_relation(
         self,
@@ -232,6 +253,7 @@ class ClientBase:
         direction: str | None,
     ) -> ListResult[RelationItem] | ListResult[CaseLawItem]:
         return call_relation_result(
+            context=self._relation_execution_context(),
             method_name=method_name,
             celex=celex,
             since=since,
@@ -242,14 +264,6 @@ class ClientBase:
             offset=offset,
             lang=lang,
             direction=direction,
-            validate_pagination=self._validate_pagination,
-            normalize_lang=self._normalize_lang,
-            normalize_resource_types=self._normalize_resource_types,
-            normalize_direction=self._normalize_direction,
-            normalize_date_bounds=self._normalize_date_bounds,
-            resolve_work_uri=self._resolve_work_uri,
-            query_sparql=self._transport.query_sparql,
-            list_result_builder=self._list_result,
         )
 
     def _fetch_relation_rows(
@@ -268,6 +282,7 @@ class ClientBase:
         include_implemented_by_country: bool,
     ) -> tuple[RelationCallSpec, list[dict[str, dict[str, str]]]]:
         return fetch_relation_rows(
+            context=self._relation_execution_context(),
             method_name=method_name,
             celex=celex,
             since=since,
@@ -279,13 +294,6 @@ class ClientBase:
             lang=lang,
             direction=direction,
             include_implemented_by_country=include_implemented_by_country,
-            validate_pagination=self._validate_pagination,
-            normalize_lang=self._normalize_lang,
-            normalize_resource_types=self._normalize_resource_types,
-            normalize_direction=self._normalize_direction,
-            normalize_date_bounds=self._normalize_date_bounds,
-            resolve_work_uri=self._resolve_work_uri,
-            query_sparql=self._transport.query_sparql,
         )
 
     def _call_relation_items(
@@ -357,6 +365,7 @@ class ClientBase:
         lang: str,
     ) -> ListResult[NIMItem]:
         return call_nim_result(
+            context=self._relation_execution_context(),
             method_name=method_name,
             celex=celex,
             since=since,
@@ -367,13 +376,4 @@ class ClientBase:
             offset=offset,
             lang=lang,
             direction=None,
-            validate_pagination=self._validate_pagination,
-            normalize_celex=self._normalize_celex,
-            normalize_lang=self._normalize_lang,
-            normalize_resource_types=self._normalize_resource_types,
-            normalize_direction=self._normalize_direction,
-            normalize_date_bounds=self._normalize_date_bounds,
-            resolve_work_uri=self._resolve_work_uri,
-            query_sparql=self._transport.query_sparql,
-            list_result_builder=self._list_result,
         )

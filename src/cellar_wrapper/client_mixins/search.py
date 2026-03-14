@@ -10,7 +10,7 @@ from cellar_wrapper.constants import DEFAULT_LANGUAGE, DEFAULT_LIMIT, DEFAULT_OF
 from cellar_wrapper.errors import CellarValidationError
 from cellar_wrapper.eurovoc_index import LOCAL_EUROVOC_ENDPOINT
 from cellar_wrapper.models import ActRef, EurovocTag, ListResult
-from cellar_wrapper.parser import parse_act_refs
+from cellar_wrapper.parser import parse_uri_act_refs
 from cellar_wrapper.sparql import (
     build_search_by_eurovoc_query,
     build_search_by_subject_matter_query,
@@ -57,7 +57,7 @@ class SearchMixin:
         return self._run_list_query(
             query_name="search_by_eurovoc",
             query=query,
-            parser=parse_act_refs,
+            parser=parse_uri_act_refs,
             limit=limit,
             offset=offset,
         )
@@ -96,7 +96,7 @@ class SearchMixin:
         return self._run_list_query(
             query_name="search_by_subject_matter",
             query=query,
-            parser=parse_act_refs,
+            parser=parse_uri_act_refs,
             limit=limit,
             offset=offset,
         )
@@ -128,7 +128,7 @@ class SearchMixin:
         return self._run_list_query(
             query_name="search_by_title",
             query=query,
-            parser=parse_act_refs,
+            parser=parse_uri_act_refs,
             limit=limit,
             offset=offset,
         )
@@ -158,7 +158,7 @@ class SearchMixin:
         return self._run_list_query(
             query_name="search_communications",
             query=query,
-            parser=parse_act_refs,
+            parser=parse_uri_act_refs,
             limit=limit,
             offset=offset,
         )

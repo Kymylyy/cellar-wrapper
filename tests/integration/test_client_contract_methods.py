@@ -26,11 +26,11 @@ def _query_handler(query: str) -> dict[str, object]:
             ]
         )
 
-    if "SELECT DISTINCT ?summary WHERE" in query:
+    if "SELECT DISTINCT ?uri WHERE" in query:
         return sparql_payload(
             [
                 sparql_row(
-                    summary="http://publications.europa.eu/resource/cellar/summary",
+                    uri="http://publications.europa.eu/resource/cellar/summary",
                 )
             ]
         )
@@ -73,11 +73,26 @@ def _query_handler(query: str) -> dict[str, object]:
             ]
         )
 
-    if "SELECT DISTINCT ?work ?celex ?title ?date ?type" in query:
+    if "resource_legal_proposes_to_amend_resource_legal" in query:
         return sparql_payload(
             [
                 sparql_row(
-                    work="http://publications.europa.eu/resource/cellar/work",
+                    uri="http://publications.europa.eu/resource/cellar/related",
+                    celex="52025PC1023",
+                    title="Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2017/745 and 2017/746",
+                    date="2025-12-16T00:00:00",
+                    relationType="proposes_to_change",
+                    direction="incoming",
+                    predicate="cdm:resource_legal_proposes_to_amend_resource_legal",
+                )
+            ]
+        )
+
+    if "SELECT DISTINCT ?uri ?celex ?title ?date ?type" in query:
+        return sparql_payload(
+            [
+                sparql_row(
+                    uri="http://publications.europa.eu/resource/cellar/work",
                     celex="52023PC0367",
                     title="Proposal on payment services",
                     date="2025-01-01",
@@ -91,7 +106,7 @@ def _query_handler(query: str) -> dict[str, object]:
             [
                 sparql_row(
                     dossier="http://publications.europa.eu/resource/cellar/dossier",
-                    other="http://publications.europa.eu/resource/cellar/related",
+                    uri="http://publications.europa.eu/resource/cellar/related",
                     celex="52023PC0367",
                     title="Dossier item",
                     date="2025-01-01",
@@ -107,7 +122,7 @@ def _query_handler(query: str) -> dict[str, object]:
         return sparql_payload(
             [
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/annotated",
+                    uri="http://publications.europa.eu/resource/cellar/annotated",
                     predicate="http://publications.europa.eu/ontology/cdm#resource_legal_amends_resource_legal",
                     relationType="article_annotation",
                     direction="incoming",
@@ -122,11 +137,11 @@ def _query_handler(query: str) -> dict[str, object]:
             ]
         )
 
-    if "directive_transposition" in query and "SELECT DISTINCT ?other ?celex ?date" in query:
+    if "directive_transposition" in query and "SELECT DISTINCT ?uri ?celex ?date" in query:
         return sparql_payload(
             [
                 sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/act",
+                    uri="http://publications.europa.eu/resource/cellar/act",
                     celex="32022R2554",
                     date="2025-01-01",
                     relationType="deadline",
@@ -136,25 +151,10 @@ def _query_handler(query: str) -> dict[str, object]:
             ]
         )
 
-    if "resource_legal_proposes_to_amend_resource_legal" in query:
-        return sparql_payload(
-            [
-                sparql_row(
-                    other="http://publications.europa.eu/resource/cellar/related",
-                    celex="52025PC1023",
-                    title="Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2017/745 and 2017/746",
-                    date="2025-12-16T00:00:00",
-                    relationType="proposes_to_change",
-                    direction="incoming",
-                    predicate="cdm:resource_legal_proposes_to_amend_resource_legal",
-                )
-            ]
-        )
-
     return sparql_payload(
         [
             sparql_row(
-                other="http://publications.europa.eu/resource/cellar/related",
+                uri="http://publications.europa.eu/resource/cellar/related",
                 celex="32024R0001",
                 title="Related item",
                 date="2025-01-01",
@@ -206,7 +206,7 @@ def test_public_methods_contract_definition_matches_client_surface() -> None:
     }
     assert public_client_methods == set(PUBLIC_METHODS)
     assert set(PUBLIC_METHODS) == set(RETURN_CONTRACTS)
-    assert len(PUBLIC_METHODS) == 45
+    assert {spec.method for spec in COMMANDS} == public_client_methods
 
 
 @pytest.mark.parametrize("method_name", PUBLIC_METHODS)
@@ -220,6 +220,8 @@ def test_public_methods_contract_runtime(method_name: str) -> None:
     kwargs = _required_kwargs(method_name)
     result = getattr(client, method_name)(**kwargs)
     contract = RETURN_CONTRACTS[method_name]
+    spec = next(spec for spec in COMMANDS if spec.method == method_name)
+    assert contract == spec.return_contract
 
     if contract.return_type is ListResult:
         assert isinstance(result, ListResult)

@@ -5,20 +5,29 @@ public examples or maintained documentation.
 
 ## Canonical sources
 
-- Command inventory, argument defaults, and MCP schema shape come from `src/cellar_wrapper/cli_specs.py`, `src/cellar_wrapper/cli_policy.py`, and `src/cellar_wrapper/contract_specs.py`.
-- Accepted examples live in `docs/examples/contract-examples.json`.
+- Command inventory, argument defaults, MCP schema shape, and return-contract mapping come from `src/cellar_wrapper/cli_specs.py`.
+- Full command coverage is exported to `docs/artifact/command-manifest.json`.
+- Curated examples live in `docs/examples/contract-examples.json`.
 - [CONTRACT_EXAMPLES.md](CONTRACT_EXAMPLES.md) is generated from that JSON and must not be hand-edited.
+- Curated examples are for humans. They are not required to cover every command.
 - [CONTRACT_REFERENCE.md](CONTRACT_REFERENCE.md) is the maintained prose reference for envelopes, return types, caveats, and MCP behavior.
 
 ## Example refresh workflow
 
-1. Update `docs/examples/contract-examples.json` only after checking a real command run.
-2. Run `python scripts/render_contract_examples.py` to regenerate [CONTRACT_EXAMPLES.md](CONTRACT_EXAMPLES.md).
-3. Run `python scripts/audit_contract_examples_live.py` after any contract-affecting change to compare live payloads against the accepted examples corpus.
-4. If the live audit reports differences, decide whether each difference is:
+1. Run `python scripts/render_command_manifest.py` after command-surface changes so the full machine-readable coverage artifact stays current.
+2. Update `docs/examples/contract-examples.json` only when you want to add or refresh curated human-facing examples for user-visible behavior.
+3. Run `python scripts/render_contract_examples.py` to regenerate [CONTRACT_EXAMPLES.md](CONTRACT_EXAMPLES.md) when the curated example corpus changes.
+4. Run `python scripts/audit_contract_examples_live.py` only when curated examples changed or when a user-visible contract/output change affects commands already documented there.
+5. If the live audit reports differences, decide whether each difference is:
    - an intended behavior change that requires JSON/docs updates,
-   - an upstream data drift that should be reflected in accepted examples,
+   - an upstream data drift that should be reflected in curated examples,
    - or a bug/regression that must be fixed before docs are refreshed.
+
+## CI expectations
+
+- Regular CI should always validate the command surface through tests and the generated command manifest artifact.
+- The live examples audit is maintainer-oriented verification, not a default CI gate.
+- If a change does not affect curated examples or user-visible docs output, it should usually require test updates only.
 
 ## Documentation update rules
 

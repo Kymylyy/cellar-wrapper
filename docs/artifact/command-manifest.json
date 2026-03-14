@@ -1,0 +1,2966 @@
+[
+  {
+    "group": "lookup",
+    "command": "resolve-celex",
+    "full_name": "lookup resolve-celex",
+    "method": "resolve_celex",
+    "description": "Resolve a CELEX identifier to the canonical CELLAR work reference.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      }
+    ],
+    "return_contract": {
+      "return_type": "ActRef",
+      "item_type": null,
+      "query_name": null
+    }
+  },
+  {
+    "group": "lookup",
+    "command": "get-act",
+    "full_name": "lookup get-act",
+    "method": "get_act",
+    "description": "Fetch the main metadata card for one act when you need title, type, dates, and institutions.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      }
+    ],
+    "return_contract": {
+      "return_type": "ActDetail",
+      "item_type": null,
+      "query_name": null
+    }
+  },
+  {
+    "group": "lookup",
+    "command": "get-eurovoc",
+    "full_name": "lookup get-eurovoc",
+    "method": "get_eurovoc",
+    "description": "List the EuroVoc concepts linked to one act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "EurovocTag",
+      "query_name": "get_eurovoc"
+    }
+  },
+  {
+    "group": "lookup",
+    "command": "get-subject-matter",
+    "full_name": "lookup get-subject-matter",
+    "method": "get_subject_matter",
+    "description": "List the subject-matter concepts linked to one act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "SubjectMatterTag",
+      "query_name": "get_subject_matter"
+    }
+  },
+  {
+    "group": "lookup",
+    "command": "get-legal-basis",
+    "full_name": "lookup get-legal-basis",
+    "method": "get_legal_basis",
+    "description": "Inspect treaty basis and based-on relations, including delegated-act to base-act reverse lookup.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_legal_basis"
+    }
+  },
+  {
+    "group": "lookup",
+    "command": "get-directory-codes",
+    "full_name": "lookup get-directory-codes",
+    "method": "get_directory_codes",
+    "description": "List directory-code concepts assigned to one act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "SubjectMatterTag",
+      "query_name": "get_directory_codes"
+    }
+  },
+  {
+    "group": "lookup",
+    "command": "get-expressions",
+    "full_name": "lookup get-expressions",
+    "method": "get_expressions",
+    "description": "List language expressions and versions available for one act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "ExpressionItem",
+      "query_name": "get_expressions"
+    }
+  },
+  {
+    "group": "relations",
+    "command": "get-amendments",
+    "full_name": "relations get-amendments",
+    "method": "get_amendments",
+    "description": "Show amendment relations affecting or issued by the act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "direction",
+        "kind": "direction",
+        "cli_option": "--direction",
+        "help_text": "Relation direction to include.",
+        "required": false,
+        "is_list": false,
+        "default": "both",
+        "choices": [
+          "incoming",
+          "outgoing",
+          "both"
+        ]
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_amendments"
+    }
+  },
+  {
+    "group": "relations",
+    "command": "get-repeals",
+    "full_name": "relations get-repeals",
+    "method": "get_repeals",
+    "description": "Show explicit and implicit repeal relations affecting or issued by the act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "direction",
+        "kind": "direction",
+        "cli_option": "--direction",
+        "help_text": "Relation direction to include.",
+        "required": false,
+        "is_list": false,
+        "default": "both",
+        "choices": [
+          "incoming",
+          "outgoing",
+          "both"
+        ]
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_repeals"
+    }
+  },
+  {
+    "group": "relations",
+    "command": "get-citations",
+    "full_name": "relations get-citations",
+    "method": "get_citations",
+    "description": "Show works that cite the act when you need broad legal and non-legal references.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "direction",
+        "kind": "direction",
+        "cli_option": "--direction",
+        "help_text": "Relation direction to include.",
+        "required": false,
+        "is_list": false,
+        "default": "both",
+        "choices": [
+          "incoming",
+          "outgoing",
+          "both"
+        ]
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_citations"
+    }
+  },
+  {
+    "group": "relations",
+    "command": "get-based-on-acts",
+    "full_name": "relations get-based-on-acts",
+    "method": "get_based_on_acts",
+    "description": "Show the broad incoming based-on bucket for acts and documents derived from the act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_based_on_acts"
+    }
+  },
+  {
+    "group": "relations",
+    "command": "get-completing-acts",
+    "full_name": "relations get-completing-acts",
+    "method": "get_completing_acts",
+    "description": "Show the narrower completes relation for acts that supplement or complete the act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_completing_acts"
+    }
+  },
+  {
+    "group": "relations",
+    "command": "get-proposals-to-change",
+    "full_name": "relations get-proposals-to-change",
+    "method": "get_proposals_to_change",
+    "description": "Show proposal acts that may amend, repeal, recast, or otherwise change the act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_proposals_to_change"
+    }
+  },
+  {
+    "group": "relations",
+    "command": "get-adopted-act",
+    "full_name": "relations get-adopted-act",
+    "method": "get_adopted_act",
+    "description": "Show adopted acts linked to the act from proposal or precursor workflows.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_adopted_act"
+    }
+  },
+  {
+    "group": "relations",
+    "command": "get-related-works",
+    "full_name": "relations get-related-works",
+    "method": "get_related_works",
+    "description": "Show generic related-work links when no narrower relation command fits.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "direction",
+        "kind": "direction",
+        "cli_option": "--direction",
+        "help_text": "Relation direction to include.",
+        "required": false,
+        "is_list": false,
+        "default": "both",
+        "choices": [
+          "incoming",
+          "outgoing",
+          "both"
+        ]
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_related_works"
+    }
+  },
+  {
+    "group": "relations",
+    "command": "get-other-relations",
+    "full_name": "relations get-other-relations",
+    "method": "get_other_relations",
+    "description": "Inspect sparse catch-all legal relations such as suspend, defer, obsolete, or influence.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "direction",
+        "kind": "direction",
+        "cli_option": "--direction",
+        "help_text": "Relation direction to include.",
+        "required": false,
+        "is_list": false,
+        "default": "both",
+        "choices": [
+          "incoming",
+          "outgoing",
+          "both"
+        ]
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_other_relations"
+    }
+  },
+  {
+    "group": "relations",
+    "command": "get-article-annotations",
+    "full_name": "relations get-article-annotations",
+    "method": "get_article_annotations",
+    "description": "Retrieve OWL-style article annotations with article, paragraph, point, and legal-basis qualifiers.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "ArticleAnnotationItem",
+      "query_name": "get_article_annotations"
+    }
+  },
+  {
+    "group": "lifecycle",
+    "command": "get-consolidated-versions",
+    "full_name": "lifecycle get-consolidated-versions",
+    "method": "get_consolidated_versions",
+    "description": "List consolidated-text relations and aliases linked to the act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_consolidated_versions"
+    }
+  },
+  {
+    "group": "lifecycle",
+    "command": "get-corrigenda",
+    "full_name": "lifecycle get-corrigenda",
+    "method": "get_corrigenda",
+    "description": "List corrigenda linked to the act, defaulting to corrigendum-type rows.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_corrigenda"
+    }
+  },
+  {
+    "group": "lifecycle",
+    "command": "get-nims",
+    "full_name": "lifecycle get-nims",
+    "method": "get_nims",
+    "description": "List grouped national implementing measures for a directive or other implementation-driven act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "NIMItem",
+      "query_name": "get_nims"
+    }
+  },
+  {
+    "group": "lifecycle",
+    "command": "get-dossier",
+    "full_name": "lifecycle get-dossier",
+    "method": "get_dossier",
+    "description": "List other documents in the act's dossier when you need the dossier feed rather than a timeline.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "DossierItem",
+      "query_name": "get_dossier"
+    }
+  },
+  {
+    "group": "lifecycle",
+    "command": "get-opinions",
+    "full_name": "lifecycle get-opinions",
+    "method": "get_opinions",
+    "description": "Show opinion-like and influence-like rows, most useful on proposals and legislative packages.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_opinions"
+    }
+  },
+  {
+    "group": "lifecycle",
+    "command": "get-deadlines",
+    "full_name": "lifecycle get-deadlines",
+    "method": "get_deadlines",
+    "description": "List deadline and date-fact rows attached to the act itself.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_deadlines"
+    }
+  },
+  {
+    "group": "case-law",
+    "command": "get-cjeu-judgments",
+    "full_name": "case-law get-cjeu-judgments",
+    "method": "get_cjeu_judgments",
+    "description": "List CJEU judgments interpreting the act.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "CaseLawItem",
+      "query_name": "get_cjeu_judgments"
+    }
+  },
+  {
+    "group": "case-law",
+    "command": "get-ag-opinions",
+    "full_name": "case-law get-ag-opinions",
+    "method": "get_ag_opinions",
+    "description": "List Advocate General opinions linked to the act as a relation feed rather than a case-law payload.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "get_ag_opinions"
+    }
+  },
+  {
+    "group": "case-law",
+    "command": "get-preliminary-questions",
+    "full_name": "case-law get-preliminary-questions",
+    "method": "get_preliminary_questions",
+    "description": "List preliminary questions submitted about the act, often with sparse INFO_JUDICIAL metadata.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "CaseLawItem",
+      "query_name": "get_preliminary_questions"
+    }
+  },
+  {
+    "group": "case-law",
+    "command": "get-national-decisions",
+    "full_name": "case-law get-national-decisions",
+    "method": "get_national_decisions",
+    "description": "List national decisions referencing the act by CELEX mention, optionally filtered by country.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "country",
+        "kind": "country",
+        "cli_option": "--country",
+        "help_text": "Filter by ISO-3 country code.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "CaseLawItem",
+      "query_name": "get_national_decisions"
+    }
+  },
+  {
+    "group": "search",
+    "command": "search-by-eurovoc",
+    "full_name": "search search-by-eurovoc",
+    "method": "search_by_eurovoc",
+    "description": "Find acts by EuroVoc tags after local concept resolution.",
+    "parameters": [
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      },
+      {
+        "name": "tags",
+        "kind": "string_list",
+        "cli_option": "--tags",
+        "help_text": "One or more EuroVoc tags.",
+        "required": true,
+        "is_list": true
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "ActRef",
+      "query_name": "search_by_eurovoc"
+    }
+  },
+  {
+    "group": "search",
+    "command": "search-by-subject-matter",
+    "full_name": "search search-by-subject-matter",
+    "method": "search_by_subject_matter",
+    "description": "Find acts by subject-matter codes or labels after local concept resolution.",
+    "parameters": [
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      },
+      {
+        "name": "codes",
+        "kind": "string_list",
+        "cli_option": "--codes",
+        "help_text": "One or more subject-matter codes.",
+        "required": true,
+        "is_list": true
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "ActRef",
+      "query_name": "search_by_subject_matter"
+    }
+  },
+  {
+    "group": "search",
+    "command": "search-by-title",
+    "full_name": "search search-by-title",
+    "method": "search_by_title",
+    "description": "Find acts by title keyword with optional type and date filtering.",
+    "parameters": [
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      },
+      {
+        "name": "keyword",
+        "kind": "string",
+        "cli_option": "--keyword",
+        "help_text": "Title keyword to search.",
+        "required": true,
+        "is_list": false
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "ActRef",
+      "query_name": "search_by_title"
+    }
+  },
+  {
+    "group": "search",
+    "command": "search-communications",
+    "full_name": "search search-communications",
+    "method": "search_communications",
+    "description": "Find Commission communications by DG when you want policy and preparatory signals rather than legislation.",
+    "parameters": [
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Optional lower date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      },
+      {
+        "name": "dg",
+        "kind": "string",
+        "cli_option": "--dg",
+        "help_text": "Directorate-General code (for example FISMA).",
+        "required": true,
+        "is_list": false
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "ActRef",
+      "query_name": "search_communications"
+    }
+  },
+  {
+    "group": "search",
+    "command": "find-eurovoc-concept",
+    "full_name": "search find-eurovoc-concept",
+    "method": "find_eurovoc_concept",
+    "description": "Search the packaged local EuroVoc index for concepts matching a label.",
+    "parameters": [
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      },
+      {
+        "name": "label",
+        "kind": "string",
+        "cli_option": "--label",
+        "help_text": "EuroVoc label to match.",
+        "required": true,
+        "is_list": false
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "EurovocTag",
+      "query_name": "find_eurovoc_concept"
+    }
+  },
+  {
+    "group": "monitoring",
+    "command": "new-citations",
+    "full_name": "monitoring new-citations",
+    "method": "new_citations",
+    "description": "Monitor new citation rows for the act since a required lower date bound.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Include items from this date/time.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "new_citations"
+    }
+  },
+  {
+    "group": "monitoring",
+    "command": "new-amendments",
+    "full_name": "monitoring new-amendments",
+    "method": "new_amendments",
+    "description": "Monitor new amendment rows for the act since a required lower date bound.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Include items from this date/time.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "new_amendments"
+    }
+  },
+  {
+    "group": "monitoring",
+    "command": "new-repeals",
+    "full_name": "monitoring new-repeals",
+    "method": "new_repeals",
+    "description": "Monitor new repeal rows for the act since a required lower date bound.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Include items from this date/time.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "new_repeals"
+    }
+  },
+  {
+    "group": "monitoring",
+    "command": "new-proposals-to-change",
+    "full_name": "monitoring new-proposals-to-change",
+    "method": "new_proposals_to_change",
+    "description": "Monitor new proposals that may change the act since a required lower date bound.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Include items from this date/time.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "new_proposals_to_change"
+    }
+  },
+  {
+    "group": "monitoring",
+    "command": "new-based-on-acts",
+    "full_name": "monitoring new-based-on-acts",
+    "method": "new_based_on_acts",
+    "description": "Monitor new acts and documents derived from the act via the broad based-on relation.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Include items from this date/time.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "new_based_on_acts"
+    }
+  },
+  {
+    "group": "monitoring",
+    "command": "new-case-law",
+    "full_name": "monitoring new-case-law",
+    "method": "new_case_law",
+    "description": "Monitor new CJEU case-law items linked to the act since a required lower date bound.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Include items from this date/time.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "CaseLawItem",
+      "query_name": "new_case_law"
+    }
+  },
+  {
+    "group": "monitoring",
+    "command": "new-preliminary-questions",
+    "full_name": "monitoring new-preliminary-questions",
+    "method": "new_preliminary_questions",
+    "description": "Monitor new preliminary questions linked to the act since a required lower date bound.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Include items from this date/time.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "CaseLawItem",
+      "query_name": "new_preliminary_questions"
+    }
+  },
+  {
+    "group": "monitoring",
+    "command": "new-corrigenda",
+    "full_name": "monitoring new-corrigenda",
+    "method": "new_corrigenda",
+    "description": "Monitor new corrigenda linked to the act since a required lower date bound.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Include items from this date/time.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "new_corrigenda"
+    }
+  },
+  {
+    "group": "monitoring",
+    "command": "new-consolidated",
+    "full_name": "monitoring new-consolidated",
+    "method": "new_consolidated",
+    "description": "Monitor new consolidated-text relations linked to the act since a required lower date bound.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Include items from this date/time.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "RelationItem",
+      "query_name": "new_consolidated"
+    }
+  },
+  {
+    "group": "monitoring",
+    "command": "new-nims",
+    "full_name": "monitoring new-nims",
+    "method": "new_nims",
+    "description": "Monitor new grouped national implementing measures since a required lower date bound.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Include items from this date/time.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "NIMItem",
+      "query_name": "new_nims"
+    }
+  },
+  {
+    "group": "monitoring",
+    "command": "new-by-eurovoc",
+    "full_name": "monitoring new-by-eurovoc",
+    "method": "new_by_eurovoc",
+    "description": "Monitor new acts by EuroVoc tags since a required lower date bound.",
+    "parameters": [
+      {
+        "name": "since",
+        "kind": "since",
+        "cli_option": "--since",
+        "help_text": "Include items from this date/time.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "to",
+        "kind": "to",
+        "cli_option": "--to",
+        "help_text": "Optional upper date/time bound.",
+        "required": false,
+        "is_list": false,
+        "default": null
+      },
+      {
+        "name": "resource_types",
+        "kind": "resource_types",
+        "cli_option": "--resource-types",
+        "help_text": "Filter by one or more CELLAR resource type tokens.",
+        "required": false,
+        "is_list": true,
+        "default": null
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "limit",
+        "kind": "limit",
+        "cli_option": "--limit",
+        "help_text": "Maximum number of items to return.",
+        "required": false,
+        "is_list": false,
+        "default": 200
+      },
+      {
+        "name": "offset",
+        "kind": "offset",
+        "cli_option": "--offset",
+        "help_text": "Number of items to skip before returning results.",
+        "required": false,
+        "is_list": false,
+        "default": 0
+      },
+      {
+        "name": "tags",
+        "kind": "string_list",
+        "cli_option": "--tags",
+        "help_text": "One or more EuroVoc tags.",
+        "required": true,
+        "is_list": true
+      }
+    ],
+    "return_contract": {
+      "return_type": "ListResult",
+      "item_type": "ActRef",
+      "query_name": "new_by_eurovoc"
+    }
+  },
+  {
+    "group": "download",
+    "command": "get-text",
+    "full_name": "download get-text",
+    "method": "get_text",
+    "description": "Download the full text of an act in the requested format and language.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      },
+      {
+        "name": "format",
+        "kind": "format",
+        "cli_option": "--format",
+        "help_text": "Document format (for example pdf).",
+        "required": false,
+        "is_list": false,
+        "default": "pdf",
+        "choices": [
+          "pdf",
+          "xhtml",
+          "xml",
+          "rdf",
+          "docx"
+        ]
+      }
+    ],
+    "return_contract": {
+      "return_type": "DocumentPayload",
+      "item_type": null,
+      "query_name": null
+    }
+  },
+  {
+    "group": "download",
+    "command": "get-summary",
+    "full_name": "download get-summary",
+    "method": "get_summary",
+    "description": "Download the official summary for an act in the requested language.",
+    "parameters": [
+      {
+        "name": "celex",
+        "kind": "celex",
+        "cli_option": "--celex",
+        "help_text": "CELEX identifier.",
+        "required": true,
+        "is_list": false
+      },
+      {
+        "name": "lang",
+        "kind": "lang",
+        "cli_option": "--lang",
+        "help_text": "Language code.",
+        "required": false,
+        "is_list": false,
+        "default": "eng"
+      }
+    ],
+    "return_contract": {
+      "return_type": "DocumentPayload",
+      "item_type": null,
+      "query_name": null
+    }
+  }
+]

@@ -174,7 +174,7 @@
         "meta": {
           "query_name": "get_eurovoc",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:27:46.384668Z",
+          "executed_at": "2026-03-14T12:20:02.104208Z",
           "limit": 200,
           "offset": 0
         }
@@ -206,7 +206,7 @@
         "meta": {
           "query_name": "get_subject_matter",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:27:49.539158Z",
+          "executed_at": "2026-03-14T12:20:05.207008Z",
           "limit": 200,
           "offset": 0
         }
@@ -281,7 +281,7 @@
         "meta": {
           "query_name": "get_legal_basis",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:27:52.736315Z",
+          "executed_at": "2026-03-14T12:20:08.385103Z",
           "limit": 5,
           "offset": 0
         }
@@ -313,7 +313,7 @@
         "meta": {
           "query_name": "get_directory_codes",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:27:55.901734Z",
+          "executed_at": "2026-03-14T12:20:11.407374Z",
           "limit": 200,
           "offset": 0
         }
@@ -353,7 +353,7 @@
         "meta": {
           "query_name": "get_expressions",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:27:59.108418Z",
+          "executed_at": "2026-03-14T12:20:14.891104Z",
           "limit": 3,
           "offset": 0
         }
@@ -410,7 +410,7 @@
         "meta": {
           "query_name": "get_amendments",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:02.320459Z",
+          "executed_at": "2026-03-14T12:20:18.473831Z",
           "limit": 3,
           "offset": 0
         }
@@ -457,7 +457,7 @@
         "meta": {
           "query_name": "get_amendments",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:05.589518Z",
+          "executed_at": "2026-03-14T12:20:21.979740Z",
           "limit": 3,
           "offset": 0
         }
@@ -514,7 +514,7 @@
         "meta": {
           "query_name": "get_amendments",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:08.796221Z",
+          "executed_at": "2026-03-14T12:20:24.962928Z",
           "limit": 3,
           "offset": 0
         }
@@ -540,7 +540,7 @@
         "meta": {
           "query_name": "get_amendments",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:24.984990Z",
+          "executed_at": "2026-03-14T12:20:27.694039Z",
           "limit": 10,
           "offset": 0
         }
@@ -597,7 +597,7 @@
         "meta": {
           "query_name": "get_repeals",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:11.984278Z",
+          "executed_at": "2026-03-14T12:20:30.583745Z",
           "limit": 10,
           "offset": 0
         }
@@ -684,7 +684,7 @@
         "meta": {
           "query_name": "get_repeals",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:15.157849Z",
+          "executed_at": "2026-03-14T12:20:33.396183Z",
           "limit": 10,
           "offset": 0
         }
@@ -721,7 +721,7 @@
         "meta": {
           "query_name": "get_repeals",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:18.374867Z",
+          "executed_at": "2026-03-14T12:20:36.068540Z",
           "limit": 10,
           "offset": 0
         }
@@ -747,7 +747,7 @@
         "meta": {
           "query_name": "get_repeals",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:21.849920Z",
+          "executed_at": "2026-03-14T12:20:39.138087Z",
           "limit": 10,
           "offset": 0
         }
@@ -824,7 +824,7 @@
         "meta": {
           "query_name": "get_citations",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:28.259375Z",
+          "executed_at": "2026-03-14T12:20:42.111555Z",
           "limit": 5,
           "offset": 0
         }
@@ -880,7 +880,7 @@
         "meta": {
           "query_name": "get_based_on_acts",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:31.503000Z",
+          "executed_at": "2026-03-14T12:20:44.768167Z",
           "limit": 3,
           "offset": 0
         }
@@ -904,7 +904,7 @@
         "meta": {
           "query_name": "get_based_on_acts",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:35.136192Z",
+          "executed_at": "2026-03-14T12:20:47.417148Z",
           "limit": 200,
           "offset": 0
         }
@@ -980,7 +980,7 @@
         "meta": {
           "query_name": "get_completing_acts",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:38.510558Z",
+          "executed_at": "2026-03-14T12:20:50.131963Z",
           "limit": 5,
           "offset": 0
         }
@@ -1026,7 +1026,7 @@
         "meta": {
           "query_name": "get_proposals_to_change",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:41.761945Z",
+          "executed_at": "2026-03-14T12:20:53.062446Z",
           "limit": 20,
           "offset": 0
         }
@@ -1072,7 +1072,7 @@
         "meta": {
           "query_name": "get_proposals_to_change",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:45.037167Z",
+          "executed_at": "2026-03-14T12:20:55.848839Z",
           "limit": 20,
           "offset": 0
         }
@@ -1128,7 +1128,7 @@
         "meta": {
           "query_name": "get_proposals_to_change",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:48.254206Z",
+          "executed_at": "2026-03-14T12:20:58.970344Z",
           "limit": 20,
           "offset": 0
         }
@@ -1153,7 +1153,7 @@
         "meta": {
           "query_name": "get_adopted_act",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:51.588109Z",
+          "executed_at": "2026-03-14T12:21:01.735497Z",
           "limit": 10,
           "offset": 0
         }
@@ -1189,7 +1189,7 @@
         "meta": {
           "query_name": "get_related_works",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:54.786957Z",
+          "executed_at": "2026-03-14T12:21:04.738108Z",
           "limit": 20,
           "offset": 0
         }
@@ -1255,7 +1255,7 @@
         "meta": {
           "query_name": "get_related_works",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:28:58.236892Z",
+          "executed_at": "2026-03-14T12:21:07.678024Z",
           "limit": 20,
           "offset": 0
         }
@@ -1302,7 +1302,7 @@
         "meta": {
           "query_name": "get_other_relations",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:07.656595Z",
+          "executed_at": "2026-03-14T12:21:10.703234Z",
           "limit": 10,
           "offset": 0
         }
@@ -1339,7 +1339,7 @@
         "meta": {
           "query_name": "get_other_relations",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:11.352646Z",
+          "executed_at": "2026-03-14T12:21:13.671867Z",
           "limit": 10,
           "offset": 0
         }
@@ -1445,7 +1445,7 @@
         "meta": {
           "query_name": "get_article_annotations",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T14:01:34.780515Z",
+          "executed_at": "2026-03-14T12:21:17.140782Z",
           "limit": 5,
           "offset": 8
         }
@@ -1531,7 +1531,7 @@
         "meta": {
           "query_name": "get_consolidated_versions",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:15.049030Z",
+          "executed_at": "2026-03-14T12:21:19.938214Z",
           "limit": 6,
           "offset": 0
         }
@@ -1617,7 +1617,7 @@
         "meta": {
           "query_name": "get_consolidated_versions",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:18.911685Z",
+          "executed_at": "2026-03-14T12:21:23.110838Z",
           "limit": 6,
           "offset": 0
         }
@@ -1702,7 +1702,7 @@
         "meta": {
           "query_name": "get_corrigenda",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:22.202498Z",
+          "executed_at": "2026-03-14T12:21:26.280396Z",
           "limit": 200,
           "offset": 0
         }
@@ -1914,7 +1914,7 @@
         "meta": {
           "query_name": "get_nims",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:46.658143Z",
+          "executed_at": "2026-03-14T12:21:35.462237Z",
           "limit": 10,
           "offset": 0
         }
@@ -1939,7 +1939,7 @@
         "meta": {
           "query_name": "get_nims",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:49.760904Z",
+          "executed_at": "2026-03-14T12:21:38.665058Z",
           "limit": 5,
           "offset": 0
         }
@@ -2055,7 +2055,7 @@
         "meta": {
           "query_name": "get_dossier",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:29.787615Z",
+          "executed_at": "2026-03-14T12:21:41.647319Z",
           "limit": 5,
           "offset": 0
         }
@@ -2171,7 +2171,7 @@
         "meta": {
           "query_name": "get_dossier",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:33.548593Z",
+          "executed_at": "2026-03-14T12:21:44.665358Z",
           "limit": 5,
           "offset": 0
         }
@@ -2256,7 +2256,7 @@
         "meta": {
           "query_name": "get_opinions",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:25.875556Z",
+          "executed_at": "2026-03-14T12:21:47.897654Z",
           "limit": 200,
           "offset": 0
         }
@@ -2310,7 +2310,7 @@
         "meta": {
           "query_name": "get_deadlines",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T09:29:36.995630Z",
+          "executed_at": "2026-03-14T12:21:50.792835Z",
           "limit": 200,
           "offset": 0
         }
@@ -2455,7 +2455,7 @@
         "meta": {
           "query_name": "get_deadlines",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T13:18:19.039079Z",
+          "executed_at": "2026-03-14T12:21:53.726220Z",
           "limit": 50,
           "offset": 0
         }
@@ -2536,7 +2536,7 @@
         "meta": {
           "query_name": "get_cjeu_judgments",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T13:35:34.916896Z",
+          "executed_at": "2026-03-14T12:21:56.418189Z",
           "limit": 5,
           "offset": 0
         }
@@ -2592,7 +2592,7 @@
         "meta": {
           "query_name": "get_ag_opinions",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T13:25:23.790945Z",
+          "executed_at": "2026-03-14T12:21:59.099647Z",
           "limit": 5,
           "offset": 0
         }
@@ -2673,7 +2673,7 @@
         "meta": {
           "query_name": "get_national_decisions",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T13:35:30.613174Z",
+          "executed_at": "2026-03-14T12:21:59.307380Z",
           "limit": 5,
           "offset": 0
         }
@@ -2697,7 +2697,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/76088f46-814e-11f0-9af8-01aa75ed71a1",
             "celex": "62025CN0339",
-            "title": "Case C-339/25, Iulicris Recycling: Request for a preliminary ruling from the Tribunal de l’entreprise francophone de Bruxelles (Belgium) lodged on 17 May 2025 - Iulicris Recycling v Ibanfirst SA",
+            "title": "Case C-339/25, Iulicris Recycling: Request for a preliminary ruling from the Tribunal de l’entreprise francophone de Bruxelles (Belgium) lodged on 17 May 2025 – Iulicris Recycling v Ibanfirst SA",
             "date": "2025-05-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -2708,7 +2708,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/6c8d3203-70cb-11f0-bf4e-01aa75ed71a1",
             "celex": "62025CN0274",
-            "title": "Case C-274/25, Alternative Payments: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 10 April 2025 - Alternative Payments UAB v Lietuvos bankas",
+            "title": "Case C-274/25, Alternative Payments: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 10 April 2025 – Alternative Payments UAB v Lietuvos bankas",
             "date": "2025-04-10T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -2719,7 +2719,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/f9f8f7ce-2eca-11f0-8a44-01aa75ed71a1",
             "celex": "62025CN0070",
-            "title": "Case C-70/25, Tukowiecka: Request for a preliminary ruling from the Sad Rejonowy w Koszalinie (Poland) lodged on 3 February 2025 - N.O. v PKO BP S.A.",
+            "title": "Case C-70/25, Tukowiecka: Request for a preliminary ruling from the Sąd Rejonowy w Koszalinie (Poland) lodged on 3 February 2025 – N.O. v PKO BP S.A.",
             "date": "2025-02-03T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -2730,7 +2730,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/258e4b1e-1f12-11f0-b1a3-01aa75ed71a1",
             "celex": "62025CN0051",
-            "title": "Case C-51/25, Betaal Garant Nederland: Request for a preliminary ruling from the College van Beroep voor het bedrijfsleven (Netherlands) lodged on 28 January 2025 - Betaal Garant Nederland CV v De Nederlandsche Bank NV; other party: Vereniging Eigen Huis",
+            "title": "Case C-51/25, Betaal Garant Nederland: Request for a preliminary ruling from the College van Beroep voor het bedrijfsleven (Netherlands) lodged on 28 January 2025 – Betaal Garant Nederland CV v De Nederlandsche Bank NV; other party: Vereniging Eigen Huis",
             "date": "2025-01-28T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -2741,7 +2741,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/7dc819e5-7f45-11ed-9887-01aa75ed71a1",
             "celex": "62022CN0661",
-            "title": "Case C-661/22: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 20 October 2022 - Bruc Bond UAB v Lietuvos bankas",
+            "title": "Case C-661/22: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 20 October 2022 — Bruc Bond UAB v Lietuvos bankas",
             "date": "2022-10-20T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -2754,7 +2754,7 @@
         "meta": {
           "query_name": "get_preliminary_questions",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-13T13:38:00.964559Z",
+          "executed_at": "2026-03-14T12:22:02.233830Z",
           "limit": 5,
           "offset": 0
         }
@@ -2786,14 +2786,14 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/11f5ab89-0c6c-11f1-8870-01aa75ed71a1",
             "celex": "52026M11942",
-            "title": "Prior notification of a concentration (Case M.11942 - DEUTSCHE POST / CTT / JVs)",
+            "title": "Prior notification of a concentration (Case M.11942 – DEUTSCHE POST / CTT / JVs)",
             "date": "2026-02-18T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/ANNOUNC"
           },
           {
             "uri": "http://publications.europa.eu/resource/cellar/85344194-185f-11f1-8870-01aa75ed71a1",
             "celex": "52026M12257(01)",
-            "title": "Non-opposition to a notified concentration (Case M.12257 - ING GROUP / GS TFI)",
+            "title": "Non-opposition to a notified concentration (Case M.12257 – ING GROUP / GS TFI)",
             "date": "2026-02-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTICE"
           },
@@ -2807,7 +2807,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/916d0432-12b4-11f1-8870-01aa75ed71a1",
             "celex": "52026M12215(01)",
-            "title": "Non-opposition to a notified concentration (Case M.12215 - SAGARD UK / UNIGESTION PE)",
+            "title": "Non-opposition to a notified concentration (Case M.12215 – SAGARD UK / UNIGESTION PE)",
             "date": "2026-02-11T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTICE"
           }
@@ -2816,7 +2816,7 @@
         "meta": {
           "query_name": "search_by_eurovoc",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T11:38:51.189498Z",
+          "executed_at": "2026-03-14T12:22:02.572329Z",
           "limit": 5,
           "offset": 0
         }
@@ -2879,7 +2879,7 @@
         "meta": {
           "query_name": "search_by_eurovoc",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T11:38:52.378298Z",
+          "executed_at": "2026-03-14T12:22:02.646756Z",
           "limit": 5,
           "offset": 0
         }
@@ -2929,7 +2929,7 @@
         "meta": {
           "query_name": "search_by_eurovoc",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T11:39:20.919213Z",
+          "executed_at": "2026-03-14T12:22:02.718245Z",
           "limit": 5,
           "offset": 0
         }
@@ -2975,7 +2975,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/3ece6ff5-1a23-11f1-9769-01aa75ed71a1",
             "celex": null,
-            "title": "European Parliament decision of 10 February 2026 on the proposal of the European Central Bank for the appointment of the Vice-Chair of the Supervisory Board of the European Central Bank (N10-0080/2025 - C10-0366/2025 - 2025/0906(NLE))",
+            "title": "European Parliament decision of 10 February 2026 on the proposal of the European Central Bank for the appointment of the Vice-Chair of the Supervisory Board of the European Central Bank (N10-0080/2025 – C10-0366/2025 – 2025/0906(NLE))",
             "date": "2026-02-10T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/ADOPT_TEXT"
           },
@@ -2991,7 +2991,7 @@
         "meta": {
           "query_name": "search_by_subject_matter",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T11:51:07.038295Z",
+          "executed_at": "2026-03-14T12:22:03.088435Z",
           "limit": 5,
           "offset": 0
         }
@@ -3054,7 +3054,7 @@
         "meta": {
           "query_name": "search_by_subject_matter",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T11:52:19.386699Z",
+          "executed_at": "2026-03-14T12:22:03.170195Z",
           "limit": 5,
           "offset": 0
         }
@@ -3097,7 +3097,7 @@
         "meta": {
           "query_name": "search_by_subject_matter",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T11:52:19.760572Z",
+          "executed_at": "2026-03-14T12:22:03.247473Z",
           "limit": 5,
           "offset": 0
         }
@@ -3157,7 +3157,7 @@
         "meta": {
           "query_name": "search_by_title",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T12:05:52.745980Z",
+          "executed_at": "2026-03-14T12:22:18.824934Z",
           "limit": 5,
           "offset": 0
         }
@@ -3217,7 +3217,7 @@
         "meta": {
           "query_name": "search_by_title",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T12:05:52.862002Z",
+          "executed_at": "2026-03-14T12:23:06.234190Z",
           "limit": 5,
           "offset": 0
         }
@@ -3277,7 +3277,7 @@
         "meta": {
           "query_name": "search_by_title",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T12:05:58.495027Z",
+          "executed_at": "2026-03-14T12:23:22.609784Z",
           "limit": 5,
           "offset": 0
         }
@@ -3337,7 +3337,7 @@
         "meta": {
           "query_name": "search_communications",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T12:03:20.012945Z",
+          "executed_at": "2026-03-14T12:23:22.912656Z",
           "limit": 5,
           "offset": 0
         }
@@ -3391,7 +3391,7 @@
         "meta": {
           "query_name": "search_communications",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T12:03:20.004532Z",
+          "executed_at": "2026-03-14T12:23:23.162176Z",
           "limit": 5,
           "offset": 0
         }
@@ -3439,7 +3439,7 @@
         "meta": {
           "query_name": "search_communications",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
-          "executed_at": "2026-03-14T12:03:50.439524Z",
+          "executed_at": "2026-03-14T12:23:23.429612Z",
           "limit": 5,
           "offset": 0
         }
@@ -3504,7 +3504,7 @@
         "meta": {
           "query_name": "find_eurovoc_concept",
           "endpoint": "local://eurovoc-index",
-          "executed_at": "2026-03-14T12:10:33.827022Z",
+          "executed_at": "2026-03-14T12:23:23.429932Z",
           "limit": 10,
           "offset": 0
         }
@@ -3569,7 +3569,7 @@
         "meta": {
           "query_name": "find_eurovoc_concept",
           "endpoint": "local://eurovoc-index",
-          "executed_at": "2026-03-14T12:10:33.828533Z",
+          "executed_at": "2026-03-14T12:23:23.430125Z",
           "limit": 10,
           "offset": 0
         }

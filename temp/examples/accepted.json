@@ -2760,5 +2760,180 @@
         }
       }
     }
+  },
+  {
+    "label": "Financial Services",
+    "command": "search search-by-eurovoc",
+    "purpose": "Checks broad EuroVoc-based act search for a high-level financial-services tag without a resource-type filter, showing that results can span mixed CELLAR work types and may include null CELEX values.",
+    "args": {
+      "tags": [
+        "financial services"
+      ],
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/c0e8b0b0-1c81-11f1-8c3a-01aa75ed71a1",
+            "celex": null,
+            "title": "Proposal for a Directive amending Directive 2011/61/EU as regards supporting the scaling-up and cross-border operations of venture capital and growth capital funds",
+            "date": "2026-03-10T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CFE_IMPACT_ASSESS"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/11f5ab89-0c6c-11f1-8870-01aa75ed71a1",
+            "celex": "52026M11942",
+            "title": "Prior notification of a concentration (Case M.11942 - DEUTSCHE POST / CTT / JVs)",
+            "date": "2026-02-18T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/ANNOUNC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/85344194-185f-11f1-8870-01aa75ed71a1",
+            "celex": "52026M12257(01)",
+            "title": "Non-opposition to a notified concentration (Case M.12257 - ING GROUP / GS TFI)",
+            "date": "2026-02-17T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTICE"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/a3c6d9ac-0806-11f1-825d-01aa75ed71a1",
+            "celex": null,
+            "title": "Communication from the Commission to the European Parliament, the European Council, the Council, the European Central Bank, the European Economic and Social Committee and the Committee of the Regions on the competitiveness of the Single Banking Market",
+            "date": "2026-02-12T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CALL_FOR_EVIDENCE"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/916d0432-12b4-11f1-8870-01aa75ed71a1",
+            "celex": "52026M12215(01)",
+            "title": "Non-opposition to a notified concentration (Case M.12215 - SAGARD UK / UNIGESTION PE)",
+            "date": "2026-02-11T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTICE"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "search_by_eurovoc",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T11:38:51.189498Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "Financial Services",
+    "command": "search search-by-eurovoc",
+    "purpose": "Checks EuroVoc-based act search for the same broad tag constrained to proposal regulations, yielding a much cleaner proposal-only feed.",
+    "args": {
+      "tags": [
+        "financial services"
+      ],
+      "resource_type": "PROP_REG",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/83376982-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0941",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/a578f185-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0943",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/23700e5f-c5f9-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0841",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulation (EU) 2019/2088 on sustainability-related disclosures in the financial services sector (SFDR), Regulation (EU) No 1286/2014 on key information documents for packaged retail and insurance-based investment products (PRIIPs) and repealing Commission Delegated Regulation (EU) 2022/1288",
+            "date": "2025-11-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/7ec6d613-1687-11ee-806b-01aa75ed71a1",
+            "celex": "52023PC0368",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on the provision of digital euro services by payment services providers incorporated in Member States whose currency is not the euro and amending Regulation (EU) 2021/1230 of the European Parliament and the Council",
+            "date": "2023-06-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/484c28ce-168b-11ee-806b-01aa75ed71a1",
+            "celex": "52023PC0360",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on a framework for Financial Data Access and amending Regulations (EU) No 1093/2010, (EU) No 1094/2010, (EU) No 1095/2010 and (EU) 2022/2554",
+            "date": "2023-06-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "search_by_eurovoc",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T11:38:52.378298Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "Financial Services",
+    "command": "search search-by-eurovoc",
+    "purpose": "Checks the same EuroVoc proposal-regulation search with a since filter, showing how the date bound narrows the broad proposal feed to only recent 2025 items.",
+    "args": {
+      "tags": [
+        "financial services"
+      ],
+      "resource_type": "PROP_REG",
+      "since": "2025-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/83376982-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0941",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/a578f185-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0943",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/23700e5f-c5f9-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0841",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulation (EU) 2019/2088 on sustainability-related disclosures in the financial services sector (SFDR), Regulation (EU) No 1286/2014 on key information documents for packaged retail and insurance-based investment products (PRIIPs) and repealing Commission Delegated Regulation (EU) 2022/1288",
+            "date": "2025-11-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          }
+        ],
+        "returned_count": 3,
+        "meta": {
+          "query_name": "search_by_eurovoc",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T11:39:20.919213Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
   }
 ]

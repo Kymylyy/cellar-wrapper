@@ -2996,7 +2996,7 @@ Purpose: Checks EuroVoc-based act search for the same broad tag constrained to p
 
 CLI:
 ```bash
-cellar search search-by-eurovoc --tags 'financial services' --resource-type PROP_REG --lang eng --limit 5
+cellar search search-by-eurovoc --tags 'financial services' --lang eng --limit 5 --resource-types PROP_REG
 ```
 
 Output:
@@ -3059,7 +3059,7 @@ Purpose: Checks the same EuroVoc proposal-regulation search with a since filter,
 
 CLI:
 ```bash
-cellar search search-by-eurovoc --tags 'financial services' --resource-type PROP_REG --since 2025-01-01 --lang eng --limit 5
+cellar search search-by-eurovoc --tags 'financial services' --since 2025-01-01 --lang eng --limit 5 --resource-types PROP_REG
 ```
 
 Output:
@@ -3095,6 +3095,69 @@ Output:
       "query_name": "search_by_eurovoc",
       "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
       "executed_at": "2026-03-14T12:22:02.718245Z",
+      "limit": 5,
+      "offset": 0
+    }
+  }
+}
+```
+
+#### Financial Services
+
+Purpose: Checks EuroVoc-based act search for the same broad tag constrained to both proposal regulations and proposal directives, showing that one query can return a mixed but still intentional legislative-proposal feed.
+
+CLI:
+```bash
+cellar search search-by-eurovoc --tags 'financial services' --resource-types PROP_REG PROP_DIR --lang eng --limit 5
+```
+
+Output:
+```json
+{
+  "ok": true,
+  "data": {
+    "items": [
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/83376982-d0ff-11f0-8da2-01aa75ed71a1",
+        "celex": "52025PC0941",
+        "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+        "date": "2025-12-04T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/a578f185-d0ff-11f0-8da2-01aa75ed71a1",
+        "celex": "52025PC0943",
+        "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union",
+        "date": "2025-12-04T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/e669f689-d0fe-11f0-8da2-01aa75ed71a1",
+        "celex": "52025PC0942",
+        "title": "Proposal for a DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union",
+        "date": "2025-12-04T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_DIR"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/23700e5f-c5f9-11f0-8da2-01aa75ed71a1",
+        "celex": "52025PC0841",
+        "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulation (EU) 2019/2088 on sustainability-related disclosures in the financial services sector (SFDR), Regulation (EU) No 1286/2014 on key information documents for packaged retail and insurance-based investment products (PRIIPs) and repealing Commission Delegated Regulation (EU) 2022/1288",
+        "date": "2025-11-20T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/7ec6d613-1687-11ee-806b-01aa75ed71a1",
+        "celex": "52023PC0368",
+        "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on the provision of digital euro services by payment services providers incorporated in Member States whose currency is not the euro and amending Regulation (EU) 2021/1230 of the European Parliament and the Council",
+        "date": "2023-06-28T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+      }
+    ],
+    "returned_count": 5,
+    "meta": {
+      "query_name": "search_by_eurovoc",
+      "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+      "executed_at": "2026-03-14T13:15:19.806497Z",
       "limit": 5,
       "offset": 0
     }
@@ -3173,7 +3236,7 @@ Purpose: Checks the same subject-matter search constrained to draft national-leg
 
 CLI:
 ```bash
-cellar search search-by-subject-matter --codes bank --resource-type OPIN_DRAFT_NATION_LEGIS --lang eng --limit 5
+cellar search search-by-subject-matter --codes bank --lang eng --limit 5 --resource-types OPIN_DRAFT_NATION_LEGIS
 ```
 
 Output:
@@ -3236,7 +3299,7 @@ Purpose: Checks the same filtered subject-matter search with a since bound, show
 
 CLI:
 ```bash
-cellar search search-by-subject-matter --codes bank --resource-type OPIN_DRAFT_NATION_LEGIS --since 2026-01-01 --lang eng --limit 5
+cellar search search-by-subject-matter --codes bank --since 2026-01-01 --lang eng --limit 5 --resource-types OPIN_DRAFT_NATION_LEGIS
 ```
 
 Output:
@@ -3265,6 +3328,69 @@ Output:
       "query_name": "search_by_subject_matter",
       "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
       "executed_at": "2026-03-14T12:22:03.247473Z",
+      "limit": 5,
+      "offset": 0
+    }
+  }
+}
+```
+
+#### Bank
+
+Purpose: Checks the same subject-matter search constrained to both Council decisions and draft national-legislation ECB opinions, showing that one query can intentionally mix two selected document families.
+
+CLI:
+```bash
+cellar search search-by-subject-matter --codes bank --resource-types DEC OPIN_DRAFT_NATION_LEGIS --since 2025-01-01 --lang eng --limit 5
+```
+
+Output:
+```json
+{
+  "ok": true,
+  "data": {
+    "items": [
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/4f25b2a1-1c5e-11f1-8c3a-01aa75ed71a1",
+        "celex": "52026AB0008",
+        "title": "Opinion of the European Central Bank of 9 March 2026 on emergency powers (CON/2026/8)",
+        "date": "2026-03-09T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/5cb8d511-0dfd-11f1-8870-01aa75ed71a1",
+        "celex": "32026D0423",
+        "title": "Council Decision (EU) 2026/423 of 17 February 2026 amending Decision 1999/70/EC concerning the external auditors of the national central banks, as regards the external auditors of Banka Slovenije",
+        "date": "2026-02-17T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/4f228037-16a2-11f1-8870-01aa75ed71a1",
+        "celex": "32026D0443",
+        "title": "Council Decision (EU) 2026/443 of 17 February 2026 amending Decision 1999/70/EC concerning the external auditors of the national central banks, as regards the external auditors of Eesti Pank",
+        "date": "2026-02-17T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/27d2f44a-f5fe-11f0-b9bc-01aa75ed71a1",
+        "celex": "52026AB0002",
+        "title": "Opinion of the European Central Bank of 19 January 2026 on the supervisory independence of the Banque nationale de Belgique/Nationale Bank van België, the prevention of conflicts of interest of its members of staff and governance bodies, independent directors and strategic decisions of credit institutions (CON/2026/2)",
+        "date": "2026-01-19T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/e84e4a3e-e4af-11f0-abd8-01aa75ed71a1",
+        "celex": "52025AB0045",
+        "title": "Opinion of the European Central Bank of 19 December 2025 on an increase in a tax imposed on credit institutions (CON/2025/45)",
+        "date": "2025-12-19T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+      }
+    ],
+    "returned_count": 5,
+    "meta": {
+      "query_name": "search_by_subject_matter",
+      "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+      "executed_at": "2026-03-14T13:15:20.920838Z",
       "limit": 5,
       "offset": 0
     }
@@ -3393,6 +3519,62 @@ Output:
       "query_name": "search_by_title",
       "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
       "executed_at": "2026-03-14T12:23:06.234190Z",
+      "limit": 5,
+      "offset": 0
+    }
+  }
+}
+```
+
+#### Crypto-assets
+
+Purpose: Checks title-keyword search for a thematic crypto phrase constrained to implementing regulations and general publications, showing that multi-type filtering keeps the result set inside the selected type family.
+
+CLI:
+```bash
+cellar search search-by-title --keyword crypto-assets --resource-types REG_IMPL PUB_GEN --since 2024-01-01 --lang eng --limit 5
+```
+
+Output:
+```json
+{
+  "ok": true,
+  "data": {
+    "items": [
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/ca0223e9-ca69-11f0-8da2-01aa75ed71a1",
+        "celex": "32025R2263",
+        "title": "Commission Implementing Regulation (EU) 2025/2263 of 12 November 2025 amending Implementing Regulation (EU) 2015/2378 as regards the standard forms and computerised formats for the mandatory automatic exchange of information on reportable crypto-assets, the communication of the yearly assessment and the list of statistical data to be provided by Member States under Council Directive 2011/16/EU",
+        "date": "2025-11-12T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_IMPL"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/3ecd3719-afd0-11f0-b37f-01aa75ed71a1",
+        "celex": null,
+        "title": "Crypto-assets and decentralised finance : report on stablecoins, crypto-investment products and multifunction groups : October 2025.",
+        "date": "2025-10-21T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PUB_GEN"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/bd1d673a-a3ee-11f0-97c8-01aa75ed71a1",
+        "celex": null,
+        "title": "Study for developing a methodology and sustainability standards for mitigating the environmental impact of crypto-assets : executive summary.",
+        "date": "2025-10-06T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PUB_GEN"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/84f272d4-a3f2-11f0-97c8-01aa75ed71a1",
+        "celex": null,
+        "title": "Study for developing a methodology and sustainability standards for mitigating the environmental impact of crypto-assets : final report.",
+        "date": "2025-10-06T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PUB_GEN"
+      }
+    ],
+    "returned_count": 4,
+    "meta": {
+      "query_name": "search_by_title",
+      "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+      "executed_at": "2026-03-14T13:15:23.265548Z",
       "limit": 5,
       "offset": 0
     }
@@ -3859,7 +4041,7 @@ Purpose: Checks new legal-act citations for MiCA since 2025-10-01 by filtering m
 
 CLI:
 ```bash
-cellar monitoring new-citations --celex 32023R1114 --since 2025-10-01 --resource-type REG --lang eng --limit 5
+cellar monitoring new-citations --celex 32023R1114 --since 2025-10-01 --lang eng --limit 5 --resource-types REG
 ```
 
 Output:
@@ -4080,6 +4262,54 @@ Output:
       "query_name": "new_amendments",
       "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
       "executed_at": "2026-03-14T12:31:27.798973Z",
+      "limit": 5,
+      "offset": 0
+    }
+  }
+}
+```
+
+#### PSD2
+
+Purpose: Checks new amendment relations for PSD2 since 2022-12-01 constrained to both directives and regulations, showing that monitoring filters can now express a multi-type OR over legal acts.
+
+CLI:
+```bash
+cellar monitoring new-amendments --celex 32015L2366 --since 2022-12-01 --resource-types DIR REG --lang eng --limit 5
+```
+
+Output:
+```json
+{
+  "ok": true,
+  "data": {
+    "items": [
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/d395dbf7-e597-11ee-8b2b-01aa75ed71a1",
+        "celex": "32024R0886",
+        "title": "Regulation (EU) 2024/886 of the European Parliament and of the Council of 13 March 2024 amending Regulations (EU) No 260/2012 and (EU) 2021/1230 and Directives 98/26/EC and (EU) 2015/2366 as regards instant credit transfers in euro (Text with EEA relevance)",
+        "date": "2024-03-13T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
+        "direction": "incoming",
+        "predicate": "cdm:resource_legal_amends_resource_legal",
+        "relation_type": "amends"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/e2e67364-85bd-11ed-9887-01aa75ed71a1",
+        "celex": "32022L2556",
+        "title": "Directive (EU) 2022/2556 of the European Parliament and of the Council of 14 December 2022 amending Directives 2009/65/EC, 2009/138/EC, 2011/61/EU, 2013/36/EU, 2014/59/EU, 2014/65/EU, (EU) 2015/2366 and (EU) 2016/2341 as regards digital operational resilience for the financial sector (Text with EEA relevance)",
+        "date": "2022-12-14T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
+        "direction": "incoming",
+        "predicate": "cdm:resource_legal_amends_resource_legal",
+        "relation_type": "amends"
+      }
+    ],
+    "returned_count": 2,
+    "meta": {
+      "query_name": "new_amendments",
+      "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+      "executed_at": "2026-03-14T13:15:26.772438Z",
       "limit": 5,
       "offset": 0
     }
@@ -4932,7 +5162,7 @@ Purpose: Checks EuroVoc-based monitoring for a broad financial-services tag cons
 
 CLI:
 ```bash
-cellar monitoring new-by-eurovoc --tags 'financial services' --since 2025-01-01 --resource-type PROP_REG --lang eng --limit 5
+cellar monitoring new-by-eurovoc --tags 'financial services' --since 2025-01-01 --lang eng --limit 5 --resource-types PROP_REG
 ```
 
 Output:
@@ -4968,6 +5198,62 @@ Output:
       "query_name": "new_by_eurovoc",
       "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
       "executed_at": "2026-03-14T12:47:33.526179Z",
+      "limit": 5,
+      "offset": 0
+    }
+  }
+}
+```
+
+#### Financial Services
+
+Purpose: Checks EuroVoc-based monitoring for the same broad financial-services tag constrained to both proposal regulations and proposal directives, showing that monitoring now supports the same multi-type union filter as search.
+
+CLI:
+```bash
+cellar monitoring new-by-eurovoc --tags 'financial services' --since 2025-01-01 --resource-types PROP_REG PROP_DIR --lang eng --limit 5
+```
+
+Output:
+```json
+{
+  "ok": true,
+  "data": {
+    "items": [
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/83376982-d0ff-11f0-8da2-01aa75ed71a1",
+        "celex": "52025PC0941",
+        "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+        "date": "2025-12-04T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/a578f185-d0ff-11f0-8da2-01aa75ed71a1",
+        "celex": "52025PC0943",
+        "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union",
+        "date": "2025-12-04T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/e669f689-d0fe-11f0-8da2-01aa75ed71a1",
+        "celex": "52025PC0942",
+        "title": "Proposal for a DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union",
+        "date": "2025-12-04T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_DIR"
+      },
+      {
+        "uri": "http://publications.europa.eu/resource/cellar/23700e5f-c5f9-11f0-8da2-01aa75ed71a1",
+        "celex": "52025PC0841",
+        "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulation (EU) 2019/2088 on sustainability-related disclosures in the financial services sector (SFDR), Regulation (EU) No 1286/2014 on key information documents for packaged retail and insurance-based investment products (PRIIPs) and repealing Commission Delegated Regulation (EU) 2022/1288",
+        "date": "2025-11-20T00:00:00",
+        "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+      }
+    ],
+    "returned_count": 4,
+    "meta": {
+      "query_name": "new_by_eurovoc",
+      "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+      "executed_at": "2026-03-14T13:15:20.352360Z",
       "limit": 5,
       "offset": 0
     }

@@ -2,29 +2,94 @@
 
 [![CI](https://github.com/Kymylyy/cellar-wrapper/actions/workflows/ci.yml/badge.svg)](https://github.com/Kymylyy/cellar-wrapper/actions/workflows/ci.yml)
 
-Typed, sync-first Python wrapper for EU Publications Office CELLAR, focused on predictable contracts for legal and compliance data workflows.
+`cellar-wrapper` helps you pull legal and legislative data from the EU Publications Office CELLAR service in a more practical way.
+
+You can use it:
+
+- as a Python library,
+- from the command line,
+- or as an MCP server for AI/tool integrations.
 
 This project is community-maintained and unofficial. It is not affiliated with, endorsed by, or operated by the European Union or the Publications Office of the European Union.
 
-## Features
+## Important status
 
-- Typed `CellarClient` covering lookup, search, lifecycle, relations, case-law, monitoring, and download methods.
-- JSON-first CLI (`cellar`) with command groups that mirror API areas.
-- Optional MCP server runtime (install `mcp` extra, run via module entrypoint).
-- Fail-fast domain errors and stable JSON envelopes for CLI failures.
-- Packaged runtime indexes for EuroVoc and subject-matter resolution.
+This project is still being built.
+
+The Python API, CLI commands, MCP interface, and response shapes may change. Do not treat the current interface as final or stable.
+
+## What it is for
+
+The project is meant for people who need to:
+
+- look up an EU act by CELEX number,
+- fetch basic metadata for an act,
+- check relations such as amendments, repeals, citations, and related case law,
+- monitor whether something new appeared after a given date,
+- download text or legislative summaries,
+- search acts by title, EuroVoc, or subject matter.
+
+In short: it is a practical access layer over CELLAR for legal research, compliance work, and structured data collection.
 
 ## Installation
 
-```bash
-# library + CLI
-pip install cellar-wrapper
+Library and CLI:
 
-# library + CLI + MCP runtime support
+```bash
+pip install cellar-wrapper
+```
+
+Library, CLI, and MCP support:
+
+```bash
 pip install "cellar-wrapper[mcp]"
 ```
 
-## Quick Start (Python)
+## Quick use from the command line
+
+Check that the CLI is installed:
+
+```bash
+cellar --version
+```
+
+Resolve a CELEX number:
+
+```bash
+cellar lookup resolve-celex --celex 32022R2554
+```
+
+Get metadata for one act:
+
+```bash
+cellar lookup get-act --celex 32022R2554
+```
+
+Check amendments:
+
+```bash
+cellar relations get-amendments --celex 32022R2554 --limit 50
+```
+
+Check what is new since a date:
+
+```bash
+cellar monitoring new-citations --celex 32022R2554 --since 2025-01-01
+```
+
+The CLI returns JSON. On success:
+
+```json
+{"ok": true, "data": {...}}
+```
+
+On error:
+
+```json
+{"ok": false, "error": {"type": "CellarValidationError", "message": "...", "details": {...}}}
+```
+
+## Quick use from Python
 
 ```python
 from cellar_wrapper import CellarClient
@@ -34,48 +99,27 @@ with CellarClient() as client:
     print(act.celex, act.title)
 ```
 
-## Quick Start (CLI)
+## Quick use as MCP
 
-```bash
-cellar --version
-cellar lookup resolve-celex --celex 32022R2554
-cellar relations get-amendments --celex 32022R2554 --limit 50
-cellar monitoring new-citations --celex 32022R2554 --since 2025-01-01
-```
-
-CLI success envelope:
-
-```json
-{"ok": true, "data": {...}}
-```
-
-CLI error envelope:
-
-```json
-{"ok": false, "error": {"type": "CellarValidationError", "message": "...", "details": {...}}}
-```
-
-## Quick Start (MCP)
-
-Install with extra:
+If you want to expose the project to an assistant or another tool through MCP, install the MCP extra:
 
 ```bash
 pip install "cellar-wrapper[mcp]"
 ```
 
-Run server (stdio):
+Run the server:
 
 ```bash
 python -m cellar_wrapper.mcp_server
 ```
 
-Version check:
+Check the version:
 
 ```bash
 python -m cellar_wrapper.mcp_server --version
 ```
 
-MCP runtime environment variables:
+Environment variables supported by the MCP server:
 
 - `CELLAR_MCP_BASE_URL_SPARQL`
 - `CELLAR_MCP_BASE_URL_RESOURCE`
@@ -86,9 +130,16 @@ MCP runtime environment variables:
 - `CELLAR_MCP_TIMEOUT_WRITE`
 - `CELLAR_MCP_TIMEOUT_POOL`
 
-## Development
+## Where to look next
 
-Required PR checks:
+- Docs index: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/README.md
+- Command guide: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/COMMAND_GUIDE.md
+- Curated examples: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/CONTRACT_EXAMPLES.md
+- Contract reference: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/CONTRACT_REFERENCE.md
+
+## For contributors
+
+Main local checks:
 
 ```bash
 ruff check
@@ -96,44 +147,3 @@ mypy
 pytest -m "not live"
 python -m build --sdist --wheel
 ```
-
-Optional checks:
-
-- Live endpoint smoke test: `pytest -m live` with `CELLAR_LIVE=1`
-
-## Runtime Data
-
-Runtime resolve methods use packaged files:
-
-- `src/cellar_wrapper/data/eurovoc_index.json`
-- `src/cellar_wrapper/data/subject_matter_index.json`
-
-Data sources, attribution, and artifact policy:
-
-- https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/DATA_PROVENANCE.md
-- https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/DATA_ARTIFACTS.md
-
-## Documentation
-
-- Docs index: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/README.md
-- Command guide: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/COMMAND_GUIDE.md
-- Contract reference: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/CONTRACT_REFERENCE.md
-- Curated examples: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/CONTRACT_EXAMPLES.md
-- Maintainer guide: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/MAINTAINER_GUIDE.md
-- Method mapping: https://github.com/Kymylyy/cellar-wrapper/blob/main/docs/METHOD_MAPPING.md
-
-Example/source-of-truth policy:
-
-- command inventory and return-shape mapping are code-derived
-- full command coverage is exported to `docs/artifact/command-manifest.json`
-- curated live payloads are stored in `docs/examples/contract-examples.json`
-- `docs/CONTRACT_EXAMPLES.md` is a generated render of that JSON
-- archival material lives under `docs/research/`
-
-## Project Policies
-
-- License: https://github.com/Kymylyy/cellar-wrapper/blob/main/LICENSE
-- Contributing: https://github.com/Kymylyy/cellar-wrapper/blob/main/CONTRIBUTING.md
-- Security: https://github.com/Kymylyy/cellar-wrapper/blob/main/SECURITY.md
-- Support: https://github.com/Kymylyy/cellar-wrapper/blob/main/SUPPORT.md
-- Code of Conduct: https://github.com/Kymylyy/cellar-wrapper/blob/main/CODE_OF_CONDUCT.md

@@ -26,8 +26,9 @@ python -m build --sdist --wheel
 ## Scope and Contracts
 
 - `docs/CONTRACT_REFERENCE.md` is the maintained behavior/source-of-truth document.
-- `docs/examples/contract-examples.json` is the canonical accepted examples corpus.
-- `docs/CONTRACT_EXAMPLES.md` is generated from that JSON and must stay in sync.
+- `docs/examples/contract-examples.json` is a curated human-facing examples corpus, not the full command surface.
+- `docs/CONTRACT_EXAMPLES.md` is generated from that curated JSON and must stay in sync when the curated examples change.
+- Full command/contract coverage is tracked separately in `docs/artifact/command-manifest.json` and in tests.
 - `docs/MAINTAINER_GUIDE.md` documents the refresh/audit workflow for examples and docs.
 - Changes to behavior or CLI output must update docs in the same PR.
 - Keep changes surgical; avoid unrelated refactors.

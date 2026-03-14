@@ -55,7 +55,7 @@ class ActDetail(ActRef):
     addresses_institutions: list[str] = Field(default_factory=list)
     signatory_names: list[str] = Field(default_factory=list)
     date_document: date | datetime | None = None
-    date_entry_into_force: date | datetime | None = None
+    date_entry_into_force: list[date | datetime] = Field(default_factory=list)
     date_end_of_validity: date | datetime | None = None
 
 

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from datetime import date, datetime
+from datetime import UTC, date, datetime, time
 from typing import Any
 
 from cellar_wrapper.date_utils import parse_iso_date_or_datetime
@@ -197,6 +197,38 @@ def parse_bool_value(
     )
 
 
+def _temporal_sort_key(value: date | datetime) -> datetime:
+    if isinstance(value, datetime):
+        if value.tzinfo is not None:
+            return value.astimezone(UTC).replace(tzinfo=None)
+        return value
+    return datetime.combine(value, time.min)
+
+
+def _temporal_identity(value: date | datetime) -> tuple[str, str]:
+    if isinstance(value, datetime):
+        normalized = value.astimezone(UTC).isoformat() if value.tzinfo is not None else value.isoformat()
+        return ("datetime", normalized)
+    return ("date", value.isoformat())
+
+
+def _parse_unique_temporal_values(
+    candidates: Iterable[str],
+    *,
+    field_name: str,
+) -> list[date | datetime]:
+    unique_values: dict[tuple[str, str], date | datetime] = {}
+    for candidate in candidates:
+        parsed_value = parse_date_value(candidate, field_name=field_name)
+        if parsed_value is None:
+            continue
+        unique_values.setdefault(_temporal_identity(parsed_value), parsed_value)
+    return sorted(
+        unique_values.values(),
+        key=lambda item: (_temporal_sort_key(item), _temporal_identity(item)),
+    )
+
+
 def parse_act_refs(
     rows: list[BindingRow],
     *,
@@ -265,9 +297,9 @@ def parse_act_detail(rows: list[BindingRow]) -> ActDetail | None:
         "inForce": None,
         "eea": None,
         "dateDocument": None,
-        "dateEntryIntoForce": None,
         "dateEndOfValidity": None,
     }
+    entry_into_force_values: list[str] = []
     created_by_agents: list[str] = []
     responsible_agents: list[str] = []
     addresses_institutions: list[str] = []
@@ -295,6 +327,9 @@ def parse_act_detail(rows: list[BindingRow]) -> ActDetail | None:
                 candidate=value(row, key),
                 row_index=row_index,
             )
+        entry_into_force_candidate = value(row, "dateEntryIntoForce")
+        if entry_into_force_candidate is not None:
+            entry_into_force_values.append(entry_into_force_candidate)
         for key, target, seen in (
             ("createdBy", created_by_agents, created_by_seen),
             ("responsibleAgent", responsible_agents, responsible_seen),
@@ -335,8 +370,8 @@ def parse_act_detail(rows: list[BindingRow]) -> ActDetail | None:
             first_values["dateDocument"],
             field_name="dateDocument",
         ),
-        date_entry_into_force=parse_date_value(
-            first_values["dateEntryIntoForce"],
+        date_entry_into_force=_parse_unique_temporal_values(
+            entry_into_force_values,
             field_name="dateEntryIntoForce",
         ),
         date_end_of_validity=parse_date_value(

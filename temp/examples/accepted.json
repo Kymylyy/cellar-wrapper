@@ -4688,5 +4688,98 @@
         }
       }
     }
+  },
+  {
+    "label": "Financial Services",
+    "command": "monitoring new-by-eurovoc",
+    "purpose": "Checks EuroVoc-based monitoring for a broad financial-services tag constrained to proposal regulations, yielding a clean feed of new legislative proposals since 2025-01-01.",
+    "args": {
+      "tags": [
+        "financial services"
+      ],
+      "since": "2025-01-01",
+      "resource_type": "PROP_REG",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/83376982-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0941",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/a578f185-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0943",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/23700e5f-c5f9-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0841",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulation (EU) 2019/2088 on sustainability-related disclosures in the financial services sector (SFDR), Regulation (EU) No 1286/2014 on key information documents for packaged retail and insurance-based investment products (PRIIPs) and repealing Commission Delegated Regulation (EU) 2022/1288",
+            "date": "2025-11-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          }
+        ],
+        "returned_count": 3,
+        "meta": {
+          "query_name": "new_by_eurovoc",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:47:33.526179Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "DORA",
+    "celex": "32022R2554",
+    "command": "download get-text",
+    "purpose": "Checks that get-text downloads the full DORA act in XHTML format, storing only a short text preview in accepted examples to keep the file readable.",
+    "args": {
+      "celex": "32022R2554",
+      "lang": "eng",
+      "format": "xhtml"
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "source_url": "http://publications.europa.eu/resource/cellar/0caf473a-85bd-11ed-9887-01aa75ed71a1.0006.03/DOC_1",
+        "content_type": "application/xhtml+xml;charset=UTF-8",
+        "language": "eng",
+        "content_text_preview": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML//EN\" \"xhtml-strict.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><!-- CONVEX # converter_version:9.15.0 # generated_on:20231208-0931 # ELI version:0.10 --><head>\n      <meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"/>\n      <link type=\"text/css\" rel=\"stylesheet\" href=\"oj-convex.css\"/>\n      <title>L_2022333EN.01000101.xml</title>\n   </head>\n   <body>\n      <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n         <col width=\"10%\"/>\n         <col width=\"10%\"/>\n         <col width=\"60%\"/>\n         <col width=\"20%\"/>\n",
+        "content_base64_length": 995824,
+        "content_truncated": true
+      }
+    }
+  },
+  {
+    "label": "DORA",
+    "celex": "32022R2554",
+    "command": "download get-summary",
+    "purpose": "Checks that get-summary downloads the DORA legislative summary in XHTML, storing only a short text preview in accepted examples to avoid embedding the full document.",
+    "args": {
+      "celex": "32022R2554",
+      "lang": "eng"
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "source_url": "http://publications.europa.eu/resource/cellar/98ba2ed0-d620-11ee-b9d9-01aa75ed71a1.0001.02/DOC_2",
+        "content_type": "application/xhtml+xml;type=xhtml5;charset=UTF-8",
+        "language": "eng",
+        "content_text_preview": "<!DOCTYPE html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\"><head><meta charset=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><title>Digital operational resilience for the financial sector</title><meta name=\"description\" content=\"The Regulation sets EU-wide rules to ensure that financial entities can withstand and recover from digital and ICT-related disruptions.\"/><meta name=\"author\" content=\"PUBL\"/><meta name=\"copyright\" content=\"© European Union, 2026\"/><meta name=\"op-spec-version\" content=\"4.0\"/><meta name=\"op-creator-version\" content=\"ESTeam EUR-Lex LegisSum Editor v1.0\"/><meta name=\"op-multilingual-pub\" content=\"no\"/><meta property",
+        "content_base64_length": 28456,
+        "content_truncated": true
+      }
+    }
   }
 ]

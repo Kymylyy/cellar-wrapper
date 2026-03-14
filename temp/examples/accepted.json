@@ -3105,6 +3105,186 @@
     }
   },
   {
+    "label": "2023/1114",
+    "command": "search search-by-title",
+    "purpose": "Checks title-based search with an act number as the keyword, showing that official regulation numbers can work better than common-name acronyms while still matching a broader family of titles that mention the same number.",
+    "args": {
+      "keyword": "2023/1114",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/255f7563-005c-11f1-825d-01aa75ed71a1",
+            "celex": null,
+            "title": "Opinion of the European Data Protection Supervisor on the Proposal for a Regulation of the European Parliament and of the Council amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union",
+            "date": "2026-02-02T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTE_COVER"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/54f3e08c-d1b5-11f0-8da2-01aa75ed71a1",
+            "celex": null,
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union",
+            "date": "2025-12-05T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_ACT"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/5559320d-d1b5-11f0-8da2-01aa75ed71a1",
+            "celex": null,
+            "title": "COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATIONآ OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "date": "2025-12-05T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTE_COVER"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/c0223b4e-d1b5-11f0-8da2-01aa75ed71a1",
+            "celex": null,
+            "title": "COMMISSION STAFF WORKING DOCUMENT EXECUTIVE SUMMARY OF THE IMPACT ASSESSMENT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATIONآ OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "date": "2025-12-05T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTE_COVER"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/2bb74724-d1b6-11f0-8da2-01aa75ed71a1",
+            "celex": null,
+            "title": "ANNEXES to the Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union",
+            "date": "2025-12-05T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTE_COVER"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "search_by_title",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:05:52.745980Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "Crypto-assets",
+    "command": "search search-by-title",
+    "purpose": "Checks broad title-keyword search for a thematic crypto phrase, showing that a natural-language keyword can return a mixed family of implementing acts, studies, and publications rather than one canonical act.",
+    "args": {
+      "keyword": "crypto-assets",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/ca0223e9-ca69-11f0-8da2-01aa75ed71a1",
+            "celex": "32025R2263",
+            "title": "Commission Implementing Regulation (EU) 2025/2263 of 12 November 2025 amending Implementing Regulation (EU) 2015/2378 as regards the standard forms and computerised formats for the mandatory automatic exchange of information on reportable crypto-assets, the communication of the yearly assessment and the list of statistical data to be provided by Member States under Council Directive 2011/16/EU",
+            "date": "2025-11-12T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_IMPL"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/3ecd3719-afd0-11f0-b37f-01aa75ed71a1",
+            "celex": null,
+            "title": "Crypto-assets and decentralised finance : report on stablecoins, crypto-investment products and multifunction groups : October 2025.",
+            "date": "2025-10-21T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PUB_GEN"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/bd1d673a-a3ee-11f0-97c8-01aa75ed71a1",
+            "celex": null,
+            "title": "Study for developing a methodology and sustainability standards for mitigating the environmental impact of crypto-assets : executive summary.",
+            "date": "2025-10-06T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PUB_GEN"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/bd1d673a-a3ee-11f0-97c8-01aa75ed71a1",
+            "celex": null,
+            "title": "Study for developing a methodology and sustainability standards for mitigating the environmental impact of crypto-assets : executive summary.",
+            "date": "2025-10-06T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/SUM_EXE"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/84f272d4-a3f2-11f0-97c8-01aa75ed71a1",
+            "celex": null,
+            "title": "Study for developing a methodology and sustainability standards for mitigating the environmental impact of crypto-assets : final report.",
+            "date": "2025-10-06T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PUB_GEN"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "search_by_title",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:05:52.862002Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "Payments",
+    "command": "search search-by-title",
+    "purpose": "Checks broad title-keyword search for a very natural user query, showing that generic payment wording can match judgments, studies, and other documents that merely contain the same substring in the title.",
+    "args": {
+      "keyword": "payments",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/f8d77371-1877-11f1-8870-01aa75ed71a1",
+            "celex": "62024CJ0828",
+            "title": "Judgment of the Court (Sixth Chamber) of 5 March 2026.#Erdrich Umformtechnik GmbH v Odvolací finanční ředitelství.#Request for a preliminary ruling from the Nejvyšší správní soud.#Reference for a preliminary ruling – Taxation – Common system of taxation applicable to interest and royalty payments made between associated companies of different Member States – Directive 2003/49/EC – Decision to grant an exemption for a period prior to the provision of the attestation and supporting information – Article 1(12) – Time limit for provision of the attestation – Limitation on the period that may be subject to an exemption.#Case C-828/24.",
+            "date": "2026-03-05T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/417c6464-07f1-11f1-825d-01aa75ed71a1",
+            "celex": null,
+            "title": "Letter from Frank Elderson, Member of the Executive Board of the European Central Bank (ECB), to Richard Raši, Speaker of the National Council of the Slovak Republic, regarding certain amendments to the law on restrictions on cash payments",
+            "date": "2026-02-10T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/LET_DRAFT_NATION_LEGIS"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/25f2573f-062d-11f1-825d-01aa75ed71a1",
+            "celex": null,
+            "title": "Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of “payments not based on costs” : final report",
+            "date": "2026-02-09T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/STU"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/25f2573f-062d-11f1-825d-01aa75ed71a1",
+            "celex": null,
+            "title": "Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of “payments not based on costs” : final report",
+            "date": "2026-02-09T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REPORT_FINAL"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/c33a34f3-062e-11f1-825d-01aa75ed71a1",
+            "celex": null,
+            "title": "Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of “payments not based on costs” : second interim report",
+            "date": "2026-02-09T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REPORT"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "search_by_title",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:05:58.495027Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
     "label": "FISMA",
     "command": "search search-communications",
     "purpose": "Checks the current FISMA communications feed, showing that this command returns communication documents only and can serve as a practical policy-monitoring stream for the financial domain.",

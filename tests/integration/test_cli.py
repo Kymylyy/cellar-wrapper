@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+from datetime import UTC, datetime
+from typing import Any
 
 import pytest
 
@@ -10,6 +12,8 @@ from cellar_wrapper.errors import CellarNotFoundError, CellarValidationError
 from cellar_wrapper.models import ActRef, ArticleAnnotationItem, ListResult, QueryMeta, RelationItem
 from cellar_wrapper.version import __version__
 from tests.helpers import FakeTransport, sparql_payload
+
+EXECUTED_AT = datetime(2026, 3, 12, tzinfo=UTC)
 
 
 class StubClient:
@@ -33,49 +37,49 @@ class StubClient:
     def new_citations(self, **kwargs: object) -> None:
         raise CellarValidationError("bad since")
 
-    def search_by_title(self, **kwargs: object) -> dict[str, object]:
+    def search_by_title(self, **kwargs: object) -> Any:
         self.search_by_title_calls.append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
-    def get_amendments(self, **kwargs: object) -> dict[str, object]:
+    def get_amendments(self, **kwargs: object) -> Any:
         self.get_amendments_calls.append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
-    def get_based_on_acts(self, **kwargs: object) -> dict[str, object]:
+    def get_based_on_acts(self, **kwargs: object) -> Any:
         self.get_based_on_acts_calls.append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
-    def get_proposals_to_change(self, **kwargs: object) -> dict[str, object]:
+    def get_proposals_to_change(self, **kwargs: object) -> Any:
         self.get_proposals_to_change_calls.append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
-    def get_consolidated_versions(self, **kwargs: object) -> dict[str, object]:
+    def get_consolidated_versions(self, **kwargs: object) -> Any:
         self.get_consolidated_versions_calls.append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
-    def get_corrigenda(self, **kwargs: object) -> dict[str, object]:
+    def get_corrigenda(self, **kwargs: object) -> Any:
         return {"items": [], "kwargs": kwargs}
 
-    def get_nims(self, **kwargs: object) -> dict[str, object]:
+    def get_nims(self, **kwargs: object) -> Any:
         return {"items": [], "kwargs": kwargs}
 
-    def get_national_decisions(self, **kwargs: object) -> dict[str, object]:
+    def get_national_decisions(self, **kwargs: object) -> Any:
         self.get_national_decisions_calls.append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
-    def new_repeals(self, **kwargs: object) -> dict[str, object]:
+    def new_repeals(self, **kwargs: object) -> Any:
         self.monitoring_calls["new_repeals"].append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
-    def new_based_on_acts(self, **kwargs: object) -> dict[str, object]:
+    def new_based_on_acts(self, **kwargs: object) -> Any:
         self.monitoring_calls["new_based_on_acts"].append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
-    def new_proposals_to_change(self, **kwargs: object) -> dict[str, object]:
+    def new_proposals_to_change(self, **kwargs: object) -> Any:
         self.monitoring_calls["new_proposals_to_change"].append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
-    def new_preliminary_questions(self, **kwargs: object) -> dict[str, object]:
+    def new_preliminary_questions(self, **kwargs: object) -> Any:
         self.monitoring_calls["new_preliminary_questions"].append(kwargs)
         return {"items": [], "kwargs": kwargs}
 
@@ -251,7 +255,7 @@ def test_cli_catch_all_exception_returns_json(
     assert payload["error"]["details"]["original_type"] == "RuntimeError"
 
 
-def test_cli_lifecycle_accepts_resource_type(
+def test_cli_lifecycle_accepts_resource_types(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
@@ -263,14 +267,41 @@ def test_cli_lifecycle_accepts_resource_type(
             "get-consolidated-versions",
             "--celex",
             "32022R2554",
-            "--resource-type",
+            "--resource-types",
             "CONS_TEXT",
+            "CORRIGENDUM",
         ]
     )
     assert exit_code == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["ok"] is True
-    assert stub.get_consolidated_versions_calls[0]["resource_type"] == "CONS_TEXT"
+    assert stub.get_consolidated_versions_calls[0]["resource_types"] == [
+        "CONS_TEXT",
+        "CORRIGENDUM",
+    ]
+
+
+def test_cli_search_accepts_resource_types(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    stub = StubClient()
+    monkeypatch.setattr(cli, "_build_client", lambda args: stub)
+    exit_code = cli.run(
+        [
+            "search",
+            "search-by-title",
+            "--keyword",
+            "crypto-assets",
+            "--resource-types",
+            "REG_IMPL",
+            "PUB_GEN",
+        ]
+    )
+    assert exit_code == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["ok"] is True
+    assert stub.search_by_title_calls[0]["resource_types"] == ["REG_IMPL", "PUB_GEN"]
 
 
 def test_cli_case_law_accepts_country_filter(
@@ -384,7 +415,7 @@ def test_cli_generic_relation_output_omits_annotation_fields(
                 meta=QueryMeta(
                     query_name="get_amendments",
                     endpoint="https://example.test/sparql",
-                    executed_at="2026-03-12T00:00:00Z",
+                    executed_at=EXECUTED_AT,
                     limit=200,
                     offset=0,
                 ),
@@ -421,7 +452,7 @@ def test_cli_article_annotation_output_keeps_annotation_fields(
                 meta=QueryMeta(
                     query_name="get_article_annotations",
                     endpoint="https://example.test/sparql",
-                    executed_at="2026-03-12T00:00:00Z",
+                    executed_at=EXECUTED_AT,
                     limit=200,
                     offset=0,
                 ),
@@ -455,7 +486,7 @@ def test_cli_case_law_group_rejects_get_article_annotations(capsys: pytest.Captu
             "get-cjeu-judgments",
             "--celex",
             "32022R2554",
-            "--resource-type",
+            "--resource-types",
             "JUDG",
         ],
         [
@@ -463,7 +494,7 @@ def test_cli_case_law_group_rejects_get_article_annotations(capsys: pytest.Captu
             "get-preliminary-questions",
             "--celex",
             "32022R2554",
-            "--resource-type",
+            "--resource-types",
             "JUDG",
         ],
         [
@@ -473,7 +504,7 @@ def test_cli_case_law_group_rejects_get_article_annotations(capsys: pytest.Captu
             "32022R2554",
             "--since",
             "2025-01-01",
-            "--resource-type",
+            "--resource-types",
             "JUDG",
         ],
         [
@@ -483,7 +514,7 @@ def test_cli_case_law_group_rejects_get_article_annotations(capsys: pytest.Captu
             "32022R2554",
             "--since",
             "2025-01-01",
-            "--resource-type",
+            "--resource-types",
             "JUDG",
         ],
         [
@@ -493,7 +524,7 @@ def test_cli_case_law_group_rejects_get_article_annotations(capsys: pytest.Captu
             "32022R2554",
             "--since",
             "2025-01-01",
-            "--resource-type",
+            "--resource-types",
             "JUDG",
         ],
         [
@@ -503,7 +534,7 @@ def test_cli_case_law_group_rejects_get_article_annotations(capsys: pytest.Captu
             "32022R2554",
             "--since",
             "2025-01-01",
-            "--resource-type",
+            "--resource-types",
             "JUDG",
         ],
         [
@@ -513,15 +544,15 @@ def test_cli_case_law_group_rejects_get_article_annotations(capsys: pytest.Captu
             "32022R2554",
             "--since",
             "2025-01-01",
-            "--resource-type",
+            "--resource-types",
             "JUDG",
         ],
     ],
 )
-def test_cli_parser_exposes_resource_type_for_regressed_commands(argv: list[str]) -> None:
+def test_cli_parser_exposes_resource_types_for_regressed_commands(argv: list[str]) -> None:
     parser = cli.build_parser()
     args = parser.parse_args(argv)
-    assert args.resource_type == "JUDG"
+    assert args.resource_types == ["JUDG"]
 
 
 @pytest.mark.parametrize(
@@ -684,7 +715,7 @@ def test_cli_help_mentions_key_flags(capsys: pytest.CaptureFixture[str]) -> None
         parser.parse_args(["lifecycle", "get-consolidated-versions", "--help"])
     assert exc_info.value.code == 0
     help_text = capsys.readouterr().out
-    assert "--resource-type" in help_text
+    assert "--resource-types" in help_text
     assert "--since" in help_text
     assert "--to" in help_text
     assert "--limit" in help_text

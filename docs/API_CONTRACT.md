@@ -34,6 +34,7 @@ HttpTransport(
 - `lang: str` -> ISO 639-3 (`[a-zA-Z]{3}`), normalized to lowercase.
 - `direction: "incoming" | "outgoing" | "both"` -> optional relation-direction filter for symmetric relation commands; default `both`.
 - `country: str` -> ISO 3166-1 alpha-3 (`[A-Z]{3}`), normalized to uppercase (for `get_national_decisions`).
+- `resource_types: Sequence[str] | None` -> optional OR/union filter over CELLAR resource-type tokens; items are normalized to uppercase and validated against `^[A-Z_]+$`.
 - `format: "pdf" | "xhtml" | "xml" | "rdf" | "docx"` for `get_text`.
 - `limit: int` default `200`, max `1000`.
 - `offset: int` default `0`.
@@ -82,8 +83,9 @@ For relation semantics, note in particular:
 - `get_completing_acts` is backed by `cdm:resource_legal_completes_resource_legal` and is the narrower "supplements/completes this act" relation.
 - For some acts, the two result sets can overlap substantially, but `get_completing_acts` is typically the narrower subset.
 - `get_based_on_acts` can include non-delegated resource types such as implementing acts, drafts, reports, and resolutions.
-- `get_corrigenda` and `new_corrigenda` default to `resource_type = CORRIGENDUM`, while still allowing an explicit override.
-- When a relation-style command is filtered by `resource_type`, the returned `resource_type` field is constrained to the selected type rather than any sibling type attached to the same CELLAR work.
+- `get_corrigenda` and `new_corrigenda` default to `resource_types = ["CORRIGENDUM"]`, while still allowing an explicit override.
+- Without a type filter, payload `resource_type` may be any bound CELLAR type attached to the work (or `null`).
+- With `resource_types`, payload `resource_type` is constrained to one of the selected types rather than any sibling type attached to the same CELLAR work.
 - `get_legal_basis` can mix treaty-basis rows (`based_on_concept_treaty`), legal acts based on the act (incoming), and legal acts the queried act is based on (outgoing). Rows can carry sparse metadata.
 - `get_legal_basis` is also the correct reverse-lookup path for delegated act -> base act.
 - `get_citations` is not limited to legal acts; depending on the act, it can include communications, impact assessments, staff working documents, and similar materials.
@@ -240,7 +242,7 @@ Concept and URI-related fields are returned as canonical URIs where relevant. Ex
   - `requires_since` -> required `since`
   - `has_since` -> optional `since`
   - commands with date filtering -> optional `to`
-  - `has_resource_type` -> optional `resource_type`
+  - `has_resource_type` -> optional `resource_types`
   - `has_country` -> optional `country`
   - `has_lang` -> optional `lang` default `eng`
   - `has_limit_offset` -> optional `limit` default `200`, `offset` default `0`

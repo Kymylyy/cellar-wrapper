@@ -269,7 +269,8 @@ def test_lifecycle_group_get_corrigenda_defaults_to_corrigendum_type() -> None:
             return _resolver_payload()
         assert "?other cdm:work_has_resource-type ?type ." in query
         assert (
-            "FILTER(?type = <http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM>)"
+            "VALUES ?type { "
+            "<http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM> }"
             in query
         )
         return sparql_payload(
@@ -351,6 +352,80 @@ def test_search_group_search_by_title() -> None:
     assert result.returned_count == 1
 
 
+def test_search_group_search_by_title_passes_resource_types_as_values_clause() -> None:
+    transport = FakeTransport(
+        query_handler=lambda _query: sparql_payload(
+            [
+                sparql_row(
+                    work="http://publications.europa.eu/resource/cellar/work",
+                    celex="32025R2263",
+                    title="Crypto-assets",
+                    type="REG_IMPL",
+                )
+            ]
+        )
+    )
+    client = CellarClient(transport=transport)
+    result = client.search_by_title("crypto-assets", resource_types=["REG_IMPL", "PUB_GEN"])
+
+    assert result.returned_count == 1
+    assert "OPTIONAL { ?work cdm:work_has_resource-type ?type }" not in transport.queries[0]
+    assert "?work cdm:work_has_resource-type ?type ." in transport.queries[0]
+    assert (
+        "VALUES ?type { "
+        "<http://publications.europa.eu/resource/authority/resource-type/REG_IMPL> "
+        "<http://publications.europa.eu/resource/authority/resource-type/PUB_GEN> }"
+        in transport.queries[0]
+    )
+
+
+def test_search_group_filtered_title_results_do_not_leak_sibling_types() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if (
+            "VALUES ?type { <http://publications.europa.eu/resource/authority/resource-type/PUB_GEN> }"
+            in query
+        ):
+            return sparql_payload(
+                [
+                    sparql_row(
+                        work="http://publications.europa.eu/resource/cellar/pub-gen",
+                        celex="52024DC0001",
+                        title="Crypto-assets communication",
+                        type="PUB_GEN",
+                    )
+                ]
+            )
+        return sparql_payload(
+            [
+                sparql_row(
+                    work="http://publications.europa.eu/resource/cellar/pub-gen",
+                    celex="52024DC0001",
+                    title="Crypto-assets communication",
+                    type="PUB_GEN",
+                ),
+                sparql_row(
+                    work="http://publications.europa.eu/resource/cellar/sibling",
+                    celex="52024SC0001",
+                    title="Crypto-assets staff working document",
+                    type="STU",
+                ),
+            ]
+        )
+
+    transport = FakeTransport(query_handler=query_handler)
+    client = CellarClient(transport=transport)
+
+    result = client.search_by_title("crypto-assets", resource_types=["PUB_GEN"])
+
+    assert result.returned_count == 1
+    assert [item.celex for item in result.items] == ["52024DC0001"]
+    assert all(item.resource_type in {"PUB_GEN", "http://publications.europa.eu/resource/authority/resource-type/PUB_GEN"} for item in result.items)
+    assert (
+        "VALUES ?type { <http://publications.europa.eu/resource/authority/resource-type/PUB_GEN> }"
+        in transport.queries[0]
+    )
+
+
 def test_search_group_search_by_eurovoc_resolves_tags_before_search(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -380,6 +455,28 @@ def test_search_group_search_by_eurovoc_resolves_tags_before_search(
     assert "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[0]
 
 
+def test_search_group_search_by_eurovoc_passes_resource_types_as_values_clause(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    transport = FakeTransport(query_handler=lambda _query: sparql_payload([]))
+    client = CellarClient(transport=transport)
+    monkeypatch.setattr(
+        client,
+        "_resolve_eurovoc_concept_uris",
+        lambda tags: ["http://eurovoc.europa.eu/2220"] if tags else [],
+    )
+
+    _ = client.search_by_eurovoc(["financial services"], resource_types=["PROP_REG", "PROP_DIR"])
+
+    assert "?work cdm:work_has_resource-type ?type ." in transport.queries[0]
+    assert (
+        "VALUES ?type { "
+        "<http://publications.europa.eu/resource/authority/resource-type/PROP_REG> "
+        "<http://publications.europa.eu/resource/authority/resource-type/PROP_DIR> }"
+        in transport.queries[0]
+    )
+
+
 def test_search_group_search_by_eurovoc_supports_upper_bound_only(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -406,6 +503,30 @@ def test_search_group_search_by_eurovoc_returns_empty_when_no_concept_resolved(
 
     assert result.returned_count == 0
     assert len(transport.queries) == 0
+
+
+def test_search_group_search_by_subject_matter_passes_resource_types_as_values_clause(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    transport = FakeTransport(query_handler=lambda _query: sparql_payload([]))
+    client = CellarClient(transport=transport)
+    monkeypatch.setattr(
+        client,
+        "_resolve_subject_matter_concept_uris",
+        lambda codes: ["http://publications.europa.eu/resource/authority/subject-matter/PDON"] if codes else [],
+    )
+
+    _ = client.search_by_subject_matter(
+        ["bank"],
+        resource_types=["DEC", "OPIN_DRAFT_NATION_LEGIS"],
+    )
+
+    assert (
+        "VALUES ?type { "
+        "<http://publications.europa.eu/resource/authority/resource-type/DEC> "
+        "<http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS> }"
+        in transport.queries[0]
+    )
 
 
 def test_monitoring_group_new_citations_adds_since_filter() -> None:
@@ -440,7 +561,8 @@ def test_monitoring_group_new_corrigenda_defaults_to_corrigendum_type() -> None:
     assert relation_queries
     assert "?other cdm:work_has_resource-type ?type ." in relation_queries[0]
     assert (
-        "FILTER(?type = <http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM>)"
+        "VALUES ?type { "
+        "<http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM> }"
         in relation_queries[0]
     )
     assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in relation_queries[0]
@@ -519,6 +641,31 @@ def test_monitoring_group_new_by_eurovoc_uses_strict_since_after_resolve(
     assert len(transport.queries) == 1
     assert "VALUES ?concept { <http://eurovoc.europa.eu/2220> }" in transport.queries[0]
     assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[0]
+
+
+def test_monitoring_group_new_by_eurovoc_passes_resource_types_as_values_clause(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    transport = FakeTransport(query_handler=lambda _query: sparql_payload([]))
+    client = CellarClient(transport=transport)
+    monkeypatch.setattr(
+        client,
+        "_resolve_eurovoc_concept_uris",
+        lambda tags: ["http://eurovoc.europa.eu/2220"] if tags else [],
+    )
+
+    _ = client.new_by_eurovoc(
+        ["financial services"],
+        since="2025-01-01",
+        resource_types=["PROP_REG", "PROP_DIR"],
+    )
+
+    assert (
+        "VALUES ?type { "
+        "<http://publications.europa.eu/resource/authority/resource-type/PROP_REG> "
+        "<http://publications.europa.eu/resource/authority/resource-type/PROP_DIR> }"
+        in transport.queries[0]
+    )
 
 
 def test_non_monitoring_since_filter_keeps_undated_rows() -> None:

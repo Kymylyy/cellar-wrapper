@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from datetime import date, datetime
 from typing import Any, cast
 
@@ -83,7 +83,7 @@ def fetch_relation_rows(
     since: date | datetime | str | None,
     to: date | datetime | str | None,
     include_undated: bool,
-    resource_type: str | None,
+    resource_types: Sequence[str] | None,
     limit: int,
     offset: int,
     lang: str,
@@ -91,7 +91,7 @@ def fetch_relation_rows(
     include_implemented_by_country: bool,
     validate_pagination: Callable[[int, int], None],
     normalize_lang: Callable[[str], str],
-    normalize_resource_type: Callable[[str | None], str | None],
+    normalize_resource_types: Callable[[Sequence[str] | None], list[str] | None],
     normalize_direction: Callable[[str | None], str | None],
     normalize_date_bounds: Callable[
         [date | datetime | str | None, date | datetime | str | None],
@@ -106,7 +106,9 @@ def fetch_relation_rows(
 
     validate_pagination(limit, offset)
     normalized_lang = normalize_lang(lang)
-    normalized_type = normalize_resource_type(resource_type) or spec.default_resource_type
+    normalized_types = normalize_resource_types(resource_types)
+    if normalized_types is None and spec.default_resource_type is not None:
+        normalized_types = [spec.default_resource_type]
     normalized_direction = normalize_direction(direction) or spec.direction
     since_value, to_value = normalize_date_bounds(since, to)
     work_uri = resolve_work_uri(celex)
@@ -117,7 +119,7 @@ def fetch_relation_rows(
         direction=normalized_direction,
         since=since_value,
         to=to_value,
-        resource_type=normalized_type,
+        resource_types=normalized_types,
         limit=limit,
         offset=offset,
         lang=normalized_lang,
@@ -136,14 +138,14 @@ def call_relation_result(
     since: date | datetime | str | None,
     to: date | datetime | str | None,
     include_undated: bool,
-    resource_type: str | None,
+    resource_types: Sequence[str] | None,
     limit: int,
     offset: int,
     lang: str,
     direction: str | None,
     validate_pagination: Callable[[int, int], None],
     normalize_lang: Callable[[str], str],
-    normalize_resource_type: Callable[[str | None], str | None],
+    normalize_resource_types: Callable[[Sequence[str] | None], list[str] | None],
     normalize_direction: Callable[[str | None], str | None],
     normalize_date_bounds: Callable[
         [date | datetime | str | None, date | datetime | str | None],
@@ -159,7 +161,7 @@ def call_relation_result(
         since=since,
         to=to,
         include_undated=include_undated,
-        resource_type=resource_type,
+        resource_types=resource_types,
         limit=limit,
         offset=offset,
         lang=lang,
@@ -167,7 +169,7 @@ def call_relation_result(
         include_implemented_by_country=False,
         validate_pagination=validate_pagination,
         normalize_lang=normalize_lang,
-        normalize_resource_type=normalize_resource_type,
+        normalize_resource_types=normalize_resource_types,
         normalize_direction=normalize_direction,
         normalize_date_bounds=normalize_date_bounds,
         resolve_work_uri=resolve_work_uri,
@@ -205,7 +207,7 @@ def call_nim_result(
     since: date | datetime | str | None,
     to: date | datetime | str | None,
     include_undated: bool,
-    resource_type: str | None,
+    resource_types: Sequence[str] | None,
     limit: int,
     offset: int,
     lang: str,
@@ -213,7 +215,7 @@ def call_nim_result(
     validate_pagination: Callable[[int, int], None],
     normalize_celex: Callable[[str], str],
     normalize_lang: Callable[[str], str],
-    normalize_resource_type: Callable[[str | None], str | None],
+    normalize_resource_types: Callable[[Sequence[str] | None], list[str] | None],
     normalize_direction: Callable[[str | None], str | None],
     normalize_date_bounds: Callable[
         [date | datetime | str | None, date | datetime | str | None],
@@ -233,7 +235,7 @@ def call_nim_result(
             since=since,
             to=to,
             include_undated=include_undated,
-            resource_type=resource_type,
+            resource_types=resource_types,
             limit=MAX_LIMIT,
             offset=raw_offset,
             lang=lang,
@@ -241,7 +243,7 @@ def call_nim_result(
             include_implemented_by_country=True,
             validate_pagination=validate_pagination,
             normalize_lang=normalize_lang,
-            normalize_resource_type=normalize_resource_type,
+            normalize_resource_types=normalize_resource_types,
             normalize_direction=normalize_direction,
             normalize_date_bounds=normalize_date_bounds,
             resolve_work_uri=resolve_work_uri,

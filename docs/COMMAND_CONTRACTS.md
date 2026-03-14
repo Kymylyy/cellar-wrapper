@@ -8,6 +8,11 @@ Runtime source-of-truth:
 - return contracts: `src/cellar_wrapper/contract_specs.py`
 - payload models: `src/cellar_wrapper/models.py`
 
+Type-filtering input contract:
+- commands that expose a CELLAR type filter now accept plural `resource_types`
+- CLI shape: `--resource-types TOKEN_A TOKEN_B`
+- MCP shape: `resource_types: string[] | null`
+
 | group | command | method | return model | item model | notes |
 | --- | --- | --- | --- | --- | --- |
 | lookup | `resolve-celex` | `resolve_celex` | `ActRef` | - | single record |

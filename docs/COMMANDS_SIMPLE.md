@@ -23,7 +23,7 @@ cellar lookup get-act --celex 32022R2554 --lang eng
 - `--to`: Optional upper date/time bound for the same commands that support `--since`.
 - `--lang`: Language code (default is `eng`).
 - `--limit` / `--offset`: Pagination for list results.
-- `--resource-type`: Filter by CELLAR resource type token.
+- `--resource-types`: Filter by one or more CELLAR resource type tokens.
 - `--country`: ISO-3 country filter (used by `get-national-decisions`).
 - `--format`: File format for `get-text` (`pdf`, `xhtml`, `xml`, `rdf`, `docx`).
 
@@ -99,7 +99,7 @@ Most relation-style lifecycle commands are `incoming` (items linked to the given
 - `get-consolidated-versions` (`get_consolidated_versions`): Lists consolidated-text relations for the act and can include related consolidated resources that may carry `celex = null` aliases.
   Example: `cellar lifecycle get-consolidated-versions --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
 - `get-corrigenda` (`get_corrigenda`): Lists corrigenda for the act.
-  Default: results are constrained to `resource_type = CORRIGENDUM`. You can still override `--resource-type` explicitly for advanced inspection.
+  Default: results are constrained to `resource_types = ["CORRIGENDUM"]`. You can still override `--resource-types` explicitly for advanced inspection.
   Example: `cellar lifecycle get-corrigenda --celex 32022R2554 --since 2020-01-01 --lang eng --limit 50`
 - `get-nims` (`get_nims`): Lists unique national implementing acts for the act. One directive can have multiple implementing acts in the same country. Public results are grouped by national-act URI, so raw CELLAR row inflation is hidden.
   Output note: each item exposes a preferred `celex` plus `all_celexes` and `matching_celexes` for grouped omnibus acts.
@@ -134,11 +134,11 @@ Only `get-ag-opinions` exposes relation fields such as `direction`, `predicate`,
 ## SEARCH
 
 - `search-by-eurovoc` (`search_by_eurovoc`): Finds acts by EuroVoc tags.
-  Example: `cellar search search-by-eurovoc --tags banking supervision --since 2024-01-01 --lang eng --limit 50`
+  Example: `cellar search search-by-eurovoc --tags banking supervision --resource-types PROP_REG PROP_DIR --since 2024-01-01 --lang eng --limit 50`
 - `search-by-subject-matter` (`search_by_subject_matter`): Finds acts by subject-matter codes/labels.
-  Example: `cellar search search-by-subject-matter --codes financial services --since 2024-01-01 --lang eng --limit 50`
+  Example: `cellar search search-by-subject-matter --codes financial services --resource-types DEC OPIN_DRAFT_NATION_LEGIS --since 2024-01-01 --lang eng --limit 50`
 - `search-by-title` (`search_by_title`): Finds acts by title keyword.
-  Example: `cellar search search-by-title --keyword resilience --since 2024-01-01 --lang eng --limit 50`
+  Example: `cellar search search-by-title --keyword resilience --resource-types REG_IMPL PUB_GEN --since 2024-01-01 --lang eng --limit 50`
 - `search-communications` (`search_communications`): Finds communication documents by DG code.
   Example: `cellar search search-communications --dg FISMA --since 2024-01-01 --lang eng --limit 50`
 - `find-eurovoc-concept` (`find_eurovoc_concept`): Finds EuroVoc concepts by label (from the local packaged index).
@@ -164,7 +164,7 @@ Relation-based `new-*` commands are `incoming` only.
 - `new-preliminary-questions` (`new_preliminary_questions`): New preliminary questions since the given date/time.
   Example: `cellar monitoring new-preliminary-questions --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
 - `new-corrigenda` (`new_corrigenda`): New corrigenda since the given date/time.
-  Default: results are constrained to `resource_type = CORRIGENDUM`. You can still override `--resource-type` explicitly for advanced inspection.
+  Default: results are constrained to `resource_types = ["CORRIGENDUM"]`. You can still override `--resource-types` explicitly for advanced inspection.
   Example: `cellar monitoring new-corrigenda --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
 - `new-consolidated` (`new_consolidated`): New consolidated versions since the given date/time.
   Example: `cellar monitoring new-consolidated --celex 32022R2554 --since 2025-01-01 --lang eng --limit 50`
@@ -172,7 +172,7 @@ Relation-based `new-*` commands are `incoming` only.
   Output note: each item exposes a preferred `celex` plus `all_celexes` and `matching_celexes` for grouped omnibus acts.
   Example: `cellar monitoring new-nims --celex 32015L2366 --since 2025-01-01 --lang eng --limit 50`
 - `new-by-eurovoc` (`new_by_eurovoc`): New acts since the given date/time filtered by EuroVoc tags.
-  Example: `cellar monitoring new-by-eurovoc --tags banking supervision --since 2025-01-01 --lang eng --limit 50`
+  Example: `cellar monitoring new-by-eurovoc --tags banking supervision --resource-types PROP_REG PROP_DIR --since 2025-01-01 --lang eng --limit 50`
 
 ## DOWNLOAD
 

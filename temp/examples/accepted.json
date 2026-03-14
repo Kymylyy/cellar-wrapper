@@ -229,7 +229,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/5a3364d4-c67b-11f0-8da2-01aa75ed71a1",
             "celex": "32025Y06342",
-            "title": "Recommendation of the European Systemic Risk Board of 25 September 2025 on third-country multi-issuer stablecoin schemes (ESRB/2025/9)",
+            "title": "Recommendation of the European Systemic Risk Board of 25\u00a0September 2025 on third-country multi-issuer stablecoin schemes (ESRB/2025/9)",
             "date": "2025-09-25T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/RECO",
             "direction": "incoming",
@@ -239,7 +239,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/5a0e488a-9ff3-11f0-97c8-01aa75ed71a1",
             "celex": "32025R1264",
-            "title": "Commission Delegated Regulation (EU) 2025/1264 of 27 June 2025 supplementing Regulation (EU) 2023/1114 of the European Parliament and of the Council with regard to regulatory technical standards specifying the minimum contents of the liquidity management policy and procedures for certain issuers of asset-referenced tokens and e-money tokens",
+            "title": "Commission Delegated Regulation (EU) 2025/1264 of 27\u00a0June 2025 supplementing Regulation (EU)\u00a02023/1114 of the European Parliament and of the Council with regard to regulatory technical standards specifying the minimum contents of the liquidity management policy and procedures for certain issuers of asset-referenced tokens and e-money tokens",
             "date": "2025-06-27T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
             "direction": "incoming",
@@ -249,7 +249,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/fbb5cea1-91cb-11f0-97c8-01aa75ed71a1",
             "celex": "32025R1126",
-            "title": "Commission Implementing Regulation (EU) 2025/1126 of 5 June 2025 laying down implementing technical standards for the application of Regulation (EU) 2023/1114 of the European Parliament and of the Council with regard to the establishment of standard forms, templates and procedures for the information to be included in the application for authorisation to offer asset-referenced tokens to the public and to seek their admission to trading",
+            "title": "Commission Implementing Regulation (EU) 2025/1126 of 5\u00a0June 2025 laying down implementing technical standards for the application of Regulation (EU)\u00a02023/1114 of the European Parliament and of the Council with regard to the establishment of standard forms, templates and procedures for the information to be included in the application for authorisation to offer asset-referenced tokens to the public and to seek their admission to trading",
             "date": "2025-06-05T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_IMPL",
             "direction": "incoming",
@@ -259,7 +259,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/cd046b46-91cc-11f0-97c8-01aa75ed71a1",
             "celex": "32025R1125",
-            "title": "Commission Delegated Regulation (EU) 2025/1125 of 5 June 2025 supplementing Regulation (EU) 2023/1114 of the European Parliament and of the Council with regard to regulatory technical standards specifying the information in an application for authorisation to offer asset-referenced tokens to the public or to seek their admission to trading",
+            "title": "Commission Delegated Regulation (EU) 2025/1125 of 5\u00a0June 2025 supplementing Regulation (EU)\u00a02023/1114 of the European Parliament and of the Council with regard to regulatory technical standards specifying the information in an application for authorisation to offer asset-referenced tokens to the public or to seek their admission to trading",
             "date": "2025-06-05T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
             "direction": "incoming",
@@ -269,7 +269,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/b7196296-7d5d-11f0-9af8-01aa75ed71a1",
             "celex": "32025R0885",
-            "title": "Commission Delegated Regulation (EU) 2025/885 of 29 April 2025 supplementing Regulation (EU) 2023/1114 of the European Parliament and of the Council with regard to regulatory technical standards specifying the arrangements, systems and procedures to prevent, detect and report market abuse, the templates to be used for reporting suspected market abuse, and the coordination procedures between the competent authorities for the detection and sanctioning of market abuse in cross-border market abuse situations",
+            "title": "Commission Delegated Regulation (EU) 2025/885 of 29\u00a0April 2025 supplementing Regulation (EU)\u00a02023/1114 of the European Parliament and of the Council with regard to regulatory technical standards specifying the arrangements, systems and procedures to prevent, detect and report market abuse, the templates to be used for reporting suspected market abuse, and the coordination procedures between the competent authorities for the detection and sanctioning of market abuse in cross-border market abuse situations",
             "date": "2025-04-29T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
             "direction": "incoming",
@@ -336,17 +336,17 @@
           {
             "expression_uri": "http://publications.europa.eu/resource/cellar/0caf473a-85bd-11ed-9887-01aa75ed71a1.0001",
             "language_uri": "http://publications.europa.eu/resource/authority/language/BUL",
-            "title": "Регламент (ЕС) 2022/2554 на Европейския парламент и на Съвета от 14 декември 2022 година относно оперативната устойчивост на цифровите технологии във финансовия сектор и за изменение на регламенти (ЕО) № 1060/2009, (ЕС) № 648/2012, (ЕС) № 600/2014, (ЕС) № 909/2014 и (ЕС) 2016/1011 (текст от значение за ЕИП)"
+            "title": "\u0420\u0435\u0433\u043b\u0430\u043c\u0435\u043d\u0442 (\u0415\u0421) 2022/2554 \u043d\u0430 \u0415\u0432\u0440\u043e\u043f\u0435\u0439\u0441\u043a\u0438\u044f \u043f\u0430\u0440\u043b\u0430\u043c\u0435\u043d\u0442 \u0438 \u043d\u0430 \u0421\u044a\u0432\u0435\u0442\u0430 \u043e\u0442 14\u00a0\u0434\u0435\u043a\u0435\u043c\u0432\u0440\u0438 2022 \u0433\u043e\u0434\u0438\u043d\u0430 \u043e\u0442\u043d\u043e\u0441\u043d\u043e \u043e\u043f\u0435\u0440\u0430\u0442\u0438\u0432\u043d\u0430\u0442\u0430 \u0443\u0441\u0442\u043e\u0439\u0447\u0438\u0432\u043e\u0441\u0442 \u043d\u0430 \u0446\u0438\u0444\u0440\u043e\u0432\u0438\u0442\u0435 \u0442\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0438\u0438 \u0432\u044a\u0432 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432\u0438\u044f \u0441\u0435\u043a\u0442\u043e\u0440 \u0438 \u0437\u0430 \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0435 \u043d\u0430 \u0440\u0435\u0433\u043b\u0430\u043c\u0435\u043d\u0442\u0438 (\u0415\u041e) \u2116\u00a01060/2009, (\u0415\u0421) \u2116\u00a0648/2012, (\u0415\u0421) \u2116\u00a0600/2014, (\u0415\u0421) \u2116\u00a0909/2014 \u0438 (\u0415\u0421) 2016/1011 (\u0442\u0435\u043a\u0441\u0442 \u043e\u0442 \u0437\u043d\u0430\u0447\u0435\u043d\u0438\u0435 \u0437\u0430 \u0415\u0418\u041f)"
           },
           {
             "expression_uri": "http://publications.europa.eu/resource/cellar/0caf473a-85bd-11ed-9887-01aa75ed71a1.0002",
             "language_uri": "http://publications.europa.eu/resource/authority/language/CES",
-            "title": "Nařízení Evropského parlamentu a Rady (EU) 2022/2554 ze dne 14. prosince 2022 o digitální provozní odolnosti finančního sektoru a o změně nařízení (ES) č. 1060/2009, (EU) č. 648/2012, (EU) č. 600/2014, (EU) č. 909/2014 a (EU) 2016/1011 (Text s významem pro EHP)"
+            "title": "Na\u0159\u00edzen\u00ed Evropsk\u00e9ho parlamentu a\u00a0Rady (EU) 2022/2554 ze dne 14.\u00a0prosince\u00a02022 o\u00a0digit\u00e1ln\u00ed provozn\u00ed odolnosti finan\u010dn\u00edho sektoru a\u00a0o\u00a0zm\u011bn\u011b na\u0159\u00edzen\u00ed (ES) \u010d.\u00a01060/2009, (EU) \u010d.\u00a0648/2012, (EU) \u010d.\u00a0600/2014, (EU) \u010d.\u00a0909/2014 a\u00a0(EU) 2016/1011 (Text s\u00a0v\u00fdznamem pro EHP)"
           },
           {
             "expression_uri": "http://publications.europa.eu/resource/cellar/0caf473a-85bd-11ed-9887-01aa75ed71a1.0003",
             "language_uri": "http://publications.europa.eu/resource/authority/language/DAN",
-            "title": "Europa-Parlamentets og Rådets forordning (EU) 2022/2554 af 14. december 2022 om digital operationel modstandsdygtighed i den finansielle sektor og om ændring af forordning (EF) nr. 1060/2009, (EU) nr. 648/2012, (EU) nr. 600/2014, (EU) nr. 909/2014 og (EU) 2016/1011 (EØS-relevant tekst)"
+            "title": "Europa-Parlamentets og R\u00e5dets forordning (EU) 2022/2554 af 14.\u00a0december 2022 om digital operationel modstandsdygtighed i den finansielle sektor og om \u00e6ndring af forordning (EF) nr.\u00a01060/2009, (EU) nr.\u00a0648/2012, (EU) nr.\u00a0600/2014, (EU) nr.\u00a0909/2014 og (EU) 2016/1011 (E\u00d8S-relevant tekst)"
           }
         ],
         "returned_count": 3,
@@ -388,7 +388,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/7c7fb58f-dcf0-11ee-b9d9-01aa75ed71a1",
             "celex": "32024L0790",
-            "title": "Directive (EU) 2024/790 of the European Parliament and of the Council of 28 February 2024 amending Directive 2014/65/EU on markets in financial instruments (Text with EEA relevance)",
+            "title": "Directive (EU) 2024/790 of the European Parliament and of the Council of 28\u00a0February 2024 amending Directive\u00a02014/65/EU on markets in financial instruments (Text with EEA relevance)",
             "date": "2024-02-28T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "incoming",
@@ -398,7 +398,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/e995b108-9ed8-11ee-b164-01aa75ed71a1",
             "celex": "32023L2864",
-            "title": "Directive (EU) 2023/2864 of the European Parliament and of the Council of 13 December 2023 amending certain Directives as regards the establishment and functioning of the European single access point (Text with EEA relevance)",
+            "title": "Directive (EU) 2023/2864 of the European Parliament and of the Council of 13\u00a0December 2023 amending certain Directives as regards the establishment and functioning of the European single access point (Text with EEA relevance)",
             "date": "2023-12-13T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "incoming",
@@ -435,7 +435,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/d75d4591-19f4-470f-a1ba-6833902d0d76",
             "celex": "32011L0061",
-            "title": "Directive 2011/61/EU of the European Parliament and of the Council of 8 June 2011 on Alternative Investment Fund Managers and amending Directives 2003/41/EC and 2009/65/EC and Regulations (EC) No 1060/2009 and (EU) No 1095/2010  Text with EEA relevance",
+            "title": "Directive 2011/61/EU of the European Parliament and of the Council of 8\u00a0June 2011 on Alternative Investment Fund Managers and amending Directives 2003/41/EC and 2009/65/EC and Regulations (EC) No\u00a01060/2009 and (EU) No\u00a01095/2010  Text with EEA relevance",
             "date": "2011-06-08T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "outgoing",
@@ -492,7 +492,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/7c7fb58f-dcf0-11ee-b9d9-01aa75ed71a1",
             "celex": "32024L0790",
-            "title": "Directive (EU) 2024/790 of the European Parliament and of the Council of 28 February 2024 amending Directive 2014/65/EU on markets in financial instruments (Text with EEA relevance)",
+            "title": "Directive (EU) 2024/790 of the European Parliament and of the Council of 28\u00a0February 2024 amending Directive\u00a02014/65/EU on markets in financial instruments (Text with EEA relevance)",
             "date": "2024-02-28T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "incoming",
@@ -502,7 +502,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/e995b108-9ed8-11ee-b164-01aa75ed71a1",
             "celex": "32023L2864",
-            "title": "Directive (EU) 2023/2864 of the European Parliament and of the Council of 13 December 2023 amending certain Directives as regards the establishment and functioning of the European single access point (Text with EEA relevance)",
+            "title": "Directive (EU) 2023/2864 of the European Parliament and of the Council of 13\u00a0December 2023 amending certain Directives as regards the establishment and functioning of the European single access point (Text with EEA relevance)",
             "date": "2023-12-13T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "incoming",
@@ -565,7 +565,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/ba0121b2-8d8f-11ee-8aa6-01aa75ed71a1",
             "celex": "32023L2673",
-            "title": "Directive (EU) 2023/2673 of the European Parliament and of the Council of 22 November 2023 amending Directive 2011/83/EU as regards financial services contracts concluded at a distance and repealing Directive 2002/65/EC (Text with EEA relevance)",
+            "title": "Directive (EU) 2023/2673 of the European Parliament and of the Council of 22\u00a0November 2023 amending Directive\u00a02011/83/EU as regards financial services contracts concluded at a distance and repealing Directive\u00a02002/65/EC (Text with EEA relevance)",
             "date": "2023-11-22T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "incoming",
@@ -622,7 +622,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/9ef90c76-57c8-11ec-91ac-01aa75ed71a1",
             "celex": "32021L2167",
-            "title": "Directive (EU) 2021/2167 of the European Parliament and of the Council of 24 November 2021 on credit servicers and credit purchasers and amending Directives 2008/48/EC and 2014/17/EU (Text with EEA relevance)",
+            "title": "Directive (EU) 2021/2167 of the European Parliament and of the Council of 24\u00a0November 2021 on credit servicers and credit purchasers and amending Directives 2008/48/EC and\u00a02014/17/EU (Text with EEA relevance)",
             "date": "2021-11-24T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "outgoing",
@@ -652,7 +652,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/b8102350-a050-11e3-8b87-01aa75ed71a1",
             "celex": "32014L0017",
-            "title": "Directive 2014/17/EU of the European Parliament and of the Council of 4 February 2014 on credit agreements for consumers relating to residential immovable property and amending Directives 2008/48/EC and 2013/36/EU and Regulation (EU) No 1093/2010  Text with EEA relevance",
+            "title": "Directive 2014/17/EU of the European Parliament and of the Council of 4\u00a0February 2014 on credit agreements for consumers relating to residential immovable property and amending Directives 2008/48/EC and 2013/36/EU and Regulation (EU) No\u00a01093/2010  Text with EEA relevance",
             "date": "2014-02-04T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "outgoing",
@@ -662,7 +662,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/15de82de-3b35-4784-acdd-79ba1508fc66",
             "celex": "32011L0090",
-            "title": "Commission Directive 2011/90/EU of 14 November 2011 amending Part II of Annex I to Directive 2008/48/EC of the European Parliament and of the Council providing additional assumptions for the calculation of the annual percentage rate of charge Text with EEA relevance",
+            "title": "Commission Directive 2011/90/EU of 14\u00a0November 2011 amending Part II of Annex I to Directive 2008/48/EC of the European Parliament and of the Council providing additional assumptions for the calculation of the annual percentage rate of charge Text with EEA relevance",
             "date": "2011-11-14T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "outgoing",
@@ -672,7 +672,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/e4945793-f1f9-4527-8a2e-9060378fc302",
             "celex": "32008L0048",
-            "title": "Directive 2008/48/EC of the European Parliament and of the Council of 23 April 2008 on credit agreements for consumers and repealing Council Directive 87/102/EEC",
+            "title": "Directive 2008/48/EC of the European Parliament and of the Council of 23\u00a0April 2008 on credit agreements for consumers and repealing Council Directive 87/102/EEC",
             "date": "2008-04-23T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "outgoing",
@@ -709,7 +709,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/12d92010-76c8-11ee-99ba-01aa75ed71a1",
             "celex": "32023L2225",
-            "title": "Directive (EU) 2023/2225 of the European Parliament and of the Council of 18 October 2023 on credit agreements for consumers and repealing Directive 2008/48/EC",
+            "title": "Directive (EU) 2023/2225 of the European Parliament and of the Council of 18\u00a0October 2023 on credit agreements for consumers and repealing Directive\u00a02008/48/EC",
             "date": "2023-10-18T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "incoming",
@@ -782,7 +782,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/db5d0668-d0ff-11f0-8da2-01aa75ed71a1",
             "celex": "52025SC0943",
-            "title": "COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "title": "COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL\u00a0amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATION\u00a0OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
             "date": "2025-12-04T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/IMPACT_ASSESS",
             "direction": "incoming",
@@ -812,7 +812,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/784dd911-afe3-11f0-b37f-01aa75ed71a1",
             "celex": "32025R2033",
-            "title": "Council Regulation (EU) 2025/2033 of 23 October 2025 amending Regulation (EU) No 833/2014 concerning restrictive measures in view of Russia’s actions destabilising the situation in Ukraine",
+            "title": "Council Regulation (EU) 2025/2033 of 23 October 2025 amending Regulation (EU) No 833/2014 concerning restrictive measures in view of Russia\u2019s actions destabilising the situation in Ukraine",
             "date": "2025-10-23T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
             "direction": "incoming",
@@ -848,7 +848,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/931c24dd-570a-11f0-a9d0-01aa75ed71a1",
             "celex": "32025R0532",
-            "title": "Commission Delegated Regulation (EU) 2025/532 of 24 March 2025 supplementing Regulation (EU) 2022/2554 of the European Parliament and of the Council with regard to regulatory technical standards specifying the elements that a financial entity has to determine and assess when subcontracting ICT services supporting critical or important functions",
+            "title": "Commission Delegated Regulation (EU) 2025/532 of 24\u00a0March 2025 supplementing Regulation (EU)\u00a02022/2554 of the European Parliament and of the Council with regard to regulatory technical standards specifying the elements that a financial entity has to determine and assess when subcontracting ICT services supporting critical or important functions",
             "date": "2025-03-24T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
             "direction": "incoming",
@@ -858,7 +858,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/34cef789-4bdd-11f0-85ba-01aa75ed71a1",
             "celex": "32025R1190",
-            "title": "Commission Delegated Regulation (EU) 2025/1190 of 13 February 2025 supplementing Regulation (EU) 2022/2554 of the European Parliament and of the Council with regard to regulatory technical standards specifying the criteria used for identifying financial entities required to perform threat-led penetration testing, the requirements and standards governing the use of internal testers, the requirements in relation to the scope, testing methodology and approach for each phase of the testing, results, closure and remediation stages and the type of supervisory and other relevant cooperation needed for the implementation of TLPT and for the facilitation of mutual recognition",
+            "title": "Commission Delegated Regulation (EU) 2025/1190 of 13\u00a0February 2025 supplementing Regulation (EU)\u00a02022/2554 of the European Parliament and of the Council with regard to regulatory technical standards specifying the criteria used for identifying financial entities required to perform threat-led penetration testing, the requirements and standards governing the use of internal testers, the requirements in relation to the scope, testing methodology and approach for each phase of the testing, results, closure and remediation stages and the type of supervisory and other relevant cooperation needed for the implementation of TLPT and for the facilitation of mutual recognition",
             "date": "2025-02-13T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
             "direction": "incoming",
@@ -868,7 +868,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/370d3157-0851-11f0-b1a3-01aa75ed71a1",
             "celex": "32025R0420",
-            "title": "Commission Delegated Regulation (EU) 2025/420 of 16 December 2024 supplementing Regulation (EU) 2022/2554 of the European Parliament and of the Council with regard to regulatory technical standards to specify the criteria for determining the composition of the joint examination team ensuring a balanced participation of staff members from the ESAs and from the relevant competent authorities, their designation, tasks and working arrangements",
+            "title": "Commission Delegated Regulation (EU) 2025/420 of 16\u00a0December 2024 supplementing Regulation (EU)\u00a02022/2554 of the European Parliament and of the Council with regard to regulatory technical standards to specify the criteria for determining the composition of the joint examination team ensuring a balanced participation of staff members from the ESAs and from the relevant competent authorities, their designation, tasks and working arrangements",
             "date": "2024-12-16T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
             "direction": "incoming",
@@ -928,7 +928,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/54798aa4-1ff6-11ec-bd8e-01aa75ed71a1",
             "celex": "32021R1722",
-            "title": "Commission Delegated Regulation (EU) 2021/1722 of 18 June 2021 supplementing Directive (EU) 2015/2366 of the European Parliament and of the Council with regard to regulatory technical standards specifying the framework for cooperation and the exchange of information between competent authorities of the home and the host Member States in the context of supervision of payment institutions and electronic money institutions exercising cross-border provision of payment services (Text with EEA relevance)",
+            "title": "Commission Delegated Regulation (EU) 2021/1722 of 18\u00a0June 2021 supplementing Directive (EU) 2015/2366 of the European Parliament and of the Council with regard to regulatory technical standards specifying the framework for cooperation and the exchange of information between competent authorities of the home and the host Member States in the context of supervision of payment institutions and electronic money institutions exercising cross-border provision of payment services (Text with EEA relevance)",
             "date": "2021-07-18T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
             "direction": "incoming",
@@ -1327,7 +1327,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/c07296c1-2a2e-11ec-bd8e-01aa75ed71a1",
             "celex": "32021D1788",
-            "title": "Commission Implementing Decision (EU) 2021/1788 of 8 October 2021 suspending the definitive anti-dumping duties imposed by Implementing Regulation (EU) 2021/1784 on imports of aluminium flat-rolled products originating in the People’s Republic of China",
+            "title": "Commission Implementing Decision (EU) 2021/1788 of 8\u00a0October 2021 suspending the definitive anti-dumping duties imposed by Implementing Regulation (EU) 2021/1784 on imports of aluminium flat-rolled products originating in the People\u2019s Republic of China",
             "date": "2021-10-08T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC_IMPL",
             "direction": "incoming",
@@ -1469,7 +1469,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/7968d8a5-d7ed-11ef-be2a-01aa75ed71a1",
             "celex": "02015L2366-20250117",
-            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25 November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No 1093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
+            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25\u00a0November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No\u00a01093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -1479,7 +1479,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/76650e84-d7ed-11ef-be2a-01aa75ed71a1",
             "celex": null,
-            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25 November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No 1093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
+            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25\u00a0November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No\u00a01093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -1489,7 +1489,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/b912e736-fbff-11ee-a251-01aa75ed71a1",
             "celex": "02015L2366-20240408",
-            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25 November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No 1093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
+            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25\u00a0November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No\u00a01093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
             "date": "2024-04-08T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -1499,7 +1499,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/afbd1255-fbff-11ee-a251-01aa75ed71a1",
             "celex": null,
-            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25 November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No 1093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)Text with EEA relevance",
+            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25\u00a0November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No\u00a01093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)Text with EEA relevance",
             "date": "2024-04-08T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -1509,7 +1509,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/31fd7a91-4ce5-11ec-91ac-01aa75ed71a1",
             "celex": "02013L0036-20220101",
-            "title": "Directive 2013/36/EU of the European Parliament and of the Council of 26 June 2013 on access to the activity of credit institutions and the prudential supervision of credit institutions, amending Directive 2002/87/EC and repealing Directives 2006/48/EC and 2006/49/EC (Text with EEA relevance)",
+            "title": "Directive 2013/36/EU of the European Parliament and of the Council of 26\u00a0June 2013 on access to the activity of credit institutions and the prudential supervision of credit institutions, amending Directive 2002/87/EC and repealing Directives 2006/48/EC and 2006/49/EC (Text with EEA relevance)",
             "date": "2022-01-01T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -1555,7 +1555,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/bdbf03f9-d255-11ef-be2a-01aa75ed71a1",
             "celex": "02016R1011-20250117",
-            "title": "Regulation (EU) 2016/1011 of the European Parliament and of the Council of 8 June 2016 on indices used as benchmarks in financial instruments and financial contracts or to measure the performance of investment funds and amending Directives 2008/48/EC and 2014/17/EU and Regulation (EU) No 596/2014 (Text with EEA relevance)",
+            "title": "Regulation (EU) 2016/1011 of the European Parliament and of the Council of 8\u00a0June 2016 on indices used as benchmarks in financial instruments and financial contracts or to measure the performance of investment funds and amending Directives 2008/48/EC and 2014/17/EU and Regulation (EU) No\u00a0596/2014 (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -1565,7 +1565,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/36f87942-dd8f-11ef-be2a-01aa75ed71a1",
             "celex": "02014R0600-20250117",
-            "title": "Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)",
+            "title": "Regulation (EU) No\u00a0600/2014 of the European Parliament and of the Council of 15\u00a0May 2014 on markets in financial instruments and amending Regulation (EU) No\u00a0648/2012 (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -1575,7 +1575,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/c66360df-d7ec-11ef-be2a-01aa75ed71a1",
             "celex": "02009R1060-20250117",
-            "title": "Regulation (EC) No 1060/2009 of the European Parliament and of the Council of 16 September 2009 on credit rating agencies (Text with EEA relevance)",
+            "title": "Regulation (EC) No\u00a01060/2009 of the European Parliament and of the Council of 16\u00a0September 2009 on credit rating agencies (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -1585,7 +1585,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/5b2ba70c-e880-11ef-b5e9-01aa75ed71a1",
             "celex": "02014R0909-20250117",
-            "title": "Regulation (EU) No 909/2014 of the European Parliament and of the Council of 23 July 2014 on improving securities settlement in the European Union and on central securities depositories and amending Directives 98/26/EC and 2014/65/EU and Regulation (EU) No 236/2012 (Text with EEA relevance)",
+            "title": "Regulation (EU) No\u00a0909/2014 of the European Parliament and of the Council of 23\u00a0July 2014 on improving securities settlement in the European Union and on central securities depositories and amending Directives 98/26/EC and 2014/65/EU and Regulation (EU) No\u00a0236/2012 (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -1595,7 +1595,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/7250100d-0992-11f0-b1a3-01aa75ed71a1",
             "celex": "02012R0648-20250117",
-            "title": "Regulation (EU) No 648/2012 of the European Parliament and of the Council of 4 July 2012 on OTC derivatives, central counterparties and trade repositories (Text with EEA relevance)",
+            "title": "Regulation (EU) No\u00a0648/2012 of the European Parliament and of the Council of 4\u00a0July 2012 on OTC derivatives, central counterparties and trade repositories (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -1605,7 +1605,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/b23b5298-d255-11ef-be2a-01aa75ed71a1",
             "celex": null,
-            "title": "Regulation (EU) 2016/1011 of the European Parliament and of the Council of 8 June 2016 on indices used as benchmarks in financial instruments and financial contracts or to measure the performance of investment funds and amending Directives 2008/48/EC and 2014/17/EU and Regulation (EU) No 596/2014 (Text with EEA relevance)",
+            "title": "Regulation (EU) 2016/1011 of the European Parliament and of the Council of 8\u00a0June 2016 on indices used as benchmarks in financial instruments and financial contracts or to measure the performance of investment funds and amending Directives 2008/48/EC and 2014/17/EU and Regulation (EU) No\u00a0596/2014 (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -2194,7 +2194,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/748b5714-2dd4-11ef-a61b-01aa75ed71a1",
             "celex": "52024AB0013",
-            "title": "Opinion of the European Central Bank of 30 April 2024 on a proposed Regulation and Directive on payment and electronic money services (CON/2024/13)",
+            "title": "Opinion of the European Central Bank of 30\u00a0April 2024 on a proposed Regulation and Directive on payment and electronic money services (CON/2024/13)",
             "date": "2024-04-30T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN",
             "direction": "incoming",
@@ -2204,7 +2204,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/4ff15ab7-9366-11f0-97c8-01aa75ed71a1",
             "celex": "52024AP0298",
-            "title": "P9_TA(2024)0298 – Payment services in the internal market and amending Regulation (EU) No 1093/2010 – European Parliament legislative resolution of 23 April 2024 on the proposal for a regulation of the European Parliament and of the Council on payment services in the internal market and amending Regulation (EU) No 1093/2010 (COM(2023)0367 – C9-0217/2023 – 2023/0210(COD)) (Ordinary legislative procedure: first reading)",
+            "title": "P9_TA(2024)0298\u00a0\u2013 Payment services in the internal market and amending Regulation (EU) No\u00a01093/2010\u00a0\u2013 European Parliament legislative resolution of 23\u00a0April 2024 on the proposal for a regulation of the European Parliament and of the Council on payment services in the internal market and amending Regulation (EU) No\u00a01093/2010 (COM(2023)0367 \u2013 C9-0217/2023 \u2013 2023/0210(COD)) (Ordinary legislative procedure: first reading)",
             "date": "2024-04-23T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/RES_LEGIS",
             "direction": "incoming",
@@ -2214,7 +2214,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/828399c1-da9c-11ee-b9d9-01aa75ed71a1",
             "celex": "52023AE3611",
-            "title": "Opinion of the European Economic and Social Committee on a) Proposal for a Regulation of the European Parliament and of the Council on a framework for Financial Data Access and amending Regulations (EU) No 1093/2010, (EU) No 1094/2010, (EU) No 1095/2010 and (EU) 2022/2554 (COM(2023) 360 final — 2023/0205 (COD)) b) Proposal for a Directive of the European Parliament and of the Council on payment services and electronic money services in the Internal Market amending Directive 98/26/EC and repealing Directives 2015/2366/EU and 2009/110/EC (COM(2023) 366 final — 2023/0209 (COD)) and c) Proposal for a Regulation of the European Parliament and of the Council on payment services in the internal market and amending Regulation (EU) No 1093/2010 (COM(2023) 367 final — 2023/0210 (COD))",
+            "title": "Opinion of the European Economic and Social Committee on a) Proposal for a Regulation of the European Parliament and of the Council on a framework for Financial Data Access and amending Regulations (EU) No 1093/2010, (EU) No 1094/2010, (EU) No 1095/2010 and (EU) 2022/2554 (COM(2023) 360 final \u2014 2023/0205 (COD)) b) Proposal for a Directive of the European Parliament and of the Council on payment services and electronic money services in the Internal Market amending Directive 98/26/EC and repealing Directives 2015/2366/EU and 2009/110/EC (COM(2023) 366 final \u2014 2023/0209 (COD)) and c) Proposal for a Regulation of the European Parliament and of the Council on payment services in the internal market and amending Regulation (EU) No 1093/2010 (COM(2023) 367 final \u2014 2023/0210 (COD))",
             "date": "2023-12-14T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN",
             "direction": "incoming",
@@ -2479,7 +2479,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/862d5b5d-d167-11ee-b9d9-01aa75ed71a1",
             "celex": "62022CJ0661",
-            "title": "Judgment of the Court (Fifth Chamber) of 22 February 2024.#'ABC Projektai' UAB v Lietuvos bankas.#Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas.#Reference for a preliminary ruling – Payment services in the internal market – Directive (EU) 2015/2366 – Article 4(3) and (5) – Payment service or payment transaction – Directive 2009/110/EC – Article 2(2) – Issuance of electronic money – Holding of customer funds by a payment institution without a specific payment order – Classification.#Case C-661/22.",
+            "title": "Judgment of the Court (Fifth Chamber) of 22 February 2024.#'ABC Projektai' UAB v Lietuvos bankas.#Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas.#Reference for a preliminary ruling \u2013 Payment services in the internal market \u2013 Directive (EU) 2015/2366 \u2013 Article 4(3) and (5) \u2013 Payment service or payment transaction \u2013 Directive 2009/110/EC \u2013 Article 2(2) \u2013 Issuance of electronic money \u2013 Holding of customer funds by a payment institution without a specific payment order \u2013 Classification.#Case C-661/22.",
             "date": "2024-02-22T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
             "ecli": "ECLI:EU:C:2024:148",
@@ -2490,7 +2490,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/ac870c71-5355-11ec-91ac-01aa75ed71a1",
             "celex": "62020CJ0484",
-            "title": "Judgment of the Court (Ninth Chamber) of 2 December 2021.#Vodafone Kabel Deutschland GmbH v Bundesverband der Verbraucherzentralen und Verbraucherverbände - Verbraucherzentrale Bundesverband eV.#Request for a preliminary ruling from the Oberlandesgericht München.#Reference for a preliminary ruling – Consumer protection – Directive (EU) 2015/2366 – Payment services – Article 62(4) – Charges applicable – Article 107(1) – Full harmonisation – Article 115(1) and (2) – Transposition and application – Subscriptions for cable television and internet access – Contracts of indefinite duration concluded before the date for transposition of that directive – Charges applied to payment transactions without direct debit authorisation that are initiated after that date.#Case C-484/20.",
+            "title": "Judgment of the Court (Ninth Chamber) of 2 December 2021.#Vodafone Kabel Deutschland GmbH v Bundesverband der Verbraucherzentralen und Verbraucherverb\u00e4nde - Verbraucherzentrale Bundesverband eV.#Request for a preliminary ruling from the Oberlandesgericht M\u00fcnchen.#Reference for a preliminary ruling \u2013 Consumer protection \u2013 Directive (EU) 2015/2366 \u2013 Payment services \u2013 Article 62(4) \u2013 Charges applicable \u2013 Article 107(1) \u2013 Full harmonisation \u2013 Article 115(1) and (2) \u2013 Transposition and application \u2013 Subscriptions for cable television and internet access \u2013 Contracts of indefinite duration concluded before the date for transposition of that directive \u2013 Charges applied to payment transactions without direct debit authorisation that are initiated after that date.#Case C-484/20.",
             "date": "2021-12-02T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
             "ecli": "ECLI:EU:C:2021:975",
@@ -2501,7 +2501,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/ff21d11c-2403-11eb-b57e-01aa75ed71a1",
             "celex": "62019CJ0287",
-            "title": "Judgment of the Court (First Chamber) of 11 November 2020.#DenizBank AG v Verein für Konsumenteninformation.#Request for a preliminary ruling from the Oberster Gerichtshof.#Reference for a preliminary ruling – Consumer protection – Directive (EU) 2015/2366 – Payment services in the internal market – Article 4(14) – Concept of ‘payment instrument’ – Personalised multifunctional bank cards – Near-field communication (NFC) functionality – Article 52(6)(a) and Article 54(1) – Information to be provided to users – Change in the conditions of a framework contract – Tacit consent – Article 63(1)(a) and (b) – Rights and obligations related to payment services – Derogation for low-value payment instruments – Conditions under which applicable – Payment instrument that does not allow its blocking – Payment instrument used anonymously – Limitation of the temporal effects of the judgment.#Case C-287/19.",
+            "title": "Judgment of the Court (First Chamber) of 11 November 2020.#DenizBank AG v Verein f\u00fcr Konsumenteninformation.#Request for a preliminary ruling from the Oberster Gerichtshof.#Reference for a preliminary ruling \u2013 Consumer protection \u2013 Directive (EU) 2015/2366 \u2013 Payment services in the internal market \u2013 Article 4(14) \u2013 Concept of \u2018payment instrument\u2019 \u2013 Personalised multifunctional bank cards \u2013 Near-field communication (NFC) functionality \u2013 Article 52(6)(a) and Article 54(1) \u2013 Information to be provided to users \u2013 Change in the conditions of a framework contract \u2013 Tacit consent \u2013 Article 63(1)(a) and (b) \u2013 Rights and obligations related to payment services \u2013 Derogation for low-value payment instruments \u2013 Conditions under which applicable \u2013 Payment instrument that does not allow its blocking \u2013 Payment instrument used anonymously \u2013 Limitation of the temporal effects of the judgment.#Case C-287/19.",
             "date": "2020-11-11T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
             "ecli": "ECLI:EU:C:2020:897",
@@ -2512,7 +2512,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/3d380a4e-0ebe-11eb-bc07-01aa75ed71a1",
             "celex": "62018CJ0778",
-            "title": "Judgment of the Court (Fifth Chamber) of 15 October 2020.#Association française des usagers de banques v Ministre de l'Économie et des Finances.#Request for a preliminary ruling from the Conseil d'État (France).#Reference for a preliminary ruling – Consumer protection – Payment services in the internal market – Directive 2007/64/EC – Article 45 – Directive (EU) 2015/2366 – Article 55 – Termination of a framework contract – Directive 2014/17/EU – Credit agreements for consumers relating to residential immovable property – Article 12(1), (2)(a) and (3) – Tying practices – Bundling practices – Directive 2014/92/EU – Payment accounts – Articles 9 to 14 – Account switching – Obligation to deposit income on a payment account held with the lender during a period fixed by the credit agreement as consideration for an individual advantage – Duration of the obligation – Loss of the individual advantage in the event of early termination of the account.#Case C-778/18.",
+            "title": "Judgment of the Court (Fifth Chamber) of 15 October 2020.#Association fran\u00e7aise des usagers de banques v Ministre de l'\u00c9conomie et des Finances.#Request for a preliminary ruling from the Conseil d'\u00c9tat (France).#Reference for a preliminary ruling \u2013 Consumer protection \u2013 Payment services in the internal market \u2013 Directive 2007/64/EC \u2013 Article 45 \u2013 Directive (EU) 2015/2366 \u2013 Article 55 \u2013 Termination of a framework contract \u2013 Directive 2014/17/EU \u2013 Credit agreements for consumers relating to residential immovable property \u2013 Article 12(1), (2)(a) and (3) \u2013 Tying practices \u2013 Bundling practices \u2013 Directive 2014/92/EU \u2013 Payment accounts \u2013 Articles 9 to 14 \u2013 Account switching \u2013 Obligation to deposit income on a payment account held with the lender during a period fixed by the credit agreement as consideration for an individual advantage \u2013 Duration of the obligation \u2013 Loss of the individual advantage in the event of early termination of the account.#Case C-778/18.",
             "date": "2020-10-15T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
             "ecli": "ECLI:EU:C:2020:831",
@@ -2523,7 +2523,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/84c7c123-0be5-11e8-966a-01aa75ed71a1",
             "celex": "62016CJ0643",
-            "title": "Judgment of the Court (First Chamber) of 7 February 2018.#American Express Co. v The Lords Commissioners of Her Majesty’s Treasury.#Request for a preliminary ruling from the High Court of Justice (England & Wales), Queen's Bench Division (Administrative Court).#Reference for a preliminary ruling — Directive (EU) 2015/2366 — Payment services in the internal market — Article 35(1) — Obligation to provide authorised or registered payment service providers with access to payment systems — Point (b) of the first subparagraph of Article 35(2) — Inapplicability of that obligation to payment systems composed exclusively of payment service providers belonging to a group — Applicability of that obligation to three party payment card schemes that have entered into co-branding or agency arrangements — Validity.#Case C-643/16.",
+            "title": "Judgment of the Court (First Chamber) of 7 February 2018.#American Express Co. v The Lords Commissioners of Her Majesty\u2019s Treasury.#Request for a preliminary ruling from the High Court of Justice (England & Wales), Queen's Bench Division (Administrative Court).#Reference for a preliminary ruling \u2014 Directive (EU) 2015/2366 \u2014 Payment services in the internal market \u2014 Article 35(1) \u2014 Obligation to provide authorised or registered payment service providers with access to payment systems \u2014 Point (b) of the first subparagraph of Article 35(2) \u2014 Inapplicability of that obligation to payment systems composed exclusively of payment service providers belonging to a group \u2014 Applicability of that obligation to three party payment card schemes that have entered into co-branding or agency arrangements \u2014 Validity.#Case C-643/16.",
             "date": "2018-02-07T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
             "ecli": "ECLI:EU:C:2018:67",
@@ -2560,7 +2560,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/26556ddb-636a-11ee-9220-01aa75ed71a1",
             "celex": "62022CC0661",
-            "title": "Opinion of Advocate General Campos Sánchez-Bordona delivered on 5 October 2023.#'ABC Projektai' UAB v Lietuvos bankas.#Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas.#Reference for a preliminary ruling – Payment services in the internal market – Directive (EU) 2015/2366 – Article 4(3) and (5) – Payment service or payment transaction – Directive 2009/110/EC – Article 2(2) – Issuance of electronic money – Holding of customer funds by a payment institution without a specific payment order – Classification.#Case C-661/22.",
+            "title": "Opinion of Advocate General Campos S\u00e1nchez-Bordona delivered on 5 October 2023.#'ABC Projektai' UAB v Lietuvos bankas.#Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas.#Reference for a preliminary ruling \u2013 Payment services in the internal market \u2013 Directive (EU) 2015/2366 \u2013 Article 4(3) and (5) \u2013 Payment service or payment transaction \u2013 Directive 2009/110/EC \u2013 Article 2(2) \u2013 Issuance of electronic money \u2013 Holding of customer funds by a payment institution without a specific payment order \u2013 Classification.#Case C-661/22.",
             "date": "2023-10-05T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_AG",
             "direction": "incoming",
@@ -2570,7 +2570,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/27676e7c-8acd-11ea-812f-01aa75ed71a1",
             "celex": "62019CC0287",
-            "title": "Opinion of Advocate General Campos Sánchez-Bordona delivered on 30 April 2020.#DenizBank AG v Verein für Konsumenteninformation.#Request for a preliminary ruling from the Oberster Gerichtshof.#Reference for a preliminary ruling – Consumer protection – Directive (EU) 2015/2366 – Payment services in the internal market – Article 4(14) – Concept of ‘payment instrument’ – Personalised multifunctional bank cards – Near-field communication (NFC) functionality – Article 52(6)(a) and Article 54(1) – Information to be provided to users – Change in the conditions of a framework contract – Tacit consent – Article 63(1)(a) and (b) – Rights and obligations related to payment services – Derogation for low-value payment instruments – Conditions under which applicable – Payment instrument that does not allow its blocking – Payment instrument used anonymously – Limitation of the temporal effects of the judgment.#Case C-287/19.",
+            "title": "Opinion of Advocate General Campos S\u00e1nchez-Bordona delivered on 30 April 2020.#DenizBank AG v Verein f\u00fcr Konsumenteninformation.#Request for a preliminary ruling from the Oberster Gerichtshof.#Reference for a preliminary ruling \u2013 Consumer protection \u2013 Directive (EU) 2015/2366 \u2013 Payment services in the internal market \u2013 Article 4(14) \u2013 Concept of \u2018payment instrument\u2019 \u2013 Personalised multifunctional bank cards \u2013 Near-field communication (NFC) functionality \u2013 Article 52(6)(a) and Article 54(1) \u2013 Information to be provided to users \u2013 Change in the conditions of a framework contract \u2013 Tacit consent \u2013 Article 63(1)(a) and (b) \u2013 Rights and obligations related to payment services \u2013 Derogation for low-value payment instruments \u2013 Conditions under which applicable \u2013 Payment instrument that does not allow its blocking \u2013 Payment instrument used anonymously \u2013 Limitation of the temporal effects of the judgment.#Case C-287/19.",
             "date": "2020-04-30T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_AG",
             "direction": "incoming",
@@ -2580,7 +2580,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/136687e9-5955-11ea-8b81-01aa75ed71a1",
             "celex": "62018CC0778",
-            "title": "Opinion of Advocate General Saugmandsgaard Øe delivered on 27 February 2020.#Association française des usagers de banques v Ministre de l'Économie et des Finances.#Request for a preliminary ruling from the Conseil d'État (France).#Reference for a preliminary ruling – Consumer protection – Payment services in the internal market – Directive 2007/64/EC – Article 45 – Directive (EU) 2015/2366 – Article 55 – Termination of a framework contract – Directive 2014/17/EU – Credit agreements for consumers relating to residential immovable property – Article 12(1), (2)(a) and (3) – Tying practices – Bundling practices – Directive 2014/92/EU – Payment accounts – Articles 9 to 14 – Account switching – Obligation to deposit income on a payment account held with the lender during a period fixed by the credit agreement as consideration for an individual advantage – Duration of the obligation – Loss of the individual advantage in the event of early termination of the account.#Case C-778/18.",
+            "title": "Opinion of Advocate General Saugmandsgaard \u00d8e delivered on 27 February 2020.#Association fran\u00e7aise des usagers de banques v Ministre de l'\u00c9conomie et des Finances.#Request for a preliminary ruling from the Conseil d'\u00c9tat (France).#Reference for a preliminary ruling \u2013 Consumer protection \u2013 Payment services in the internal market \u2013 Directive 2007/64/EC \u2013 Article 45 \u2013 Directive (EU) 2015/2366 \u2013 Article 55 \u2013 Termination of a framework contract \u2013 Directive 2014/17/EU \u2013 Credit agreements for consumers relating to residential immovable property \u2013 Article 12(1), (2)(a) and (3) \u2013 Tying practices \u2013 Bundling practices \u2013 Directive 2014/92/EU \u2013 Payment accounts \u2013 Articles 9 to 14 \u2013 Account switching \u2013 Obligation to deposit income on a payment account held with the lender during a period fixed by the credit agreement as consideration for an individual advantage \u2013 Duration of the obligation \u2013 Loss of the individual advantage in the event of early termination of the account.#Case C-778/18.",
             "date": "2020-02-27T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_AG",
             "direction": "incoming",
@@ -2697,7 +2697,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/76088f46-814e-11f0-9af8-01aa75ed71a1",
             "celex": "62025CN0339",
-            "title": "Case C-339/25, Iulicris Recycling: Request for a preliminary ruling from the Tribunal de l’entreprise francophone de Bruxelles (Belgium) lodged on 17 May 2025 – Iulicris Recycling v Ibanfirst SA",
+            "title": "Case C-339/25, Iulicris Recycling: Request for a preliminary ruling from the Tribunal de l\u2019entreprise francophone de Bruxelles (Belgium) lodged on 17\u00a0May 2025\u00a0\u2013 Iulicris Recycling v Ibanfirst SA",
             "date": "2025-05-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -2708,7 +2708,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/6c8d3203-70cb-11f0-bf4e-01aa75ed71a1",
             "celex": "62025CN0274",
-            "title": "Case C-274/25, Alternative Payments: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 10 April 2025 – Alternative Payments UAB v Lietuvos bankas",
+            "title": "Case C-274/25, Alternative Payments: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 10\u00a0April 2025\u00a0\u2013 Alternative Payments UAB v Lietuvos bankas",
             "date": "2025-04-10T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -2719,7 +2719,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/f9f8f7ce-2eca-11f0-8a44-01aa75ed71a1",
             "celex": "62025CN0070",
-            "title": "Case C-70/25, Tukowiecka: Request for a preliminary ruling from the Sąd Rejonowy w Koszalinie (Poland) lodged on 3 February 2025 – N.O. v PKO BP S.A.",
+            "title": "Case C-70/25, Tukowiecka: Request for a preliminary ruling from the S\u0105d Rejonowy w Koszalinie (Poland) lodged on 3\u00a0February 2025\u00a0\u2013 N.O. v PKO BP S.A.",
             "date": "2025-02-03T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -2730,7 +2730,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/258e4b1e-1f12-11f0-b1a3-01aa75ed71a1",
             "celex": "62025CN0051",
-            "title": "Case C-51/25, Betaal Garant Nederland: Request for a preliminary ruling from the College van Beroep voor het bedrijfsleven (Netherlands) lodged on 28 January 2025 – Betaal Garant Nederland CV v De Nederlandsche Bank NV; other party: Vereniging Eigen Huis",
+            "title": "Case C-51/25, Betaal Garant Nederland: Request for a preliminary ruling from the College van Beroep voor het bedrijfsleven (Netherlands) lodged on 28\u00a0January 2025\u00a0\u2013 Betaal Garant Nederland CV v De Nederlandsche Bank NV; other party: Vereniging Eigen Huis",
             "date": "2025-01-28T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -2741,7 +2741,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/7dc819e5-7f45-11ed-9887-01aa75ed71a1",
             "celex": "62022CN0661",
-            "title": "Case C-661/22: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 20 October 2022 — Bruc Bond UAB v Lietuvos bankas",
+            "title": "Case C-661/22: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 20 October 2022 \u2014 Bruc Bond UAB v Lietuvos bankas",
             "date": "2022-10-20T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -2786,14 +2786,14 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/11f5ab89-0c6c-11f1-8870-01aa75ed71a1",
             "celex": "52026M11942",
-            "title": "Prior notification of a concentration (Case M.11942 – DEUTSCHE POST / CTT / JVs)",
+            "title": "Prior notification of a concentration (Case M.11942 \u2013 DEUTSCHE POST / CTT / JVs)",
             "date": "2026-02-18T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/ANNOUNC"
           },
           {
             "uri": "http://publications.europa.eu/resource/cellar/85344194-185f-11f1-8870-01aa75ed71a1",
             "celex": "52026M12257(01)",
-            "title": "Non-opposition to a notified concentration (Case M.12257 – ING GROUP / GS TFI)",
+            "title": "Non-opposition to a notified concentration (Case M.12257 \u2013 ING GROUP\u00a0/ GS TFI)",
             "date": "2026-02-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTICE"
           },
@@ -2807,7 +2807,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/916d0432-12b4-11f1-8870-01aa75ed71a1",
             "celex": "52026M12215(01)",
-            "title": "Non-opposition to a notified concentration (Case M.12215 – SAGARD UK / UNIGESTION PE)",
+            "title": "Non-opposition to a notified concentration (Case M.12215 \u2013 SAGARD UK\u00a0/ UNIGESTION PE)",
             "date": "2026-02-11T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTICE"
           }
@@ -2831,9 +2831,11 @@
       "tags": [
         "financial services"
       ],
-      "resource_type": "PROP_REG",
       "lang": "eng",
-      "limit": 5
+      "limit": 5,
+      "resource_types": [
+        "PROP_REG"
+      ]
     },
     "output": {
       "ok": true,
@@ -2894,10 +2896,12 @@
       "tags": [
         "financial services"
       ],
-      "resource_type": "PROP_REG",
       "since": "2025-01-01",
       "lang": "eng",
-      "limit": 5
+      "limit": 5,
+      "resource_types": [
+        "PROP_REG"
+      ]
     },
     "output": {
       "ok": true,
@@ -2930,6 +2934,73 @@
           "query_name": "search_by_eurovoc",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
           "executed_at": "2026-03-14T12:22:02.718245Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "Financial Services",
+    "celex": null,
+    "command": "search search-by-eurovoc",
+    "purpose": "Checks EuroVoc-based act search for the same broad tag constrained to both proposal regulations and proposal directives, showing that one query can return a mixed but still intentional legislative-proposal feed.",
+    "args": {
+      "tags": [
+        "financial services"
+      ],
+      "resource_types": [
+        "PROP_REG",
+        "PROP_DIR"
+      ],
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/83376982-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0941",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/a578f185-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0943",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/e669f689-d0fe-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0942",
+            "title": "Proposal for a DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_DIR"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/23700e5f-c5f9-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0841",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulation (EU) 2019/2088 on sustainability-related disclosures in the financial services sector (SFDR), Regulation (EU) No 1286/2014 on key information documents for packaged retail and insurance-based investment products (PRIIPs) and repealing Commission Delegated Regulation (EU) 2022/1288",
+            "date": "2025-11-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/7ec6d613-1687-11ee-806b-01aa75ed71a1",
+            "celex": "52023PC0368",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on the provision of digital euro services by payment services providers incorporated in Member States whose currency is not the euro and amending Regulation (EU) 2021/1230 of the European Parliament and the Council",
+            "date": "2023-06-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "search_by_eurovoc",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T13:15:19.806497Z",
           "limit": 5,
           "offset": 0
         }
@@ -2975,14 +3046,14 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/3ece6ff5-1a23-11f1-9769-01aa75ed71a1",
             "celex": null,
-            "title": "European Parliament decision of 10 February 2026 on the proposal of the European Central Bank for the appointment of the Vice-Chair of the Supervisory Board of the European Central Bank (N10-0080/2025 – C10-0366/2025 – 2025/0906(NLE))",
+            "title": "European Parliament decision of 10 February 2026 on the proposal of the European Central Bank for the appointment of the Vice-Chair of the Supervisory Board of the European Central Bank (N10-0080/2025 \u2013 C10-0366/2025 \u2013 2025/0906(NLE))",
             "date": "2026-02-10T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/ADOPT_TEXT"
           },
           {
             "uri": "http://publications.europa.eu/resource/cellar/417c6464-07f1-11f1-825d-01aa75ed71a1",
             "celex": null,
-            "title": "Letter from Frank Elderson, Member of the Executive Board of the European Central Bank (ECB), to Richard Raši, Speaker of the National Council of the Slovak Republic, regarding certain amendments to the law on restrictions on cash payments",
+            "title": "Letter from Frank Elderson, Member of the Executive Board of the European Central Bank (ECB), to Richard Ra\u0161i, Speaker of the National Council of the Slovak Republic, regarding certain amendments to the law on restrictions on cash payments",
             "date": "2026-02-10T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/LET_DRAFT_NATION_LEGIS"
           }
@@ -3006,9 +3077,11 @@
       "codes": [
         "bank"
       ],
-      "resource_type": "OPIN_DRAFT_NATION_LEGIS",
       "lang": "eng",
-      "limit": 5
+      "limit": 5,
+      "resource_types": [
+        "OPIN_DRAFT_NATION_LEGIS"
+      ]
     },
     "output": {
       "ok": true,
@@ -3024,7 +3097,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/27d2f44a-f5fe-11f0-b9bc-01aa75ed71a1",
             "celex": "52026AB0002",
-            "title": "Opinion of the European Central Bank of 19 January 2026 on the supervisory independence of the Banque nationale de Belgique/Nationale Bank van België, the prevention of conflicts of interest of its members of staff and governance bodies, independent directors and strategic decisions of credit institutions (CON/2026/2)",
+            "title": "Opinion of the European Central Bank of 19 January 2026 on the supervisory independence of the Banque nationale de Belgique/Nationale Bank van Belgi\u00eb, the prevention of conflicts of interest of its members of staff and governance bodies, independent directors and strategic decisions of credit institutions (CON/2026/2)",
             "date": "2026-01-19T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
           },
@@ -3069,10 +3142,12 @@
       "codes": [
         "bank"
       ],
-      "resource_type": "OPIN_DRAFT_NATION_LEGIS",
       "since": "2026-01-01",
       "lang": "eng",
-      "limit": 5
+      "limit": 5,
+      "resource_types": [
+        "OPIN_DRAFT_NATION_LEGIS"
+      ]
     },
     "output": {
       "ok": true,
@@ -3088,7 +3163,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/27d2f44a-f5fe-11f0-b9bc-01aa75ed71a1",
             "celex": "52026AB0002",
-            "title": "Opinion of the European Central Bank of 19 January 2026 on the supervisory independence of the Banque nationale de Belgique/Nationale Bank van België, the prevention of conflicts of interest of its members of staff and governance bodies, independent directors and strategic decisions of credit institutions (CON/2026/2)",
+            "title": "Opinion of the European Central Bank of 19 January 2026 on the supervisory independence of the Banque nationale de Belgique/Nationale Bank van Belgi\u00eb, the prevention of conflicts of interest of its members of staff and governance bodies, independent directors and strategic decisions of credit institutions (CON/2026/2)",
             "date": "2026-01-19T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
           }
@@ -3098,6 +3173,74 @@
           "query_name": "search_by_subject_matter",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
           "executed_at": "2026-03-14T12:22:03.247473Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "Bank",
+    "celex": null,
+    "command": "search search-by-subject-matter",
+    "purpose": "Checks the same subject-matter search constrained to both Council decisions and draft national-legislation ECB opinions, showing that one query can intentionally mix two selected document families.",
+    "args": {
+      "codes": [
+        "bank"
+      ],
+      "resource_types": [
+        "DEC",
+        "OPIN_DRAFT_NATION_LEGIS"
+      ],
+      "since": "2025-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/4f25b2a1-1c5e-11f1-8c3a-01aa75ed71a1",
+            "celex": "52026AB0008",
+            "title": "Opinion of the European Central Bank of 9 March 2026 on emergency powers (CON/2026/8)",
+            "date": "2026-03-09T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/5cb8d511-0dfd-11f1-8870-01aa75ed71a1",
+            "celex": "32026D0423",
+            "title": "Council Decision (EU) 2026/423 of 17 February 2026 amending Decision 1999/70/EC concerning the external auditors of the national central banks, as regards the external auditors of Banka Slovenije",
+            "date": "2026-02-17T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/4f228037-16a2-11f1-8870-01aa75ed71a1",
+            "celex": "32026D0443",
+            "title": "Council Decision (EU) 2026/443 of 17 February 2026 amending Decision 1999/70/EC concerning the external auditors of the national central banks, as regards the external auditors of Eesti Pank",
+            "date": "2026-02-17T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DEC"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/27d2f44a-f5fe-11f0-b9bc-01aa75ed71a1",
+            "celex": "52026AB0002",
+            "title": "Opinion of the European Central Bank of 19 January 2026 on the supervisory independence of the Banque nationale de Belgique/Nationale Bank van Belgi\u00eb, the prevention of conflicts of interest of its members of staff and governance bodies, independent directors and strategic decisions of credit institutions (CON/2026/2)",
+            "date": "2026-01-19T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/e84e4a3e-e4af-11f0-abd8-01aa75ed71a1",
+            "celex": "52025AB0045",
+            "title": "Opinion of the European Central Bank of 19 December 2025 on an increase in a tax imposed on credit institutions (CON/2025/45)",
+            "date": "2025-12-19T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/OPIN_DRAFT_NATION_LEGIS"
+          }
+        ],
+        "returned_count": 5,
+        "meta": {
+          "query_name": "search_by_subject_matter",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T13:15:20.920838Z",
           "limit": 5,
           "offset": 0
         }
@@ -3134,14 +3277,14 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/5559320d-d1b5-11f0-8da2-01aa75ed71a1",
             "celex": null,
-            "title": "COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATIONآ OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "title": "COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATION\u0622 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
             "date": "2025-12-05T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTE_COVER"
           },
           {
             "uri": "http://publications.europa.eu/resource/cellar/c0223b4e-d1b5-11f0-8da2-01aa75ed71a1",
             "celex": null,
-            "title": "COMMISSION STAFF WORKING DOCUMENT EXECUTIVE SUMMARY OF THE IMPACT ASSESSMENT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATIONآ OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "title": "COMMISSION STAFF WORKING DOCUMENT EXECUTIVE SUMMARY OF THE IMPACT ASSESSMENT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATION\u0622 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
             "date": "2025-12-05T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/NOTE_COVER"
           },
@@ -3180,7 +3323,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/ca0223e9-ca69-11f0-8da2-01aa75ed71a1",
             "celex": "32025R2263",
-            "title": "Commission Implementing Regulation (EU) 2025/2263 of 12 November 2025 amending Implementing Regulation (EU) 2015/2378 as regards the standard forms and computerised formats for the mandatory automatic exchange of information on reportable crypto-assets, the communication of the yearly assessment and the list of statistical data to be provided by Member States under Council Directive 2011/16/EU",
+            "title": "Commission Implementing Regulation (EU) 2025/2263 of 12\u00a0November 2025 amending Implementing Regulation (EU)\u00a02015/2378 as regards the standard forms and computerised formats for the mandatory automatic exchange of information on reportable crypto-assets, the communication of the yearly assessment\u00a0and the list of statistical data to be provided by Member States under Council Directive\u00a02011/16/EU",
             "date": "2025-11-12T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_IMPL"
           },
@@ -3225,6 +3368,65 @@
     }
   },
   {
+    "label": "Crypto-assets",
+    "celex": null,
+    "command": "search search-by-title",
+    "purpose": "Checks title-keyword search for a thematic crypto phrase constrained to implementing regulations and general publications, showing that multi-type filtering keeps the result set inside the selected type family.",
+    "args": {
+      "keyword": "crypto-assets",
+      "resource_types": [
+        "REG_IMPL",
+        "PUB_GEN"
+      ],
+      "since": "2024-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/ca0223e9-ca69-11f0-8da2-01aa75ed71a1",
+            "celex": "32025R2263",
+            "title": "Commission Implementing Regulation (EU) 2025/2263 of 12\u00a0November 2025 amending Implementing Regulation (EU)\u00a02015/2378 as regards the standard forms and computerised formats for the mandatory automatic exchange of information on reportable crypto-assets, the communication of the yearly assessment\u00a0and the list of statistical data to be provided by Member States under Council Directive\u00a02011/16/EU",
+            "date": "2025-11-12T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_IMPL"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/3ecd3719-afd0-11f0-b37f-01aa75ed71a1",
+            "celex": null,
+            "title": "Crypto-assets and decentralised finance : report on stablecoins, crypto-investment products and multifunction groups : October 2025.",
+            "date": "2025-10-21T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PUB_GEN"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/bd1d673a-a3ee-11f0-97c8-01aa75ed71a1",
+            "celex": null,
+            "title": "Study for developing a methodology and sustainability standards for mitigating the environmental impact of crypto-assets : executive summary.",
+            "date": "2025-10-06T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PUB_GEN"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/84f272d4-a3f2-11f0-97c8-01aa75ed71a1",
+            "celex": null,
+            "title": "Study for developing a methodology and sustainability standards for mitigating the environmental impact of crypto-assets : final report.",
+            "date": "2025-10-06T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PUB_GEN"
+          }
+        ],
+        "returned_count": 4,
+        "meta": {
+          "query_name": "search_by_title",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T13:15:23.265548Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
     "label": "Payments",
     "command": "search search-by-title",
     "purpose": "Checks broad title-keyword search for a very natural user query, showing that generic payment wording can match judgments, studies, and other documents that merely contain the same substring in the title.",
@@ -3240,35 +3442,35 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/f8d77371-1877-11f1-8870-01aa75ed71a1",
             "celex": "62024CJ0828",
-            "title": "Judgment of the Court (Sixth Chamber) of 5 March 2026.#Erdrich Umformtechnik GmbH v Odvolací finanční ředitelství.#Request for a preliminary ruling from the Nejvyšší správní soud.#Reference for a preliminary ruling – Taxation – Common system of taxation applicable to interest and royalty payments made between associated companies of different Member States – Directive 2003/49/EC – Decision to grant an exemption for a period prior to the provision of the attestation and supporting information – Article 1(12) – Time limit for provision of the attestation – Limitation on the period that may be subject to an exemption.#Case C-828/24.",
+            "title": "Judgment of the Court (Sixth Chamber) of 5 March 2026.#Erdrich Umformtechnik GmbH v Odvolac\u00ed finan\u010dn\u00ed \u0159editelstv\u00ed.#Request for a preliminary ruling from the Nejvy\u0161\u0161\u00ed spr\u00e1vn\u00ed soud.#Reference for a preliminary ruling \u2013 Taxation \u2013 Common system of taxation applicable to interest and royalty payments made between associated companies of different Member States \u2013 Directive 2003/49/EC \u2013 Decision to grant an exemption for a period prior to the provision of the attestation and supporting information \u2013 Article 1(12) \u2013 Time limit for provision of the attestation \u2013 Limitation on the period that may be subject to an exemption.#Case C-828/24.",
             "date": "2026-03-05T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG"
           },
           {
             "uri": "http://publications.europa.eu/resource/cellar/417c6464-07f1-11f1-825d-01aa75ed71a1",
             "celex": null,
-            "title": "Letter from Frank Elderson, Member of the Executive Board of the European Central Bank (ECB), to Richard Raši, Speaker of the National Council of the Slovak Republic, regarding certain amendments to the law on restrictions on cash payments",
+            "title": "Letter from Frank Elderson, Member of the Executive Board of the European Central Bank (ECB), to Richard Ra\u0161i, Speaker of the National Council of the Slovak Republic, regarding certain amendments to the law on restrictions on cash payments",
             "date": "2026-02-10T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/LET_DRAFT_NATION_LEGIS"
           },
           {
             "uri": "http://publications.europa.eu/resource/cellar/25f2573f-062d-11f1-825d-01aa75ed71a1",
             "celex": null,
-            "title": "Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of “payments not based on costs” : final report",
+            "title": "Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of \u201cpayments not based on costs\u201d : final report",
             "date": "2026-02-09T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/STU"
           },
           {
             "uri": "http://publications.europa.eu/resource/cellar/25f2573f-062d-11f1-825d-01aa75ed71a1",
             "celex": null,
-            "title": "Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of “payments not based on costs” : final report",
+            "title": "Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of \u201cpayments not based on costs\u201d : final report",
             "date": "2026-02-09T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REPORT_FINAL"
           },
           {
             "uri": "http://publications.europa.eu/resource/cellar/c33a34f3-062e-11f1-825d-01aa75ed71a1",
             "celex": null,
-            "title": "Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of “payments not based on costs” : second interim report",
+            "title": "Study on the use of ERDF/CF common indicators by Member States in the 2021-2027 period and possibility of using common indicators in a system of \u201cpayments not based on costs\u201d : second interim report",
             "date": "2026-02-09T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REPORT"
           }
@@ -3321,7 +3523,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/d00c94ca-04e6-11f0-b1a3-01aa75ed71a1",
             "celex": "52025DC0124",
-            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Savings and Investments Union A Strategy to Foster Citizens’ Wealth and Economic Competitiveness in the EU",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Savings and Investments Union A Strategy to Foster Citizens\u2019 Wealth and Economic Competitiveness in the EU",
             "date": "2025-03-19T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
           },
@@ -3382,7 +3584,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/d00c94ca-04e6-11f0-b1a3-01aa75ed71a1",
             "celex": "52025DC0124",
-            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Savings and Investments Union A Strategy to Foster Citizens’ Wealth and Economic Competitiveness in the EU",
+            "title": "COMMUNICATION FROM THE COMMISSION TO THE EUROPEAN PARLIAMENT, THE EUROPEAN COUNCIL, THE COUNCIL, THE EUROPEAN CENTRAL BANK, THE EUROPEAN ECONOMIC AND SOCIAL COMMITTEE AND THE COMMITTEE OF THE REGIONS Savings and Investments Union A Strategy to Foster Citizens\u2019 Wealth and Economic Competitiveness in the EU",
             "date": "2025-03-19T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/COMMUNIC"
           }
@@ -3604,7 +3806,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/db5d0668-d0ff-11f0-8da2-01aa75ed71a1",
             "celex": "52025SC0943",
-            "title": "COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "title": "COMMISSION STAFF WORKING DOCUMENT IMPACT ASSESSMENT REPORT Accompanying the documents Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL\u00a0amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union Proposal for DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union Proposal for a REGULATION\u00a0OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
             "date": "2025-12-04T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/IMPACT_ASSESS",
             "direction": "incoming",
@@ -3634,7 +3836,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/784dd911-afe3-11f0-b37f-01aa75ed71a1",
             "celex": "32025R2033",
-            "title": "Council Regulation (EU) 2025/2033 of 23 October 2025 amending Regulation (EU) No 833/2014 concerning restrictive measures in view of Russia’s actions destabilising the situation in Ukraine",
+            "title": "Council Regulation (EU) 2025/2033 of 23 October 2025 amending Regulation (EU) No 833/2014 concerning restrictive measures in view of Russia\u2019s actions destabilising the situation in Ukraine",
             "date": "2025-10-23T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
             "direction": "incoming",
@@ -3661,9 +3863,11 @@
     "args": {
       "celex": "32023R1114",
       "since": "2025-10-01",
-      "resource_type": "REG",
       "lang": "eng",
-      "limit": 5
+      "limit": 5,
+      "resource_types": [
+        "REG"
+      ]
     },
     "output": {
       "ok": true,
@@ -3672,7 +3876,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/784dd911-afe3-11f0-b37f-01aa75ed71a1",
             "celex": "32025R2033",
-            "title": "Council Regulation (EU) 2025/2033 of 23 October 2025 amending Regulation (EU) No 833/2014 concerning restrictive measures in view of Russia’s actions destabilising the situation in Ukraine",
+            "title": "Council Regulation (EU) 2025/2033 of 23 October 2025 amending Regulation (EU) No 833/2014 concerning restrictive measures in view of Russia\u2019s actions destabilising the situation in Ukraine",
             "date": "2025-10-23T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
             "direction": "incoming",
@@ -3806,7 +4010,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/7c7fb58f-dcf0-11ee-b9d9-01aa75ed71a1",
             "celex": "32024L0790",
-            "title": "Directive (EU) 2024/790 of the European Parliament and of the Council of 28 February 2024 amending Directive 2014/65/EU on markets in financial instruments (Text with EEA relevance)",
+            "title": "Directive (EU) 2024/790 of the European Parliament and of the Council of 28\u00a0February 2024 amending Directive\u00a02014/65/EU on markets in financial instruments (Text with EEA relevance)",
             "date": "2024-02-28T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "incoming",
@@ -3816,7 +4020,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/e995b108-9ed8-11ee-b164-01aa75ed71a1",
             "celex": "32023L2864",
-            "title": "Directive (EU) 2023/2864 of the European Parliament and of the Council of 13 December 2023 amending certain Directives as regards the establishment and functioning of the European single access point (Text with EEA relevance)",
+            "title": "Directive (EU) 2023/2864 of the European Parliament and of the Council of 13\u00a0December 2023 amending certain Directives as regards the establishment and functioning of the European single access point (Text with EEA relevance)",
             "date": "2023-12-13T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "incoming",
@@ -3853,7 +4057,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/d395dbf7-e597-11ee-8b2b-01aa75ed71a1",
             "celex": "32024R0886",
-            "title": "Regulation (EU) 2024/886 of the European Parliament and of the Council of 13 March 2024 amending Regulations (EU) No 260/2012 and (EU) 2021/1230 and Directives 98/26/EC and (EU) 2015/2366 as regards instant credit transfers in euro (Text with EEA relevance)",
+            "title": "Regulation (EU) 2024/886 of the European Parliament and of the Council of 13\u00a0March 2024 amending Regulations (EU) No\u00a0260/2012 and (EU)\u00a02021/1230 and Directives\u00a098/26/EC and (EU)\u00a02015/2366 as regards instant credit transfers in euro (Text with EEA relevance)",
             "date": "2024-03-13T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
             "direction": "incoming",
@@ -3863,7 +4067,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/e2e67364-85bd-11ed-9887-01aa75ed71a1",
             "celex": "32022L2556",
-            "title": "Directive (EU) 2022/2556 of the European Parliament and of the Council of 14 December 2022 amending Directives 2009/65/EC, 2009/138/EC, 2011/61/EU, 2013/36/EU, 2014/59/EU, 2014/65/EU, (EU) 2015/2366 and (EU) 2016/2341 as regards digital operational resilience for the financial sector (Text with EEA relevance)",
+            "title": "Directive (EU)\u00a02022/2556 of the European Parliament and of the Council of 14\u00a0December 2022 amending Directives 2009/65/EC, 2009/138/EC, 2011/61/EU, 2013/36/EU, 2014/59/EU, 2014/65/EU, (EU) 2015/2366 and (EU) 2016/2341 as regards digital operational resilience for the financial sector (Text with EEA relevance)",
             "date": "2022-12-14T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "incoming",
@@ -3876,6 +4080,57 @@
           "query_name": "new_amendments",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
           "executed_at": "2026-03-14T12:31:27.798973Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "monitoring new-amendments",
+    "purpose": "Checks new amendment relations for PSD2 since 2022-12-01 constrained to both directives and regulations, showing that monitoring filters can now express a multi-type OR over legal acts.",
+    "args": {
+      "celex": "32015L2366",
+      "since": "2022-12-01",
+      "resource_types": [
+        "DIR",
+        "REG"
+      ],
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/d395dbf7-e597-11ee-8b2b-01aa75ed71a1",
+            "celex": "32024R0886",
+            "title": "Regulation (EU) 2024/886 of the European Parliament and of the Council of 13\u00a0March 2024 amending Regulations (EU) No\u00a0260/2012 and (EU)\u00a02021/1230 and Directives\u00a098/26/EC and (EU)\u00a02015/2366 as regards instant credit transfers in euro (Text with EEA relevance)",
+            "date": "2024-03-13T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_amends_resource_legal",
+            "relation_type": "amends"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/e2e67364-85bd-11ed-9887-01aa75ed71a1",
+            "celex": "32022L2556",
+            "title": "Directive (EU)\u00a02022/2556 of the European Parliament and of the Council of 14\u00a0December 2022 amending Directives 2009/65/EC, 2009/138/EC, 2011/61/EU, 2013/36/EU, 2014/59/EU, 2014/65/EU, (EU) 2015/2366 and (EU) 2016/2341 as regards digital operational resilience for the financial sector (Text with EEA relevance)",
+            "date": "2022-12-14T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_amends_resource_legal",
+            "relation_type": "amends"
+          }
+        ],
+        "returned_count": 2,
+        "meta": {
+          "query_name": "new_amendments",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T13:15:26.772438Z",
           "limit": 5,
           "offset": 0
         }
@@ -3900,7 +4155,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/12d92010-76c8-11ee-99ba-01aa75ed71a1",
             "celex": "32023L2225",
-            "title": "Directive (EU) 2023/2225 of the European Parliament and of the Council of 18 October 2023 on credit agreements for consumers and repealing Directive 2008/48/EC",
+            "title": "Directive (EU) 2023/2225 of the European Parliament and of the Council of 18\u00a0October 2023 on credit agreements for consumers and repealing Directive\u00a02008/48/EC",
             "date": "2023-10-18T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "incoming",
@@ -3937,7 +4192,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/ba0121b2-8d8f-11ee-8aa6-01aa75ed71a1",
             "celex": "32023L2673",
-            "title": "Directive (EU) 2023/2673 of the European Parliament and of the Council of 22 November 2023 amending Directive 2011/83/EU as regards financial services contracts concluded at a distance and repealing Directive 2002/65/EC (Text with EEA relevance)",
+            "title": "Directive (EU) 2023/2673 of the European Parliament and of the Council of 22\u00a0November 2023 amending Directive\u00a02011/83/EU as regards financial services contracts concluded at a distance and repealing Directive\u00a02002/65/EC (Text with EEA relevance)",
             "date": "2023-11-22T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
             "direction": "incoming",
@@ -4058,7 +4313,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/931c24dd-570a-11f0-a9d0-01aa75ed71a1",
             "celex": "32025R0532",
-            "title": "Commission Delegated Regulation (EU) 2025/532 of 24 March 2025 supplementing Regulation (EU) 2022/2554 of the European Parliament and of the Council with regard to regulatory technical standards specifying the elements that a financial entity has to determine and assess when subcontracting ICT services supporting critical or important functions",
+            "title": "Commission Delegated Regulation (EU) 2025/532 of 24\u00a0March 2025 supplementing Regulation (EU)\u00a02022/2554 of the European Parliament and of the Council with regard to regulatory technical standards specifying the elements that a financial entity has to determine and assess when subcontracting ICT services supporting critical or important functions",
             "date": "2025-03-24T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
             "direction": "incoming",
@@ -4068,7 +4323,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/34cef789-4bdd-11f0-85ba-01aa75ed71a1",
             "celex": "32025R1190",
-            "title": "Commission Delegated Regulation (EU) 2025/1190 of 13 February 2025 supplementing Regulation (EU) 2022/2554 of the European Parliament and of the Council with regard to regulatory technical standards specifying the criteria used for identifying financial entities required to perform threat-led penetration testing, the requirements and standards governing the use of internal testers, the requirements in relation to the scope, testing methodology and approach for each phase of the testing, results, closure and remediation stages and the type of supervisory and other relevant cooperation needed for the implementation of TLPT and for the facilitation of mutual recognition",
+            "title": "Commission Delegated Regulation (EU) 2025/1190 of 13\u00a0February 2025 supplementing Regulation (EU)\u00a02022/2554 of the European Parliament and of the Council with regard to regulatory technical standards specifying the criteria used for identifying financial entities required to perform threat-led penetration testing, the requirements and standards governing the use of internal testers, the requirements in relation to the scope, testing methodology and approach for each phase of the testing, results, closure and remediation stages and the type of supervisory and other relevant cooperation needed for the implementation of TLPT and for the facilitation of mutual recognition",
             "date": "2025-02-13T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
             "direction": "incoming",
@@ -4105,7 +4360,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/1c4ef91c-df75-11ef-be2a-01aa75ed71a1",
             "celex": "32025R0212",
-            "title": "Commission Delegated Regulation (EU) 2025/212 of 13 September 2024 correcting Commission Delegated Regulation (EU) 2017/2055 supplementing Directive (EU) 2015/2366 of the European Parliament and of the Council with regard to regulatory technical standards for the cooperation and exchange of information between competent authorities relating to the exercise of the right of establishment and the freedom to provide services of payment institutions",
+            "title": "Commission Delegated Regulation (EU) 2025/212 of 13\u00a0September 2024 correcting Commission Delegated Regulation (EU)\u00a02017/2055 supplementing Directive (EU)\u00a02015/2366 of the European Parliament and of the Council with regard to regulatory technical standards for the cooperation and exchange of information between competent authorities relating to the exercise of the right of establishment and the freedom to provide services of payment institutions",
             "date": "2024-09-13T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
             "direction": "incoming",
@@ -4142,7 +4397,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/862d5b5d-d167-11ee-b9d9-01aa75ed71a1",
             "celex": "62022CJ0661",
-            "title": "Judgment of the Court (Fifth Chamber) of 22 February 2024.#'ABC Projektai' UAB v Lietuvos bankas.#Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas.#Reference for a preliminary ruling – Payment services in the internal market – Directive (EU) 2015/2366 – Article 4(3) and (5) – Payment service or payment transaction – Directive 2009/110/EC – Article 2(2) – Issuance of electronic money – Holding of customer funds by a payment institution without a specific payment order – Classification.#Case C-661/22.",
+            "title": "Judgment of the Court (Fifth Chamber) of 22 February 2024.#'ABC Projektai' UAB v Lietuvos bankas.#Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas.#Reference for a preliminary ruling \u2013 Payment services in the internal market \u2013 Directive (EU) 2015/2366 \u2013 Article 4(3) and (5) \u2013 Payment service or payment transaction \u2013 Directive 2009/110/EC \u2013 Article 2(2) \u2013 Issuance of electronic money \u2013 Holding of customer funds by a payment institution without a specific payment order \u2013 Classification.#Case C-661/22.",
             "date": "2024-02-22T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
             "ecli": "ECLI:EU:C:2024:148",
@@ -4180,7 +4435,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/76088f46-814e-11f0-9af8-01aa75ed71a1",
             "celex": "62025CN0339",
-            "title": "Case C-339/25, Iulicris Recycling: Request for a preliminary ruling from the Tribunal de l’entreprise francophone de Bruxelles (Belgium) lodged on 17 May 2025 – Iulicris Recycling v Ibanfirst SA",
+            "title": "Case C-339/25, Iulicris Recycling: Request for a preliminary ruling from the Tribunal de l\u2019entreprise francophone de Bruxelles (Belgium) lodged on 17\u00a0May 2025\u00a0\u2013 Iulicris Recycling v Ibanfirst SA",
             "date": "2025-05-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -4191,7 +4446,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/6c8d3203-70cb-11f0-bf4e-01aa75ed71a1",
             "celex": "62025CN0274",
-            "title": "Case C-274/25, Alternative Payments: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 10 April 2025 – Alternative Payments UAB v Lietuvos bankas",
+            "title": "Case C-274/25, Alternative Payments: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 10\u00a0April 2025\u00a0\u2013 Alternative Payments UAB v Lietuvos bankas",
             "date": "2025-04-10T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -4202,7 +4457,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/f9f8f7ce-2eca-11f0-8a44-01aa75ed71a1",
             "celex": "62025CN0070",
-            "title": "Case C-70/25, Tukowiecka: Request for a preliminary ruling from the Sąd Rejonowy w Koszalinie (Poland) lodged on 3 February 2025 – N.O. v PKO BP S.A.",
+            "title": "Case C-70/25, Tukowiecka: Request for a preliminary ruling from the S\u0105d Rejonowy w Koszalinie (Poland) lodged on 3\u00a0February 2025\u00a0\u2013 N.O. v PKO BP S.A.",
             "date": "2025-02-03T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -4213,7 +4468,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/258e4b1e-1f12-11f0-b1a3-01aa75ed71a1",
             "celex": "62025CN0051",
-            "title": "Case C-51/25, Betaal Garant Nederland: Request for a preliminary ruling from the College van Beroep voor het bedrijfsleven (Netherlands) lodged on 28 January 2025 – Betaal Garant Nederland CV v De Nederlandsche Bank NV; other party: Vereniging Eigen Huis",
+            "title": "Case C-51/25, Betaal Garant Nederland: Request for a preliminary ruling from the College van Beroep voor het bedrijfsleven (Netherlands) lodged on 28\u00a0January 2025\u00a0\u2013 Betaal Garant Nederland CV v De Nederlandsche Bank NV; other party: Vereniging Eigen Huis",
             "date": "2025-01-28T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
             "ecli": null,
@@ -4513,7 +4768,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/7968d8a5-d7ed-11ef-be2a-01aa75ed71a1",
             "celex": "02015L2366-20250117",
-            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25 November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No 1093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
+            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25\u00a0November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No\u00a01093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4523,7 +4778,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/76650e84-d7ed-11ef-be2a-01aa75ed71a1",
             "celex": null,
-            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25 November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No 1093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
+            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25\u00a0November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No\u00a01093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4533,7 +4788,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/b912e736-fbff-11ee-a251-01aa75ed71a1",
             "celex": "02015L2366-20240408",
-            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25 November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No 1093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
+            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25\u00a0November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No\u00a01093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)",
             "date": "2024-04-08T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4543,7 +4798,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/afbd1255-fbff-11ee-a251-01aa75ed71a1",
             "celex": null,
-            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25 November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No 1093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)Text with EEA relevance",
+            "title": "Directive (EU) 2015/2366 of the European Parliament and of the Council of 25\u00a0November 2015 on payment services in the internal market, amending Directives 2002/65/EC, 2009/110/EC and 2013/36/EU and Regulation (EU) No\u00a01093/2010, and repealing Directive 2007/64/EC (Text with EEA relevance)Text with EEA relevance",
             "date": "2024-04-08T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4580,7 +4835,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/c66360df-d7ec-11ef-be2a-01aa75ed71a1",
             "celex": "02009R1060-20250117",
-            "title": "Regulation (EC) No 1060/2009 of the European Parliament and of the Council of 16 September 2009 on credit rating agencies (Text with EEA relevance)",
+            "title": "Regulation (EC) No\u00a01060/2009 of the European Parliament and of the Council of 16\u00a0September 2009 on credit rating agencies (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4590,7 +4845,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/bdbf03f9-d255-11ef-be2a-01aa75ed71a1",
             "celex": "02016R1011-20250117",
-            "title": "Regulation (EU) 2016/1011 of the European Parliament and of the Council of 8 June 2016 on indices used as benchmarks in financial instruments and financial contracts or to measure the performance of investment funds and amending Directives 2008/48/EC and 2014/17/EU and Regulation (EU) No 596/2014 (Text with EEA relevance)",
+            "title": "Regulation (EU) 2016/1011 of the European Parliament and of the Council of 8\u00a0June 2016 on indices used as benchmarks in financial instruments and financial contracts or to measure the performance of investment funds and amending Directives 2008/48/EC and 2014/17/EU and Regulation (EU) No\u00a0596/2014 (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4600,7 +4855,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/36f87942-dd8f-11ef-be2a-01aa75ed71a1",
             "celex": "02014R0600-20250117",
-            "title": "Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)",
+            "title": "Regulation (EU) No\u00a0600/2014 of the European Parliament and of the Council of 15\u00a0May 2014 on markets in financial instruments and amending Regulation (EU) No\u00a0648/2012 (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4610,7 +4865,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/5b2ba70c-e880-11ef-b5e9-01aa75ed71a1",
             "celex": "02014R0909-20250117",
-            "title": "Regulation (EU) No 909/2014 of the European Parliament and of the Council of 23 July 2014 on improving securities settlement in the European Union and on central securities depositories and amending Directives 98/26/EC and 2014/65/EU and Regulation (EU) No 236/2012 (Text with EEA relevance)",
+            "title": "Regulation (EU) No\u00a0909/2014 of the European Parliament and of the Council of 23\u00a0July 2014 on improving securities settlement in the European Union and on central securities depositories and amending Directives 98/26/EC and 2014/65/EU and Regulation (EU) No\u00a0236/2012 (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4620,7 +4875,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/7250100d-0992-11f0-b1a3-01aa75ed71a1",
             "celex": "02012R0648-20250117",
-            "title": "Regulation (EU) No 648/2012 of the European Parliament and of the Council of 4 July 2012 on OTC derivatives, central counterparties and trade repositories (Text with EEA relevance)",
+            "title": "Regulation (EU) No\u00a0648/2012 of the European Parliament and of the Council of 4\u00a0July 2012 on OTC derivatives, central counterparties and trade repositories (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4630,7 +4885,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/c3ac7e3e-d7ec-11ef-be2a-01aa75ed71a1",
             "celex": null,
-            "title": "Regulation (EC) No 1060/2009 of the European Parliament and of the Council of 16 September 2009 on credit rating agencies (Text with EEA relevance)",
+            "title": "Regulation (EC) No\u00a01060/2009 of the European Parliament and of the Council of 16\u00a0September 2009 on credit rating agencies (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4640,7 +4895,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/b23b5298-d255-11ef-be2a-01aa75ed71a1",
             "celex": null,
-            "title": "Regulation (EU) 2016/1011 of the European Parliament and of the Council of 8 June 2016 on indices used as benchmarks in financial instruments and financial contracts or to measure the performance of investment funds and amending Directives 2008/48/EC and 2014/17/EU and Regulation (EU) No 596/2014 (Text with EEA relevance)",
+            "title": "Regulation (EU) 2016/1011 of the European Parliament and of the Council of 8\u00a0June 2016 on indices used as benchmarks in financial instruments and financial contracts or to measure the performance of investment funds and amending Directives 2008/48/EC and 2014/17/EU and Regulation (EU) No\u00a0596/2014 (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4650,7 +4905,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/1a12b521-dd8f-11ef-be2a-01aa75ed71a1",
             "celex": null,
-            "title": "Regulation (EU) No 600/2014 of the European Parliament and of the Council of 15 May 2014 on markets in financial instruments and amending Regulation (EU) No 648/2012 (Text with EEA relevance)",
+            "title": "Regulation (EU) No\u00a0600/2014 of the European Parliament and of the Council of 15\u00a0May 2014 on markets in financial instruments and amending Regulation (EU) No\u00a0648/2012 (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4660,7 +4915,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/45cc27eb-e880-11ef-b5e9-01aa75ed71a1",
             "celex": null,
-            "title": "Regulation (EU) No 909/2014 of the European Parliament and of the Council of 23 July 2014 on improving securities settlement in the European Union and on central securities depositories and amending Directives 98/26/EC and 2014/65/EU and Regulation (EU) No 236/2012 (Text with EEA relevance)",
+            "title": "Regulation (EU) No\u00a0909/2014 of the European Parliament and of the Council of 23\u00a0July 2014 on improving securities settlement in the European Union and on central securities depositories and amending Directives 98/26/EC and 2014/65/EU and Regulation (EU) No\u00a0236/2012 (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4670,7 +4925,7 @@
           {
             "uri": "http://publications.europa.eu/resource/cellar/62b799bc-0992-11f0-b1a3-01aa75ed71a1",
             "celex": null,
-            "title": "Regulation (EU) No 648/2012 of the European Parliament and of the Council of 4 July 2012 on OTC derivatives, central counterparties and trade repositories (Text with EEA relevance)",
+            "title": "Regulation (EU) No\u00a0648/2012 of the European Parliament and of the Council of 4\u00a0July 2012 on OTC derivatives, central counterparties and trade repositories (Text with EEA relevance)",
             "date": "2025-01-17T00:00:00",
             "resource_type": "http://publications.europa.eu/resource/authority/resource-type/CONS_TEXT",
             "direction": "incoming",
@@ -4698,9 +4953,11 @@
         "financial services"
       ],
       "since": "2025-01-01",
-      "resource_type": "PROP_REG",
       "lang": "eng",
-      "limit": 5
+      "limit": 5,
+      "resource_types": [
+        "PROP_REG"
+      ]
     },
     "output": {
       "ok": true,
@@ -4733,6 +4990,67 @@
           "query_name": "new_by_eurovoc",
           "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
           "executed_at": "2026-03-14T12:47:33.526179Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "Financial Services",
+    "celex": null,
+    "command": "monitoring new-by-eurovoc",
+    "purpose": "Checks EuroVoc-based monitoring for the same broad financial-services tag constrained to both proposal regulations and proposal directives, showing that monitoring now supports the same multi-type union filter as search.",
+    "args": {
+      "tags": [
+        "financial services"
+      ],
+      "since": "2025-01-01",
+      "resource_types": [
+        "PROP_REG",
+        "PROP_DIR"
+      ],
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/83376982-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0941",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on settlement finality and repealing Directive 98/26/EC and amending Directive 2002/47/EC on financial collateral arrangements",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/a578f185-d0ff-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0943",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) No 1095/2010, No 648/2012, No 600/2014, No 909/2014, 2015/2365, 2019/1156, 2021/23, 2022/858, 2023/1114, No 1060/2009, 2016/1011, 2017/2402, 2023/2631 and 2024/3005 as regards the further development of capital market integration and supervision within the Union",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/e669f689-d0fe-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0942",
+            "title": "Proposal for a DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Directives 2009/65/EC, 2011/61/EU and 2014/65/EU as regards the further development of capital market integration and supervision within the Union",
+            "date": "2025-12-04T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_DIR"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/23700e5f-c5f9-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0841",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulation (EU) 2019/2088 on sustainability-related disclosures in the financial services sector (SFDR), Regulation (EU) No 1286/2014 on key information documents for packaged retail and insurance-based investment products (PRIIPs) and repealing Commission Delegated Regulation (EU) 2022/1288",
+            "date": "2025-11-20T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG"
+          }
+        ],
+        "returned_count": 4,
+        "meta": {
+          "query_name": "new_by_eurovoc",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T13:15:20.352360Z",
           "limit": 5,
           "offset": 0
         }
@@ -4776,7 +5094,7 @@
         "source_url": "http://publications.europa.eu/resource/cellar/98ba2ed0-d620-11ee-b9d9-01aa75ed71a1.0001.02/DOC_2",
         "content_type": "application/xhtml+xml;type=xhtml5;charset=UTF-8",
         "language": "eng",
-        "content_text_preview": "<!DOCTYPE html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\"><head><meta charset=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><title>Digital operational resilience for the financial sector</title><meta name=\"description\" content=\"The Regulation sets EU-wide rules to ensure that financial entities can withstand and recover from digital and ICT-related disruptions.\"/><meta name=\"author\" content=\"PUBL\"/><meta name=\"copyright\" content=\"© European Union, 2026\"/><meta name=\"op-spec-version\" content=\"4.0\"/><meta name=\"op-creator-version\" content=\"ESTeam EUR-Lex LegisSum Editor v1.0\"/><meta name=\"op-multilingual-pub\" content=\"no\"/><meta property",
+        "content_text_preview": "<!DOCTYPE html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\"><head><meta charset=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><title>Digital operational resilience for the financial sector</title><meta name=\"description\" content=\"The Regulation sets EU-wide rules to ensure that financial entities can withstand and recover from digital and ICT-related disruptions.\"/><meta name=\"author\" content=\"PUBL\"/><meta name=\"copyright\" content=\"\u00a9 European Union, 2026\"/><meta name=\"op-spec-version\" content=\"4.0\"/><meta name=\"op-creator-version\" content=\"ESTeam EUR-Lex LegisSum Editor v1.0\"/><meta name=\"op-multilingual-pub\" content=\"no\"/><meta property",
         "content_base64_length": 28456,
         "content_truncated": true
       }

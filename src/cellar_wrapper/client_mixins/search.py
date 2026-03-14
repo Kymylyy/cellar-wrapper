@@ -26,7 +26,7 @@ class SearchMixin:
         self: ClientOpsProtocol,
         tags: Sequence[str],
         *,
-        resource_type: str | None = None,
+        resource_types: Sequence[str] | None = None,
         since: date | datetime | str | None = None,
         to: date | datetime | str | None = None,
         limit: int = DEFAULT_LIMIT,
@@ -46,7 +46,7 @@ class SearchMixin:
         since_value, to_value = self._normalize_date_bounds(since, to)
         query = build_search_by_eurovoc_query(
             concept_uris,
-            resource_type=self._normalize_resource_type(resource_type),
+            resource_types=self._normalize_resource_types(resource_types),
             since=since_value,
             to=to_value,
             limit=limit,
@@ -66,7 +66,7 @@ class SearchMixin:
         self: ClientOpsProtocol,
         codes: Sequence[str],
         *,
-        resource_type: str | None = None,
+        resource_types: Sequence[str] | None = None,
         since: date | datetime | str | None = None,
         to: date | datetime | str | None = None,
         limit: int = DEFAULT_LIMIT,
@@ -86,7 +86,7 @@ class SearchMixin:
         since_value, to_value = self._normalize_date_bounds(since, to)
         query = build_search_by_subject_matter_query(
             concept_uris,
-            resource_type=self._normalize_resource_type(resource_type),
+            resource_types=self._normalize_resource_types(resource_types),
             since=since_value,
             to=to_value,
             limit=limit,
@@ -105,7 +105,7 @@ class SearchMixin:
         self: ClientOpsProtocol,
         keyword: str,
         *,
-        resource_type: str | None = None,
+        resource_types: Sequence[str] | None = None,
         since: date | datetime | str | None = None,
         to: date | datetime | str | None = None,
         limit: int = DEFAULT_LIMIT,
@@ -118,7 +118,7 @@ class SearchMixin:
         since_value, to_value = self._normalize_date_bounds(since, to)
         query = build_search_by_title_query(
             keyword,
-            resource_type=self._normalize_resource_type(resource_type),
+            resource_types=self._normalize_resource_types(resource_types),
             since=since_value,
             to=to_value,
             limit=limit,

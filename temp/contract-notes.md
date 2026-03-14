@@ -66,7 +66,13 @@ Robocze notatki z testowania komend i kontraktow API.
 
 - Acts: `MiCA`
 - Observation: The same corrigendum can appear twice with the same `uri` and `celex`, once as `CORRIGENDUM` and once as `REG`. This looks like multi-typed CELLAR data rather than parser-side duplication.
-- Follow-up: If the goal is to show corrigenda only, consider filtering by `resource_type = CORRIGENDUM` or document the duplication explicitly.
+- Follow-up: If the goal is to show corrigenda only, consider filtering by `resource_types = ["CORRIGENDUM"]` or document the duplication explicitly.
+
+### `search search-by-title`
+
+- Acts: `Crypto-assets`
+- Observation: With filtered `resource_types`, the wrapper now binds `?type` through `VALUES`, so title-search payload rows stay inside the requested type set. For `PUB_GEN`, the wrapper no longer leaks sibling `SUM_EXE` or `STU` rows from the same CELLAR family.
+- Follow-up: Keep at least one accepted title-search example that proves filtered `resource_types` behave as an exact type-set constraint rather than a loose work-level filter.
 
 ### `lifecycle get-opinions`
 

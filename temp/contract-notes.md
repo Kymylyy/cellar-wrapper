@@ -86,6 +86,12 @@ Robocze notatki z testowania komend i kontraktow API.
 - Observation: The result set is broader than "consolidated versions of this act only". For `PSD2`, CELLAR returns both consolidated versions of PSD2 itself (for example `02015L2366-20240408`, `02015L2366-20250117`) and consolidated versions of other acts linked through the same `consolidates` relation. Some rows can also appear as parallel CELLAR resources without a mapped CELEX.
 - Follow-up: If the goal is to show only consolidated versions of the queried act, prefer examples where the CELEX starts with `0{base_celex}-` and treat rows with `celex: null` as non-canonical duplicates or aliases.
 
+### `search search-by-title`
+
+- Acts: `Crypto-assets`
+- Observation: With `resource_types=["PUB_GEN"]` or `resource_types=["REG_IMPL", "PUB_GEN"]`, filtered title search now keeps row-level `resource_type` inside the requested set. Sibling types such as `SUM_EXE` and `STU` no longer leak through from the same CELLAR work.
+- Follow-up: Keep at least one accepted example for filtered title search and one for filtered monitoring/search unions so the contract shows both the no-leak regression fix and the new multi-type OR semantics.
+
 ### `lifecycle get-nims`
 
 - Acts: `PSD2`, `DORA`

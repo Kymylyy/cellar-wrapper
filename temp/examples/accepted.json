@@ -3881,5 +3881,356 @@
         }
       }
     }
+  },
+  {
+    "label": "CCD1",
+    "celex": "32008L0048",
+    "command": "monitoring new-repeals",
+    "purpose": "Checks new repeal relations for CCD1 since 2023-01-01.",
+    "args": {
+      "celex": "32008L0048",
+      "since": "2023-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/12d92010-76c8-11ee-99ba-01aa75ed71a1",
+            "celex": "32023L2225",
+            "title": "Directive (EU) 2023/2225 of the European Parliament and of the Council of 18 October 2023 on credit agreements for consumers and repealing Directive 2008/48/EC",
+            "date": "2023-10-18T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_repeals_resource_legal",
+            "relation_type": "repeals"
+          }
+        ],
+        "returned_count": 1,
+        "meta": {
+          "query_name": "new_repeals",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:38:17.235015Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "monitoring new-repeals",
+    "purpose": "Checks new repeal relations for PSD2 since 2023-01-01, showing that monitoring can surface implicit repeal relations.",
+    "args": {
+      "celex": "32015L2366",
+      "since": "2023-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/ba0121b2-8d8f-11ee-8aa6-01aa75ed71a1",
+            "celex": "32023L2673",
+            "title": "Directive (EU) 2023/2673 of the European Parliament and of the Council of 22 November 2023 amending Directive 2011/83/EU as regards financial services contracts concluded at a distance and repealing Directive 2002/65/EC (Text with EEA relevance)",
+            "date": "2023-11-22T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/DIR",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_implicitly_repeals_resource_legal",
+            "relation_type": "implicitly_repeals"
+          }
+        ],
+        "returned_count": 1,
+        "meta": {
+          "query_name": "new_repeals",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:38:27.350840Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "AI Act",
+    "celex": "32024R1689",
+    "command": "monitoring new-proposals-to-change",
+    "purpose": "Checks new proposal acts that may amend, repeal, recast, or otherwise change the AI Act since 2025-01-01.",
+    "args": {
+      "celex": "32024R1689",
+      "since": "2025-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/aeac54e6-dbdd-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC1023",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2017/745 and (EU) 2017/746 as regards simplifying and reducing the burden of the rules on medical devices and in vitro diagnostic medical devices, and amending Regulation (EU) 2022/123 as regards the support of the European Medicines Agency for the expert panels on medical devices and Regulation (EU) 2024/1689 as regards the list of Union harmonisation legislation referred to in its Annex I",
+            "date": "2025-12-16T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
+            "relation_type": "proposes_to_change"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/c8c51d1a-c572-11f0-8da2-01aa75ed71a1",
+            "celex": "52025PC0836",
+            "title": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL amending Regulations (EU) 2024/1689 and (EU) 2018/1139 as regards the simplification of the implementation of harmonised rules on artificial intelligence (Digital Omnibus on AI)",
+            "date": "2025-11-19T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_REG",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
+            "relation_type": "proposes_to_change"
+          }
+        ],
+        "returned_count": 2,
+        "meta": {
+          "query_name": "new_proposals_to_change",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:38:26.615006Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "monitoring new-proposals-to-change",
+    "purpose": "Checks new proposal acts that may amend, repeal, recast, or otherwise change PSD2 since 2023-01-01.",
+    "args": {
+      "celex": "32015L2366",
+      "since": "2023-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/e09b163c-1687-11ee-806b-01aa75ed71a1",
+            "celex": "52023PC0366",
+            "title": "Proposal for a DIRECTIVE OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on payment services and electronic money services in the Internal Market amending Directive 98/26/EC and repealing Directives 2015/2366/EU and 2009/110/EC",
+            "date": "2023-06-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/PROP_DIR",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_proposes_to_amend_resource_legal",
+            "relation_type": "proposes_to_change"
+          }
+        ],
+        "returned_count": 1,
+        "meta": {
+          "query_name": "new_proposals_to_change",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:38:18.824030Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "DORA",
+    "celex": "32022R2554",
+    "command": "monitoring new-based-on-acts",
+    "purpose": "Checks new acts/documents linked by the broad based_on relation for DORA since 2025-01-01.",
+    "args": {
+      "celex": "32022R2554",
+      "since": "2025-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/931c24dd-570a-11f0-a9d0-01aa75ed71a1",
+            "celex": "32025R0532",
+            "title": "Commission Delegated Regulation (EU) 2025/532 of 24 March 2025 supplementing Regulation (EU) 2022/2554 of the European Parliament and of the Council with regard to regulatory technical standards specifying the elements that a financial entity has to determine and assess when subcontracting ICT services supporting critical or important functions",
+            "date": "2025-03-24T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_based_on_resource_legal",
+            "relation_type": "based_on"
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/34cef789-4bdd-11f0-85ba-01aa75ed71a1",
+            "celex": "32025R1190",
+            "title": "Commission Delegated Regulation (EU) 2025/1190 of 13 February 2025 supplementing Regulation (EU) 2022/2554 of the European Parliament and of the Council with regard to regulatory technical standards specifying the criteria used for identifying financial entities required to perform threat-led penetration testing, the requirements and standards governing the use of internal testers, the requirements in relation to the scope, testing methodology and approach for each phase of the testing, results, closure and remediation stages and the type of supervisory and other relevant cooperation needed for the implementation of TLPT and for the facilitation of mutual recognition",
+            "date": "2025-02-13T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_based_on_resource_legal",
+            "relation_type": "based_on"
+          }
+        ],
+        "returned_count": 2,
+        "meta": {
+          "query_name": "new_based_on_acts",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:38:17.322961Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "monitoring new-based-on-acts",
+    "purpose": "Checks new acts/documents linked by the broad based_on relation for PSD2 since 2024-01-01.",
+    "args": {
+      "celex": "32015L2366",
+      "since": "2024-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/1c4ef91c-df75-11ef-be2a-01aa75ed71a1",
+            "celex": "32025R0212",
+            "title": "Commission Delegated Regulation (EU) 2025/212 of 13 September 2024 correcting Commission Delegated Regulation (EU) 2017/2055 supplementing Directive (EU) 2015/2366 of the European Parliament and of the Council with regard to regulatory technical standards for the cooperation and exchange of information between competent authorities relating to the exercise of the right of establishment and the freedom to provide services of payment institutions",
+            "date": "2024-09-13T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/REG_DEL",
+            "direction": "incoming",
+            "predicate": "cdm:resource_legal_based_on_resource_legal",
+            "relation_type": "based_on"
+          }
+        ],
+        "returned_count": 1,
+        "meta": {
+          "query_name": "new_based_on_acts",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:38:17.869001Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "monitoring new-case-law",
+    "purpose": "Checks new CJEU case-law items linked to PSD2 since 2024-01-01, preserving case-law-specific fields such as ECLI, court formation, Advocate General, and origin country.",
+    "args": {
+      "celex": "32015L2366",
+      "since": "2024-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/862d5b5d-d167-11ee-b9d9-01aa75ed71a1",
+            "celex": "62022CJ0661",
+            "title": "Judgment of the Court (Fifth Chamber) of 22 February 2024.#'ABC Projektai' UAB v Lietuvos bankas.#Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas.#Reference for a preliminary ruling – Payment services in the internal market – Directive (EU) 2015/2366 – Article 4(3) and (5) – Payment service or payment transaction – Directive 2009/110/EC – Article 2(2) – Issuance of electronic money – Holding of customer funds by a payment institution without a specific payment order – Classification.#Case C-661/22.",
+            "date": "2024-02-22T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/JUDG",
+            "ecli": "ECLI:EU:C:2024:148",
+            "court_formation": "http://publications.europa.eu/resource/authority/formjug/CHAMB_05_C",
+            "advocate_general": "http://publications.europa.eu/resource/cellar/8e01d479-c04c-11e5-9e54-01aa75ed71a1",
+            "origin_country": "http://publications.europa.eu/resource/authority/country/LTU"
+          }
+        ],
+        "returned_count": 1,
+        "meta": {
+          "query_name": "new_case_law",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:38:56.486400Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
+  },
+  {
+    "label": "PSD2",
+    "celex": "32015L2366",
+    "command": "monitoring new-preliminary-questions",
+    "purpose": "Checks new preliminary-question case-law items for PSD2 since 2025-01-01, where the wrapper returns unique case rows even though EUR-Lex WWW can show repeated article-level links.",
+    "args": {
+      "celex": "32015L2366",
+      "since": "2025-01-01",
+      "lang": "eng",
+      "limit": 5
+    },
+    "output": {
+      "ok": true,
+      "data": {
+        "items": [
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/76088f46-814e-11f0-9af8-01aa75ed71a1",
+            "celex": "62025CN0339",
+            "title": "Case C-339/25, Iulicris Recycling: Request for a preliminary ruling from the Tribunal de l’entreprise francophone de Bruxelles (Belgium) lodged on 17 May 2025 – Iulicris Recycling v Ibanfirst SA",
+            "date": "2025-05-17T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": null
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/6c8d3203-70cb-11f0-bf4e-01aa75ed71a1",
+            "celex": "62025CN0274",
+            "title": "Case C-274/25, Alternative Payments: Request for a preliminary ruling from the Lietuvos vyriausiasis administracinis teismas (Lithuania) lodged on 10 April 2025 – Alternative Payments UAB v Lietuvos bankas",
+            "date": "2025-04-10T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": null
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/f9f8f7ce-2eca-11f0-8a44-01aa75ed71a1",
+            "celex": "62025CN0070",
+            "title": "Case C-70/25, Tukowiecka: Request for a preliminary ruling from the Sąd Rejonowy w Koszalinie (Poland) lodged on 3 February 2025 – N.O. v PKO BP S.A.",
+            "date": "2025-02-03T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": null
+          },
+          {
+            "uri": "http://publications.europa.eu/resource/cellar/258e4b1e-1f12-11f0-b1a3-01aa75ed71a1",
+            "celex": "62025CN0051",
+            "title": "Case C-51/25, Betaal Garant Nederland: Request for a preliminary ruling from the College van Beroep voor het bedrijfsleven (Netherlands) lodged on 28 January 2025 – Betaal Garant Nederland CV v De Nederlandsche Bank NV; other party: Vereniging Eigen Huis",
+            "date": "2025-01-28T00:00:00",
+            "resource_type": "http://publications.europa.eu/resource/authority/resource-type/INFO_JUDICIAL",
+            "ecli": null,
+            "court_formation": null,
+            "advocate_general": null,
+            "origin_country": null
+          }
+        ],
+        "returned_count": 4,
+        "meta": {
+          "query_name": "new_preliminary_questions",
+          "endpoint": "https://publications.europa.eu/webapi/rdf/sparql",
+          "executed_at": "2026-03-14T12:38:56.607664Z",
+          "limit": 5,
+          "offset": 0
+        }
+      }
+    }
   }
 ]

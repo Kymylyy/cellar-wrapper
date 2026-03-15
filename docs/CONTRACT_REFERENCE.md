@@ -59,8 +59,8 @@ HttpTransport(
 - `QueryMeta(query_name, endpoint, executed_at, limit, offset)`
 - `ListResult[T](items, returned_count, meta)`
 - `ActRef`, `ActDetail`, `RelationItem`, `ArticleAnnotationItem`, `DossierItem`, `NIMItem`, `CaseLawItem`, `EurovocTag`, `SubjectMatterTag`, `ExpressionItem`, `DocumentPayload`
-- Date-like scalar fields (`ActRef.date`, `ActDetail.date_document`, `ActDetail.date_end_of_validity`) are parsed into typed `date | datetime`.
-- `ActDetail.date_entry_into_force` is a list of parsed `date | datetime` values because CELLAR can expose more than one entry-into-force date for one act.
+- Date-like scalar fields (`ActRef.date`, `ActDetail.date_document`) are parsed into typed `date | datetime`.
+- `ActDetail.date_entry_into_force` and `ActDetail.date_end_of_validity` are lists of parsed `date | datetime` values because CELLAR can expose more than one date for one act.
 - `ActRef` metadata fields (`celex`, `title`, `date`, `resource_type`) are nullable by design; some commands intentionally project only part of these fields.
 - Collection payload invariant: `returned_count == len(items)` (including empty collections).
 
@@ -74,7 +74,7 @@ HttpTransport(
 Act-detail caveats:
 - `addresses_institutions` is act-dependent and may legitimately be empty even when `created_by_agents` or `responsible_agents` are populated.
 - `date_entry_into_force` is a list, not a single scalar. Expect `[]` when no entry-into-force date is exposed and multiple values when CELLAR reports more than one.
-- For proposals, `date_end_of_validity = 9999-12-31` can appear as a placeholder max date rather than a meaningful end-of-validity signal.
+- `date_end_of_validity` filters out `9999-12-31`, which CELLAR can expose as a placeholder max date rather than a meaningful end-of-validity signal.
 
 `CaseLawItem` may include `origin_country`.
 `get_ag_opinions` is intentionally different: although it is grouped under `case-law` in the CLI, its public payload is `RelationItem`, not `CaseLawItem`.

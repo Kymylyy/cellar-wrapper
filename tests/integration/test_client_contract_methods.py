@@ -47,7 +47,7 @@ def _query_handler(query: str) -> dict[str, object]:
                     inForce="true",
                     dateDocument="2022-12-14",
                     dateEntryIntoForce="2023-01-16",
-                    dateEndOfValidity="2099-12-31",
+                    dateEndOfValidity="2026-06-18",
                     title="Digital operational resilience act",
                 ),
                 sparql_row(
@@ -58,7 +58,7 @@ def _query_handler(query: str) -> dict[str, object]:
                     inForce="true",
                     dateDocument="2022-12-14",
                     dateEntryIntoForce="2025-01-17",
-                    dateEndOfValidity="2099-12-31",
+                    dateEndOfValidity="9999-12-31",
                     title="Digital operational resilience act",
                 ),
             ]
@@ -272,6 +272,20 @@ def test_get_act_contract_exposes_entry_into_force_as_list() -> None:
     assert result.date_entry_into_force == [
         date(2023, 1, 16),
         date(2025, 1, 17),
+    ]
+
+
+def test_get_act_contract_exposes_end_of_validity_as_list() -> None:
+    transport = FakeTransport(
+        query_handler=_query_handler,
+        download_handler=_download_handler,
+    )
+    client = CellarClient(transport=transport)
+
+    result = client.get_act("32022R2554")
+
+    assert result.date_end_of_validity == [
+        date(2026, 6, 18),
     ]
 
 

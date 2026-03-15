@@ -181,6 +181,54 @@ def test_parse_act_detail_collects_unique_entry_into_force_values_in_determinist
     ]
 
 
+def test_parse_act_detail_collects_unique_end_of_validity_values_in_deterministic_order() -> None:
+    rows = [
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32015L2366",
+            dateEndOfValidity="2028-06-18",
+        ),
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32015L2366",
+            dateEndOfValidity="2026-06-18",
+        ),
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32015L2366",
+            dateEndOfValidity="2028-06-18",
+        ),
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32015L2366",
+            dateEndOfValidity="9999-12-31",
+        ),
+    ]
+
+    detail = parse_act_detail(rows)
+
+    assert detail is not None
+    assert detail.date_end_of_validity == [
+        date(2026, 6, 18),
+        date(2028, 6, 18),
+    ]
+
+
+def test_parse_act_detail_ignores_placeholder_end_of_validity_when_it_is_the_only_value() -> None:
+    rows = [
+        sparql_row(
+            work="https://publications.europa.eu/resource/cellar/work",
+            celex="32023R1114",
+            dateEndOfValidity="9999-12-31",
+        )
+    ]
+
+    detail = parse_act_detail(rows)
+
+    assert detail is not None
+    assert detail.date_end_of_validity == []
+
+
 def test_parse_act_detail_rejects_conflicting_work_uris() -> None:
     rows = [
         sparql_row(

@@ -40,7 +40,7 @@ cellar lookup get-act --celex 32022R2554 --lang eng
   Notes: This is an intentional URI-resolution command. The returned payload is often minimal and may only contain `uri` and `celex`, while other `ActRef` fields can remain `null`.
   Example: `cellar lookup resolve-celex --celex 32022R2554`
 - `get-act` (`get_act`): Returns one detailed act card: CELEX, ELI, title, type, key dates, in-force flag, EEA relevance, responsible institutions, and signatory names.
-  Notes: `date` is intentionally not a populated alias in this endpoint; use `date_document`, `date_entry_into_force`, and `date_end_of_validity` instead. `date_entry_into_force` is a list because one act can expose multiple entry-into-force dates. `addresses_institutions` is act-dependent and may legitimately be empty even when other institution-related fields are populated. For proposals, `date_end_of_validity = 9999-12-31` can appear as a placeholder max date rather than a meaningful end-of-validity signal.
+  Notes: `date` is intentionally not a populated alias in this endpoint; use `date_document`, `date_entry_into_force`, and `date_end_of_validity` instead. `date_entry_into_force` and `date_end_of_validity` are lists because one act can expose multiple dates for each field. `addresses_institutions` is act-dependent and may legitimately be empty even when other institution-related fields are populated. `9999-12-31` is treated as a placeholder max date and is filtered out from `date_end_of_validity`.
   Example: `cellar lookup get-act --celex 32022R2554 --lang eng`
 - `get-eurovoc` (`get_eurovoc`): Lists EuroVoc tags linked to an act.
   Example: `cellar lookup get-eurovoc --celex 32022R2554 --limit 50 --offset 0`

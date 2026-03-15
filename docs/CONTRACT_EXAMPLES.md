@@ -72,7 +72,7 @@ Output:
       "2024-06-30",
       "2024-12-30"
     ],
-    "date_end_of_validity": "9999-12-31"
+    "date_end_of_validity": []
   }
 }
 ```
@@ -108,7 +108,7 @@ Output:
     "signatory_names": [],
     "date_document": "2023-06-28",
     "date_entry_into_force": [],
-    "date_end_of_validity": "9999-12-31"
+    "date_end_of_validity": []
   }
 }
 ```
@@ -153,7 +153,9 @@ Output:
     "date_entry_into_force": [
       "2016-01-12"
     ],
-    "date_end_of_validity": "2026-06-18"
+    "date_end_of_validity": [
+      "2026-06-18"
+    ]
   }
 }
 ```

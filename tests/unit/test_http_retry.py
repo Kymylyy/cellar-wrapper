@@ -460,6 +460,59 @@ def test_download_http_error_after_retries_raises_structured_error(monkeypatch: 
     transport.close()
 
 
+def test_download_streamed_404_returns_cellar_http_error(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(retries=1)
+
+    def fake_stream(*args: object, **kwargs: object) -> object:
+        request = httpx.Request("GET", "https://example.test/file")
+        response = httpx.Response(
+            404,
+            request=request,
+            stream=httpx.ByteStream(b"not found"),
+        )
+        return _stream_response(response)
+
+    monkeypatch.setattr(transport._client, "stream", fake_stream)
+
+    with pytest.raises(CellarHTTPError, match="HTTP error 404") as exc_info:
+        transport.download("https://example.test/file", accept="application/pdf")
+
+    assert exc_info.value.status_code == 404
+    assert exc_info.value.body_excerpt == "not found"
+    transport.close()
+
+
+def test_download_retries_on_streamed_503_then_success(monkeypatch: pytest.MonkeyPatch) -> None:
+    transport = HttpTransport(retries=2)
+    responses = iter(
+        [
+            httpx.Response(
+                503,
+                request=httpx.Request("GET", "https://example.test/file"),
+                stream=httpx.ByteStream(b"temporarily unavailable"),
+            ),
+            httpx.Response(
+                200,
+                request=httpx.Request("GET", "https://example.test/file"),
+                headers={"Content-Type": "application/pdf"},
+                content=b"ok",
+            ),
+        ]
+    )
+
+    def fake_stream(*args: object, **kwargs: object) -> object:
+        return _stream_response(next(responses))
+
+    monkeypatch.setattr(transport._client, "stream", fake_stream)
+    monkeypatch.setattr("cellar_wrapper.http.time.sleep", lambda *_: None)
+    monkeypatch.setattr("cellar_wrapper.http.random.uniform", lambda *_: 0.0)
+
+    content, content_type, _ = transport.download("https://example.test/file", accept="application/pdf")
+    assert content == b"ok"
+    assert content_type == "application/pdf"
+    transport.close()
+
+
 def test_download_allows_octet_stream_fallback(monkeypatch: pytest.MonkeyPatch) -> None:
     transport = HttpTransport(retries=1)
 

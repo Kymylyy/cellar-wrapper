@@ -6,6 +6,7 @@ from collections.abc import Callable, Sequence
 from datetime import date, datetime
 from typing import Any, Protocol, TypeVar
 
+from cellar_wrapper.errors import CellarNotFoundError
 from cellar_wrapper.models import ActRef, CaseLawItem, EurovocTag, ListResult, NIMItem, RelationItem
 
 T = TypeVar("T")
@@ -82,6 +83,30 @@ class ClientOpsProtocol(Protocol):
     ) -> ListResult[T]: ...
 
     def _query_rows(self, query: str) -> list[dict[str, dict[str, str]]]: ...
+
+    @staticmethod
+    def _eurlex_pdf_fallback_url(*, celex: str, lang: str, format_key: str) -> str | None: ...
+
+    @staticmethod
+    def _fallback_not_found(
+        *,
+        celex: str,
+        lang: str,
+        format_key: str,
+        phase: str,
+        original_error: Exception | None = None,
+    ) -> CellarNotFoundError: ...
+
+    @staticmethod
+    def _should_try_text_fallback(exc: Exception) -> bool: ...
+
+    def _download_text_payload(
+        self,
+        *,
+        celex: str,
+        lang: str,
+        format_key: str,
+    ) -> tuple[bytes, str, str]: ...
 
     def _find_local_eurovoc_concepts(
         self,

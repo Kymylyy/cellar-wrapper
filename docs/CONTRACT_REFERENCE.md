@@ -213,6 +213,7 @@ For local index failures, details include `source = "local_eurovoc_index"` or
 
 ## Download content-type validation
 - `get_text` / `get_summary` validate response `Content-Type` compatibility with requested format.
+- `get_text` first tries direct REST download via `resource/celex/{CELEX}` and may fall back to the corresponding EUR-Lex PDF endpoint when direct CELLAR negotiation does not expose a PDF text.
 - Generic `application/octet-stream` is accepted as fallback.
 - Downloads are streamed and aborted when payload exceeds `max_download_bytes` (default `25MB`).
 

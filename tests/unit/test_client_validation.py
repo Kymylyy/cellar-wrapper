@@ -247,6 +247,145 @@ def test_get_text_404_download_raises_not_found() -> None:
     assert exc_info.value.details["format"] == "pdf"
 
 
+def test_get_text_falls_back_to_eurlex_pdf_on_direct_404() -> None:
+    fallback_url = "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:02023R1114-20240109"
+    downloads: list[tuple[str, str, str | None]] = []
+
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return sparql_payload(
+                [
+                    sparql_row(
+                        work="http://publications.europa.eu/resource/cellar/act",
+                        celex="02023R1114-20240109",
+                    )
+                ]
+            )
+        return sparql_payload([])
+
+    def download_handler(url: str, accept: str, language: str | None) -> tuple[bytes, str, str]:
+        downloads.append((url, accept, language))
+        if url.endswith("/celex/02023R1114-20240109"):
+            raise CellarHTTPError("HTTP error 404", status_code=404, url=url)
+        return (b"pdf", "application/pdf", url)
+
+    client = CellarClient(
+        transport=FakeTransport(query_handler=query_handler, download_handler=download_handler)
+    )
+    payload = client.get_text("02023R1114-20240109", lang="pol", format="pdf")
+
+    assert payload.content_type == "application/pdf"
+    assert payload.source_url == fallback_url
+    assert downloads == [
+        (
+            "https://publications.europa.eu/resource/celex/02023R1114-20240109",
+            "application/pdf",
+            "pol",
+        ),
+        (fallback_url, "application/pdf", None),
+    ]
+
+
+def test_get_text_eurlex_pdf_fallback_not_found_has_phase_details() -> None:
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return sparql_payload(
+                [
+                    sparql_row(
+                        work="http://publications.europa.eu/resource/cellar/act",
+                        celex="02023R1114-20240109",
+                    )
+                ]
+            )
+        return sparql_payload([])
+
+    def download_handler(url: str, _accept: str, _language: str | None) -> tuple[bytes, str, str]:
+        raise CellarHTTPError("HTTP error 404", status_code=404, url=url)
+
+    client = CellarClient(
+        transport=FakeTransport(query_handler=query_handler, download_handler=download_handler)
+    )
+
+    with pytest.raises(CellarNotFoundError, match="No document content found for CELEX") as exc_info:
+        client.get_text("02023R1114-20240109", lang="pol", format="pdf")
+
+    assert exc_info.value.details["phase"] == "fallback_eurlex_pdf_download"
+    assert exc_info.value.details["original_status_code"] == 404
+
+
+def test_get_text_falls_back_to_eurlex_pdf_on_direct_content_type_mismatch() -> None:
+    fallback_url = "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:02023R1114-20240109"
+    downloads: list[tuple[str, str, str | None]] = []
+
+    def query_handler(query: str) -> dict[str, object]:
+        if "FILTER(UCASE(STR(?celex))" in query:
+            return sparql_payload(
+                [
+                    sparql_row(
+                        work="http://publications.europa.eu/resource/cellar/act",
+                        celex="02023R1114-20240109",
+                    )
+                ]
+            )
+        return sparql_payload([])
+
+    def download_handler(url: str, accept: str, language: str | None) -> tuple[bytes, str, str]:
+        downloads.append((url, accept, language))
+        if url.endswith("/celex/02023R1114-20240109"):
+            raise CellarParseError(
+                "Unexpected content type from download endpoint: expected=application/pdf got=text/html",
+                details={
+                    "expected_content_type": "application/pdf",
+                    "content_type": "text/html",
+                },
+            )
+        return (b"pdf", "application/pdf", url)
+
+    client = CellarClient(
+        transport=FakeTransport(query_handler=query_handler, download_handler=download_handler)
+    )
+    payload = client.get_text("02023R1114-20240109", lang="pol", format="pdf")
+
+    assert payload.content_type == "application/pdf"
+    assert payload.source_url == fallback_url
+    assert downloads == [
+        (
+            "https://publications.europa.eu/resource/celex/02023R1114-20240109",
+            "application/pdf",
+            "pol",
+        ),
+        (fallback_url, "application/pdf", None),
+    ]
+
+
+def test_get_text_direct_success_skips_eurlex_fallback() -> None:
+    transport = FakeTransport(
+        query_handler=lambda query: sparql_payload(
+            [
+                sparql_row(
+                    work="http://publications.europa.eu/resource/cellar/act",
+                    celex="32022R2554",
+                )
+            ]
+        )
+        if "FILTER(UCASE(STR(?celex))" in query
+        else sparql_payload([])
+    )
+    client = CellarClient(transport=transport)
+
+    payload = client.get_text("32022R2554", format="pdf")
+
+    assert payload.content_type == "application/octet-stream"
+    assert transport.downloads == [
+        (
+            "https://publications.europa.eu/resource/celex/32022R2554",
+            "application/pdf",
+            "eng",
+        )
+    ]
+    assert len(transport.queries) == 1
+
+
 def test_summary_download_uses_xhtml5_accept() -> None:
     def query_handler(query: str) -> dict[str, object]:
         if "summary_summarizes_work" in query:

@@ -22,6 +22,7 @@ from cellar_wrapper.models import (
 )
 
 BindingRow = dict[str, dict[str, str]]
+_DATE_END_OF_VALIDITY_PLACEHOLDER = "9999-12-31"
 
 
 def _value_excerpt(value: Any, *, limit: int = 120) -> str:
@@ -229,6 +230,14 @@ def _parse_unique_temporal_values(
     )
 
 
+def _parse_end_of_validity_values(candidates: Iterable[str]) -> list[date | datetime]:
+    values = _parse_unique_temporal_values(candidates, field_name="dateEndOfValidity")
+    filtered_values = [
+        value for value in values if _temporal_identity(value) != ("date", _DATE_END_OF_VALIDITY_PLACEHOLDER)
+    ]
+    return filtered_values
+
+
 def parse_act_refs(
     rows: list[BindingRow],
     *,
@@ -297,9 +306,9 @@ def parse_act_detail(rows: list[BindingRow]) -> ActDetail | None:
         "inForce": None,
         "eea": None,
         "dateDocument": None,
-        "dateEndOfValidity": None,
     }
     entry_into_force_values: list[str] = []
+    date_end_of_validity_values: list[str] = []
     created_by_agents: list[str] = []
     responsible_agents: list[str] = []
     addresses_institutions: list[str] = []
@@ -330,6 +339,9 @@ def parse_act_detail(rows: list[BindingRow]) -> ActDetail | None:
         entry_into_force_candidate = value(row, "dateEntryIntoForce")
         if entry_into_force_candidate is not None:
             entry_into_force_values.append(entry_into_force_candidate)
+        date_end_of_validity_candidate = value(row, "dateEndOfValidity")
+        if date_end_of_validity_candidate is not None:
+            date_end_of_validity_values.append(date_end_of_validity_candidate)
         for key, target, seen in (
             ("createdBy", created_by_agents, created_by_seen),
             ("responsibleAgent", responsible_agents, responsible_seen),
@@ -374,9 +386,8 @@ def parse_act_detail(rows: list[BindingRow]) -> ActDetail | None:
             entry_into_force_values,
             field_name="dateEntryIntoForce",
         ),
-        date_end_of_validity=parse_date_value(
-            first_values["dateEndOfValidity"],
-            field_name="dateEndOfValidity",
+        date_end_of_validity=_parse_end_of_validity_values(
+            date_end_of_validity_values,
         ),
     )
 

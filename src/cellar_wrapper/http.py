@@ -178,12 +178,26 @@ class HttpTransport:
         HttpTransport._sleep_backoff(attempt)
 
     @staticmethod
+    def _response_body_excerpt(response: httpx.Response) -> str | None:
+        try:
+            return response.text[:300]
+        except httpx.ResponseNotRead:
+            try:
+                response.read()
+            except Exception:
+                return None
+            try:
+                return response.text[:300]
+            except Exception:
+                return None
+
+    @staticmethod
     def _raise_http_error_from_response(response: httpx.Response) -> None:
         raise CellarHTTPError(
             f"HTTP error {response.status_code}",
             status_code=response.status_code,
             url=str(response.request.url),
-            body_excerpt=response.text[:300],
+            body_excerpt=HttpTransport._response_body_excerpt(response),
         )
 
     @staticmethod
@@ -199,7 +213,7 @@ class HttpTransport:
             url=str(response.request.url),
             retry_after=retry_after,
             retry_after_seconds=retry_after_seconds,
-            body_excerpt=response.text[:300],
+            body_excerpt=HttpTransport._response_body_excerpt(response),
         )
 
     def _handle_rate_limit_response(self, response: httpx.Response, *, attempt: int) -> bool:

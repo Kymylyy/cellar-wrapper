@@ -99,7 +99,7 @@ use [research/README.md](research/README.md).
 - `new_by_eurovoc` -> local EuroVoc resolution + final query via `VALUES ?concept` + strict `date > since` (+ optional `date < to`)
 
 ## DOWNLOAD
-- `get_text` -> REST `resource/celex/{CELEX}` with negotiated MIME and language
+- `get_text` -> REST `resource/celex/{CELEX}` with negotiated MIME and language, with EUR-Lex PDF fallback when direct CELLAR negotiation does not expose a PDF text
 - `get_summary` -> summary URI via
   - `cdm:summary_summarizes_work` OR
   - `cdm:summary_legislation_eu_summarizes_resource_legal`

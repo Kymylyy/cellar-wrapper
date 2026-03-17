@@ -1,13 +1,16 @@
 # Support
 
-## Usage Questions and Bug Reports
+## Usage Questions, Bugs, and Feature Requests
 
-Use GitHub Issues:
+Use GitHub Issues and pick the matching template:
 
-- https://github.com/Kymylyy/cellar-wrapper/issues
+- Usage questions: https://github.com/Kymylyy/cellar-wrapper/issues/new/choose
+- Bug reports: https://github.com/Kymylyy/cellar-wrapper/issues/new/choose
+- Feature requests: https://github.com/Kymylyy/cellar-wrapper/issues/new/choose
 
 Please include:
 
+- What you are trying to do
 - What you ran (command/code snippet)
 - Expected behavior
 - Actual behavior and error output

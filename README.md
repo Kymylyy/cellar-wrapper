@@ -14,7 +14,7 @@ This project is community-maintained and unofficial. It is not affiliated with, 
 
 ## Important status
 
-This project is still being built.
+This is an early-stage project.
 
 The Python API, CLI commands, MCP interface, and response shapes may change. Do not treat the current interface as final or stable.
 
@@ -44,16 +44,30 @@ Before using it seriously, keep in mind:
 
 ## Installation
 
-Library and CLI:
+Requires Python 3.11 or newer.
+
+If you want the published package, install the library and CLI with:
 
 ```bash
 pip install cellar-wrapper
 ```
 
-Library, CLI, and MCP support:
+If you want the current repository version instead, install directly from GitHub:
+
+```bash
+pip install "git+https://github.com/Kymylyy/cellar-wrapper.git"
+```
+
+For library, CLI, and MCP support:
 
 ```bash
 pip install "cellar-wrapper[mcp]"
+```
+
+Or from GitHub with the MCP extra:
+
+```bash
+pip install "cellar-wrapper[mcp] @ git+https://github.com/Kymylyy/cellar-wrapper.git"
 ```
 
 ## Quick use from the command line

@@ -5,7 +5,12 @@ from __future__ import annotations
 import base64
 
 from cellar_wrapper.client_mixins.protocols import ClientOpsProtocol
-from cellar_wrapper.constants import DEFAULT_LANGUAGE, SUMMARY_ACCEPT, TEXT_FORMAT_ACCEPT
+from cellar_wrapper.constants import (
+    DEFAULT_LANGUAGE,
+    PDF_ACCEPT_CANDIDATES,
+    SUMMARY_ACCEPT,
+    TEXT_FORMAT_ACCEPT,
+)
 from cellar_wrapper.errors import (
     CellarHTTPError,
     CellarNotFoundError,
@@ -98,16 +103,19 @@ class DownloadMixin:
         lang: str,
         format_key: str,
     ) -> tuple[bytes, str, str]:
-        try:
-            return self._transport.download(
-                f"{self._base_url_resource}/celex/{celex}",
-                accept=TEXT_FORMAT_ACCEPT[format_key],
-                language=lang,
-            )
-        except (CellarHTTPError, CellarParseError) as exc:
-            if not self._should_try_text_fallback(exc):
-                raise
-            original_error: Exception = exc
+        accepts = PDF_ACCEPT_CANDIDATES if format_key == "pdf" else (TEXT_FORMAT_ACCEPT[format_key],)
+        original_error: Exception | None = None
+        for accept in accepts:
+            try:
+                return self._transport.download(
+                    f"{self._base_url_resource}/celex/{celex}",
+                    accept=accept,
+                    language=lang,
+                )
+            except (CellarHTTPError, CellarParseError) as exc:
+                if not self._should_try_text_fallback(exc):
+                    raise
+                original_error = exc
 
         fallback_url = self._eurlex_pdf_fallback_url(celex=celex, lang=lang, format_key=format_key)
         if fallback_url is None:

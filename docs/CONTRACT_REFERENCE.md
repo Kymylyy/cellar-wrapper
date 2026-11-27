@@ -41,9 +41,9 @@ HttpTransport(
 
 ## Input contract
 - `celex: str` -> normalized to uppercase, validated against `^[0-9A-Z()_\-]{5,40}$`.
-- `since: date | datetime | str` -> ISO-8601 parseable, normalized to `xsd:dateTime` in SPARQL:
-  - date input -> `YYYY-MM-DDT00:00:00Z`
-  - datetime input -> canonical ISO datetime (UTC-normalized)
+- `since: date | datetime | str` -> ISO-8601 parseable, normalized to an `xsd:date` in SPARQL (CELLAR dates are day-level):
+  - date input -> `YYYY-MM-DD`
+  - datetime input -> its UTC calendar date (time of day is ignored)
 - `to: date | datetime | str` -> same normalization rules as `since`; used as a strict upper bound in SPARQL.
 - `lang: str` -> ISO 639-3 (`[a-zA-Z]{3}`), normalized to lowercase.
 - `direction: "incoming" | "outgoing" | "both"` -> optional relation-direction filter for symmetric relation commands; default `both`.
@@ -102,7 +102,7 @@ For relation semantics, note in particular:
 - `get_corrigenda` and `new_corrigenda` default to `resource_types = ["CORRIGENDUM"]`, while still allowing an explicit override.
 - Without a type filter, payload `resource_type` may be any bound CELLAR type attached to the work (or `null`).
 - With `resource_types`, payload `resource_type` is constrained to one of the selected types rather than any sibling type attached to the same CELLAR work.
-- `get_legal_basis` can mix treaty-basis rows (`based_on_concept_treaty`), legal acts based on the act (incoming), and legal acts the queried act is based on (outgoing). Rows can carry sparse metadata.
+- `get_legal_basis` returns only what the queried act is based on (outgoing): treaty-basis rows (`based_on_concept_treaty`) and legal acts (`based_on_resource_legal`). Acts based on the queried act are available via `get_based_on_acts`. Rows can carry sparse metadata.
 - `get_legal_basis` is also the correct reverse-lookup path for delegated act -> base act.
 - `get_citations` is not limited to legal acts; depending on the act, it can include communications, impact assessments, staff working documents, and similar materials.
 - `get_nims` and `new_nims` are special among relation-style commands: they group raw CELLAR rows by national-act `uri` before returning public items, so raw omnibus-law row inflation is intentionally hidden from the public contract.
@@ -235,10 +235,10 @@ Concept and URI-related fields are returned as canonical URIs where relevant. Ex
 - `ExpressionItem.language_uri`
 
 ## Date filtering semantics
-- `since` is a strict lower bound: `?date > since_datetime`.
-- `to` is a strict upper bound: `?date < to_datetime`.
-- If both are supplied, the effective comparison is `?date > since_datetime && ?date < to_datetime`.
-- Date-only inputs for both bounds normalize to `YYYY-MM-DDT00:00:00Z`.
+- `since` is a strict lower bound: `?date > since_date` (items dated on the `since` day are excluded).
+- `to` is a strict upper bound: `?date < to_date` (items dated on the `to` day are excluded).
+- If both are supplied, the effective comparison is `?date > since_date && ?date < to_date`.
+- Both bounds are compared as `xsd:date`; datetime inputs are reduced to their UTC calendar date.
 - Inverted ranges (`since > to` after normalization) raise `CellarValidationError`.
 - Non-monitoring methods with optional bounds (`search_*`, `get_*`) use:
   - `FILTER(!BOUND(?date) || comparison)`

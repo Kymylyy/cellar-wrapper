@@ -16,7 +16,7 @@ from tests.helpers import FakeTransport, sparql_payload, sparql_row
 
 
 def _query_handler(query: str) -> dict[str, object]:
-    if "FILTER(UCASE(STR(?celex))" in query:
+    if "VALUES ?celex" in query:
         return sparql_payload(
             [
                 sparql_row(
@@ -310,7 +310,7 @@ def test_non_monitoring_search_since_includes_undated_filter() -> None:
     _ = client.search_by_title("payment", since="2025-01-01")
 
     assert any(
-        "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+        "FILTER(!BOUND(?date) || ?date > '2025-01-01'^^xsd:date)" in query
         for query in transport.queries
     )
 
@@ -322,7 +322,7 @@ def test_non_monitoring_search_to_includes_upper_bound_filter() -> None:
     _ = client.search_by_title("payment", to="2025-02-01")
 
     assert any(
-        "FILTER(!BOUND(?date) || ?date < '2025-02-01T00:00:00Z'^^xsd:dateTime)" in query
+        "FILTER(!BOUND(?date) || ?date < '2025-02-01'^^xsd:date)" in query
         for query in transport.queries
     )
 
@@ -357,7 +357,7 @@ def test_monitoring_since_is_strictly_date_bound() -> None:
     _ = client.new_case_law("32022R2554", since="2025-01-01")
 
     assert any(
-        "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+        "FILTER(BOUND(?date) && ?date > '2025-01-01'^^xsd:date)" in query
         for query in transport.queries
     )
 
@@ -369,7 +369,7 @@ def test_monitoring_combined_date_bounds_are_strict() -> None:
     _ = client.new_case_law("32022R2554", since="2025-01-01", to="2025-02-01")
 
     assert any(
-        "FILTER(BOUND(?date) && (?date > '2025-01-01T00:00:00Z'^^xsd:dateTime && ?date < '2025-02-01T00:00:00Z'^^xsd:dateTime))"
+        "FILTER(BOUND(?date) && (?date > '2025-01-01'^^xsd:date && ?date < '2025-02-01'^^xsd:date))"
         in query
         for query in transport.queries
     )

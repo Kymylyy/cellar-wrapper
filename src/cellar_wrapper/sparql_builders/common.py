@@ -89,14 +89,6 @@ def limit_offset(limit: int = DEFAULT_LIMIT, offset: int = DEFAULT_OFFSET) -> st
     return f"LIMIT {limit}\nOFFSET {offset}"
 
 
-def _normalize_datetime_lexical(dt: datetime) -> str:
-    """Serialize datetime to a canonical UTC lexical representation."""
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=UTC)
-    dt_utc = dt.astimezone(UTC).replace(microsecond=0)
-    return dt_utc.isoformat().replace("+00:00", "Z")
-
-
 def _normalize_date_bound_datetime(value: date | datetime | str, *, field_name: str) -> datetime:
     """Normalize date-like input to a UTC datetime for filtering."""
     if isinstance(value, datetime):
@@ -128,7 +120,11 @@ def date_bounds_filter(
     to: date | datetime | str | None = None,
     include_undated: bool = False,
 ) -> str:
-    """Render strict date-bound filter for date-like columns."""
+    """Render strict date-bound filter for date-like columns.
+
+    CELLAR dates are `xsd:date`; comparing them with an `xsd:dateTime` literal makes
+    Virtuoso drop strictness, so bounds are compared at day granularity (UTC date).
+    """
     if since is None and to is None:
         return ""
     if not SPARQL_VAR_RE.fullmatch(var_name):
@@ -139,12 +135,12 @@ def date_bounds_filter(
     comparisons: list[str] = []
     if since is not None:
         normalized_since = _normalize_date_bound_datetime(since, field_name="since")
-        since_literal = quote_literal(_normalize_datetime_lexical(normalized_since))
-        comparisons.append(f"?{var_name} > {since_literal}^^xsd:dateTime")
+        since_literal = quote_literal(normalized_since.date().isoformat())
+        comparisons.append(f"?{var_name} > {since_literal}^^xsd:date")
     if to is not None:
         normalized_to = _normalize_date_bound_datetime(to, field_name="to")
-        to_literal = quote_literal(_normalize_datetime_lexical(normalized_to))
-        comparisons.append(f"?{var_name} < {to_literal}^^xsd:dateTime")
+        to_literal = quote_literal(normalized_to.date().isoformat())
+        comparisons.append(f"?{var_name} < {to_literal}^^xsd:date")
     if normalized_since is not None and normalized_to is not None and normalized_since > normalized_to:
         raise ValueError("since cannot be later than to")
 

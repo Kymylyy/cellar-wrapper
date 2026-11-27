@@ -15,23 +15,19 @@ CONCEPT_PREDICATES = frozenset(
 )
 
 
-def build_resolve_celex_query(celex: str, *, use_contains: bool) -> str:
-    """Build CELEX-to-work URI resolution query."""
-    celex_upper = celex.upper()
-    limit = 20 if use_contains else 5
-    if use_contains:
-        # CELLAR CELEX fallback: drop sector prefix (first char) and probe by token.
-        token = celex_upper[1:] if len(celex_upper) > 1 else celex_upper
-        filter_clause = f"FILTER(CONTAINS(UCASE(STR(?celex)), {quote_literal(token)}))"
-    else:
-        filter_clause = f"FILTER(UCASE(STR(?celex)) = {quote_literal(celex_upper)})"
+def build_resolve_celex_query(celex: str) -> str:
+    """Build CELEX-to-work URI resolution query.
 
+    Binds the CELEX literal directly (typed and plain) so CELLAR can use its index;
+    a FILTER over STR(?celex) forces a full scan of all CELEX values.
+    """
+    literal = quote_literal(celex.upper())
     query = f"""
 SELECT DISTINCT ?work ?celex WHERE {{
+  VALUES ?celex {{ {literal}^^xsd:string {literal} }}
   ?work {PREDICATES["resource_legal_id_celex"]} ?celex .
-  {filter_clause}
 }}
-LIMIT {limit}
+LIMIT 5
 """
     return with_prefixes(query)
 
@@ -98,11 +94,6 @@ def build_legal_basis_query(work_uri: str, *, limit: int, offset: int) -> str:
     query = f"""
 SELECT DISTINCT ?uri ?celex ?title ?date ?type ?relationType ?direction ?predicate WHERE {{
   {{
-    ?other {PREDICATES["based_on"]} <{work_iri}> .
-    BIND({quote_literal("incoming")} AS ?direction)
-    BIND({quote_literal("based_on_resource_legal")} AS ?relationType)
-    BIND({quote_literal(PREDICATES["based_on"])} AS ?predicate)
-  }} UNION {{
     <{work_iri}> {PREDICATES["based_on"]} ?other .
     BIND({quote_literal("outgoing")} AS ?direction)
     BIND({quote_literal("based_on_resource_legal")} AS ?relationType)

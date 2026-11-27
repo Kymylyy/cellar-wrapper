@@ -19,7 +19,7 @@ def _resolver_payload() -> dict[str, object]:
 
 def test_lookup_group_get_act() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return _resolver_payload()
         return sparql_payload(
             [
@@ -42,7 +42,7 @@ def test_lookup_group_get_act() -> None:
 
 def test_relations_group_get_amendments() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return _resolver_payload()
         return sparql_payload(
             [
@@ -63,7 +63,7 @@ def test_relations_group_get_amendments() -> None:
 
 def test_relations_group_get_amendments_direction_override() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return _resolver_payload()
         assert "BIND('outgoing' AS ?direction)" in query
         assert "BIND('incoming' AS ?direction)" not in query
@@ -86,7 +86,7 @@ def test_relations_group_get_amendments_direction_override() -> None:
 
 def test_lifecycle_group_get_dossier() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return _resolver_payload()
         return sparql_payload(
             [
@@ -115,7 +115,7 @@ def test_lifecycle_group_get_dossier() -> None:
 
 def test_lifecycle_group_get_nims_exposes_country() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return _resolver_payload()
         return sparql_payload(
             [
@@ -141,7 +141,7 @@ def test_lifecycle_group_get_nims_regression_groups_omnibus_rows_by_uri() -> Non
     nim_uri = "http://publications.europa.eu/resource/cellar/nim-omnibus"
 
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return sparql_payload(
                 [
                     sparql_row(
@@ -212,7 +212,7 @@ def test_lifecycle_group_get_nims_regression_groups_omnibus_rows_by_uri() -> Non
 
 def test_lifecycle_group_get_nims_paginates_after_grouping() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return sparql_payload(
                 [
                     sparql_row(
@@ -265,7 +265,7 @@ def test_lifecycle_group_get_nims_paginates_after_grouping() -> None:
 
 def test_lifecycle_group_get_corrigenda_defaults_to_corrigendum_type() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return _resolver_payload()
         assert "?other cdm:work_has_resource-type ?type ." in query
         assert (
@@ -294,7 +294,7 @@ def test_lifecycle_group_get_corrigenda_defaults_to_corrigendum_type() -> None:
 
 def test_case_law_group_get_cjeu_judgments() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return _resolver_payload()
         return sparql_payload(
             [
@@ -316,7 +316,7 @@ def test_case_law_group_get_national_decisions_country_filter() -> None:
     transport = FakeTransport(
         query_handler=lambda query: (
             _resolver_payload()
-            if "FILTER(UCASE(STR(?celex))" in query
+            if "VALUES ?celex" in query
             else sparql_payload(
                 [
                     sparql_row(
@@ -452,7 +452,7 @@ def test_search_group_search_by_eurovoc_resolves_tags_before_search(
     assert result.returned_count == 1
     assert len(transport.queries) == 1
     assert "VALUES ?concept { <http://eurovoc.europa.eu/2220> }" in transport.queries[0]
-    assert "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[0]
+    assert "FILTER(!BOUND(?date) || ?date > '2025-01-01'^^xsd:date)" in transport.queries[0]
 
 
 def test_search_group_search_by_eurovoc_passes_resource_types_as_values_clause(
@@ -490,7 +490,7 @@ def test_search_group_search_by_eurovoc_supports_upper_bound_only(
 
     _ = client.search_by_eurovoc(["payment"], to="2025-02-01")
 
-    assert "FILTER(!BOUND(?date) || ?date < '2025-02-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[0]
+    assert "FILTER(!BOUND(?date) || ?date < '2025-02-01'^^xsd:date)" in transport.queries[0]
 
 
 def test_search_group_search_by_eurovoc_returns_empty_when_no_concept_resolved(
@@ -530,29 +530,29 @@ def test_search_group_search_by_subject_matter_passes_resource_types_as_values_c
 
 
 def test_monitoring_group_new_citations_adds_since_filter() -> None:
-    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "VALUES ?celex" in query else sparql_payload([]))
     client = CellarClient(transport=transport)
     result = client.new_citations("32022R2554", since="2025-01-01")
     assert result.returned_count == 0
     assert any(
-        "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+        "FILTER(BOUND(?date) && ?date > '2025-01-01'^^xsd:date)" in query
         for query in transport.queries
     )
 
 
 def test_monitoring_group_new_based_on_acts_uses_based_on_predicate() -> None:
-    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "VALUES ?celex" in query else sparql_payload([]))
     client = CellarClient(transport=transport)
     result = client.new_based_on_acts("32022R2554", since="2025-01-01")
 
     assert result.returned_count == 0
     relation_queries = [query for query in transport.queries if "resource_legal_based_on_resource_legal" in query]
     assert relation_queries
-    assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in relation_queries[0]
+    assert "FILTER(BOUND(?date) && ?date > '2025-01-01'^^xsd:date)" in relation_queries[0]
 
 
 def test_monitoring_group_new_corrigenda_defaults_to_corrigendum_type() -> None:
-    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "VALUES ?celex" in query else sparql_payload([]))
     client = CellarClient(transport=transport)
     result = client.new_corrigenda("32022R2554", since="2025-01-01")
 
@@ -565,14 +565,14 @@ def test_monitoring_group_new_corrigenda_defaults_to_corrigendum_type() -> None:
         "<http://publications.europa.eu/resource/authority/resource-type/CORRIGENDUM> }"
         in relation_queries[0]
     )
-    assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in relation_queries[0]
+    assert "FILTER(BOUND(?date) && ?date > '2025-01-01'^^xsd:date)" in relation_queries[0]
 
 
 def test_monitoring_group_new_nims_groups_rows_and_applies_strict_since() -> None:
     nim_uri = "http://publications.europa.eu/resource/cellar/nim-fin"
 
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return sparql_payload(
                 [
                     sparql_row(
@@ -617,7 +617,7 @@ def test_monitoring_group_new_nims_groups_rows_and_applies_strict_since() -> Non
     ]
     assert result.items[0].matching_celexes == ["72023L2225FIN_202600932"]
     assert any(
-        "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+        "FILTER(BOUND(?date) && ?date > '2025-01-01'^^xsd:date)" in query
         for query in transport.queries
     )
 
@@ -640,7 +640,7 @@ def test_monitoring_group_new_by_eurovoc_uses_strict_since_after_resolve(
     assert result.returned_count == 0
     assert len(transport.queries) == 1
     assert "VALUES ?concept { <http://eurovoc.europa.eu/2220> }" in transport.queries[0]
-    assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in transport.queries[0]
+    assert "FILTER(BOUND(?date) && ?date > '2025-01-01'^^xsd:date)" in transport.queries[0]
 
 
 def test_monitoring_group_new_by_eurovoc_passes_resource_types_as_values_clause(
@@ -669,35 +669,35 @@ def test_monitoring_group_new_by_eurovoc_passes_resource_types_as_values_clause(
 
 
 def test_non_monitoring_since_filter_keeps_undated_rows() -> None:
-    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "VALUES ?celex" in query else sparql_payload([]))
     client = CellarClient(transport=transport)
     result = client.get_amendments("32022R2554", since="2025-01-01")
     assert result.returned_count == 0
     assert any(
-        "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+        "FILTER(!BOUND(?date) || ?date > '2025-01-01'^^xsd:date)" in query
         for query in transport.queries
     )
 
 
 def test_relations_group_get_based_on_acts_uses_based_on_predicate() -> None:
-    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "VALUES ?celex" in query else sparql_payload([]))
     client = CellarClient(transport=transport)
     result = client.get_based_on_acts("32022R2554", since="2025-01-01")
 
     assert result.returned_count == 0
     relation_queries = [query for query in transport.queries if "resource_legal_based_on_resource_legal" in query]
     assert relation_queries
-    assert "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in relation_queries[0]
+    assert "FILTER(!BOUND(?date) || ?date > '2025-01-01'^^xsd:date)" in relation_queries[0]
 
 
 def test_non_monitoring_combined_date_bounds_keep_undated_rows() -> None:
-    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "FILTER(UCASE" in query else sparql_payload([]))
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "VALUES ?celex" in query else sparql_payload([]))
     client = CellarClient(transport=transport)
 
     _ = client.get_amendments("32022R2554", since="2025-01-01", to="2025-02-01")
 
     assert any(
-        "FILTER(!BOUND(?date) || (?date > '2025-01-01T00:00:00Z'^^xsd:dateTime && ?date < '2025-02-01T00:00:00Z'^^xsd:dateTime))"
+        "FILTER(!BOUND(?date) || (?date > '2025-01-01'^^xsd:date && ?date < '2025-02-01'^^xsd:date))"
         in query
         for query in transport.queries
     )
@@ -705,7 +705,7 @@ def test_non_monitoring_combined_date_bounds_keep_undated_rows() -> None:
 
 def test_lookup_group_get_eurovoc_applies_limit_offset() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return _resolver_payload()
         return sparql_payload([])
 
@@ -720,7 +720,7 @@ def test_lookup_group_get_eurovoc_applies_limit_offset() -> None:
 
 def test_download_group_get_text() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return _resolver_payload()
         return sparql_payload([])
 
@@ -733,3 +733,29 @@ def test_download_group_get_text() -> None:
     payload = client.get_text("32022R2554", format="pdf")
     assert payload.content_type == "application/pdf"
     assert payload.content_base64 == "YWJj"
+
+
+def test_lifecycle_consolidated_versions_use_based_on_predicate() -> None:
+    # act_consolidated_consolidates_resource_legal also returns consolidations of acts
+    # amended by the queried act (e.g. EMIR/MiFIR for DORA), so it must not be used.
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "VALUES ?celex" in query else sparql_payload([]))
+    client = CellarClient(transport=transport)
+    client.get_consolidated_versions("32022R2554")
+    client.new_consolidated("32022R2554", since="2025-01-01")
+
+    relation_queries = transport.queries[1::2]
+    assert len(relation_queries) == 2
+    for query in relation_queries:
+        assert "act_consolidated_based_on_resource_legal" in query
+        assert "act_consolidated_consolidates_resource_legal" not in query
+
+
+def test_lookup_legal_basis_only_queries_outgoing_basis() -> None:
+    transport = FakeTransport(query_handler=lambda query: _resolver_payload() if "VALUES ?celex" in query else sparql_payload([]))
+    client = CellarClient(transport=transport)
+    client.get_legal_basis("32022R2554")
+
+    query = transport.queries[-1]
+    assert "BIND('incoming' AS ?direction)" not in query
+    assert "?other cdm:resource_legal_based_on_resource_legal <" not in query
+    assert "based_on_concept_treaty" in query

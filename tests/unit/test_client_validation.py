@@ -5,7 +5,7 @@ from typing import Any, cast
 import pytest
 
 from cellar_wrapper.client import CellarClient
-from cellar_wrapper.constants import SUMMARY_ACCEPT
+from cellar_wrapper.constants import PDF_ACCEPT_CANDIDATES, SUMMARY_ACCEPT
 from cellar_wrapper.errors import (
     CellarHTTPError,
     CellarNotFoundError,
@@ -66,7 +66,8 @@ def test_resolve_celex_not_found_has_structured_details() -> None:
 
     assert exc_info.value.details["entity"] == "celex"
     assert exc_info.value.details["celex"] == "32022R2554"
-    assert exc_info.value.details["phase"] == "resolve_exact_then_contains"
+    assert exc_info.value.details["phase"] == "resolve_exact"
+    assert len(transport.queries) == 1
 
 
 def test_invalid_base_urls_raise_validation_error() -> None:
@@ -81,49 +82,18 @@ def test_max_download_bytes_must_be_positive() -> None:
         CellarClient(max_download_bytes=0, transport=FakeTransport())
 
 
-def test_resolve_celex_exact_then_contains_fallback() -> None:
-    def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
-            return sparql_payload([])
-        if "FILTER(CONTAINS(UCASE(STR(?celex))" in query:
-            return sparql_payload(
-                [
-                    sparql_row(
-                        work="http://publications.europa.eu/resource/cellar/abc",
-                        celex="32022R2554",
-                    )
-                ]
-            )
-        return sparql_payload([])
-
-    transport = FakeTransport(query_handler=query_handler)
+def test_resolve_celex_exact_match_uses_single_query() -> None:
+    transport = FakeTransport(
+        query_handler=lambda _query: sparql_payload(
+            [sparql_row(work="http://publications.europa.eu/resource/cellar/abc", celex="32022R2554")]
+        )
+    )
     client = CellarClient(transport=transport)
-    resolved = client.resolve_celex("32022R2554")
+    resolved = client.resolve_celex("32022r2554")
 
     assert resolved.uri == "http://publications.europa.eu/resource/cellar/abc"
-    assert len(transport.queries) == 2
-    assert "CONTAINS" in transport.queries[1]
-
-
-def test_resolve_celex_fallback_requires_exact_match() -> None:
-    def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
-            return sparql_payload([])
-        if "FILTER(CONTAINS(UCASE(STR(?celex))" in query:
-            return sparql_payload(
-                [
-                    sparql_row(
-                        work="http://publications.europa.eu/resource/cellar/other",
-                        celex="12022R2554",
-                    )
-                ]
-            )
-        return sparql_payload([])
-
-    transport = FakeTransport(query_handler=query_handler)
-    client = CellarClient(transport=transport)
-    with pytest.raises(CellarNotFoundError, match="Fallback did not return exact CELEX"):
-        client.resolve_celex("32022R2554")
+    assert len(transport.queries) == 1
+    assert "CONTAINS" not in transport.queries[0]
 
 
 def test_search_by_title_empty_keyword_raises_validation_error() -> None:
@@ -221,7 +191,7 @@ def test_get_text_missing_celex_raises_not_found() -> None:
 
 def test_get_text_404_download_raises_not_found() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return sparql_payload(
                 [
                     sparql_row(
@@ -252,7 +222,7 @@ def test_get_text_falls_back_to_eurlex_pdf_on_direct_404() -> None:
     downloads: list[tuple[str, str, str | None]] = []
 
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return sparql_payload(
                 [
                     sparql_row(
@@ -277,18 +247,14 @@ def test_get_text_falls_back_to_eurlex_pdf_on_direct_404() -> None:
     assert payload.content_type == "application/pdf"
     assert payload.source_url == fallback_url
     assert downloads == [
-        (
-            "https://publications.europa.eu/resource/celex/02023R1114-20240109",
-            "application/pdf",
-            "pol",
-        ),
-        (fallback_url, "application/pdf", None),
-    ]
+        ("https://publications.europa.eu/resource/celex/02023R1114-20240109", accept, "pol")
+        for accept in PDF_ACCEPT_CANDIDATES
+    ] + [(fallback_url, "application/pdf", None)]
 
 
 def test_get_text_eurlex_pdf_fallback_not_found_has_phase_details() -> None:
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return sparql_payload(
                 [
                     sparql_row(
@@ -318,7 +284,7 @@ def test_get_text_falls_back_to_eurlex_pdf_on_direct_content_type_mismatch() -> 
     downloads: list[tuple[str, str, str | None]] = []
 
     def query_handler(query: str) -> dict[str, object]:
-        if "FILTER(UCASE(STR(?celex))" in query:
+        if "VALUES ?celex" in query:
             return sparql_payload(
                 [
                     sparql_row(
@@ -349,13 +315,9 @@ def test_get_text_falls_back_to_eurlex_pdf_on_direct_content_type_mismatch() -> 
     assert payload.content_type == "application/pdf"
     assert payload.source_url == fallback_url
     assert downloads == [
-        (
-            "https://publications.europa.eu/resource/celex/02023R1114-20240109",
-            "application/pdf",
-            "pol",
-        ),
-        (fallback_url, "application/pdf", None),
-    ]
+        ("https://publications.europa.eu/resource/celex/02023R1114-20240109", accept, "pol")
+        for accept in PDF_ACCEPT_CANDIDATES
+    ] + [(fallback_url, "application/pdf", None)]
 
 
 def test_get_text_direct_success_skips_eurlex_fallback() -> None:
@@ -368,7 +330,7 @@ def test_get_text_direct_success_skips_eurlex_fallback() -> None:
                 )
             ]
         )
-        if "FILTER(UCASE(STR(?celex))" in query
+        if "VALUES ?celex" in query
         else sparql_payload([])
     )
     client = CellarClient(transport=transport)
@@ -379,7 +341,7 @@ def test_get_text_direct_success_skips_eurlex_fallback() -> None:
     assert transport.downloads == [
         (
             "https://publications.europa.eu/resource/celex/32022R2554",
-            "application/pdf",
+            "application/pdf;type=pdfa1a",
             "eng",
         )
     ]

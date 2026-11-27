@@ -28,19 +28,10 @@ from cellar_wrapper.sparql_builders.common import (
 )
 
 
-def test_build_resolve_celex_exact_uses_equals_filter() -> None:
-    query = build_resolve_celex_query("32022R2554", use_contains=False)
-    assert "FILTER(UCASE(STR(?celex)) = '32022R2554')" in query
-
-
-def test_build_resolve_celex_contains_fallback() -> None:
-    query = build_resolve_celex_query("32022R2554", use_contains=True)
-    assert "CONTAINS(UCASE(STR(?celex)), '2022R2554')" in query
-    assert "LIMIT 20" in query
-
-
-def test_build_resolve_celex_exact_uses_smaller_limit() -> None:
-    query = build_resolve_celex_query("32022R2554", use_contains=False)
+def test_build_resolve_celex_binds_literal_instead_of_scanning() -> None:
+    query = build_resolve_celex_query("32022r2554")
+    assert "VALUES ?celex { '32022R2554'^^xsd:string '32022R2554' }" in query
+    assert "FILTER" not in query
     assert "LIMIT 5" in query
 
 
@@ -55,7 +46,7 @@ def test_relation_query_uses_since_date_time_filter() -> None:
         limit=200,
         offset=0,
     )
-    assert "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+    assert "FILTER(!BOUND(?date) || ?date > '2025-01-01'^^xsd:date)" in query
     assert "resource-type/PROP_REG" in query
 
 
@@ -114,7 +105,7 @@ def test_relation_query_monitoring_filter_is_strict() -> None:
         offset=0,
         include_undated=False,
     )
-    assert "FILTER(BOUND(?date) && ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)" in query
+    assert "FILTER(BOUND(?date) && ?date > '2025-01-01'^^xsd:date)" in query
 
 
 def test_relation_query_incoming_excludes_outgoing_branch() -> None:
@@ -352,24 +343,24 @@ def test_safe_iri_rejects_invalid_values(candidate: str, match: str) -> None:
 
 def test_since_filter_include_undated() -> None:
     clause = since_filter("date", "2025-01-01", include_undated=True)
-    assert clause == "FILTER(!BOUND(?date) || ?date > '2025-01-01T00:00:00Z'^^xsd:dateTime)"
+    assert clause == "FILTER(!BOUND(?date) || ?date > '2025-01-01'^^xsd:date)"
 
 
 def test_since_filter_strict_monitoring() -> None:
     clause = since_filter("date", "2025-01-01T10:11:12Z", include_undated=False)
-    assert clause == "FILTER(BOUND(?date) && ?date > '2025-01-01T10:11:12Z'^^xsd:dateTime)"
+    assert clause == "FILTER(BOUND(?date) && ?date > '2025-01-01'^^xsd:date)"
 
 
 def test_date_bounds_filter_with_upper_bound_only() -> None:
     clause = date_bounds_filter("date", to="2025-01-31", include_undated=True)
-    assert clause == "FILTER(!BOUND(?date) || ?date < '2025-01-31T00:00:00Z'^^xsd:dateTime)"
+    assert clause == "FILTER(!BOUND(?date) || ?date < '2025-01-31'^^xsd:date)"
 
 
 def test_date_bounds_filter_with_both_bounds() -> None:
     clause = date_bounds_filter("date", since="2025-01-01", to="2025-01-31", include_undated=False)
     assert clause == (
-        "FILTER(BOUND(?date) && (?date > '2025-01-01T00:00:00Z'^^xsd:dateTime && "
-        "?date < '2025-01-31T00:00:00Z'^^xsd:dateTime))"
+        "FILTER(BOUND(?date) && (?date > '2025-01-01'^^xsd:date && "
+        "?date < '2025-01-31'^^xsd:date))"
     )
 
 

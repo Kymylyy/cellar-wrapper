@@ -8,7 +8,7 @@ For user-facing behavior and caveats, prefer
 use [research/README.md](research/README.md).
 
 ## LOOKUP
-- `resolve_celex` -> `cdm:resource_legal_id_celex` (exact then `CONTAINS` fallback)
+- `resolve_celex` -> `cdm:resource_legal_id_celex` (exact literal match via `VALUES`, typed `xsd:string` and plain; no substring fallback)
 - `get_act` -> work-level fields (`resource_legal_id_celex`, `resource_legal_eli`, `work_has_resource-type`, `resource_legal_in-force`, `resource_legal_eea`, dates) + institution metadata (`work_created_by_agent`, `resource_legal_responsibility_of_agent`, `resource_legal_addresses_institution`, `resource_legal_signatory_name2`)
 - `get_eurovoc` -> `cdm:work_is_about_concept_eurovoc`
 - `get_subject_matter` -> `cdm:resource_legal_is_about_subject-matter`
@@ -37,8 +37,8 @@ use [research/README.md](research/README.md).
 - `get_article_annotations` -> `owl:annotatedTarget`, `owl:annotatedSource`, `owl:annotatedProperty` + qualifier extraction (`article`, `paragraph`, `subparagraph`, `point`, `comment_on_legal_basis`) into `ArticleAnnotationItem`
 
 ## LIFECYCLE
-- `get_consolidated_versions` -> `cdm:act_consolidated_consolidates_resource_legal` (incoming)
-  - practical meaning: returns consolidated-text relationships for the act and may include rows where linked work CELEX metadata is missing (`null`) due to CELLAR aliasing
+- `get_consolidated_versions` -> `cdm:act_consolidated_based_on_resource_legal` (incoming)
+  - practical meaning: returns consolidated versions of the queried act only (not of acts it amends) and may include rows where linked work CELEX metadata is missing (`null`) due to CELLAR aliasing
 - `get_corrigenda` -> `cdm:resource_legal_corrects_resource_legal` (incoming)
 - `get_nims` -> `cdm:measure_national_implementing_implements_resource_legal` (incoming) + `cdm:measure_national_implementing_implemented_by_country`
   - public semantics: raw rows are grouped by national-act `uri`, so one returned item means one unique national implementing act

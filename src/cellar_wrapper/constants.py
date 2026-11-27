@@ -39,6 +39,14 @@ TEXT_FORMAT_ACCEPT: dict[str, str] = {
     "docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 }
 
+# CELLAR serves OJ act PDFs only as PDF/A manifestations (404 for plain application/pdf);
+# plain application/pdf still covers e.g. COM documents.
+PDF_ACCEPT_CANDIDATES: tuple[str, ...] = (
+    "application/pdf;type=pdfa1a",
+    "application/pdf;type=pdfa1b",
+    "application/pdf",
+)
+
 SUMMARY_ACCEPT = "application/xhtml+xml;type=xhtml5"
 
 LANGUAGE_URI_TEMPLATE = "http://publications.europa.eu/resource/authority/language/{lang}"
@@ -98,7 +106,9 @@ PREDICATES = {
     "deadline": "cdm:resource_legal_date_deadline",
     "entry_into_force": "cdm:resource_legal_date_entry-into-force",
     "directive_transposition": "cdm:directive_date_transposition",
-    "consolidates": "cdm:act_consolidated_consolidates_resource_legal",
+    # `act_consolidated_consolidates_resource_legal` also links consolidations of acts
+    # amended by the queried act; `act_consolidated_based_on_resource_legal` does not.
+    "consolidated_based_on": "cdm:act_consolidated_based_on_resource_legal",
     "corrects": "cdm:resource_legal_corrects_resource_legal",
     "nims": "cdm:measure_national_implementing_implements_resource_legal",
     "implemented_by_country": "cdm:measure_national_implementing_implemented_by_country",

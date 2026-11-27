@@ -37,29 +37,14 @@ class LookupMixin:
     def resolve_celex(self: ClientOpsProtocol, celex: str) -> ActRef:
         normalized = self._normalize_celex(celex)
 
-        exact_query = build_resolve_celex_query(normalized, use_contains=False)
-        rows = self._query_rows(exact_query)
-        if not rows:
-            fallback_query = build_resolve_celex_query(normalized, use_contains=True)
-            rows = self._query_rows(fallback_query)
-
-        if not rows:
-            raise CellarNotFoundError(
-                f"CELEX not found in CELLAR: {normalized}",
-                details={"entity": "celex", "celex": normalized, "phase": "resolve_exact_then_contains"},
-            )
-
+        rows = self._query_rows(build_resolve_celex_query(normalized))
         refs = parse_act_refs(rows, uri_key="work")
         for ref in refs:
             if ref.celex and ref.celex.upper() == normalized:
                 return ref
         raise CellarNotFoundError(
-            f"Fallback did not return exact CELEX match: {normalized}",
-            details={
-                "entity": "celex",
-                "celex": normalized,
-                "phase": "resolve_contains_exact_check",
-            },
+            f"CELEX not found in CELLAR: {normalized}",
+            details={"entity": "celex", "celex": normalized, "phase": "resolve_exact"},
         )
 
     def get_act(self: ClientOpsProtocol, celex: str, *, lang: str = DEFAULT_LANGUAGE) -> ActDetail:

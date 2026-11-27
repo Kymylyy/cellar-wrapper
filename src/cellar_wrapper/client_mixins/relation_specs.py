@@ -54,7 +54,7 @@ RELATION_CALL_SPECS: dict[str, RelationCallSpec] = {
         "both",
     ),
     "get_consolidated_versions": RelationCallSpec(
-        [PredicateSpec(PREDICATES["consolidates"], "consolidates")],
+        [PredicateSpec(PREDICATES["consolidated_based_on"], "consolidates")],
         "incoming",
         default_resource_type="CONS_TEXT",
     ),
@@ -116,7 +116,7 @@ RELATION_CALL_SPECS: dict[str, RelationCallSpec] = {
         default_resource_type="CORRIGENDUM",
     ),
     "new_consolidated": RelationCallSpec(
-        [PredicateSpec(PREDICATES["consolidates"], "consolidates")],
+        [PredicateSpec(PREDICATES["consolidated_based_on"], "consolidates")],
         "incoming",
         default_resource_type="CONS_TEXT",
     ),
